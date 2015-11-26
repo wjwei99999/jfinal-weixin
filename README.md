@@ -1,28 +1,8 @@
 # Jfinal Weixin 极速开发
 JFinal Weixin 是基于 JFinal 的微信公众号极速开发 SDK，只需浏览 Demo 代码即可进行极速开发，自 JFinal Weixin 1.2 版本开始已添加对多公众号支持。
 
-## 1、WeixinConfig
-```java
-public class WeixinConfig extends JFinalConfig {
-	public void configConstant(Constants me) {
-		PropKit.use("a_little_config.txt");
-		me.setDevMode(PropKit.getBoolean("devMode", false));
-		
-		// ApiConfigKit 设为开发模式可以在开发阶段输出请求交互的 xml 与 json 数据
-		ApiConfigKit.setDevMode(me.getDevMode());
-	}
-	
-	public void configRoute(Routes me) {
-		me.add("/msg", WeixinMsgController.class);
-		me.add("/api", WeixinApiController.class, "/api");
-	}
-	
-	public void configPlugin(Plugins me) {}
-	public void configInterceptor(Interceptors me) {}
-	public void configHandler(Handlers me) {}
-}
-```
-以上通过 configRoute 方法配置了访问路由 "/msg" 与 "/api"。项目启动后，在微信服以务器上配置 url：http://域名/msg
+## 1、WeixinConfig配置
+`详情请见`[JFinal weixin中的WeixinConfig配置](http://git.oschina.net/jfinal/jfinal-weixin/wikis/JFinal-weixin%E4%B8%AD%E7%9A%84WeixinConfig%E9%85%8D%E7%BD%AE)
 
 ## 2、WeixinMsgController
 ``` java
@@ -212,7 +192,6 @@ public class WeixinApiController extends ApiController {
 		return ac;
 	}
 }
-
 ```
 通过调用 MenuApi、UserApi 等 Api 的相关方法即可获取封装成 ApiResult 对象的结果，使用 render 系列方法即可快捷输出结果
 
@@ -222,36 +201,9 @@ public class WeixinApiController extends ApiController {
 - 以上两种方法注意要先将pom.xml中的导出类型设置为 war，添加 <packaging>war</packaging> 内容进去即可
 - 依赖jackson或fastjson或gson包，三者必选其一
 
-## 5、jar包依赖说明
-jar包下载：http://mvnrepository.com/artifact/com.jfinal/jfinal-weixin
-```
-<dependency>
-	<groupId>com.jfinal</groupId>
-	<artifactId>jfinal-weixin</artifactId>
-	<version>1.4</version>
-</dependency>
-```
+## 5、jar包依赖详细说明
+`详见`[JFinal weixin 1.5 Jar依赖](http://git.oschina.net/jfinal/jfinal-weixin/wikis/JFinal-weixin-1.5-Jar%E4%BE%9D%E8%B5%96)
 
-`1.5`可选Json解析包：`jackson`或`fastjson`或`gson`三者必选其一.
-```
-<dependency>
-	<groupId>com.fasterxml.jackson.core</groupId>
-	<artifactId>jackson-databind</artifactId>
-	<version>2.4.3</version>
-</dependency>
-或
-<dependency>
-	<groupId>com.alibaba</groupId>
-	<artifactId>fastjson</artifactId>
-	<version>1.2.6</version>
-</dependency>
-或
-<dependency>
-	<groupId>com.google.code.gson</groupId>
-	<artifactId>gson</artifactId>
-	<version>2.4</version>
-</dependency>
-```
 ## 6、WIKI持续更新中
 WIKI：http://git.oschina.net/jfinal/jfinal-weixin/wikis/home
 
