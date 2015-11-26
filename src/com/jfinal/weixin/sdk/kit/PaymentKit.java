@@ -132,7 +132,6 @@ public class PaymentKit {
 	 * 针对支付的xml，没有嵌套节点的简单处理
 	 * @param xml xml字符串
 	 * @return Map<String, String> map集合
-	 * @throws DocumentException 
 	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String, String> xmlToMap(String xmlStr) {

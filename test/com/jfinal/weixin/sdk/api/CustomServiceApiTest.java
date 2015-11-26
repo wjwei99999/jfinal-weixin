@@ -1,14 +1,33 @@
 package com.jfinal.weixin.sdk.api;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jfinal.kit.HashKit;
 import com.jfinal.weixin.sdk.api.CustomServiceApi.Articles;
 
 public class CustomServiceApiTest {
-
+	
+	public static void main(String[] args) throws InterruptedException {
+		AccessTokenApiTest.init();
+		String kf_account = "test1@test";
+		String nickname = "客服1";
+		String password = HashKit.md5(nickname);
+		
+		System.out.println(CustomServiceApi.addKfAccount(kf_account, nickname, password));
+		
+		Thread.sleep(1000);
+		
+		System.out.println(CustomServiceApi.uploadKfAccountHeadImg(kf_account, new File("/Users/lcm/Desktop/111.jpg")));
+		
+		Thread.sleep(1000);
+		
+		System.out.println(CustomServiceApi.delKfAccount(kf_account, nickname, password));
+	}
+	
 	// 请找有权限的帐号测试
-	public static void main(String[] args) {
+	public static void testMessage() {
 		String openId = "oOGf-jgjmwxFVU66D-lFO2AFK8ic";
 
 		// 测试发送纯文本：pass

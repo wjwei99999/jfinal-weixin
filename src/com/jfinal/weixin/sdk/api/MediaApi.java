@@ -22,7 +22,7 @@ import com.jfinal.weixin.sdk.utils.IOUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
- * 素材管理，待完善
+ * 素材管理
  * @author l.cm
  * 文档：http://mp.weixin.qq.com/wiki/5/963fc70b80dc75483a271298a76a8d59.html
  */
@@ -276,7 +276,7 @@ public class MediaApi {
 	 * @return ApiResult
 	 * @throws IOException
 	 */
-	private static ApiResult uploadMedia(String url, File file, String params) throws IOException {
+	protected static ApiResult uploadMedia(String url, File file, String params) throws IOException {
 		URL urlGet = new URL(url);
 		HttpURLConnection conn = (HttpURLConnection) urlGet.openConnection();
 		conn.setDoOutput(true);

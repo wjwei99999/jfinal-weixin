@@ -57,11 +57,12 @@ public class AccessTokenApi {
 	 */
 	public static synchronized void refreshAccessToken() {
 		ApiConfig ac = ApiConfigKit.getApiConfig();
+		String appId = ac.getAppId();
+		String appSecret = ac.getAppSecret();
+		Map<String, String> queryParas = ParaMap.create("appid", appId).put("secret", appSecret).getData();
+		
 		AccessToken result = null;
 		for (int i=0; i<3; i++) {	// 最多三次请求
-			String appId = ac.getAppId();
-			String appSecret = ac.getAppSecret();
-			Map<String, String> queryParas = ParaMap.create("appid", appId).put("secret", appSecret).getData();
 			String json = HttpKit.get(url, queryParas);
 			result = new AccessToken(json);
 			

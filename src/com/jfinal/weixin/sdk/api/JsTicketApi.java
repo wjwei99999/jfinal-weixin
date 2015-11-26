@@ -47,10 +47,10 @@ public class JsTicketApi {
 		String access_token = AccessTokenApi.getAccessTokenStr();
 		String appId = ApiConfigKit.getApiConfig().getAppId();
 		String key = appId + ':' + jsApiType.name();
+		ParaMap pm = ParaMap.create("access_token", access_token).put("type", jsApiType.name());
 		
 		JsTicket jsTicket = accessTokenCache.get(key);
 		if (null == jsTicket || !jsTicket.isAvailable()) {
-			ParaMap pm = ParaMap.create("access_token", access_token).put("type", jsApiType.name());
 			jsTicket = new JsTicket(HttpKit.get(apiUrl, pm.getData()));
 			accessTokenCache.set(key, jsTicket);
 		}

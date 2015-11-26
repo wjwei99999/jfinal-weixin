@@ -3,10 +3,7 @@ package com.jfinal.weixin.demo;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
 
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HttpKit;
@@ -28,7 +25,7 @@ public class WeixinPayController extends Controller {
 	private static String paternerKey = "";
 	private static String notify_url = "http://www.xxx.com/pay/pay_notify";
 	
-	public void index() throws DocumentException {
+	public void index() {
 		// openId，采用 网页授权获取 access_token API：SnsAccessTokenApi获取
 		String openId = "";
 
@@ -57,16 +54,21 @@ public class WeixinPayController extends Controller {
 		String xmlResult = PaymentApi.pushOrder(params);
 		
 		System.out.println(xmlResult);
+		Map<String, String> result = PaymentKit.xmlToMap(xmlResult);
 		
-		Document doc = DocumentHelper.parseText(xmlResult);
-		Element root = doc.getRootElement();
-		String return_code = root.elementText("return_code");
-		String result_code = root.elementText("result_code");
-		
-		// 
-		
-		String return_msg = root.elementText("return_msg");
-		String prepay_id = root.elementText("prepay_id");
+		String return_code = result.get("return_code");
+		String return_msg = result.get("return_msg");
+		if (StrKit.isBlank(return_code) || !"SUCCESS".equals(return_code)) {
+			renderText(return_msg);
+			return;
+		}
+		String result_code = result.get("result_code");
+		if (StrKit.isBlank(result_code) || !"SUCCESS".equals(result_code)) {
+			renderText(return_msg);
+			return;
+		}
+		// 以下字段在return_code 和result_code都为SUCCESS的时候有返回
+		String prepay_id = result.get("prepay_id");
 		
 		Map<String, String> packageParams = new HashMap<String, String>();
 		packageParams.put("appId", appid);
@@ -91,10 +93,17 @@ public class WeixinPayController extends Controller {
 		Map<String, String> params = PaymentKit.xmlToMap(xmlMsg);
 		
 		String result_code  = params.get("result_code");
+		// 总金额
 		String totalFee     = params.get("total_fee");
+		// 商户订单号
 		String orderId      = params.get("out_trade_no");
+		// 微信支付订单号
 		String transId      = params.get("transaction_id");
+		// 支付完成时间，格式为yyyyMMddHHmmss
 		String timeEnd      = params.get("time_end");
+		
+		// 注意重复通知的情况，同一订单号可能收到多次通知，请注意一定先判断订单状态
+		// 避免已经成功、关闭、退款的订单被再次更新
 		
 		if(PaymentKit.verifyNotify(params, paternerKey)){
 			if (("SUCCESS").equals(result_code)) {
