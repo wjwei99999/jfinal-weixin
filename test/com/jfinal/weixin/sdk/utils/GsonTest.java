@@ -6,6 +6,8 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+// gson 将map序列化成json字符串的时候不会讲int转为浮点
+// 将json字符串转反序列化为map时，int会变成浮点型
 public class GsonTest {
 
 	static Gson gson = new GsonBuilder().create();
@@ -21,5 +23,12 @@ public class GsonTest {
 		groupData.put("group", mapData);
 		
 		System.out.println(gson.toJson(groupData));
+		
+		
+		String jsonStr = "{\"group\":{\"id\":111,\"name\":\"张三疯\"}}";
+		
+		@SuppressWarnings("rawtypes")
+		Map xx = gson.fromJson(jsonStr, Map.class);
+		System.out.println(xx);
 	}
 }
