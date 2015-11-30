@@ -9,6 +9,8 @@ import java.security.KeyStore;
 import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
@@ -88,7 +90,8 @@ public final class HttpUtils {
 	
 	private static class OkHttpDelegate implements HttpDelegate {
 		com.squareup.okhttp.OkHttpClient httpClient = new com.squareup.okhttp.OkHttpClient();
-		com.squareup.okhttp.OkHttpClient httpsClient = new com.squareup.okhttp.OkHttpClient();
+		com.squareup.okhttp.OkHttpClient httpsClient = httpClient.clone();
+		Lock lock = new ReentrantLock();
 		
 		public static final com.squareup.okhttp.MediaType CONTENT_TYPE_FORM = 
 				com.squareup.okhttp.MediaType.parse("application/x-www-form-urlencoded");
@@ -149,7 +152,7 @@ public final class HttpUtils {
 				SSLContext sslContext = SSLContext.getInstance("TLSv1");
 				
 				sslContext.init(kms, null, new SecureRandom());
-				
+				lock.lock();
 				httpsClient.setSslSocketFactory(sslContext.getSocketFactory());
 				
 				com.squareup.okhttp.Response response = httpsClient.newCall(request).execute();
@@ -159,6 +162,8 @@ public final class HttpUtils {
 				return response.body().string();
 			} catch (Exception e) {
 				throw new RuntimeException(e);
+			} finally {
+				lock.unlock();
 			}
 		}
 		
