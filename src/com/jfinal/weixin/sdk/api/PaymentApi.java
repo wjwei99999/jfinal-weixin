@@ -3,8 +3,8 @@ package com.jfinal.weixin.sdk.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.jfinal.kit.HttpKit;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
+import com.jfinal.weixin.sdk.utils.HttpUtils;
 
 /**
  * 微信支付api
@@ -33,7 +33,7 @@ public class PaymentApi {
 	 * @return
 	 */
 	public static String pushOrder(Map<String, String> params) {
-		return HttpKit.post(unifiedOrderUrl, PaymentKit.toXml(params));
+		return HttpUtils.post(unifiedOrderUrl, PaymentKit.toXml(params));
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class PaymentApi {
 		params.put("nonce_str", PaymentKit.getUUID());
 		String sign = PaymentKit.createSign(params, paternerKey);
 		params.put("sign", sign);
-		String xmlStr = HttpKit.post(url, PaymentKit.toXml(params));
+		String xmlStr = HttpUtils.post(url, PaymentKit.toXml(params));
 		return PaymentKit.xmlToMap(xmlStr);
 	}
 	

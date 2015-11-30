@@ -6,9 +6,9 @@
 
 package com.jfinal.weixin.sdk.api;
 
-import com.jfinal.kit.HttpKit;
 import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
 import com.jfinal.weixin.sdk.kit.ParaMap;
+import com.jfinal.weixin.sdk.utils.HttpUtils;
 
 /**
  * 
@@ -51,7 +51,13 @@ public class JsTicketApi {
 		
 		JsTicket jsTicket = accessTokenCache.get(key);
 		if (null == jsTicket || !jsTicket.isAvailable()) {
-			jsTicket = new JsTicket(HttpKit.get(apiUrl, pm.getData()));
+			for (int i = 0; i < 3; i++){
+				// 最多三次请求
+				jsTicket = new JsTicket(HttpUtils.get(apiUrl, pm.getData()));
+
+				if (jsTicket.isAvailable())
+					break;
+			}
 			accessTokenCache.set(key, jsTicket);
 		}
 		return jsTicket;

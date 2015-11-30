@@ -8,9 +8,9 @@ package com.jfinal.weixin.sdk.api;
 
 import java.util.Map;
 
-import com.jfinal.kit.HttpKit;
 import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
 import com.jfinal.weixin.sdk.kit.ParaMap;
+import com.jfinal.weixin.sdk.utils.HttpUtils;
 
 /**
  * 认证并获取 access_token API
@@ -63,7 +63,7 @@ public class AccessTokenApi {
 		
 		AccessToken result = null;
 		for (int i=0; i<3; i++) {	// 最多三次请求
-			String json = HttpKit.get(url, queryParas);
+			String json = HttpUtils.get(url, queryParas);
 			result = new AccessToken(json);
 			
 			if (result.isAvailable())

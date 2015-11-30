@@ -7,12 +7,11 @@
 package com.jfinal.weixin.sdk.api;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jfinal.kit.HttpKit;
+import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
@@ -29,7 +28,7 @@ public class CustomServiceApi {
      * 获取客服聊天记录
      */
     public static ApiResult getRecord(String jsonStr) {
-        String jsonResult = HttpKit.post(getRecordUrl + AccessTokenApi.getAccessTokenStr(), jsonStr);
+        String jsonResult = HttpUtils.post(getRecordUrl + AccessTokenApi.getAccessTokenStr(), jsonStr);
         return new ApiResult(jsonResult);
     }
 
@@ -50,7 +49,7 @@ public class CustomServiceApi {
         params.put("nickname", nickname);
         params.put("password", password);
         
-        String jsonResult = HttpKit.post(addKfAccountUrl + accessToken, JsonUtils.toJson(params));
+        String jsonResult = HttpUtils.post(addKfAccountUrl + accessToken, JsonUtils.toJson(params));
         return new ApiResult(jsonResult);
     }
     
@@ -71,7 +70,7 @@ public class CustomServiceApi {
         params.put("nickname", nickname);
         params.put("password", password);
         
-        String jsonResult = HttpKit.post(updateKfAccountUrl + accessToken, JsonUtils.toJson(params));
+        String jsonResult = HttpUtils.post(updateKfAccountUrl + accessToken, JsonUtils.toJson(params));
         return new ApiResult(jsonResult);
     }
     
@@ -92,7 +91,7 @@ public class CustomServiceApi {
         params.put("nickname", nickname);
         params.put("password", password);
         
-        String jsonResult = HttpKit.post(delKfAccountUrl + accessToken, JsonUtils.toJson(params));
+        String jsonResult = HttpUtils.post(delKfAccountUrl + accessToken, JsonUtils.toJson(params));
         return new ApiResult(jsonResult);
     }
     
@@ -107,11 +106,8 @@ public class CustomServiceApi {
     public static ApiResult uploadKfAccountHeadImg(String kf_account, File headImg) {
         String accessToken = AccessTokenApi.getAccessTokenStr();
         String url = uploadKfAccountHeadImgUrl + accessToken + "&kf_account=" + kf_account;
-        try {
-            return MediaApi.uploadMedia(url, headImg, null);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        String jsonResult = HttpUtils.upload(url, headImg, null);
+        return new ApiResult(jsonResult);
     }
     
     private static String getKfListUrl = "https://api.weixin.qq.com/cgi-bin/customservice/getkflist?access_token=";
@@ -122,7 +118,7 @@ public class CustomServiceApi {
      */
     public static ApiResult getKfList() {
         String accessToken = AccessTokenApi.getAccessTokenStr();
-        String jsonResult = HttpKit.get(getKfListUrl + accessToken);
+        String jsonResult = HttpUtils.get(getKfListUrl + accessToken);
         return new ApiResult(jsonResult);
     }
     
@@ -135,7 +131,7 @@ public class CustomServiceApi {
      */
     private static ApiResult sendMsg(Map<String, Object> message) {
         String accessToken = AccessTokenApi.getAccessTokenStr();
-        String jsonResult = HttpKit.post(customMessageUrl + accessToken, JsonUtils.toJson(message));
+        String jsonResult = HttpUtils.post(customMessageUrl + accessToken, JsonUtils.toJson(message));
         return new ApiResult(jsonResult);
     }
 

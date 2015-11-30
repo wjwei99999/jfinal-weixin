@@ -76,19 +76,19 @@ public class JsonUtils {
 	static {
 		JsonDelegate delegateToUse = null;
 		// com.fasterxml.jackson.databind.ObjectMapper?
-		if (JsonUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", JsonUtils.class.getClassLoader())) {
+		if (ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", JsonUtils.class.getClassLoader())) {
 			delegateToUse = new JacksonDelegate();
 		}
 		// com.alibaba.fastjson.JSONObject?
-		else if (JsonUtils.isPresent("com.alibaba.fastjson.JSONObject", JsonUtils.class.getClassLoader())) {
+		else if (ClassUtils.isPresent("com.alibaba.fastjson.JSONObject", JsonUtils.class.getClassLoader())) {
 			delegateToUse = new FastJsonDelegate();
 		}
 		// com.google.gson.Gson?
-		else if (JsonUtils.isPresent("com.google.gson.Gson", JsonUtils.class.getClassLoader())) {
+		else if (ClassUtils.isPresent("com.google.gson.Gson", JsonUtils.class.getClassLoader())) {
 			delegateToUse = new GsonJsonDelegate();
 		}
 		// com.jfinal.kit.JsonKit
-		else if (JsonUtils.isPresent("com.jfinal.kit.JsonKit", JsonUtils.class.getClassLoader())) {
+		else if (ClassUtils.isPresent("com.jfinal.kit.JsonKit", JsonUtils.class.getClassLoader())) {
 			delegateToUse = new JsonKitDelegate();
 		}
 		delegate = delegateToUse;
@@ -206,21 +206,4 @@ public class JsonUtils {
 		return delegate.decode(jsonString, valueType);
 	}
 	
-	/**
-	 * 确定class是否可以被加载
-	 * @param className
-	 * @param classLoader
-	 * @return
-	 */
-	private static boolean isPresent(String className, ClassLoader classLoader) {
-		try {
-			Class.forName(className, true, classLoader);
-			return true;
-		}
-		catch (Throwable ex) {
-			// Class or one of its dependencies is not present...
-			return false;
-		}
-	}
-
 }

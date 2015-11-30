@@ -1,5 +1,6 @@
 package com.jfinal.weixin.sdk.api;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.junit.Assert;
@@ -42,7 +43,7 @@ public class MediaApiTest {
 	public static void main(String[] args) throws IOException {
 		AccessTokenApiTest.init();
 		
-//		ApiResult ar = MediaApi.uploadMedia(MediaType.image, new File("/Users/lcm/Desktop/IMG_3491.JPG"));
+//		ApiResult ar = MediaApi.uploadMedia(MediaType.IMAGE, new File("d://1.jpg"));
 //		System.out.println(ar.getJson());
 //		{"type":"image","media_id":"RE3pVYtzjQmpCv5cdNt_5vylRqR58w22-QzfTKBE64JIJOAqNiCSocniTjB91jRP","created_at":1447079025}
 

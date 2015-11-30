@@ -3,7 +3,7 @@ package com.jfinal.weixin.sdk.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.jfinal.kit.HttpKit;
+import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
@@ -14,7 +14,7 @@ public class MessageApi {
 	
 	private static ApiResult post(String baseUrl, String jsonStr) {
 		String url = baseUrl + AccessTokenApi.getAccessTokenStr();
-		String jsonResult = HttpKit.post(url, jsonStr);
+		String jsonResult = HttpUtils.post(url, jsonStr);
 		return new ApiResult(jsonResult);
 	}
 	

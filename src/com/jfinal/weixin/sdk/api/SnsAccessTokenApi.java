@@ -6,12 +6,12 @@
 
 package com.jfinal.weixin.sdk.api;
 
-import com.jfinal.kit.HttpKit;
-import com.jfinal.weixin.sdk.kit.ParaMap;
-import com.jfinal.weixin.sdk.kit.PaymentKit;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import com.jfinal.weixin.sdk.kit.ParaMap;
+import com.jfinal.weixin.sdk.kit.PaymentKit;
+import com.jfinal.weixin.sdk.utils.HttpUtils;
 
 /**
  * 网页授权获取 access_token API
@@ -60,7 +60,7 @@ public class SnsAccessTokenApi
         SnsAccessToken result = null;
         for (int i = 0; i < 3; i++)
         {    // 最多三次请求
-            String json = HttpKit.get(url, queryParas);
+            String json = HttpUtils.get(url, queryParas);
             result = new SnsAccessToken(json);
 
             if (result.isAvailable())
