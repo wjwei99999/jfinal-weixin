@@ -1,12 +1,21 @@
 package com.jfinal.weixin.sdk.utils;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.KeyStore;
+import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+
 import com.jfinal.kit.StrKit;
+import com.jfinal.weixin.sdk.api.MediaFile;
 
 /**
  * JFinal-weixin Http请求工具类
@@ -28,7 +37,11 @@ public final class HttpUtils {
 		return delegate.post(url, data);
 	}
 	
-	public static InputStream download(String url) {
+	public static String postSSL(String url, String data, String certPath, String certPass) {
+		return delegate.postSSL(url, data, certPath, certPass);
+	}
+	
+	public static MediaFile download(String url) {
 		return delegate.download(url);
 	}
 	public static InputStream download(String url, String params){
@@ -49,8 +62,9 @@ public final class HttpUtils {
 		String get(String url, Map<String, String> queryParas);
 		
 		String post(String url, String data);
+		String postSSL(String url, String data, String certPath, String certPass);
 		
-		InputStream download(String url);
+		MediaFile download(String url);
 		InputStream download(String url, String params);
 		
 		String upload(String url, File file, String params);
@@ -74,6 +88,7 @@ public final class HttpUtils {
 	
 	private static class OkHttpDelegate implements HttpDelegate {
 		com.squareup.okhttp.OkHttpClient httpClient = new com.squareup.okhttp.OkHttpClient();
+		com.squareup.okhttp.OkHttpClient httpsClient = new com.squareup.okhttp.OkHttpClient();
 		
 		public static final com.squareup.okhttp.MediaType CONTENT_TYPE_FORM = 
 				com.squareup.okhttp.MediaType.parse("application/x-www-form-urlencoded");
@@ -81,6 +96,9 @@ public final class HttpUtils {
 		private String base(com.squareup.okhttp.Request request) {
 			try {
 				com.squareup.okhttp.Response response = httpClient.newCall(request).execute();
+				
+				if (!response.isSuccessful()) throw new RuntimeException("Unexpected code " + response);
+				
 				return response.body().string();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
@@ -92,7 +110,7 @@ public final class HttpUtils {
 			com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder().url(url).get().build();
 			return base(request);
 		}
-
+		
 		@Override
 		public String get(String url, Map<String, String> queryParas) {
 			com.squareup.okhttp.HttpUrl.Builder urlBuilder = com.squareup.okhttp.HttpUrl.parse(url).newBuilder();
@@ -103,7 +121,7 @@ public final class HttpUtils {
 			com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder().url(httpUrl).get().build();
 			return base(request);
 		}
-
+		
 		@Override
 		public String post(String url, String params) {
 			com.squareup.okhttp.RequestBody body = com.squareup.okhttp.RequestBody.create(CONTENT_TYPE_FORM, params);
@@ -113,17 +131,92 @@ public final class HttpUtils {
 				.build();
 			return base(request);
 		}
-
+		
 		@Override
-		public InputStream download(String url) {
-			return null;
+		public String postSSL(String url, String data, String certPath, String certPass) {
+			com.squareup.okhttp.RequestBody body = com.squareup.okhttp.RequestBody.create(CONTENT_TYPE_FORM, data);
+			com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder()
+				.url(url)
+				.post(body)
+				.build();
+			
+			try {
+				KeyStore clientStore = KeyStore.getInstance("PKCS12");
+				clientStore.load(new FileInputStream(certPath), certPass.toCharArray());
+				KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+				kmf.init(clientStore, certPass.toCharArray());
+				KeyManager[] kms = kmf.getKeyManagers();
+				SSLContext sslContext = SSLContext.getInstance("TLSv1");
+				
+				sslContext.init(kms, null, new SecureRandom());
+				
+				httpsClient.setSslSocketFactory(sslContext.getSocketFactory());
+				
+				com.squareup.okhttp.Response response = httpsClient.newCall(request).execute();
+				
+				if (!response.isSuccessful()) throw new RuntimeException("Unexpected code " + response);
+				
+				return response.body().string();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
 		}
-
+		
+		@Override
+		public MediaFile download(String url) {
+			com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder().url(url).get().build();
+			try {
+				com.squareup.okhttp.Response response = httpsClient.newCall(request).execute();
+				
+				if (!response.isSuccessful()) throw new RuntimeException("Unexpected code " + response);
+				
+				com.squareup.okhttp.ResponseBody body = response.body();
+				com.squareup.okhttp.MediaType mediaType = body.contentType();
+				MediaFile mediaFile = new MediaFile();
+				if (mediaType.type().equals("text")) {
+						mediaFile.setError(body.string());
+				} else {
+					BufferedInputStream bis = new BufferedInputStream(body.byteStream());
+					
+					String ds = response.header("Content-disposition");
+					String fullName = ds.substring(ds.indexOf("filename=\"") + 10, ds.length() - 1);
+					String relName = fullName.substring(0, fullName.lastIndexOf("."));
+					String suffix = fullName.substring(relName.length()+1);
+					
+					mediaFile.setFullName(fullName);
+					mediaFile.setFileName(relName);
+					mediaFile.setSuffix(suffix);
+					mediaFile.setContentLength(body.contentLength() + "");
+					mediaFile.setContentType(body.contentType().toString());
+					mediaFile.setFileStream(bis);
+				}
+				return mediaFile;
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		
 		@Override
 		public InputStream download(String url, String params) {
-			return null;
+			com.squareup.okhttp.Request request;
+			if (StrKit.notBlank(params)) {
+				com.squareup.okhttp.RequestBody body = com.squareup.okhttp.RequestBody.create(CONTENT_TYPE_FORM, params);
+				request = new com.squareup.okhttp.Request.Builder().url(url).post(body).build();
+			} else {
+				request = new com.squareup.okhttp.Request.Builder().url(url).get().build();
+			}
+			try {
+				com.squareup.okhttp.Response response = httpsClient.newCall(request).execute();
+				
+				if (!response.isSuccessful()) throw new RuntimeException("Unexpected code " + response);
+				
+				return response.body().byteStream();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+			
 		}
-
+		
 		@Override
 		public String upload(String url, File file, String params) {
 			com.squareup.okhttp.RequestBody fileBody = com.squareup.okhttp.RequestBody
@@ -149,35 +242,52 @@ public final class HttpUtils {
 	}
 	
 	private static class HttpKitDelegate implements HttpDelegate {
-
+		
 		@Override
 		public String get(String url) {
 			return com.jfinal.kit.HttpKit.get(url);
 		}
-
+		
 		@Override
 		public String get(String url, Map<String, String> queryParas) {
 			return com.jfinal.kit.HttpKit.get(url, queryParas);
 		}
-
+		
 		@Override
 		public String post(String url, String data) {
 			return com.jfinal.kit.HttpKit.post(url, data);
 		}
-
+		
 		@Override
-		public InputStream download(String url) {
-			return null;
+		public String postSSL(String url, String data, String certPath, String certPass) {
+			return HttpKitExt.postSSL(url, data, certPath, certPass);
 		}
-
+		
+		@Override
+		public MediaFile download(String url) {
+			try {
+				return HttpKitExt.download(url);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		
 		@Override
 		public InputStream download(String url, String params) {
-			return null;
+			try {
+				return HttpKitExt.downloadMaterial(url, params);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 		}
-
+		
 		@Override
 		public String upload(String url, File file, String params) {
-			return null;
+			try {
+				return HttpKitExt.uploadMedia(url, file, params);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 		}
 		
 	}

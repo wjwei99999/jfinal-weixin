@@ -117,7 +117,7 @@ public class PaymentApi {
 		String sign = PaymentKit.createSign(params, paternerKey);
 		params.put("sign", sign);
 		String partner = params.get("mch_id");
-		String xmlStr = PaymentKit.postSSL(refundUrl, PaymentKit.toXml(params), certPath, partner);
+		String xmlStr = HttpUtils.postSSL(refundUrl, PaymentKit.toXml(params), certPath, partner);
 		return PaymentKit.xmlToMap(xmlStr);
 	}
 	

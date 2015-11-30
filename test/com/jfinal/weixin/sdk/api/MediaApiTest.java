@@ -1,6 +1,5 @@
 package com.jfinal.weixin.sdk.api;
 
-import java.io.File;
 import java.io.IOException;
 
 import org.junit.Assert;
@@ -54,11 +53,11 @@ public class MediaApiTest {
 //		7TvK_v85mHdoeZ11zGIHqivdsTFhs0wbG_e2z3vTG2c
 //		System.out.println(MediaApi.delMaterial("7TvK_v85mHdoeZ11zGIHqk84_GZPpa5mYJQK18lOIYY"));
 		
-//		System.out.println(MediaApi.addMaterial(new File("/Users/lcm/Desktop/mm.mp3"), "mm", "mm"));
+//		System.out.println(MediaApi.addMaterial(new File("/Users/lcm/Desktop/mmmxxxxmm.mp3"), "mm", "mm"));
 //		{"media_id":"7TvK_v85mHdoeZ11zGIHqk84_GZPpa5mYJQK18lOIYY"}
 		
 //		{"media_id":"R1V3XWq3EfO5A4pqOFEg_OhF6TnhJwgEk-XJQIDSkrM"}
-//		InputStream input = MediaApi.getMaterial("R1V3XWq3EfO5A4pqOFEg_OhF6TnhJwgEk-XJQIDSkrM");
-//		IOUtils.toFile(input, new File("/Users/lcm/Desktop/mmmxxxxmm.mp3"));
+//		InputStream input = MediaApi.getMaterial("Z4SqEXmqER7hWBRgyCduW-AVfIOLLvupkacykGqXmaM");
+//		IOUtils.toFile(input, new File("/Users/lcm/Desktop/mmmxxxxmm11.mp3"));
 	}
 }

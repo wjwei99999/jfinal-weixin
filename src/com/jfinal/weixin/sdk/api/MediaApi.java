@@ -1,14 +1,12 @@
 package com.jfinal.weixin.sdk.api;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.jfinal.kit.HttpKit;
-import com.jfinal.weixin.sdk.kit.HttpKitExt;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
@@ -76,11 +74,7 @@ public class MediaApi {
 	 */
 	public static MediaFile getMedia(String media_id) {
 		String url = get_url + AccessTokenApi.getAccessTokenStr() + "&media_id=" + media_id;
-		try {
-			return HttpKitExt.download(url);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		return HttpUtils.download(url);
 	}
 	
 	private static String add_news_url = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=";
@@ -161,11 +155,7 @@ public class MediaApi {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		dataMap.put("media_id", media_id);
 		
-		try {
-			return HttpKitExt.downloadMaterial(url, JsonUtils.toJson(dataMap));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		return HttpUtils.download(url, JsonUtils.toJson(dataMap));
 	}
 	
 	// 删除永久素材
