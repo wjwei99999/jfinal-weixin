@@ -5,7 +5,7 @@ package com.jfinal.weixin.sdk.utils;
  * @author L.cm
  *
  */
-public class ClassUtils {
+public abstract class ClassUtils {
 	
 	/**
 	 * 确定class是否可以被加载

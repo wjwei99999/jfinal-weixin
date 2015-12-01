@@ -55,8 +55,8 @@ public final class HttpUtils {
 	}
 	
 	/**
-	 * http请求工具 委托，默认使用
-	 * 默认使用OkHttp 
+	 * http请求工具 委托
+	 * 优先使用OkHttp 
 	 * 最后使用JFinal HttpKit
 	 */
 	private interface HttpDelegate {
@@ -78,16 +78,19 @@ public final class HttpUtils {
 	static {
 		HttpDelegate delegateToUse = null;
 		// com.squareup.okhttp.OkHttpClient?
-		if (ClassUtils.isPresent("com.squareup.okhttp.OkHttpClient", JsonUtils.class.getClassLoader())) {
+		if (ClassUtils.isPresent("com.squareup.okhttp.OkHttpClient", HttpUtils.class.getClassLoader())) {
 			delegateToUse = new OkHttpDelegate();
 		}
 		// com.jfinal.kit.HttpKit
-		else if (ClassUtils.isPresent("com.jfinal.kit.HttpKit", JsonUtils.class.getClassLoader())) {
+		else if (ClassUtils.isPresent("com.jfinal.kit.HttpKit", HttpUtils.class.getClassLoader())) {
 			delegateToUse = new HttpKitDelegate();
 		}
 		delegate = delegateToUse;
 	}
 	
+	/**
+	 * OkHttp代理
+	 */
 	private static class OkHttpDelegate implements HttpDelegate {
 		com.squareup.okhttp.OkHttpClient httpClient = new com.squareup.okhttp.OkHttpClient();
 		com.squareup.okhttp.OkHttpClient httpsClient = httpClient.clone();
@@ -246,6 +249,9 @@ public final class HttpUtils {
 		
 	}
 	
+	/**
+	 * HttpKit代理
+	 */
 	private static class HttpKitDelegate implements HttpDelegate {
 		
 		@Override

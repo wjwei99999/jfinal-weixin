@@ -24,7 +24,9 @@ import com.jfinal.plugin.activerecord.Record;
  * site:http://www.dreamlu.net
  * date 2015年5月13日下午4:58:33
  */
-public class JsonUtils {
+public final class JsonUtils {
+	
+	private JsonUtils() {}
 	
 	/**
 	 * 将model转为json字符串

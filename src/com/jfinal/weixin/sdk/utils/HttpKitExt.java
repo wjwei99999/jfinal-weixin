@@ -196,7 +196,7 @@ class HttpKitExt {
 	 * @param certPass 证书密码
 	 * @return String 回调的xml信息
 	 */
-	public static String postSSL(String url, String data, String certPath, String certPass) {
+	protected static String postSSL(String url, String data, String certPath, String certPass) {
 		HttpsURLConnection conn = null;
 		OutputStream out = null;
 		InputStream inputStream = null;

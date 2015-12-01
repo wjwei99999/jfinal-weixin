@@ -2,7 +2,7 @@
 JFinal Weixin 是基于 JFinal 的微信公众号极速开发 SDK，只需浏览 Demo 代码即可进行极速开发，自 JFinal Weixin 1.2 版本开始已添加对多公众号支持。
 
 ## 1、WeixinConfig配置
-`详情请见`[JFinal weixin中的WeixinConfig配置](http://git.oschina.net/jfinal/jfinal-weixin/wikis/JFinal-weixin%E4%B8%AD%E7%9A%84WeixinConfig%E9%85%8D%E7%BD%AE)
+`详情请见`：[JFinal weixin中的WeixinConfig配置](http://git.oschina.net/jfinal/jfinal-weixin/wikis/JFinal-weixin%E4%B8%AD%E7%9A%84WeixinConfig%E9%85%8D%E7%BD%AE)
 
 ## 2、WeixinMsgController
 ``` java
@@ -202,7 +202,7 @@ public class WeixinApiController extends ApiController {
 - 依赖jackson或fastjson或gson包，三者必选其一
 
 ## 5、jar包依赖详细说明
-`详见`[JFinal weixin 1.5 Jar依赖](http://git.oschina.net/jfinal/jfinal-weixin/wikis/JFinal-weixin-1.5-Jar%E4%BE%9D%E8%B5%96)
+`详见请见`：[JFinal weixin 1.5 Jar依赖](http://git.oschina.net/jfinal/jfinal-weixin/wikis/JFinal-weixin-1.5-Jar%E4%BE%9D%E8%B5%96)
 
 ## 6、WIKI持续更新中
 WIKI：http://git.oschina.net/jfinal/jfinal-weixin/wikis/home
