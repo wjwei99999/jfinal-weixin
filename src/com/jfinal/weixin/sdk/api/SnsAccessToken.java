@@ -6,18 +6,22 @@
 
 package com.jfinal.weixin.sdk.api;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import com.jfinal.weixin.sdk.utils.JsonUtils;
+import com.jfinal.weixin.sdk.utils.RetryUtils.ResultCheck;
 
 
 /**
  * SnsAccessToken
  * 封装 access_token
  */
-public class SnsAccessToken
+public class SnsAccessToken implements ResultCheck, Serializable 
 {
-
+    
+    private static final long serialVersionUID = 6369625123403343963L;
+    
     private String access_token;    // 正确获取到 access_token 时有值
     private Integer expires_in;        // 正确获取到 access_token 时有值
     private String refresh_token;    //
@@ -122,5 +126,10 @@ public class SnsAccessToken
     {
         return unionid;
     }
+
+	@Override
+	public boolean matching() {
+		return isAvailable();
+	}
 
 }

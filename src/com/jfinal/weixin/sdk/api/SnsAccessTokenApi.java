@@ -8,10 +8,12 @@ package com.jfinal.weixin.sdk.api;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import com.jfinal.weixin.sdk.kit.ParaMap;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
+import com.jfinal.weixin.sdk.utils.RetryUtils;
 
 /**
  * 网页授权获取 access_token API
@@ -55,17 +57,15 @@ public class SnsAccessTokenApi
      */
     public static SnsAccessToken getSnsAccessToken(String appId, String secret, String code)
     {
-        Map<String, String> queryParas = ParaMap.create("appid", appId).put("secret", secret).put("code", code).getData();
+        final Map<String, String> queryParas = ParaMap.create("appid", appId).put("secret", secret).put("code", code).getData();
         
-        SnsAccessToken result = null;
-        for (int i = 0; i < 3; i++)
-        {    // 最多三次请求
-            String json = HttpUtils.get(url, queryParas);
-            result = new SnsAccessToken(json);
-
-            if (result.isAvailable())
-                break;
-        }
-        return result;
+        return RetryUtils.retryOnException(3, new Callable<SnsAccessToken>() {
+            
+            @Override
+            public SnsAccessToken call() throws Exception {
+                String json = HttpUtils.get(url, queryParas);
+                return new SnsAccessToken(json);
+            }
+        });
     }
 }

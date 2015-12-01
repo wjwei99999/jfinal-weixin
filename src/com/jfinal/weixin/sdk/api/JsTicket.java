@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.util.Map;
 
 import com.jfinal.weixin.sdk.utils.JsonUtils;
+import com.jfinal.weixin.sdk.utils.RetryUtils.ResultCheck;
 
 /**
  * JsTicket返回封装
  */
-public class JsTicket implements Serializable {
+public class JsTicket implements ResultCheck, Serializable {
 
 	private static final long serialVersionUID = 6600179487477942329L;
 
@@ -92,6 +93,11 @@ public class JsTicket implements Serializable {
 		// errorCode 为 0
 		// 时也可以表示为成功，详见：http://mp.weixin.qq.com/wiki/index.php?title=%E5%85%A8%E5%B1%80%E8%BF%94%E5%9B%9E%E7%A0%81%E8%AF%B4%E6%98%8E
 		return (errorCode == null || errorCode == 0);
+	}
+
+	@Override
+	public boolean matching() {
+		return isAvailable();
 	}
 
 }

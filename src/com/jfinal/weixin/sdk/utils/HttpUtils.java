@@ -232,10 +232,10 @@ public final class HttpUtils {
 			
 			com.squareup.okhttp.MultipartBuilder builder = new com.squareup.okhttp.MultipartBuilder()
 					.type(com.squareup.okhttp.MultipartBuilder.FORM)
-					.addPart(com.squareup.okhttp.Headers.of("Content-Disposition", "form-data; name=\"media\"; filename=\""+ file.getName() + "\""), fileBody);
+					.addFormDataPart("media", file.getName(), fileBody);
 			
 			if (StrKit.notBlank(params)) {
-				builder.addPart(com.squareup.okhttp.Headers.of("Content-Disposition", "form-data; name=\"description\""), com.squareup.okhttp.RequestBody.create(null, params));
+				builder.addFormDataPart("description", params);
 			}
 			
 			com.squareup.okhttp.RequestBody requestBody = builder.build();

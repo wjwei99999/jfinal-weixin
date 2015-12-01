@@ -10,12 +10,13 @@ import java.io.Serializable;
 import java.util.Map;
 
 import com.jfinal.weixin.sdk.utils.JsonUtils;
+import com.jfinal.weixin.sdk.utils.RetryUtils.ResultCheck;
 
 
 /**
  * 封装 access_token
  */
-public class AccessToken implements Serializable {
+public class AccessToken implements ResultCheck, Serializable {
 	
 	private static final long serialVersionUID = -822464425433824314L;
 	
@@ -84,5 +85,10 @@ public class AccessToken implements Serializable {
 				return result;
 		}
 		return errmsg;
+	}
+
+	@Override
+	public boolean matching() {
+		return isAvailable();
 	}
 }
