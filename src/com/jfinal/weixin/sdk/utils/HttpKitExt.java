@@ -126,12 +126,7 @@ class HttpKitExt {
 			out.flush();
 			IOUtils.closeQuietly(out);
 		}
-		InputStream input = conn.getInputStream();
-		// 关闭连接
-		if (conn != null) {
-			conn.disconnect();
-		}
-		return input;
+		return conn.getInputStream();
 	}
 	
 	/**
@@ -181,10 +176,6 @@ class HttpKitExt {
 			mediaFile.setContentType(conn.getHeaderField("Content-Type"));
 			mediaFile.setFileStream(bis);
 		}
-		// 关闭连接
-		if (conn != null) {
-			conn.disconnect();
-		}
 		return mediaFile;
 	}
 	
@@ -214,6 +205,8 @@ class HttpKitExt {
 			URL _url = new URL(url);
 			conn = (HttpsURLConnection) _url.openConnection();
 			
+			conn.setConnectTimeout(25000);
+			conn.setReadTimeout(25000);
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
 			conn.setDoInput(true);
