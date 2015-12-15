@@ -57,7 +57,7 @@ public class JsTicket implements ResultCheck, Serializable {
 	public boolean isAvailable() {
 		if (expiredTime == null)
 			return false;
-		if (errcode != null)
+		if (isSucceed())
 			return false;
 		if (expiredTime < System.currentTimeMillis())
 			return false;
