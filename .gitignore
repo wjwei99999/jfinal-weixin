@@ -31,4 +31,5 @@ a_little_config_pro.txt
 
 dev_plan.txt
 
-
+# mac
+.DS_Store

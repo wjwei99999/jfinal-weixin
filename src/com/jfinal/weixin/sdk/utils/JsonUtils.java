@@ -89,6 +89,10 @@ public final class JsonUtils {
 		else if (ClassUtils.isPresent("com.google.gson.Gson", JsonUtils.class.getClassLoader())) {
 			delegateToUse = new GsonJsonDelegate();
 		}
+		//link.jfire.codejson.JsonTool
+		else if (ClassUtils.isPresent("link.jfire.codejson.JsonTool", JsonUtils.class.getClassLoader())) {
+			delegateToUse = new JfireJsonDelegate();
+		}
 		// com.jfinal.kit.JsonKit
 		else if (ClassUtils.isPresent("com.jfinal.kit.JsonKit", JsonUtils.class.getClassLoader())) {
 			delegateToUse = new JsonKitDelegate();
@@ -181,6 +185,30 @@ public final class JsonUtils {
 		public <T> T decode(String jsonString, Class<T> valueType) {
 			throw new RuntimeException("Jackson or Fastjson or Gson are not supported~");
 		}
+	}
+	
+	/**
+	 * JfireJson代理对象
+	 */
+	private static class JfireJsonDelegate implements JsonDelegate {
+		
+		@Override
+		public String toJson(Object object) {
+			return link.jfire.codejson.JsonTool.toString(object);
+		}
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		public <T> T decode(String jsonString, Class<T> valueType) {
+			if (List.class.isAssignableFrom(valueType)) {
+				return (T) link.jfire.codejson.JsonTool.fromString(jsonString);
+			}
+			if (Map.class.isAssignableFrom(valueType)) {
+				return (T) link.jfire.codejson.JsonTool.fromString(jsonString);
+			}
+			return link.jfire.codejson.JsonTool.read(valueType, jsonString);
+		}
+		
 	}
 	
 	/**

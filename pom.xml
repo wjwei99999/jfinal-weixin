@@ -82,6 +82,12 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>link.jfire</groupId>
+			<artifactId>codejson</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
