@@ -3,8 +3,6 @@ package com.jfinal.weixin.demo;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.dom4j.DocumentException;
-
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.StrKit;
@@ -85,7 +83,7 @@ public class WeixinPayController extends Controller {
 		render("/jsp/pay.jsp");
 	}
 	
-	public void pay_notify() throws DocumentException {
+	public void pay_notify() {
 		// 支付结果通用通知文档: https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_7
 		
 		String xmlMsg = HttpKit.readIncommingRequestData(getRequest());

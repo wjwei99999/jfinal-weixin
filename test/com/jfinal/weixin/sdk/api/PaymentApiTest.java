@@ -3,11 +3,6 @@ package com.jfinal.weixin.sdk.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-
 import com.jfinal.weixin.sdk.api.PaymentApi.TradeType;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
@@ -18,7 +13,7 @@ public class PaymentApiTest {
 	static String partner = "";
 	static String paternerKey = "";
 	
-	public static void testCreate() throws DocumentException {
+	public static void testCreate() {
 		//商户相关资料 
 		String openId = "";
 		String notify_url = "";
@@ -41,14 +36,10 @@ public class PaymentApiTest {
 		
 		System.out.println(xmlResult);
 		
-		Document doc = DocumentHelper.parseText(xmlResult);
-		Element root = doc.getRootElement();
-		String return_code = root.elementText("return_code");
-		String result_code = root.elementText("result_code");
-		String return_msg = root.elementText("return_msg");
-		String prepay_id = root.elementText("prepay_id");
+		Map<String, String> result = PaymentKit.xmlToMap(xmlResult);
+		String prepay_id = result.get("prepay_id");
 		
-		Map<String, String> packageParams = new HashMap<String, String>();
+		Map<String, String> packageParams = PaymentKit.xmlToMap(xmlResult);
 		packageParams.put("appId", appid);
 		packageParams.put("timeStamp", System.currentTimeMillis() / 1000 + "");
 		packageParams.put("nonceStr", System.currentTimeMillis() + "");

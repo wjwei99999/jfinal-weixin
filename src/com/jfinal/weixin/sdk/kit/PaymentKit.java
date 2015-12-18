@@ -1,21 +1,29 @@
 package com.jfinal.weixin.sdk.kit;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.UUID;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.jfinal.kit.HashKit;
 import com.jfinal.kit.StrKit;
+import com.jfinal.weixin.sdk.utils.IOUtils;
 
 /**
  * 微信支付的统一下单工具类
@@ -119,22 +127,36 @@ public class PaymentKit {
 	 * @param xml xml字符串
 	 * @return Map<String, String> map集合
 	 */
-	@SuppressWarnings("unchecked")
 	public static Map<String, String> xmlToMap(String xmlStr) {
-		Document doc;
-		try {
-			doc = DocumentHelper.parseText(xmlStr);
-		} catch (DocumentException e) {
-			throw new RuntimeException(e);
-		}
-		Element root = doc.getRootElement();
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		
-		List<Element> rList = root.elements();
+		StringReader sr = null;
+		Document document;
+		try {
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			sr = new StringReader(xmlStr);
+			InputSource is = new InputSource(sr);
+			
+			document = db.parse(is);
+		} catch (ParserConfigurationException e) {
+			throw new RuntimeException(e);
+		} catch (SAXException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} finally {
+			IOUtils.closeQuietly(sr);
+		}
+		Element root = document.getDocumentElement();
 		Map<String, String> params = new HashMap<String, String>();
-		for(Element element :rList){
-			params.put(element.getName(), element.getText());
+		
+		// 将节点封装成map形式
+		NodeList list = root.getChildNodes();
+		for (int i = 0; i < list.getLength(); i++) {
+			Node node = list.item(i);
+			params.put(node.getNodeName(), node.getTextContent());
 		}
 		return params;
 	}
-	
+
 }
