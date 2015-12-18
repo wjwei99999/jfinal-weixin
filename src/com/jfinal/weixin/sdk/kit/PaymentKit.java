@@ -1,7 +1,5 @@
 package com.jfinal.weixin.sdk.kit;
 
-import java.io.IOException;
-import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -10,20 +8,13 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.UUID;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 import com.jfinal.kit.HashKit;
 import com.jfinal.kit.StrKit;
-import com.jfinal.weixin.sdk.utils.IOUtils;
 
 /**
  * 微信支付的统一下单工具类
@@ -128,25 +119,7 @@ public class PaymentKit {
 	 * @return Map<String, String> map集合
 	 */
 	public static Map<String, String> xmlToMap(String xmlStr) {
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		
-		StringReader sr = null;
-		Document document;
-		try {
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			sr = new StringReader(xmlStr);
-			InputSource is = new InputSource(sr);
-			
-			document = db.parse(is);
-		} catch (ParserConfigurationException e) {
-			throw new RuntimeException(e);
-		} catch (SAXException e) {
-			throw new RuntimeException(e);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} finally {
-			IOUtils.closeQuietly(sr);
-		}
+		Document document = XmlKit.parse(xmlStr);
 		Element root = document.getDocumentElement();
 		Map<String, String> params = new HashMap<String, String>();
 		
