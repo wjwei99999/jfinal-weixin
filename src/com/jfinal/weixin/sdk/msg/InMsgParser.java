@@ -28,6 +28,7 @@ import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InMassEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InPoiCheckNotifyEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent.AroundBeacon;
@@ -333,6 +334,15 @@ public class InMsgParser {
 			InVerifyFailEvent e = new InVerifyFailEvent(toUserName, fromUserName, createTime, msgType, event);
 			e.setFailTime(XmlKit.elementText(root, "failTime"));
 			e.setFailReason(XmlKit.elementText(root, "failReason"));
+			return e;
+		}
+		// 门店在审核事件消息
+		if ("poi_check_notify".equals(event)) {
+			InPoiCheckNotifyEvent e = new InPoiCheckNotifyEvent(toUserName, fromUserName, createTime, msgType);
+			e.setUniqId(XmlKit.elementText(root, "UniqId"));
+			e.setPoiId(XmlKit.elementText(root, "PoiId"));
+			e.setResult(XmlKit.elementText(root, "Result"));
+			e.setMsg(XmlKit.elementText(root, "Msg"));
 			return e;
 		}
 

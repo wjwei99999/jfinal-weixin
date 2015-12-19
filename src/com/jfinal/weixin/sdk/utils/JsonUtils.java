@@ -14,7 +14,7 @@ import com.jfinal.plugin.activerecord.Record;
  * Json转换
  * 默认使用jackson
  * 再次fastJson
- * 再次Gson
+ * 再次jfire-codejson
  * 最后使用jsonKit
  * 
  * 参考Spring4中的base64工具类
@@ -85,10 +85,6 @@ public final class JsonUtils {
 		else if (ClassUtils.isPresent("com.alibaba.fastjson.JSONObject", JsonUtils.class.getClassLoader())) {
 			delegateToUse = new FastJsonDelegate();
 		}
-		// com.google.gson.Gson?
-		else if (ClassUtils.isPresent("com.google.gson.Gson", JsonUtils.class.getClassLoader())) {
-			delegateToUse = new GsonJsonDelegate();
-		}
 		//link.jfire.codejson.JsonTool
 		else if (ClassUtils.isPresent("link.jfire.codejson.JsonTool", JsonUtils.class.getClassLoader())) {
 			delegateToUse = new JfireJsonDelegate();
@@ -152,23 +148,6 @@ public final class JsonUtils {
 		public <T> T decode(String jsonString, Class<T> valueType) {
 			return com.alibaba.fastjson.JSON.parseObject(jsonString, valueType);
 		} 
-	}
-	
-	/**
-	 * Gson委托
-	 */
-	private static class GsonJsonDelegate implements JsonDelegate {
-		private com.google.gson.Gson gson = new com.google.gson.GsonBuilder().create();
-		
-		@Override
-		public String toJson(Object object) {
-			return gson.toJson(object);
-		}
-		
-		@Override
-		public <T> T decode(String jsonString, Class<T> valueType) {
-			return gson.fromJson(jsonString, valueType);
-		}
 	}
 	
 	/**

@@ -9,15 +9,32 @@ package com.jfinal.weixin.sdk.jfinal;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.interceptor.NotAction;
+import com.jfinal.kit.HttpKit;
 import com.jfinal.log.Logger;
 import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
-import com.jfinal.kit.HttpKit;
 import com.jfinal.weixin.sdk.kit.MsgEncryptKit;
 import com.jfinal.weixin.sdk.msg.InMsgParser;
 import com.jfinal.weixin.sdk.msg.OutMsgXmlBuilder;
-import com.jfinal.weixin.sdk.msg.in.*;
-import com.jfinal.weixin.sdk.msg.in.event.*;
+import com.jfinal.weixin.sdk.msg.in.InImageMsg;
+import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
+import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
+import com.jfinal.weixin.sdk.msg.in.InMsg;
+import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InTextMsg;
+import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
+import com.jfinal.weixin.sdk.msg.in.event.InCustomEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMassEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InPoiCheckNotifyEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InTemplateMsgEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InVerifyFailEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InVerifySuccessEvent;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 import com.jfinal.weixin.sdk.msg.out.OutMsg;
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
@@ -60,24 +77,30 @@ public abstract class MsgController extends Controller {
 			processInLocationMsg((InLocationMsg) msg);
 		else if (msg instanceof InLinkMsg)
 			processInLinkMsg((InLinkMsg) msg);
-        else if (msg instanceof InCustomEvent)
-            processInCustomEvent((InCustomEvent) msg);
+		else if (msg instanceof InCustomEvent)
+			processInCustomEvent((InCustomEvent) msg);
 		else if (msg instanceof InFollowEvent)
 			processInFollowEvent((InFollowEvent) msg);
 		else if (msg instanceof InQrCodeEvent)
 			processInQrCodeEvent((InQrCodeEvent) msg);
 		else if (msg instanceof InLocationEvent)
 			processInLocationEvent((InLocationEvent) msg);
-        else if (msg instanceof InMassEvent)
-            processInMassEvent((InMassEvent) msg);
+		else if (msg instanceof InMassEvent)
+			processInMassEvent((InMassEvent) msg);
 		else if (msg instanceof InMenuEvent)
 			processInMenuEvent((InMenuEvent) msg);
 		else if (msg instanceof InSpeechRecognitionResults)
 			processInSpeechRecognitionResults((InSpeechRecognitionResults) msg);
 		else if (msg instanceof InTemplateMsgEvent)
-			processInTemplateMsgEvent((InTemplateMsgEvent)msg);
+			processInTemplateMsgEvent((InTemplateMsgEvent) msg);
 		else if (msg instanceof InShakearoundUserShakeEvent)
-			processInShakearoundUserShakeEvent((InShakearoundUserShakeEvent)msg);
+			processInShakearoundUserShakeEvent((InShakearoundUserShakeEvent) msg);
+		else if (msg instanceof InVerifySuccessEvent)
+			processInVerifySuccessEvent((InVerifySuccessEvent) msg);
+		else if (msg instanceof InVerifyFailEvent)
+			processInVerifyFailEvent((InVerifyFailEvent) msg);
+		else if (msg instanceof InPoiCheckNotifyEvent)
+			processInPoiCheckNotifyEvent((InPoiCheckNotifyEvent) msg);
 		else
 			log.error("未能识别的消息类型。 消息 xml 内容为：\n" + getInMsgXml());
 	}
@@ -181,6 +204,9 @@ public abstract class MsgController extends Controller {
 
 	// 资质认证失败 || 名称认证失败
 	protected abstract void processInVerifyFailEvent(InVerifyFailEvent inVerifyFailEvent);
+	
+	// 门店在审核事件消息
+	protected abstract void processInPoiCheckNotifyEvent(InPoiCheckNotifyEvent inPoiCheckNotifyEvent);
 }
 
 

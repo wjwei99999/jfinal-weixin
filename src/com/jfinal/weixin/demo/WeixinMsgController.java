@@ -9,11 +9,24 @@ package com.jfinal.weixin.demo;
 import com.jfinal.kit.PropKit;
 import com.jfinal.log.Logger;
 import com.jfinal.weixin.sdk.api.ApiConfig;
-import com.jfinal.weixin.sdk.jfinal.MsgController;
-import com.jfinal.weixin.sdk.msg.in.*;
-import com.jfinal.weixin.sdk.msg.in.event.*;
+import com.jfinal.weixin.sdk.jfinal.MsgControllerAdapter;
+import com.jfinal.weixin.sdk.msg.in.InImageMsg;
+import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
+import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
+import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InTextMsg;
+import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
+import com.jfinal.weixin.sdk.msg.in.event.InCustomEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMassEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InTemplateMsgEvent;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
-import com.jfinal.weixin.sdk.msg.out.*;
+import com.jfinal.weixin.sdk.msg.out.OutCustomMsg;
+import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
 
 /**
  * 将此 DemoController 在YourJFinalConfig 中注册路由，
@@ -21,7 +34,7 @@ import com.jfinal.weixin.sdk.msg.out.*;
  * DemoController 继承自父类 WeixinController 的 index
  * 方法即可直接运行看效果，在此基础之上修改相关的方法即可进行实际项目开发
  */
-public class WeixinMsgController extends MsgController {
+public class WeixinMsgController extends MsgControllerAdapter {
 
 	static Logger logger = Logger.getLogger(WeixinMsgController.class);
 	private static final String helpStr = "\t发送 help 可获得帮助，发送\"视频\" 可获取视频教程，发送 \"美女\" 可看美女，发送 music 可听音乐 ，发送新闻可看JFinal新版本消息。公众号功能持续完善中";
@@ -185,30 +198,6 @@ public class WeixinMsgController extends MsgController {
 	{
 		logger.debug("测试方法：processInTemplateMsgEvent()");
 		renderNull();
-	}
-
-	@Override
-	protected void processInShakearoundUserShakeEvent(InShakearoundUserShakeEvent inShakearoundUserShakeEvent) {
-		logger.debug("摇一摇周边设备信息通知事件：" + inShakearoundUserShakeEvent.getFromUserName());
-		OutTextMsg outMsg = new OutTextMsg(inShakearoundUserShakeEvent);
-		outMsg.setContent("摇一摇周边设备信息通知事件UUID：" + inShakearoundUserShakeEvent.getUuid());
-		render(outMsg);
-	}
-
-	@Override
-	protected void processInVerifySuccessEvent(InVerifySuccessEvent inVerifySuccessEvent) {
-		logger.debug("资质认证成功通知事件：" + inVerifySuccessEvent.getFromUserName());
-		OutTextMsg outMsg = new OutTextMsg(inVerifySuccessEvent);
-		outMsg.setContent("资质认证成功通知事件：" + inVerifySuccessEvent.getExpiredTime());
-		render(outMsg);
-	}
-
-	@Override
-	protected void processInVerifyFailEvent(InVerifyFailEvent inVerifyFailEvent){
-		logger.debug("资质认证失败通知事件：" + inVerifyFailEvent.getFromUserName());
-		OutTextMsg outMsg = new OutTextMsg(inVerifyFailEvent);
-		outMsg.setContent("资质认证失败通知事件：" + inVerifyFailEvent.getFailReason());
-		render(outMsg);
 	}
 
 //	/**
@@ -389,6 +378,29 @@ public class WeixinMsgController extends MsgController {
 //	protected void processInTemplateMsgEvent(InTemplateMsgEvent inTemplateMsgEvent) {
 //		String status = inTemplateMsgEvent.getStatus();
 //		renderOutTextMsg("模板消息是否接收成功：" + status);
+//	}
+//	@Override
+//	protected void processInShakearoundUserShakeEvent(InShakearoundUserShakeEvent inShakearoundUserShakeEvent) {
+//		logger.debug("摇一摇周边设备信息通知事件：" + inShakearoundUserShakeEvent.getFromUserName());
+//		OutTextMsg outMsg = new OutTextMsg(inShakearoundUserShakeEvent);
+//		outMsg.setContent("摇一摇周边设备信息通知事件UUID：" + inShakearoundUserShakeEvent.getUuid());
+//		render(outMsg);
+//	}
+//
+//	@Override
+//	protected void processInVerifySuccessEvent(InVerifySuccessEvent inVerifySuccessEvent) {
+//		logger.debug("资质认证成功通知事件：" + inVerifySuccessEvent.getFromUserName());
+//		OutTextMsg outMsg = new OutTextMsg(inVerifySuccessEvent);
+//		outMsg.setContent("资质认证成功通知事件：" + inVerifySuccessEvent.getExpiredTime());
+//		render(outMsg);
+//	}
+//
+//	@Override
+//	protected void processInVerifyFailEvent(InVerifyFailEvent inVerifyFailEvent){
+//		logger.debug("资质认证失败通知事件：" + inVerifyFailEvent.getFromUserName());
+//		OutTextMsg outMsg = new OutTextMsg(inVerifyFailEvent);
+//		outMsg.setContent("资质认证失败通知事件：" + inVerifyFailEvent.getFailReason());
+//		render(outMsg);
 //	}
 }
 

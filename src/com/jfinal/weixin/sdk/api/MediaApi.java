@@ -206,7 +206,6 @@ public class MediaApi {
 	 */
 	public static ApiResult getMaterialCount() {
 		String url = get_materialcount_url + AccessTokenApi.getAccessTokenStr();
-		System.out.println(url);
 		String jsonResult = HttpKit.get(url);
 		return new ApiResult(jsonResult);
 	}
