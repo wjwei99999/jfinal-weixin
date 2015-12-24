@@ -1,6 +1,7 @@
 package com.jfinal.weixin.sdk.encrypt;
 
-/*import static org.junit.Assert.*;*/
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -10,11 +11,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Test;
-/*import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;*/
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -57,7 +53,7 @@ public class WXBizMsgCryptTest {
 
 			// 第三方收到公众号平台发送的消息
 			String afterDecrpt = pc.decryptMsg(msgSignature, timestamp, nonce, fromXML);
-			// assertEquals(replyMsg, afterDecrpt);
+			assertEquals(replyMsg, afterDecrpt);
 		} catch (AesException e) {
 			// fail("正常流程，怎么就抛出异常了？？？？？？");
 		}
@@ -67,10 +63,10 @@ public class WXBizMsgCryptTest {
 	public void testAesEncrypt() {
 		try {
 			WXBizMsgCrypt pc = new WXBizMsgCrypt(token, encodingAesKey, appId);
-			// assertEquals(afterAesEncrypt, pc.encrypt(randomStr, replyMsg));
+			assertEquals(afterAesEncrypt, pc.encrypt(randomStr, replyMsg));
 		} catch (AesException e) {
 			e.printStackTrace();
-			// fail("no异常");
+			fail("no异常");
 		}
 	}
 
@@ -78,11 +74,11 @@ public class WXBizMsgCryptTest {
 	public void testAesEncrypt2() {
 		try {
 			WXBizMsgCrypt pc = new WXBizMsgCrypt(token, encodingAesKey, appId);
-			// assertEquals(afterAesEncrypt2, pc.encrypt(randomStr, replyMsg2));
+			assertEquals(afterAesEncrypt2, pc.encrypt(randomStr, replyMsg2));
 
 		} catch (AesException e) {
 			e.printStackTrace();
-			// fail("no异常");
+			fail("no异常");
 		}
 	}
 
@@ -91,10 +87,9 @@ public class WXBizMsgCryptTest {
 		try {
 			new WXBizMsgCrypt(token, "abcde", appId);
 		} catch (AesException e) {
-			// assertEquals(AesException.IllegalAesKey, e.getCode());
+			assertEquals(AesException.IllegalAesKey, e.getCode());
 			return;
 		}
-		// fail("错误流程不抛出异常？？？");
 	}
 
 	@Test
@@ -116,10 +111,9 @@ public class WXBizMsgCryptTest {
 			String fromXML = String.format(xmlFormat, encrypt);
 			pc.decryptMsg("12345", timestamp, nonce, fromXML); // 这里签名错误
 		} catch (AesException e) {
-			// assertEquals(AesException.ValidateSignatureError, e.getCode());
+			assertEquals(AesException.ValidateSignatureError, e.getCode());
 			return;
 		}
-		// fail("错误流程不抛出异常？？？");
 	}
 
 	@Test
