@@ -28,23 +28,4 @@ public class SnsApi
         return new ApiResult(HttpUtils.get(getUserInfo, pm.getData()));
     }
     
-    /**
-     * 一步获取用户信息，注意此处会可能会返回null
-     * @param code
-     * @return
-     */
-    public static ApiResult getUserInfo(String code) {
-        ApiConfig ac = ApiConfigKit.getApiConfig();
-        String appId = ac.getAppId();
-        String appSecret = ac.getAppSecret();
-        
-        SnsAccessToken token = SnsAccessTokenApi.getSnsAccessToken(appId, appSecret, code);
-        if (null == token) {
-            return null;
-        }
-        String openId = token.getOpenid();
-        String accessToken =token.getAccessToken();
-        return getUserInfo(accessToken, openId);
-    }
-    
 }

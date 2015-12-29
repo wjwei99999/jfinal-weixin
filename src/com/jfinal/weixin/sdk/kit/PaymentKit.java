@@ -129,6 +129,8 @@ public class PaymentKit {
 			Node node = list.item(i);
 			params.put(node.getNodeName(), node.getTextContent());
 		}
+		// 含有空白符会生成一个#text参数
+		params.remove("#text");
 		return params;
 	}
 

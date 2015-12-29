@@ -23,6 +23,7 @@ public class SnsAccessTokenApi
 {
     private static String url = "https://api.weixin.qq.com/sns/oauth2/access_token?grant_type=authorization_code";
     private static String authorize_uri = "http://open.weixin.qq.com/connect/oauth2/authorize";
+    private static String qrconnect_url = "https://open.weixin.qq.com/connect/qrconnect";
     
     /**
      * 生成Authorize链接
@@ -62,6 +63,39 @@ public class SnsAccessTokenApi
         }
         String para = PaymentKit.packageSign(params, false);
         return authorize_uri + "?" + para;
+    }
+    
+
+    /**
+     * 生成网页二维码授权链接
+     * @param appId 应用id
+     * @param redirect_uri 回跳地址
+     * @return url
+     */
+    public static String getQrConnectURL(String appId, String redirect_uri) {
+        return getQrConnectURL(appId, redirect_uri, null);
+    }
+    
+    /**
+     * 生成网页二维码授权链接
+     * @param appId 应用id
+     * @param redirect_uri 回跳地址
+     * @param state 重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
+     * @return url
+     */
+    public static String getQrConnectURL(String appId, String redirect_uri, String state) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("appid", appId);
+        params.put("response_type", "code");
+        params.put("redirect_uri", redirect_uri);
+        params.put("scope", "snsapi_login");
+        if (StrKit.isBlank(state)) {
+            params.put("state", "wx#wechat_redirect");
+        } else {
+        	params.put("state", state.concat("#wechat_redirect"));
+        }
+        String para = PaymentKit.packageSign(params, false);
+        return qrconnect_url + "?" + para;
     }
     
     /**
