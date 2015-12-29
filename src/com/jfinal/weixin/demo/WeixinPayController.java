@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.jfinal.core.Controller;
+import com.jfinal.json.Json;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.PaymentApi;
 import com.jfinal.weixin.sdk.api.PaymentApi.TradeType;
 import com.jfinal.weixin.sdk.kit.IpKit;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 感谢 *半杯* 童鞋联调支付API
@@ -77,7 +77,7 @@ public class WeixinPayController extends Controller {
 		String packageSign = PaymentKit.createSign(packageParams, paternerKey);
 		packageParams.put("paySign", packageSign);
 		
-		String jsonStr = JsonUtils.toJson(packageParams);
+		String jsonStr = Json.getJson().toJson(packageParams);
 		setAttr("json", jsonStr);
 		System.out.println(jsonStr);
 		render("/jsp/pay.jsp");
@@ -85,8 +85,7 @@ public class WeixinPayController extends Controller {
 	
 	public void pay_notify() {
 		// 支付结果通用通知文档: https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_7
-		
-		String xmlMsg = HttpKit.readIncommingRequestData(getRequest());
+		String xmlMsg = HttpKit.readData(getRequest());
 		System.out.println("支付通知="+xmlMsg);
 		Map<String, String> params = PaymentKit.xmlToMap(xmlMsg);
 		

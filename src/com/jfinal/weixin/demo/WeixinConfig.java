@@ -13,6 +13,9 @@ import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
+import com.jfinal.json.FastJson;
+import com.jfinal.json.FastJsonFactory;
+import com.jfinal.json.JacksonFactory;
 import com.jfinal.kit.PropKit;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 
@@ -38,6 +41,10 @@ public class WeixinConfig extends JFinalConfig {
 		
 		// ApiConfigKit 设为开发模式可以在开发阶段输出请求交互的 xml 与 json 数据
 		ApiConfigKit.setDevMode(me.getDevMode());
+		// 设置json解析为Jackson，需要导入Jackson相关包
+		me.setJsonFactory(new JacksonFactory());
+		// 下面示例是fastJson
+//		me.setJsonFactory(new FastJsonFactory());
 	}
 	
 	public void configRoute(Routes me) {

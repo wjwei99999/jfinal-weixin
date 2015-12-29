@@ -9,7 +9,7 @@ package com.jfinal.weixin.sdk.api;
 import java.io.Serializable;
 import java.util.Map;
 
-import com.jfinal.weixin.sdk.utils.JsonUtils;
+import com.jfinal.json.Json;
 import com.jfinal.weixin.sdk.utils.RetryUtils.ResultCheck;
 
 
@@ -41,7 +41,7 @@ public class SnsAccessToken implements ResultCheck, Serializable
         try
         {
             @SuppressWarnings("unchecked")
-            Map<String, Object> temp = JsonUtils.decode(jsonStr, Map.class);
+            Map<String, Object> temp = Json.getJson().parse(jsonStr, Map.class);
             access_token = (String) temp.get("access_token");
             expires_in = getInt(temp, "expires_in");
             refresh_token = (String) temp.get("refresh_token");

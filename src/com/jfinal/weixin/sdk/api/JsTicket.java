@@ -3,7 +3,7 @@ package com.jfinal.weixin.sdk.api;
 import java.io.Serializable;
 import java.util.Map;
 
-import com.jfinal.weixin.sdk.utils.JsonUtils;
+import com.jfinal.json.Json;
 import com.jfinal.weixin.sdk.utils.RetryUtils.ResultCheck;
 
 /**
@@ -26,7 +26,7 @@ public class JsTicket implements ResultCheck, Serializable {
 
 		try {
 			@SuppressWarnings("unchecked")
-			Map<String, Object> temp = JsonUtils.decode(jsonStr, Map.class);
+			Map<String, Object> temp = Json.getJson().parse(jsonStr, Map.class);
 			ticket = (String) temp.get("ticket");
 			expires_in = getInt(temp, "expires_in");
 			errcode = getInt(temp, "errcode");

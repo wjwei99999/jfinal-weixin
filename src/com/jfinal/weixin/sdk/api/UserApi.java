@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.jfinal.json.Json;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.weixin.sdk.kit.ParaMap;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 用户管理 API
@@ -82,7 +82,7 @@ public class UserApi {
 		}
 		userListMap.put("user_list", userList);
 		
-		return batchGetUserInfo(JsonUtils.toJson(userListMap));
+		return batchGetUserInfo(Json.getJson().toJson(userListMap));
 	}
 	
 	private static String updateRemarkUrl = "https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token=";
@@ -99,7 +99,7 @@ public class UserApi {
 		Map<String, String> mapData = new HashMap<String, String>();
 		mapData.put("openid", openid);
 		mapData.put("remark", remark);
-		String jsonResult = HttpKit.post(url, JsonUtils.toJson(mapData));
+		String jsonResult = HttpKit.post(url, Json.getJson().toJson(mapData));
 		
 		return new ApiResult(jsonResult);
 	}

@@ -1,5 +1,7 @@
 package com.jfinal.weixin.sdk.utils;
 
+import org.junit.Assert;
+
 import com.jfinal.weixin.sdk.msg.InMsgParser;
 import com.jfinal.weixin.sdk.msg.in.InMsg;
 
@@ -19,7 +21,7 @@ public class DomTest {
 		
 		InMsg in = InMsgParser.parse(xml);
 		
-		System.out.println(JsonUtils.toJson(in));
+		Assert.assertNotNull(in);
 	}
 	
 	public static void test2() {
@@ -36,8 +38,7 @@ public class DomTest {
 				+ "</xml>";
 		
 		InMsg in = InMsgParser.parse(xml);
-		
-		System.out.println(JsonUtils.toJson(in));
+		Assert.assertNotNull(in);
 	}
 	
 	public static void main(String[] args) {

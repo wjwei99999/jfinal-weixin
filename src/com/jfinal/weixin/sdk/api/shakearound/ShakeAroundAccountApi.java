@@ -3,11 +3,11 @@ package com.jfinal.weixin.sdk.api.shakearound;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.jfinal.json.Json;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 申请开通摇一摇周边
@@ -45,7 +45,7 @@ public class ShakeAroundAccountApi {
 		}
 		data.put("qualification_cert_urls", qualificationCertUrls);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	

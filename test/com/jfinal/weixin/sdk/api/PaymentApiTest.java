@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.jfinal.weixin.sdk.api.PaymentApi.TradeType;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 public class PaymentApiTest {
 	//商户相关资料 
@@ -48,8 +47,7 @@ public class PaymentApiTest {
 		String packageSign = PaymentKit.createSign(packageParams, paternerKey);
 		packageParams.put("paySign", packageSign);
 		
-		String jsonStr = JsonUtils.toJson(packageParams);
-		System.out.println(jsonStr);
+		System.out.println(packageParams.toString());
 	}
 	
 	public static void testQuery() {

@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.jfinal.json.Json;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 素材管理
@@ -61,7 +61,7 @@ public class MediaApi {
 		mapData.put("title", title);
 		mapData.put("description", description);
 		
-		String jsonResult = HttpKit.post(url, JsonUtils.toJson(mapData));
+		String jsonResult = HttpKit.post(url, Json.getJson().toJson(mapData));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -90,7 +90,7 @@ public class MediaApi {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		dataMap.put("articles", mediaArticles);
 		
-		String jsonResult = HttpKit.post(url, JsonUtils.toJson(dataMap));
+		String jsonResult = HttpKit.post(url, Json.getJson().toJson(dataMap));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -136,7 +136,7 @@ public class MediaApi {
 		dataMap.put("title", title);
 		dataMap.put("introduction", introduction);
 		
-		String jsonResult = HttpUtils.upload(url, file, JsonUtils.toJson(dataMap));
+		String jsonResult = HttpUtils.upload(url, file, Json.getJson().toJson(dataMap));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -155,7 +155,7 @@ public class MediaApi {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		dataMap.put("media_id", media_id);
 		
-		return HttpUtils.download(url, JsonUtils.toJson(dataMap));
+		return HttpUtils.download(url, Json.getJson().toJson(dataMap));
 	}
 	
 	// 删除永久素材
@@ -172,7 +172,7 @@ public class MediaApi {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		dataMap.put("media_id", media_id);
 		
-		String jsonResult = HttpKit.post(url, JsonUtils.toJson(dataMap));
+		String jsonResult = HttpKit.post(url, Json.getJson().toJson(dataMap));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -193,7 +193,7 @@ public class MediaApi {
 		dataMap.put("index", index);
 		dataMap.put("articles", mediaArticles);
 		
-		String jsonResult = HttpKit.post(url, JsonUtils.toJson(dataMap));
+		String jsonResult = HttpKit.post(url, Json.getJson().toJson(dataMap));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -232,7 +232,7 @@ public class MediaApi {
 		dataMap.put("offset", offset);
 		dataMap.put("count", count);
 		
-		String jsonResult = HttpKit.post(url, JsonUtils.toJson(dataMap));
+		String jsonResult = HttpKit.post(url, Json.getJson().toJson(dataMap));
 		return new ApiResult(jsonResult);
 	}
 	

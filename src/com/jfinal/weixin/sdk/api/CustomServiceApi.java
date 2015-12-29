@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.jfinal.json.Json;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 多客服功能</br>
@@ -49,7 +49,7 @@ public class CustomServiceApi {
         params.put("nickname", nickname);
         params.put("password", password);
         
-        String jsonResult = HttpUtils.post(addKfAccountUrl + accessToken, JsonUtils.toJson(params));
+        String jsonResult = HttpUtils.post(addKfAccountUrl + accessToken, Json.getJson().toJson(params));
         return new ApiResult(jsonResult);
     }
     
@@ -70,7 +70,7 @@ public class CustomServiceApi {
         params.put("nickname", nickname);
         params.put("password", password);
         
-        String jsonResult = HttpUtils.post(updateKfAccountUrl + accessToken, JsonUtils.toJson(params));
+        String jsonResult = HttpUtils.post(updateKfAccountUrl + accessToken, Json.getJson().toJson(params));
         return new ApiResult(jsonResult);
     }
     
@@ -91,7 +91,7 @@ public class CustomServiceApi {
         params.put("nickname", nickname);
         params.put("password", password);
         
-        String jsonResult = HttpUtils.post(delKfAccountUrl + accessToken, JsonUtils.toJson(params));
+        String jsonResult = HttpUtils.post(delKfAccountUrl + accessToken, Json.getJson().toJson(params));
         return new ApiResult(jsonResult);
     }
     
@@ -131,7 +131,7 @@ public class CustomServiceApi {
      */
     private static ApiResult sendMsg(Map<String, Object> message) {
         String accessToken = AccessTokenApi.getAccessTokenStr();
-        String jsonResult = HttpUtils.post(customMessageUrl + accessToken, JsonUtils.toJson(message));
+        String jsonResult = HttpUtils.post(customMessageUrl + accessToken, Json.getJson().toJson(message));
         return new ApiResult(jsonResult);
     }
 

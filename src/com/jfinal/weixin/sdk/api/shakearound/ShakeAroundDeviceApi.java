@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.jfinal.json.Json;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.api.shakearound.bean.DeviceIdentifier;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 周边-设备管理
@@ -42,7 +42,7 @@ public class ShakeAroundDeviceApi {
 			data.put("poi_id", poiId);
 		}
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -60,7 +60,7 @@ public class ShakeAroundDeviceApi {
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("apply_id", applyId);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -79,7 +79,7 @@ public class ShakeAroundDeviceApi {
 		data.put("device_identifier", deviceIdentifier);
 		data.put("comment", comment);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -99,7 +99,7 @@ public class ShakeAroundDeviceApi {
 		data.put("device_identifier", deviceIdentifier);
 		data.put("poi_id", poiId);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -117,7 +117,7 @@ public class ShakeAroundDeviceApi {
 		data.put("device_identifier", deviceIdentifier);
 		data.put("type", 1);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -139,7 +139,7 @@ public class ShakeAroundDeviceApi {
 		data.put("begin", begin);
 		data.put("count", count);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -162,7 +162,7 @@ public class ShakeAroundDeviceApi {
 		data.put("begin", begin);
 		data.put("count", count);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -184,7 +184,7 @@ public class ShakeAroundDeviceApi {
 		data.put("device_identifier", deviceIdentifier);
 		data.put("page_ids", pageIds);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -205,7 +205,7 @@ public class ShakeAroundDeviceApi {
 		data.put("device_identifier", deviceIdentifier);
 		data.put("type", type);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -222,7 +222,7 @@ public class ShakeAroundDeviceApi {
 		Map<String, Object> groupData = new HashMap<String, Object>();
 		groupData.put("group_name", groupName);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(groupData));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(groupData));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -241,7 +241,7 @@ public class ShakeAroundDeviceApi {
 		groupData.put("group_id", groupId);
 		groupData.put("group_name", groupName);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(groupData));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(groupData));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -258,7 +258,7 @@ public class ShakeAroundDeviceApi {
 		Map<String, Object> groupData = new HashMap<String, Object>();
 		groupData.put("group_id", groupId);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(groupData));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(groupData));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -277,7 +277,7 @@ public class ShakeAroundDeviceApi {
 		groupData.put("begin", begin);
 		groupData.put("count", count);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(groupData));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(groupData));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -298,7 +298,7 @@ public class ShakeAroundDeviceApi {
 		groupData.put("begin", begin);
 		groupData.put("count", count);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(groupData));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(groupData));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -317,7 +317,7 @@ public class ShakeAroundDeviceApi {
 		groupData.put("group_id", groupId);
 		groupData.put("device_identifiers", deviceIdentifierList);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(groupData));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(groupData));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -336,7 +336,7 @@ public class ShakeAroundDeviceApi {
 		groupData.put("group_id", groupId);
 		groupData.put("device_identifiers", deviceIdentifierList);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(groupData));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(groupData));
 		return new ApiResult(jsonResult);
 	}
 	

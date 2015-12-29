@@ -3,11 +3,11 @@ package com.jfinal.weixin.sdk.api.shakearound;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.jfinal.json.Json;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 public class ShakeAroundPageApi {
 
@@ -50,7 +50,7 @@ public class ShakeAroundPageApi {
 		}
 		data.put("icon_url", iconUrl);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -96,7 +96,7 @@ public class ShakeAroundPageApi {
 		}
 		data.put("icon_url", iconUrl);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -116,7 +116,7 @@ public class ShakeAroundPageApi {
 		data.put("type", 1);
 		data.put("page_ids", pageIds);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -139,7 +139,7 @@ public class ShakeAroundPageApi {
 		data.put("begin", begin);
 		data.put("count", count);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -158,7 +158,7 @@ public class ShakeAroundPageApi {
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("page_id", pageId);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 }

@@ -4,11 +4,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.jfinal.json.Json;
 import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.api.shakearound.bean.DeviceIdentifier;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 数据统计接口
@@ -33,7 +33,7 @@ public class ShakeAroundStatisticsApi {
 		data.put("begin_date", beginDate.getTime() / 1000);
 		data.put("end_date", endDate.getTime() / 1000);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -55,7 +55,7 @@ public class ShakeAroundStatisticsApi {
 		data.put("date", date.getTime() / 1000);
 		data.put("page_index", pageIndex);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -76,7 +76,7 @@ public class ShakeAroundStatisticsApi {
 		data.put("begin_date", beginDate.getTime() / 1000);
 		data.put("end_date", endDate.getTime() / 1000);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	
@@ -98,7 +98,7 @@ public class ShakeAroundStatisticsApi {
 		data.put("date", date.getTime() / 1000);
 		data.put("page_index", pageIndex);
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 }

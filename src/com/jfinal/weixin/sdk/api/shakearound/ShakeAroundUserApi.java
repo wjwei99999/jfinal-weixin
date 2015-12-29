@@ -3,10 +3,10 @@ package com.jfinal.weixin.sdk.api.shakearound;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.jfinal.json.Json;
 import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 获取摇周边的设备及用户信息
@@ -40,7 +40,7 @@ public class ShakeAroundUserApi {
 			data.put("need_poi", 1);
 		}
 		
-		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
+		String jsonResult = HttpUtils.post(url, Json.getJson().toJson(data));
 		return new ApiResult(jsonResult);
 	}
 	

@@ -9,8 +9,8 @@ package com.jfinal.weixin.sdk.api;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.jfinal.json.Json;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 生成带参数的二维码 API
@@ -42,7 +42,7 @@ public class QrcodeApi
 		
 		actionInfo.put("scene", scene);
 		params.put("action_info", actionInfo);
-		return create(JsonUtils.toJson(params));
+		return create(Json.getJson().toJson(params));
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class QrcodeApi
 		
 		actionInfo.put("scene", scene);
 		params.put("action_info", actionInfo);
-		return create(JsonUtils.toJson(params));
+		return create(Json.getJson().toJson(params));
 	}
 	
 	/**
@@ -78,7 +78,7 @@ public class QrcodeApi
 		
 		actionInfo.put("scene", scene);
 		params.put("action_info", actionInfo);
-		return create(JsonUtils.toJson(params));
+		return create(Json.getJson().toJson(params));
 	}
 	
 	private static String showQrcodeUrl = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=";
