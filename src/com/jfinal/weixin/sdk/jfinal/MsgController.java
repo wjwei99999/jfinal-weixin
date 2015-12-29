@@ -134,7 +134,7 @@ public abstract class MsgController extends Controller {
 	@Before(NotAction.class)
 	public String getInMsgXml() {
 		if (inMsgXml == null) {
-			inMsgXml = HttpKit.readIncommingRequestData(getRequest());
+			inMsgXml = HttpKit.readData(getRequest());
 			
 			// 是否需要解密消息
 			if (ApiConfigKit.getApiConfig().isEncryptMessage()) {
