@@ -202,7 +202,7 @@ public class WeixinApiController extends ApiController {
 - 依赖jackson或fastjson
 
 ## 5、jar包依赖详细说明
-`详见请见`：[JFinal weixin 1.6 Jar依赖](http://git.oschina.net/jfinal/jfinal-weixin/wikis/JFinal-weixin-1.5-Jar%E4%BE%9D%E8%B5%96)
+`详见请见`：[JFinal weixin 1.6 Jar依赖](http://git.oschina.net/jfinal/jfinal-weixin/wikis/JFinal-weixin-1.6-Jar%E4%BE%9D%E8%B5%96)
 
 ## 6、WIKI持续更新中
 WIKI：http://git.oschina.net/jfinal/jfinal-weixin/wikis/home
