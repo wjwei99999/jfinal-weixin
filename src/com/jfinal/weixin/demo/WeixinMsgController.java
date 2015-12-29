@@ -7,7 +7,7 @@
 package com.jfinal.weixin.demo;
 
 import com.jfinal.kit.PropKit;
-import com.jfinal.log.Logger;
+import com.jfinal.log.Log;
 import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.jfinal.MsgControllerAdapter;
 import com.jfinal.weixin.sdk.msg.in.InImageMsg;
@@ -36,7 +36,7 @@ import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
  */
 public class WeixinMsgController extends MsgControllerAdapter {
 
-	static Logger logger = Logger.getLogger(WeixinMsgController.class);
+	static Log logger = Log.getLog(WeixinMsgController.class);
 	private static final String helpStr = "\t发送 help 可获得帮助，发送\"视频\" 可获取视频教程，发送 \"美女\" 可看美女，发送 music 可听音乐 ，发送新闻可看JFinal新版本消息。公众号功能持续完善中";
 
 	/**
