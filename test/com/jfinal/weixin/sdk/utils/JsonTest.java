@@ -3,13 +3,11 @@ package com.jfinal.weixin.sdk.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jfinal.json.Json;
 import com.jfinal.weixin.sdk.api.shakearound.bean.DeviceIdentifier;
 
 public class JsonTest {
 
-	static ObjectMapper objectMapper = new ObjectMapper();
-	
 	public static void main(String[] args) throws Exception {
 		List<DeviceIdentifier> deviceIdentifierList = new ArrayList<DeviceIdentifier>();
 		DeviceIdentifier dd = new DeviceIdentifier();
@@ -20,6 +18,6 @@ public class JsonTest {
 		deviceIdentifierList.add(dd);
 		deviceIdentifierList.add(dd);
 		
-		System.out.println(objectMapper.writeValueAsString(deviceIdentifierList));
+		System.out.println(Json.getJson().toJson(deviceIdentifierList));
 	}
 }
