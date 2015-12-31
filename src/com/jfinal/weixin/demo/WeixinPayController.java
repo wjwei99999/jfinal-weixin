@@ -11,6 +11,7 @@ import com.jfinal.weixin.sdk.api.PaymentApi;
 import com.jfinal.weixin.sdk.api.PaymentApi.TradeType;
 import com.jfinal.weixin.sdk.kit.IpKit;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
+import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 感谢 *半杯* 童鞋联调支付API
@@ -77,7 +78,7 @@ public class WeixinPayController extends Controller {
 		String packageSign = PaymentKit.createSign(packageParams, paternerKey);
 		packageParams.put("paySign", packageSign);
 		
-		String jsonStr = Json.getJson().toJson(packageParams);
+		String jsonStr = JsonUtils.toJson(packageParams);
 		setAttr("json", jsonStr);
 		System.out.println(jsonStr);
 		render("/jsp/pay.jsp");
