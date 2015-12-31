@@ -3,8 +3,8 @@ package com.jfinal.weixin.sdk.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.jfinal.json.Json;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
+import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 高级群发相关接口
@@ -62,7 +62,7 @@ public class MessageApi {
 		Map<String, String> mapData = new HashMap<String, String>();
 		mapData.put("msg_id", msgId);
 		
-		return post(getUrl, Json.getJson().toJson(mapData));
+		return post(getUrl, JsonUtils.toJson(mapData));
 	}
 	
 	private static String deleteUrl = "https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token=";
@@ -77,7 +77,7 @@ public class MessageApi {
 		Map<String, String> mapData = new HashMap<String, String>();
 		mapData.put("msg_id", msgId);
 		
-		return post(deleteUrl, Json.getJson().toJson(mapData));
+		return post(deleteUrl, JsonUtils.toJson(mapData));
 	}
 	
 }

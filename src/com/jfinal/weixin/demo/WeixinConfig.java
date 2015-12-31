@@ -38,8 +38,6 @@ public class WeixinConfig extends JFinalConfig {
 		
 		// ApiConfigKit 设为开发模式可以在开发阶段输出请求交互的 xml 与 json 数据
 		ApiConfigKit.setDevMode(me.getDevMode());
-		// 默认使用的jackson，下面示例是切换到fastJson
-//		me.setJsonFactory(new FastJsonFactory());
 	}
 	
 	public void configRoute(Routes me) {

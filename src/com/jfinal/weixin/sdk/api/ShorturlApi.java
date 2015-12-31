@@ -9,8 +9,8 @@ package com.jfinal.weixin.sdk.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.jfinal.json.Json;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
+import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 将一条长链接转成短链接 API
@@ -34,6 +34,6 @@ public class ShorturlApi
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("action", "long2short");
 		params.put("long_url", longUrl);
-		return getShorturl(Json.getJson().toJson(params));
+		return getShorturl(JsonUtils.toJson(params));
 	}
 }

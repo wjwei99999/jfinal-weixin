@@ -1,9 +1,5 @@
 package com.jfinal.weixin.sdk.api;
 
-import com.jfinal.json.JFinalJson;
-import com.jfinal.json.JacksonFactory;
-import com.jfinal.json.Json;
-import com.jfinal.json.JsonManager;
 import com.jfinal.weixin.sdk.cache.DefaultAccessTokenCache;
 import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
 
@@ -52,12 +48,6 @@ public class ApiConfigKit {
 	
 	public static IAccessTokenCache getAccessTokenCache() {
 		return ApiConfigKit.accessTokenCache;
-	}
-	
-	static {
-		if (Json.getJson() instanceof JFinalJson) {
-			JsonManager.me().setDefaultJsonFactory(JacksonFactory.me());
-		}
 	}
 
 }

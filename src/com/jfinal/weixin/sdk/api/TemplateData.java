@@ -2,7 +2,7 @@ package com.jfinal.weixin.sdk.api;
 
 import java.util.HashMap;
 
-import com.jfinal.json.Json;
+import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  *	模板消息数据对象
@@ -77,7 +77,7 @@ public class TemplateData {
 	 * @return
 	 */
 	public String build() {
-		return Json.getJson().toJson(this);
+		return JsonUtils.toJson(this);
 	}
 
 	class TemplateItem extends HashMap<String, Item> {

@@ -3,7 +3,6 @@ package com.jfinal.weixin.sdk.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jfinal.json.Json;
 import com.jfinal.weixin.sdk.api.shakearound.bean.DeviceIdentifier;
 
 public class JsonTest {
@@ -18,6 +17,6 @@ public class JsonTest {
 		deviceIdentifierList.add(dd);
 		deviceIdentifierList.add(dd);
 		
-		System.out.println(Json.getJson().toJson(deviceIdentifierList));
+		System.out.println(JsonUtils.toJson(deviceIdentifierList));
 	}
 }

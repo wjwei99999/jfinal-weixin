@@ -11,7 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
-import com.jfinal.json.Json;
+import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 封装 API 响应结果，将 json 字符串转换成 java 数据类型
@@ -40,7 +40,7 @@ public class ApiResult {
 		this.json = jsonStr;
 		
 		try {
-			Map<String, Object> temp = Json.getJson().parse(jsonStr, Map.class);
+			Map<String, Object> temp = JsonUtils.parse(jsonStr, Map.class);
 			this.attrs = temp;
 			
 			refreshAccessTokenIfInvalid();
