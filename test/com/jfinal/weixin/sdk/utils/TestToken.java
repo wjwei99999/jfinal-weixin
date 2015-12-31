@@ -2,6 +2,7 @@ package com.jfinal.weixin.sdk.utils;
 
 import java.io.Serializable;
 
+import com.jfinal.json.Json;
 import com.jfinal.weixin.sdk.utils.RetryUtils.ResultCheck;
 
 public class TestToken implements ResultCheck, Serializable {
@@ -35,6 +36,11 @@ public class TestToken implements ResultCheck, Serializable {
 
 	public void setTt(String tt) {
 		this.tt = tt;
+	}
+
+	@Override
+	public String getJson() {
+		return Json.getJson().toJson(this);
 	}
 	
 }
