@@ -34,7 +34,7 @@ public class RetryUtils {
 				v = retryCallable.call();
 			} catch (Exception e) {
 				if (log.isWarnEnabled()) {
-					log.warn("retry on " + (i + 1) + " times v = " + (v == null ? null : v.toString()) , e);
+					log.warn("retry on " + (i + 1) + " times v = " + (v == null ? null : v.getJson()) , e);
 				}
 			}
 			if (v.matching()) break;
@@ -60,7 +60,7 @@ public class RetryUtils {
 				v = retryCallable.call();
 			} catch (Exception e) {
 				if (log.isWarnEnabled()) {
-					log.warn("retry on " + (i + 1) + " times v = " + (v == null ? null : v.toString()) , e);
+					log.warn("retry on " + (i + 1) + " times v = " + (v == null ? null : v.getJson()) , e);
 				}
 			}
 			if (v.matching()) break;
