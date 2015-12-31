@@ -85,8 +85,8 @@ public final class JsonUtils {
 		else if (ClassUtils.isPresent("com.alibaba.fastjson.JSONObject", JsonUtils.class.getClassLoader())) {
 			jsonToUse = new FastJson();
 		}
-		// com.jfinal.kit.JsonKit
-		else if (ClassUtils.isPresent("com.jfinal.kit.JsonKit", JsonUtils.class.getClassLoader())) {
+		// JFinalJson
+		else {
 			jsonToUse = new JFinalJson();
 		}
 		json = jsonToUse;
@@ -99,7 +99,7 @@ public final class JsonUtils {
 	 */
 	public static String toJson(Object object) {
 		if (json == null) {
-			throw new RuntimeException("Jackson, Fastjson or JsonKit not supported");
+			throw new RuntimeException("Jackson, Fastjson or JFinalJson not supported");
 		}
 		return json.toJson(object);
 	}
