@@ -7,7 +7,6 @@ import java.util.Map;
 
 import com.jfinal.json.FastJson;
 import com.jfinal.json.JFinalJson;
-import com.jfinal.json.Jackson;
 import com.jfinal.json.Json;
 import com.jfinal.plugin.activerecord.CPI;
 import com.jfinal.plugin.activerecord.Model;
@@ -79,7 +78,7 @@ public final class JsonUtils {
 		Json jsonToUse = null;
 		// com.fasterxml.jackson.databind.ObjectMapper?
 		if (ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", JsonUtils.class.getClassLoader())) {
-			jsonToUse = new Jackson();
+			jsonToUse = new JsonUtils.Jackson();
 		}
 		// com.alibaba.fastjson.JSONObject?
 		else if (ClassUtils.isPresent("com.alibaba.fastjson.JSONObject", JsonUtils.class.getClassLoader())) {
@@ -91,6 +90,38 @@ public final class JsonUtils {
 		}
 		json = jsonToUse;
 	}
+	
+	/**
+	 * 解决微信特殊字符的乱码
+	 */
+	private static class Jackson extends Json {
+		private final com.fasterxml.jackson.databind.ObjectMapper objectMapper;
+		
+		public Jackson() {
+			this.objectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
+			this.objectMapper.configure(com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
+			this.objectMapper.configure(com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER, true);
+		}
+		
+		@Override
+		public String toJson(Object object) {
+			try {
+				return objectMapper.writeValueAsString(object);
+			} catch (Exception e) {
+				throw e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
+			}
+		}
+		
+		@Override
+		public <T> T parse(String jsonString, Class<T> type) {
+			try {
+				return objectMapper.readValue(jsonString, type);
+			} catch (Exception e) {
+				throw e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
+			}
+		}
+		
+	} 
 	
 	/**
 	 * 将 Object 转为json字符串
