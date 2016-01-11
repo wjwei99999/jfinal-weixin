@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-import java.util.UUID;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -24,10 +23,6 @@ public class PaymentKit {
 	
 	private static final String CHARSET = "UTF-8";
 	
-	public static String getUUID() {
-		return UUID.randomUUID().toString().replace("-", "");
-	}
-	
 	/**
 	 * 组装签名的字段
 	 * @param params 参数
@@ -37,8 +32,6 @@ public class PaymentKit {
 	public static String packageSign(Map<String, String> params, boolean urlEncoder) {
 		// 先将参数以其参数名的字典序升序进行排序
 		TreeMap<String, String> sortedParams = new TreeMap<String, String>(params);
-		// 去除参与的参数sign
-		sortedParams.remove("sign");
 		// 遍历排序后的字典，将所有参数按"key=value"格式拼接在一起
 		StringBuilder sb = new StringBuilder();
 		boolean first = true;
@@ -67,7 +60,7 @@ public class PaymentKit {
 	 * @return String
 	 * @throws UnsupportedEncodingException
 	 */
-	private static String urlEncode(String src) throws UnsupportedEncodingException {
+	public static String urlEncode(String src) throws UnsupportedEncodingException {
 		return URLEncoder.encode(src, CHARSET).replace("+", "%20");
 	}
 	
@@ -76,6 +69,8 @@ public class PaymentKit {
 	 * @return
 	 */
 	public static String createSign(Map<String, String> params, String paternerKey) {
+		// 去除参与的参数sign
+		params.remove("sign");
 		String stringA = packageSign(params, false);
 		String stringSignTemp = stringA + "&key=" + paternerKey;
 		return HashKit.md5(stringSignTemp).toUpperCase();

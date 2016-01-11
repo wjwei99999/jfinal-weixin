@@ -1,5 +1,6 @@
 package com.jfinal.weixin.sdk.api;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,13 +20,14 @@ public class PaymentApi {
 	
 	/**
 	 * 交易类型枚举
+	 * WAP的文档：https://pay.weixin.qq.com/wiki/doc/api/wap.php?chapter=15_1
 	 * @author L.cm
 	 * email: 596392912@qq.com
 	 * site:http://www.dreamlu.net
 	 * @date 2015年10月27日 下午9:46:27
 	 */
 	public static enum TradeType {
-		JSAPI, NATIVE, APP
+		JSAPI, NATIVE, APP, WAP
 	}
 	
 	/**
@@ -40,11 +42,40 @@ public class PaymentApi {
 	 * 支付相关请求
 	 */
 	private static Map<String, String> request(String url, Map<String, String> params, String paternerKey) {
-		params.put("nonce_str", PaymentKit.getUUID());
+		params.put("nonce_str", System.currentTimeMillis() + "");
 		String sign = PaymentKit.createSign(params, paternerKey);
 		params.put("sign", sign);
 		String xmlStr = HttpUtils.post(url, PaymentKit.toXml(params));
 		return PaymentKit.xmlToMap(xmlStr);
+	}
+	
+	/*
+	 * 文档说明：https://pay.weixin.qq.com/wiki/doc/api/wap.php?chapter=15_4
+	 * 
+	 * 公众账号ID 		appid		是	String(32)	wx8888888888888888	微信分配的公众账号ID
+	 * 随机字符串 		noncestr	是	String(32)	5K8264ILTKCH16CQ2502SI8ZNMTM67VS	随机字符串，不长于32位。推荐随机数生成算法
+	 * 订单详情扩展字符串	package		是	String(32)	WAP	扩展字段，固定填写WAP
+	 * 预支付交易会话标识	prepayid	是	String(64)	wx201410272009395522657a690389285100	微信统一下单接口返回的预支付回话标识，用于后续接口调用中使用，该值有效期为2小时
+	 * 签名			     sign		是	String(32)	C380BEC2BFD727A4B6845133519F3AD6	签名，详见签名生成算法
+	 * 时间戳			timestamp	是	String(32)	1414561699	当前的时间，其他详见时间戳规则
+	 * 
+	 */
+	public static String getDeepLink(String appId, String prepayId, String paternerKey) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("appid", appId);
+		params.put("noncestr", System.currentTimeMillis() + "");
+		params.put("package", "WAP");
+		params.put("prepayid", prepayId);
+		params.put("timestamp", System.currentTimeMillis() / 1000 + "");
+		String sign = PaymentKit.createSign(params, paternerKey);
+		params.put("sign", sign);
+
+		String string1 = PaymentKit.packageSign(params, true);
+
+		String string2 = "";
+		try { string2 = PaymentKit.urlEncode(string1); } catch (UnsupportedEncodingException e) {}
+
+		return "weixin://wap/pay?" + string2;
 	}
 	
 	// 文档地址：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_2

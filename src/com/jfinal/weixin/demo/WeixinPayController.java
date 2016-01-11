@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.jfinal.core.Controller;
-import com.jfinal.json.Json;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.PaymentApi;
