@@ -144,7 +144,7 @@ public class PaymentApi {
 	 * @throws Exception 
 	 */
 	public static Map<String, String> refund(Map<String, String> params, String paternerKey, String certPath) {
-		params.put("nonce_str", PaymentKit.getUUID());
+		params.put("nonce_str", System.currentTimeMillis() + "");
 		String sign = PaymentKit.createSign(params, paternerKey);
 		params.put("sign", sign);
 		String partner = params.get("mch_id");
