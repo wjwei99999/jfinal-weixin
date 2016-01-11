@@ -69,10 +69,9 @@ public class PaymentKit {
 	 * @return
 	 */
 	public static String createSign(Map<String, String> params, String paternerKey) {
-		Map<String, String> signParams = new HashMap<String, String>(params);
-		// 先去除sign
-		signParams.remove("sign");
-		String stringA = packageSign(signParams, false);
+		// 生成签名前先去除sign
+		params.remove("sign");
+		String stringA = packageSign(params, false);
 		String stringSignTemp = stringA + "&key=" + paternerKey;
 		return HashKit.md5(stringSignTemp).toUpperCase();
 	}
@@ -84,8 +83,9 @@ public class PaymentKit {
 	 * @return
 	 */
 	public static boolean verifyNotify(Map<String, String> params, String paternerKey){
-		String sign = PaymentKit.createSign(params, paternerKey);
-		return sign.equals(params.get("sign"));
+		String sign = params.get("sign");
+		String localSign = PaymentKit.createSign(params, paternerKey);
+		return sign.equals(localSign);
 	}
 	
 	/**
