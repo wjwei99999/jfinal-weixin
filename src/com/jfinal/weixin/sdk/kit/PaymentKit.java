@@ -69,9 +69,10 @@ public class PaymentKit {
 	 * @return
 	 */
 	public static String createSign(Map<String, String> params, String paternerKey) {
-		// 去除参与的参数sign
-		params.remove("sign");
-		String stringA = packageSign(params, false);
+		Map<String, String> signParams = new HashMap<String, String>(params);
+		// 先去除sign
+		signParams.remove("sign");
+		String stringA = packageSign(signParams, false);
 		String stringSignTemp = stringA + "&key=" + paternerKey;
 		return HashKit.md5(stringSignTemp).toUpperCase();
 	}
