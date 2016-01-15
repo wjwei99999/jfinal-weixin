@@ -21,16 +21,6 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 	</xml>
  */
 public class OutImageMsg extends OutMsg {
-	public static final String TEMPLATE = 
-			"<xml>\n" +
-			"<ToUserName><![CDATA[${__msg.toUserName}]]></ToUserName>\n" +
-			"<FromUserName><![CDATA[${__msg.fromUserName}]]></FromUserName>\n" +
-			"<CreateTime>${__msg.createTime}</CreateTime>\n" +
-			"<MsgType><![CDATA[${__msg.msgType}]]></MsgType>\n" +
-				"<Image>\n" +
-					"<MediaId><![CDATA[${__msg.mediaId}]]></MediaId>\n" +
-				"</Image>\n" +
-			"</xml>";
 	
 	private String mediaId;
 	
@@ -43,6 +33,13 @@ public class OutImageMsg extends OutMsg {
 		this.msgType = "image";
 	}
 	
+	@Override
+	protected String subXml() {
+		return "<Image>\n"
+				+ "<MediaId><![CDATA[" + mediaId + "]]></MediaId>\n"
+			+  "</Image>\n";
+	}
+	
 	public String getMediaId() {
 		return mediaId;
 	}
@@ -50,6 +47,7 @@ public class OutImageMsg extends OutMsg {
 	public void setMediaId(String mediaId) {
 		this.mediaId = mediaId;
 	}
+
 }
 
 

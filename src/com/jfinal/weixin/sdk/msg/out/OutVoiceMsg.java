@@ -21,17 +21,7 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 	</xml>
  */
 public class OutVoiceMsg extends OutMsg {
-	public static final String TEMPLATE =
-			"<xml>\n" +
-				"<ToUserName><![CDATA[${__msg.toUserName}]]></ToUserName>\n" +
-				"<FromUserName><![CDATA[${__msg.fromUserName}]]></FromUserName>\n" +
-				"<CreateTime>${__msg.createTime}</CreateTime>\n" +
-				"<MsgType><![CDATA[${__msg.msgType}]]></MsgType>\n" +
-					"<Voice>\n" +
-						"<MediaId><![CDATA[${__msg.mediaId}]]></MediaId>\n" +
-					"</Voice>\n" +
-			"</xml>";
-			
+	
 	private String mediaId;
 	
 	public OutVoiceMsg() {
@@ -43,6 +33,13 @@ public class OutVoiceMsg extends OutMsg {
 		this.msgType = "voice";
 	}
 	
+	@Override
+	protected String subXml() {
+		return "<Voice>\n"
+				+ "<MediaId><![CDATA[" + mediaId + "]]></MediaId>\n"
+			+  "</Voice>\n";
+	}
+	
 	public String getMediaId() {
 		return mediaId;
 	}
@@ -50,6 +47,7 @@ public class OutVoiceMsg extends OutMsg {
 	public void setMediaId(String mediaId) {
 		this.mediaId = mediaId;
 	}
+
 }
 
 

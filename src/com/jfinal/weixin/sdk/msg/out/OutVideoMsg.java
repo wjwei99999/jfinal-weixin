@@ -23,18 +23,6 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 	</xml>
  */
 public class OutVideoMsg extends OutMsg {
-	public static final String TEMPLATE =
-			"<xml>\n" +
-			"<ToUserName><![CDATA[${__msg.toUserName}]]></ToUserName>\n" +
-			"<FromUserName><![CDATA[${__msg.fromUserName}]]></FromUserName>\n" +
-			"<CreateTime>${__msg.createTime}</CreateTime>\n" +
-			"<MsgType><![CDATA[${__msg.msgType}]]></MsgType>\n" +
-				"<Video>\n" +
-					"<MediaId><![CDATA[${__msg.mediaId}]]></MediaId>\n" +
-					"<Title><![CDATA[${(__msg.title)!}]]></Title>\n" +
-					"<Description><![CDATA[${(__msg.description)!}]]></Description>\n" +
-				"</Video>\n" +
-			"</xml>";
 	
 	private String mediaId;
 	private String title;		// 不是必须
@@ -47,6 +35,15 @@ public class OutVideoMsg extends OutMsg {
 	public OutVideoMsg(InMsg inMsg) {
 		super(inMsg);
 		this.msgType = "video";
+	}
+	
+	@Override
+	protected String subXml() {
+		return "<Video>\n"
+				+ "<MediaId><![CDATA[" + mediaId + "]]></MediaId>\n"
+				+ "<Title><![CDATA[" + title + "]]></Title>\n"
+				+ "<Description><![CDATA[" + description + "]]></Description>\n"
+			+  "</Video>\n";
 	}
 	
 	public String getMediaId() {
@@ -72,6 +69,7 @@ public class OutVideoMsg extends OutMsg {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 }
 
 

@@ -54,6 +54,24 @@ public abstract class OutMsg {
 		
 	}
 	
+	protected abstract String subXml();
+	
+	/**
+	 * 转换xml
+	 */
+	public String toXml() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<xml>\n");
+		sb.append("<ToUserName><![CDATA[").append(toUserName).append("]]></ToUserName>\n");
+		sb.append("<CreateTime>").append(createTime).append("</CreateTime>\n");
+		sb.append("<MsgType><![CDATA[").append(msgType).append("]]></MsgType>\n");
+		sb.append(subXml());
+		sb.append("</xml>");
+		
+		return sb.toString();
+	}
+	
 	public Integer now() {
 		return (int)(System.currentTimeMillis() / 1000);
 	}

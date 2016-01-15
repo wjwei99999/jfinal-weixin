@@ -58,6 +58,21 @@ public class OutMusicMsg extends OutMsg {
 		this.msgType = "music";
 	}
 	
+	@Override
+	protected String subXml() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<Music>\n");
+		sb.append("<Title><![CDATA[").append(title).append("]]></Title>\n");
+		sb.append("<Description><![CDATA[").append(description).append("]]></Description>\n");
+		sb.append("<MusicUrl><![CDATA[").append(musicUrl).append("]]></MusicUrl>\n");
+		sb.append("<HQMusicUrl><![CDATA[").append(hqMusicUrl).append("]]></HQMusicUrl>\n");
+		sb.append("<FuncFlag>").append(funcFlag).append("</FuncFlag>\n");
+		sb.append("</Music>\n");
+		
+		return sb.toString();
+	}
+	
 	public String getTitle() {
 		return title;
 	}

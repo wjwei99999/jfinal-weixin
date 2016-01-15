@@ -18,13 +18,6 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 	</xml>
  */
 public class OutCustomMsg extends OutMsg {
-	public static final String TEMPLATE =
-			"<xml>\n" +
-			"<ToUserName><![CDATA[${__msg.toUserName}]]></ToUserName>\n" +
-			"<FromUserName><![CDATA[${__msg.fromUserName}]]></FromUserName>\n" +
-			"<CreateTime>${__msg.createTime}</CreateTime>\n" +
-			"<MsgType><![CDATA[${__msg.msgType}]]></MsgType>\n" +
-			"</xml>";
 
 	private String content;
 
@@ -37,6 +30,11 @@ public class OutCustomMsg extends OutMsg {
 		this.msgType = "transfer_customer_service";
 	}
 	
+	@Override
+	protected String subXml() {
+		return "";
+	}
+	
 	public String getContent() {
 		return content;
 	}
@@ -45,6 +43,7 @@ public class OutCustomMsg extends OutMsg {
 		this.content = content;
 		return this;
 	}
+
 }
 
 

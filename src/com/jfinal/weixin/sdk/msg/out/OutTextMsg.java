@@ -19,14 +19,6 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 	</xml>
  */
 public class OutTextMsg extends OutMsg {
-	public static final String TEMPLATE =
-			"<xml>\n" +
-			"<ToUserName><![CDATA[${__msg.toUserName}]]></ToUserName>\n" +
-			"<FromUserName><![CDATA[${__msg.fromUserName}]]></FromUserName>\n" +
-			"<CreateTime>${__msg.createTime}</CreateTime>\n" +
-			"<MsgType><![CDATA[${__msg.msgType}]]></MsgType>\n" +
-				"<Content><![CDATA[${__msg.content}]]></Content>\n" +
-			"</xml>";
 	
 	private String content;
 	
@@ -39,6 +31,11 @@ public class OutTextMsg extends OutMsg {
 		this.msgType = "text";
 	}
 	
+	@Override
+	protected String subXml() {
+		return "<Content><![CDATA[" + content + "]]></Content>\n";
+	}
+	
 	public String getContent() {
 		return content;
 	}
@@ -47,6 +44,7 @@ public class OutTextMsg extends OutMsg {
 		this.content = content;
 		return this;
 	}
+
 }
 
 

@@ -15,7 +15,6 @@ import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.kit.MsgEncryptKit;
 import com.jfinal.weixin.sdk.msg.InMsgParser;
-import com.jfinal.weixin.sdk.msg.OutMsgXmlBuilder;
 import com.jfinal.weixin.sdk.msg.in.InImageMsg;
 import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
 import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
@@ -109,7 +108,7 @@ public abstract class MsgController extends Controller {
 	 * 在接收到微信服务器的 InMsg 消息后后响应 OutMsg 消息
 	 */
 	public void render(OutMsg outMsg) {
-		String outMsgXml = OutMsgXmlBuilder.build(outMsg);
+		String outMsgXml = outMsg.toXml();
 		// 开发模式向控制台输出即将发送的 OutMsg 消息的 xml 内容
 		if (ApiConfigKit.isDevMode()) {
 			System.out.println("发送消息:");

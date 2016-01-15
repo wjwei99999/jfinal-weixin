@@ -8,6 +8,7 @@ package com.jfinal.weixin.sdk.msg.out;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.jfinal.weixin.sdk.msg.in.InMsg;
 
 /**
@@ -36,26 +37,7 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 	</xml> 
  */
 public class OutNewsMsg extends OutMsg {
-	public static final String TEMPLATE =
-			"<xml>\n" +
-			"<ToUserName><![CDATA[${__msg.toUserName}]]></ToUserName>\n" +
-			"<FromUserName><![CDATA[${__msg.fromUserName}]]></FromUserName>\n" +
-			"<CreateTime>${__msg.createTime}</CreateTime>\n" +
-			"<MsgType><![CDATA[${__msg.msgType}]]></MsgType>\n" +
-				"<ArticleCount>${__msg.getArticleCount()}</ArticleCount>\n" +
-				"<Articles>\n" +
-					"<#list __msg.getArticles() as x>\n"+
-						"<item>\n" +
-							"<Title><![CDATA[${(x.title)!}]]></Title>\n" + 
-							"<Description><![CDATA[${(x.description)!}]]></Description>\n" +
-							"<PicUrl><![CDATA[${(x.picUrl)!}]]></PicUrl>\n" +
-							"<Url><![CDATA[${(x.url)!}]]></Url>\n" +
-						"</item>\n" +
-					"</#list>\n" +
-				"</Articles>\n" +
-			"</xml>";
 	
-	// private Integer articleCount;
 	private List<News> articles = new ArrayList<News>();
 	
 	public OutNewsMsg() {
@@ -67,14 +49,30 @@ public class OutNewsMsg extends OutMsg {
 		this.msgType = "news";
 	}
 	
-	public Integer getArticleCount() {
-		// return articleCount;
-		return articles.size();
+	@Override
+	protected String subXml() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<ArticleCount>").append(getArticleCount()).append("</ArticleCount>\n");
+		sb.append("<Articles>\n");
+		for (News x : articles) {
+			sb.append("<item>\n");
+			
+			sb.append("<Title><![CDATA[").append(x.getTitle()).append("]]></Title>\n");
+			sb.append("<Description><![CDATA[").append(x.getDescription()).append("]]></Description>\n");
+			sb.append("<PicUrl><![CDATA[").append(x.getPicUrl()).append("]]></PicUrl>\n");
+			sb.append("<Url><![CDATA[").append(x.getUrl()).append("]]></Url>\n");
+			
+			sb.append("</item>\n");
+		}
+		sb.append("</Articles>\n");
+		
+		return sb.toString();
 	}
 	
-//	public void setArticleCount(Integer articleCount) {
-//		this.articleCount = articleCount;
-//	}
+	public Integer getArticleCount() {
+		return articles.size();
+	}
 	
 	public List<News> getArticles() {
 		return articles;
@@ -100,6 +98,7 @@ public class OutNewsMsg extends OutMsg {
 		this.articles.add(news);
 		return this;
 	}
+
 }
 
 

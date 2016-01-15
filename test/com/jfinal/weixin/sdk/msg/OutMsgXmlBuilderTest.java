@@ -10,7 +10,7 @@ public class OutMsgXmlBuilderTest {
 		msg.setFromUserName("from james");
 		msg.setCreateTime(msg.now());
 		msg.setContent("jfinal weixin 极速开发平台碉堡了");
-		String xml = OutMsgXmlBuilder.build(msg);
-		System.out.println(xml);
+		
+		System.out.println(msg.toXml());
 	}
 }
