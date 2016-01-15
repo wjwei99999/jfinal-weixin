@@ -64,6 +64,7 @@ public abstract class OutMsg {
 		
 		sb.append("<xml>\n");
 		sb.append("<ToUserName><![CDATA[").append(toUserName).append("]]></ToUserName>\n");
+		sb.append("<FromUserName><![CDATA[").append(fromUserName).append("]]></FromUserName>\n");
 		sb.append("<CreateTime>").append(createTime).append("</CreateTime>\n");
 		sb.append("<MsgType><![CDATA[").append(msgType).append("]]></MsgType>\n");
 		sb.append(subXml());
