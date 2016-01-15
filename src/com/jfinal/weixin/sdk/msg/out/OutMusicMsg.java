@@ -20,28 +20,13 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 				<Description><![CDATA[DESCRIPTION]]></Description>
 				<MusicUrl><![CDATA[MUSIC_Url]]></MusicUrl>
 				<HQMusicUrl><![CDATA[HQ_MUSIC_Url]]></HQMusicUrl>
-				<ThumbMediaId><![CDATA[media_id]]></ThumbMediaId>
+				// 官司方文档错误，无此标记: "<ThumbMediaId><![CDATA[${__msg.thumbMediaId}]]></ThumbMediaId>\n" +
+				"<FuncFlag>${__msg.funcFlag}</FuncFlag>\n" +
 			</Music>
 	</xml>
 */
 public class OutMusicMsg extends OutMsg {
 	
-	public static final String TEMPLATE =
-		"<xml>\n" +
-			"<ToUserName><![CDATA[${__msg.toUserName}]]></ToUserName>\n" +
-			"<FromUserName><![CDATA[${__msg.fromUserName}]]></FromUserName>\n" +
-			"<CreateTime>${__msg.createTime}</CreateTime>\n" +
-			"<MsgType><![CDATA[${__msg.msgType}]]></MsgType>\n" +
-				"<Music>\n" +
-					"<Title><![CDATA[${(__msg.title)!}]]></Title>\n" +
-					"<Description><![CDATA[${(__msg.description)!}]]></Description>\n" +
-					"<MusicUrl><![CDATA[${(__msg.musicUrl)!}]]></MusicUrl>\n" +
-					"<HQMusicUrl><![CDATA[${(__msg.hqMusicUrl)!}]]></HQMusicUrl>\n" +
-					// 官司方文档错误，无此标记: "<ThumbMediaId><![CDATA[${__msg.thumbMediaId}]]></ThumbMediaId>\n" +
-					"<FuncFlag>${__msg.funcFlag}</FuncFlag>\n" +
-				"</Music>\n" +
-		"</xml>";
-			
 	private String title;		// 不是必须
 	private String description;	// 不是必须
 	private String musicUrl;	// 不是必须

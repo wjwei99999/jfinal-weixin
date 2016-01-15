@@ -33,7 +33,13 @@ public class OutTextMsg extends OutMsg {
 	
 	@Override
 	protected String subXml() {
-		return "<Content><![CDATA[" + content + "]]></Content>\n";
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<Content><![CDATA[").append(content).append("]]></Content>\n");
+		
+//		return "<Content><![CDATA[" + content + "]]></Content>\n";
+		
+		return sb.toString();
 	}
 	
 	public String getContent() {

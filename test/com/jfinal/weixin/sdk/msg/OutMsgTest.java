@@ -1,10 +1,13 @@
 package com.jfinal.weixin.sdk.msg;
 
+import org.junit.Test;
+
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
 
-public class OutMsgXmlBuilderTest {
+public class OutMsgTest {
 
-	public static void main(String[] args) {
+	@Test
+	public void test1() {
 		OutTextMsg msg = new OutTextMsg();
 		msg.setToUserName("to james");
 		msg.setFromUserName("from james");
@@ -13,4 +16,5 @@ public class OutMsgXmlBuilderTest {
 		
 		System.out.println(msg.toXml());
 	}
+	
 }
