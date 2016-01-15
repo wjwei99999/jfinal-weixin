@@ -35,6 +35,9 @@ public class OutVoiceMsg extends OutMsg {
 	
 	@Override
 	protected String subXml() {
+		if (null == mediaId) {
+			throw new NullPointerException("mediaId is null");
+		}
 		return "<Voice>\n"
 				+ "<MediaId><![CDATA[" + mediaId + "]]></MediaId>\n"
 			+  "</Voice>\n";

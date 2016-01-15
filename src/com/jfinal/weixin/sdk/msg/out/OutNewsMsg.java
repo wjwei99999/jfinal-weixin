@@ -58,10 +58,10 @@ public class OutNewsMsg extends OutMsg {
 		for (News x : articles) {
 			sb.append("<item>\n");
 			
-			sb.append("<Title><![CDATA[").append(x.getTitle()).append("]]></Title>\n");
-			sb.append("<Description><![CDATA[").append(x.getDescription()).append("]]></Description>\n");
-			sb.append("<PicUrl><![CDATA[").append(x.getPicUrl()).append("]]></PicUrl>\n");
-			sb.append("<Url><![CDATA[").append(x.getUrl()).append("]]></Url>\n");
+			sb.append("<Title><![CDATA[").append(nullToBlank(x.getTitle())).append("]]></Title>\n");
+			sb.append("<Description><![CDATA[").append(nullToBlank(x.getDescription())).append("]]></Description>\n");
+			sb.append("<PicUrl><![CDATA[").append(nullToBlank(x.getPicUrl())).append("]]></PicUrl>\n");
+			sb.append("<Url><![CDATA[").append(nullToBlank(x.getUrl())).append("]]></Url>\n");
 			
 			sb.append("</item>\n");
 		}

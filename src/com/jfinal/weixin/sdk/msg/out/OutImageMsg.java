@@ -35,6 +35,9 @@ public class OutImageMsg extends OutMsg {
 	
 	@Override
 	protected String subXml() {
+		if (null == mediaId) {
+			throw new NullPointerException("mediaId is null");
+		}
 		return "<Image>\n"
 				+ "<MediaId><![CDATA[" + mediaId + "]]></MediaId>\n"
 			+  "</Image>\n";

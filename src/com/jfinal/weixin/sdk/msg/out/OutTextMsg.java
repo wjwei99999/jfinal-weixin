@@ -33,13 +33,10 @@ public class OutTextMsg extends OutMsg {
 	
 	@Override
 	protected String subXml() {
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("<Content><![CDATA[").append(content).append("]]></Content>\n");
-		
-//		return "<Content><![CDATA[" + content + "]]></Content>\n";
-		
-		return sb.toString();
+		if (null == content) {
+			throw new NullPointerException("content is null");
+		}
+		return "<Content><![CDATA[" + content + "]]></Content>\n";
 	}
 	
 	public String getContent() {

@@ -48,10 +48,10 @@ public class OutMusicMsg extends OutMsg {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<Music>\n");
-		sb.append("<Title><![CDATA[").append(title).append("]]></Title>\n");
-		sb.append("<Description><![CDATA[").append(description).append("]]></Description>\n");
-		sb.append("<MusicUrl><![CDATA[").append(musicUrl).append("]]></MusicUrl>\n");
-		sb.append("<HQMusicUrl><![CDATA[").append(hqMusicUrl).append("]]></HQMusicUrl>\n");
+		sb.append("<Title><![CDATA[").append(nullToBlank(title)).append("]]></Title>\n");
+		sb.append("<Description><![CDATA[").append(nullToBlank(description)).append("]]></Description>\n");
+		sb.append("<MusicUrl><![CDATA[").append(nullToBlank(musicUrl)).append("]]></MusicUrl>\n");
+		sb.append("<HQMusicUrl><![CDATA[").append(nullToBlank(hqMusicUrl)).append("]]></HQMusicUrl>\n");
 		sb.append("<FuncFlag>").append(funcFlag).append("</FuncFlag>\n");
 		sb.append("</Music>\n");
 		

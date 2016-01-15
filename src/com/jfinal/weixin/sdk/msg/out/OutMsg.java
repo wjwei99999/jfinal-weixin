@@ -73,6 +73,10 @@ public abstract class OutMsg {
 		return sb.toString();
 	}
 	
+	protected String nullToBlank(String str) {
+		return null == str ? "" : str;
+	}
+	
 	public Integer now() {
 		return (int)(System.currentTimeMillis() / 1000);
 	}
