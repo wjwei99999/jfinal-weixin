@@ -22,7 +22,7 @@ import com.jfinal.weixin.sdk.utils.RetryUtils;
 public class SnsAccessTokenApi
 {
     private static String url = "https://api.weixin.qq.com/sns/oauth2/access_token?grant_type=authorization_code";
-    private static String authorize_uri = "http://open.weixin.qq.com/connect/oauth2/authorize";
+    private static String authorize_uri = "https://open.weixin.qq.com/connect/oauth2/authorize";
     private static String qrconnect_url = "https://open.weixin.qq.com/connect/qrconnect";
     
     /**
@@ -44,11 +44,11 @@ public class SnsAccessTokenApi
      * @param snsapiBase snsapi_base（不弹出授权页面，只能拿到用户openid）snsapi_userinfo（弹出授权页面，这个可以通过 openid 拿到昵称、性别、所在地）
      * @return url
      */
-    public static String getAuthorizeURL(String appId, String redirect_uri, String state, boolean snsapiBase) {
+    public static String getAuthorizeURL(String appId, String redirectUri, String state, boolean snsapiBase) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("appid", appId);
         params.put("response_type", "code");
-        params.put("redirect_uri", redirect_uri);
+        params.put("redirect_uri", redirectUri);
         // snsapi_base（不弹出授权页面，只能拿到用户openid）
         // snsapi_userinfo（弹出授权页面，这个可以通过 openid 拿到昵称、性别、所在地）
         if (snsapiBase) {
