@@ -123,6 +123,7 @@
 						<exclude>a_little_config_pro.txt</exclude>
 						<exclude>ehcache.xml</exclude>
 						<exclude>log4j.properties</exclude>
+						<exclude>com/jfinal/weixin/demo/*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
