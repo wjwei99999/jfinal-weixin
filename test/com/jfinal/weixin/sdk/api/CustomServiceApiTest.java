@@ -15,6 +15,8 @@ public class CustomServiceApiTest {
 		String nickname = "客服1";
 		String password = HashKit.md5(nickname);
 		
+		System.out.println(CustomServiceApi.getKfList());
+		
 		System.out.println(CustomServiceApi.addKfAccount(kf_account, nickname, password));
 		
 		Thread.sleep(1000);
@@ -23,7 +25,7 @@ public class CustomServiceApiTest {
 		
 		Thread.sleep(1000);
 		
-		System.out.println(CustomServiceApi.delKfAccount(kf_account, nickname, password));
+		System.out.println(CustomServiceApi.delKfAccount(kf_account));
 	}
 	
 	// 请找有权限的帐号测试
