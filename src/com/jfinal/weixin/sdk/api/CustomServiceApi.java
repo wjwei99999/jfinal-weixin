@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.jfinal.weixin.sdk.kit.ParaMap;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
@@ -74,24 +75,21 @@ public class CustomServiceApi {
         return new ApiResult(jsonResult);
     }
     
-    private static String delKfAccountUrl = "https://api.weixin.qq.com/customservice/kfaccount/del?access_token=";
+    private static String delKfAccountUrl = "https://api.weixin.qq.com/customservice/kfaccount/del";
     
     /**
      * 删除客服帐号
      * @param kf_account 完整客服账号，格式为：账号前缀@公众号微信号
-     * @param nickname 客服昵称，最长6个汉字或12个英文字符
-     * @param password 客服账号登录密码，格式为密码明文的32位加密MD5值。该密码仅用于在公众平台官网的多客服功能中使用，若不使用多客服功能，则不必设置密码
      * @return ApiResult
      */
-    public static ApiResult delKfAccount(String kf_account, String nickname, String password) {
+    public static ApiResult delKfAccount(String kf_account) {
         String accessToken = AccessTokenApi.getAccessTokenStr();
         
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("kf_account", kf_account);
-        params.put("nickname", nickname);
-        params.put("password", password);
+        String jsonResult = HttpUtils.get(delKfAccountUrl, ParaMap
+                .create("access_token", accessToken)
+                .put("kf_account", kf_account)
+                .getData());
         
-        String jsonResult = HttpUtils.post(delKfAccountUrl + accessToken, JsonUtils.toJson(params));
         return new ApiResult(jsonResult);
     }
     
