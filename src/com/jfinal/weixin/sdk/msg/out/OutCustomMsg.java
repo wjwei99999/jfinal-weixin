@@ -6,20 +6,31 @@
 
 package com.jfinal.weixin.sdk.msg.out;
 
+import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.msg.in.InMsg;
 
 /**
-    转发多客服消息
+	转发多客服消息
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
 		<FromUserName><![CDATA[fromUser]]></FromUserName>
 		<CreateTime>12345678</CreateTime>
 		<MsgType><![CDATA[transfer_customer_service]]></MsgType>
 	</xml>
- */
+	或者转发到指定客服
+	<xml>
+		<ToUserName><![CDATA[touser]]></ToUserName>
+		<FromUserName><![CDATA[fromuser]]></FromUserName>
+		<CreateTime>1399197672</CreateTime>
+		<MsgType><![CDATA[transfer_customer_service]]></MsgType>
+		<TransInfo>
+			<KfAccount><![CDATA[test1@test]]></KfAccount>
+		</TransInfo>
+	</xml>
+*/
 public class OutCustomMsg extends OutMsg {
 
-	private String content;
+	private TransInfo transInfo;
 
 	public OutCustomMsg() {
 		this.msgType = "transfer_customer_service";
@@ -31,17 +42,22 @@ public class OutCustomMsg extends OutMsg {
 	}
 	
 	@Override
-	protected void subXml(StringBuilder sb) {}
-	
-	public String getContent() {
-		return content;
+	protected void subXml(StringBuilder sb) {
+		if (null != transInfo && StrKit.notBlank(transInfo.getKfAccount())) {
+			sb.append("<TransInfo>\n");
+			sb.append("<KfAccount><![CDATA[").append(transInfo.getKfAccount()).append("]]></KfAccount>\n");
+			sb.append("</TransInfo>\n");
+		}
 	}
 	
-	public OutCustomMsg setContent(String content) {
-		this.content = content;
-		return this;
+	public TransInfo getTransInfo() {
+		return transInfo;
 	}
-
+	
+	public void setTransInfo(TransInfo transInfo) {
+		this.transInfo = transInfo;
+	}
+	
 }
 
 

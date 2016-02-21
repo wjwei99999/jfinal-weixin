@@ -9,6 +9,7 @@ import com.jfinal.weixin.sdk.msg.out.OutCustomMsg;
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
 import com.jfinal.weixin.sdk.msg.out.OutVideoMsg;
 import com.jfinal.weixin.sdk.msg.out.OutVoiceMsg;
+import com.jfinal.weixin.sdk.msg.out.TransInfo;
 
 public class OutMsgTest {
 
@@ -68,6 +69,20 @@ public class OutMsgTest {
 		msg.setFromUserName("from james");
 		msg.setCreateTime(msg.now());
 		msg.setMediaId("media_id");
+		
+		System.out.println();
+		System.out.println(msg.toXml());
+	}
+	
+	@Test
+	public void test6() {
+		OutCustomMsg msg = new OutCustomMsg();
+		msg.setToUserName("to james");
+		msg.setFromUserName("from james");
+		msg.setCreateTime(msg.now());
+		
+		TransInfo transInfo = new TransInfo("test1@test");
+		msg.setTransInfo(transInfo);
 		
 		System.out.println();
 		System.out.println(msg.toXml());
