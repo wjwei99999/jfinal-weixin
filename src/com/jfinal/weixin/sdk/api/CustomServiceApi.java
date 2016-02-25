@@ -120,6 +120,18 @@ public class CustomServiceApi {
         return new ApiResult(jsonResult);
     }
     
+    private static String getOnlineKFListUrl = "https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token=";
+    
+    /**
+     * 获取在线客服接待信息
+     * @return ApiResult
+     */
+    public static ApiResult getOnlineKFList() {
+        String accessToken = AccessTokenApi.getAccessTokenStr();
+        String jsonResult = HttpUtils.get(getOnlineKFListUrl + accessToken);
+        return new ApiResult(jsonResult);
+    }
+    
     private static String customMessageUrl = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=";
 
     /**
