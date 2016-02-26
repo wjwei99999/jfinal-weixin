@@ -247,7 +247,7 @@ public class CustomServiceApi {
     }
 
     /**
-     * 发送图文回复
+     * 发送图文回复，图文消息条数限制在8条以内
      * @param openId
      * @param articles
      * @return
@@ -297,6 +297,24 @@ public class CustomServiceApi {
         public void setPicurl(String picurl) {
             this.picurl = picurl;
         }
+    }
+
+    /**
+     * 发送图文消息（点击跳转到图文消息页面），图文消息条数限制在8条以内
+     * @param openId 普通用户openid
+     * @param mediaId 素材id
+     * @return
+     */
+    public static ApiResult sendMpNews(String openId, String mediaId) {
+        Map<String, Object> json = new HashMap<String, Object>();
+        json.put("touser", openId);
+        json.put("msgtype", "mpnews");
+
+        Map<String, Object> news = new HashMap<String, Object>();
+        news.put("media_id", mediaId);
+
+        json.put("mpnews", news);
+        return sendMsg(json);
     }
 
     /**
