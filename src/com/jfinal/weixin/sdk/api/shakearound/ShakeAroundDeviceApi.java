@@ -107,14 +107,14 @@ public class ShakeAroundDeviceApi {
 	
 	/**
 	 * 查询设备列表
-	 * @param deviceIdentifier
+	 * @param device_identifiers 指定的设备
 	 * @return
 	 */
 	public static ApiResult searchByDevice(DeviceIdentifier deviceIdentifier) {
 		String url = searchUrl + AccessTokenApi.getAccessTokenStr();
 		
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("device_identifier", deviceIdentifier);
+		data.put("device_identifiers", deviceIdentifier);
 		data.put("type", 1);
 		
 		String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));

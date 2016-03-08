@@ -33,6 +33,26 @@ public class CustomServiceApi {
         return new ApiResult(jsonResult);
     }
 
+    /**
+     * 获取客服聊天记录
+     * @param pageindex 查询第几页，从1开始
+     * @param pagesize 每页大小，每页最多拉取50条
+     * @param starttime 查询开始时间，UNIX时间戳
+     * @param endtime 查询结束时间，UNIX时间戳，每次查询不能跨日查询
+     * @return ApiResult
+     */
+    public static ApiResult getRecord(int pageindex, int pagesize, long starttime, long endtime) {
+        if (pageindex < 1) { pageindex = 1; }
+        if (pagesize < 1 || pagesize > 50) { pagesize = 50; }
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("pageindex", pageindex);
+        params.put("pagesize", pagesize);
+        params.put("starttime", starttime);
+        params.put("endtime", endtime);
+        return getRecord(JsonUtils.toJson(params));
+    }
+    
     private static String addKfAccountUrl = "https://api.weixin.qq.com/customservice/kfaccount/add?access_token=";
     
     /**
