@@ -6,10 +6,14 @@
 
 package com.jfinal.weixin.sdk.api;
 
+import java.io.Serializable;
+
 /**
  * 存放 Weixin 服务号需要用到的各个参数
  */
-public class ApiConfig {
+public class ApiConfig implements Serializable {
+	
+	private static final long serialVersionUID = 5243926308290263767L;
 	
 	private String token = null;
 	private String appId = null;
