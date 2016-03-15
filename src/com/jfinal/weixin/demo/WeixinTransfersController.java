@@ -1,13 +1,5 @@
 package com.jfinal.weixin.demo;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +7,11 @@ import com.jfinal.core.Controller;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.kit.IpKit;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
+import com.jfinal.weixin.sdk.utils.HttpUtils;
 
 /**
- * @author osc就看看 企业付款demo
+ * @author osc就看看 
+ * 企业付款demo
  */
 public class WeixinTransfersController extends Controller {
 	// 商户相关资料
@@ -30,6 +24,8 @@ public class WeixinTransfersController extends Controller {
 
 	public void index() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
+		// （apiclient_cert.p12）证书存放路径
+		String cerPath = "";
 		// 收款用户在wxappid下的openid
 		String openid = "";
 		// 订单号
@@ -62,48 +58,20 @@ public class WeixinTransfersController extends Controller {
 		String sign = PaymentKit.createSign(params, paternerKey);
 		params.put("sign", sign);
 		String xml = PaymentKit.toXml(params);
-
 		System.out.println(xml);
-
-		ClientCustomSSL ccssl = new ClientCustomSSL();
-		CloseableHttpClient httpclient = ccssl.get();
-		try {
-			HttpPost httpget = new HttpPost(transfer_url);
-			StringEntity xmlEntity = new StringEntity(xml, "UTF-8");
-			httpget.setEntity(xmlEntity);
-			CloseableHttpResponse response = httpclient.execute(httpget);
-			StringBuilder result = new StringBuilder();
-			try {
-				HttpEntity entity = response.getEntity();
-				System.out.println("----------------------------------------");
-				System.out.println(response.getStatusLine());
-				if (entity != null) {
-					System.out.println("Response content length: " + entity.getContentLength());
-					BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(entity.getContent()));
-					String text;
-					while ((text = bufferedReader.readLine()) != null) {
-						System.out.println(text);
-						result.append(text).append("\n");
-					}
-				}
-				Map<String, String> resultXML = PaymentKit.xmlToMap(result.toString());
-				String return_code = resultXML.get("return_code");
-				String return_msg = resultXML.get("return_msg");
-				if (StrKit.isBlank(return_code) || !"SUCCESS".equals(return_code)) {
-					renderText(return_msg);
-					return;
-				}
-				String result_code = resultXML.get("result_code");
-				if (StrKit.isBlank(result_code) || !"SUCCESS".equals(result_code)) {
-					renderText(return_msg);
-					return;
-				}
-
-			} finally {
-				response.close();
-			}
-		} finally {
-			httpclient.close();
+		String xmlResult = HttpUtils.postSSL(transfer_url, xml, cerPath, partner);
+		Map<String, String> resultXML = PaymentKit.xmlToMap(xmlResult.toString());
+		String return_code = resultXML.get("return_code");
+		String return_msg = resultXML.get("return_msg");
+		if (StrKit.isBlank(return_code) || !"SUCCESS".equals(return_code)) {
+			renderText(return_msg);
+			return;
 		}
+		String result_code = resultXML.get("result_code");
+		if (StrKit.isBlank(result_code) || !"SUCCESS".equals(result_code)) {
+			renderText(return_msg);
+			return;
+		}
+
 	}
 }
