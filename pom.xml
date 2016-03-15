@@ -104,7 +104,13 @@
 					<webXml>webapp/WEB-INF/web.xml</webXml>
 				</configuration>
 			</plugin>
-
+			<plugin> 
+				<groupId>org.apache.maven.plugins</groupId> 
+				<artifactId>maven-surefire-plugin</artifactId>  
+				<configuration>  
+					<skip>true</skip>  
+				</configuration> 
+			</plugin>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.3.2</version>
@@ -123,7 +129,8 @@
 						<exclude>a_little_config_pro.txt</exclude>
 						<exclude>ehcache.xml</exclude>
 						<exclude>log4j.properties</exclude>
-						<exclude>com/jfinal/weixin/demo/*</exclude>
+						<exclude>com/jfinal/weixin/demo</exclude>
+						<exclude>com/jfinal/weixin/demo/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
