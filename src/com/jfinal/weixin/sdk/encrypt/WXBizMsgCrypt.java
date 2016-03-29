@@ -13,7 +13,6 @@
  */
 package com.jfinal.weixin.sdk.encrypt;
 
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -22,6 +21,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import com.jfinal.weixin.sdk.utils.Base64Utils;
+import com.jfinal.weixin.sdk.utils.Charsets;
 
 /**
  * 提供接收和推送给公众平台消息的加解密接口(UTF8编码的字符串).
@@ -39,7 +39,6 @@ import com.jfinal.weixin.sdk.utils.Base64Utils;
  * </ol>
  */
 public class WXBizMsgCrypt {
-	static Charset CHARSET = Charset.forName("utf-8");
 	byte[] aesKey;
 	String token;
 	String appId;
@@ -103,10 +102,10 @@ public class WXBizMsgCrypt {
 	 */
 	String encrypt(String randomStr, String text) throws AesException {
 		ByteGroup byteCollector = new ByteGroup();
-		byte[] randomStrBytes = randomStr.getBytes(CHARSET);
-		byte[] textBytes = text.getBytes(CHARSET);
+		byte[] randomStrBytes = randomStr.getBytes(Charsets.UTF_8);
+		byte[] textBytes = text.getBytes(Charsets.UTF_8);
 		byte[] networkBytesOrder = getNetworkBytesOrder(textBytes.length);
-		byte[] appidBytes = appId.getBytes(CHARSET);
+		byte[] appidBytes = appId.getBytes(Charsets.UTF_8);
 
 		// randomStr + networkBytesOrder + text + appid
 		byteCollector.addBytes(randomStrBytes);
@@ -177,9 +176,9 @@ public class WXBizMsgCrypt {
 
 			int xmlLength = recoverNetworkBytesOrder(networkOrder);
 
-			xmlContent = new String(Arrays.copyOfRange(bytes, 20, 20 + xmlLength), CHARSET);
+			xmlContent = new String(Arrays.copyOfRange(bytes, 20, 20 + xmlLength), Charsets.UTF_8);
 			from_appid = new String(Arrays.copyOfRange(bytes, 20 + xmlLength, bytes.length),
-					CHARSET);
+					Charsets.UTF_8);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new AesException(AesException.IllegalBuffer);

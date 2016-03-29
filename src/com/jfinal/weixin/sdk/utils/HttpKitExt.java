@@ -29,7 +29,6 @@ import com.jfinal.weixin.sdk.api.MediaFile;
  *
  */
 class HttpKitExt {
-	private static final String DEFAULT_CHARSET = "UTF-8";
 	private static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36";
 	
 	/**
@@ -76,7 +75,7 @@ class HttpKitExt {
 			paramData.append("Content-Disposition: form-data;name=\"description\";");
 			byte[] paramDatas = paramData.toString().getBytes();
 			out.write(paramDatas);
-			out.write(params.getBytes(DEFAULT_CHARSET));
+			out.write(params.getBytes(Charsets.UTF_8));
 		}
 		byte[] end_data = ("\r\n--" + BOUNDARY + "--\r\n").getBytes();
 		out.write(end_data);
@@ -85,7 +84,7 @@ class HttpKitExt {
 		
 		// 定义BufferedReader输入流来读取URL的响应  
 		InputStream in = conn.getInputStream();
-		BufferedReader read = new BufferedReader(new InputStreamReader(in, DEFAULT_CHARSET));
+		BufferedReader read = new BufferedReader(new InputStreamReader(in, Charsets.UTF_8));
 		String valueString = null;
 		StringBuffer bufferRes = null;
 		bufferRes = new StringBuffer();
@@ -122,7 +121,7 @@ class HttpKitExt {
 		conn.connect();
 		if (StrKit.notBlank(params)) {
 			OutputStream out = conn.getOutputStream();
-			out.write(params.getBytes(DEFAULT_CHARSET));
+			out.write(params.getBytes(Charsets.UTF_8));
 			out.flush();
 			IOUtils.closeQuietly(out);
 		}
@@ -153,7 +152,7 @@ class HttpKitExt {
 		if(conn.getContentType().equalsIgnoreCase("text/plain")){
 			// 定义BufferedReader输入流来读取URL的响应  
 			InputStream in = conn.getInputStream();
-			BufferedReader read = new BufferedReader(new InputStreamReader(in, DEFAULT_CHARSET));
+			BufferedReader read = new BufferedReader(new InputStreamReader(in, Charsets.UTF_8));
 			String valueString = null;
 			StringBuffer bufferRes = new StringBuffer();
 			while ((valueString = read.readLine()) != null){
@@ -216,11 +215,11 @@ class HttpKitExt {
 			conn.connect();
 			
 			out = conn.getOutputStream();
-			out.write(data.getBytes(DEFAULT_CHARSET));
+			out.write(data.getBytes(Charsets.UTF_8));
 			out.flush();
 			
 			inputStream = conn.getInputStream();
-			reader = new BufferedReader(new InputStreamReader(inputStream, DEFAULT_CHARSET));
+			reader = new BufferedReader(new InputStreamReader(inputStream, Charsets.UTF_8));
 			StringBuilder sb = new StringBuilder();
 			String line = null;
 			while ((line = reader.readLine()) != null){

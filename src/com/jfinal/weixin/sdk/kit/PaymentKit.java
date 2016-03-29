@@ -14,14 +14,13 @@ import org.w3c.dom.NodeList;
 
 import com.jfinal.kit.HashKit;
 import com.jfinal.kit.StrKit;
+import com.jfinal.weixin.sdk.utils.Charsets;
 
 /**
  * 微信支付的统一下单工具类
  * @author L.cm
  */
 public class PaymentKit {
-	
-	private static final String CHARSET = "UTF-8";
 	
 	/**
 	 * 组装签名的字段
@@ -61,7 +60,7 @@ public class PaymentKit {
 	 * @throws UnsupportedEncodingException
 	 */
 	public static String urlEncode(String src) throws UnsupportedEncodingException {
-		return URLEncoder.encode(src, CHARSET).replace("+", "%20");
+		return URLEncoder.encode(src, Charsets.UTF_8.name()).replace("+", "%20");
 	}
 	
 	/**

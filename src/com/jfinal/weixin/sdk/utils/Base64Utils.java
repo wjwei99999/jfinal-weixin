@@ -13,8 +13,6 @@ public class Base64Utils {
 	
 	private Base64Utils() {}
 	
-	private static Charset CHARSET = Charset.forName("utf-8");
-	
 	/**
 	 * 编码
 	 */
@@ -26,7 +24,7 @@ public class Base64Utils {
 	 * 编码
 	 */
 	public static String encode(String value) {
-		byte[] val = value.getBytes(CHARSET);
+		byte[] val = value.getBytes(Charsets.UTF_8);
 		return DatatypeConverter.printBase64Binary(val);
 	}
 	
@@ -50,7 +48,7 @@ public class Base64Utils {
 	 */
 	public static String decode(String value) {
 		byte[] decodedValue = Base64Utils.decodeBase64(value);
-		return new String(decodedValue, CHARSET);
+		return new String(decodedValue, Charsets.UTF_8);
 	}
 	
 	/**

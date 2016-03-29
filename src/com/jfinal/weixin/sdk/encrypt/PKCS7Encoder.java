@@ -8,14 +8,14 @@
 
 package com.jfinal.weixin.sdk.encrypt;
 
-import java.nio.charset.Charset;
 import java.util.Arrays;
+
+import com.jfinal.weixin.sdk.utils.Charsets;
 
 /**
  * 提供基于PKCS7算法的加解密接口.
  */
 class PKCS7Encoder {
-	static Charset CHARSET = Charset.forName("utf-8");
 	static int BLOCK_SIZE = 32;
 
 	/**
@@ -36,7 +36,7 @@ class PKCS7Encoder {
 		for (int index = 0; index < amountToPad; index++) {
 			tmp += padChr;
 		}
-		return tmp.getBytes(CHARSET);
+		return tmp.getBytes(Charsets.UTF_8);
 	}
 
 	/**
