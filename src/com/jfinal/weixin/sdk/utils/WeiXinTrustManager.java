@@ -1,6 +1,8 @@
 package com.jfinal.weixin.sdk.utils;
 
 import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
@@ -14,7 +16,7 @@ import javax.net.ssl.X509TrustManager;
 class WeiXinTrustManager implements X509TrustManager {
 	X509TrustManager weixinX509TrustManager;
 
-	WeiXinTrustManager(KeyStore keyStore) throws Exception {
+	WeiXinTrustManager(KeyStore keyStore) throws NoSuchAlgorithmException, KeyStoreException {
 		TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
 		tmf.init(keyStore);
 		TrustManager tms [] = tmf.getTrustManagers();
@@ -24,7 +26,7 @@ class WeiXinTrustManager implements X509TrustManager {
 				return; 
 			} 
 		}
-		throw new Exception("Couldn't initialize");
+		throw new RuntimeException("WeiXinTrustManager Couldn't initialize, check apiclient_cert.p12");
 	}
 
 	public void checkClientTrusted(X509Certificate[] chain, String authType)
