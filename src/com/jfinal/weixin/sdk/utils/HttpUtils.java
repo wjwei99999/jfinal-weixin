@@ -356,7 +356,7 @@ public final class HttpUtils {
 						.connectTimeout(10, TimeUnit.SECONDS)
 						.writeTimeout(10, TimeUnit.SECONDS)
 						.readTimeout(30, TimeUnit.SECONDS)
-						.sslSocketFactory(sslContext.getSocketFactory(), new WeiXinTrustManager(clientStore))
+						.sslSocketFactory(sslContext.getSocketFactory())
 						.build();
 				
 				okhttp3.Response response = httpsClient.newCall(request).execute();
