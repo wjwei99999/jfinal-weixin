@@ -32,7 +32,7 @@ public abstract class IOUtils {
 	 * @throws NullPointerException if the input is null
 	 * @throws IOException if an I/O error occurs
 	 */
-	private static String toString(InputStream input) throws IOException {
+	public static String toString(InputStream input) throws IOException {
 		return toString(input, Charsets.UTF_8);
 	}
 
