@@ -150,10 +150,17 @@ public class InMsgParser {
 		String event = XmlKit.elementText(root, "Event");
 		String eventKey = XmlKit.elementText(root, "EventKey");
 		
-		// 关注/取消关注事件（包括二维码扫描关注，二维码扫描关注事件与扫描带参数二维码事件是两回事）
-		if (("subscribe".equals(event) || "unsubscribe".equals(event)) && StrKit.isBlank(eventKey)) {
+		/**
+		 * 取消关注事件
+		 * 注意：由于微信平台出现bug， unsubscribe 事件在有些时候居然多出了 eventKey 值，
+		 * 　　　　多出来的eventKey值例如：last_trade_no_4003942001201604205023621558
+		 *     所以 unsubscribe 与 subscribe 判断进行了拆分，并且将 unsubscribe
+		 *     挪至最前面进行判断，以便消除微信平台 bug 的影响
+		 */
+		if ("unsubscribe".equals(event)) {
 			return new InFollowEvent(toUserName, fromUserName, createTime, msgType, event);
 		}
+		
 		// 扫描带参数二维码事件之一		1: 用户未关注时，进行关注后的事件推送
 		String ticket = XmlKit.elementText(root, "Ticket");
 		if ("subscribe".equals(event) && StrKit.notBlank(eventKey) && eventKey.startsWith("qrscene_")) {
@@ -169,6 +176,17 @@ public class InMsgParser {
 			e.setTicket(ticket);
 			return e;
 		}
+		
+		/**
+		 * 关注事件，包括二维码扫描关注。(二维码扫描关注事件与扫描带参数二维码事件是两回事，虽然事件类型同为 subscribe)
+		 * 注意：由于微信平台出现bug， subscribe/unsubscribe 事件在有些时候居然多出了 eventKey 值，
+		 *     所以注掉了对于 eventKey 的 isBlank 判断，并且将判断挪到了扫描带二维码事件之一的后面，以便
+		 *     消除微信平台 bug 的影响
+		 */
+		if ("subscribe".equals(event) /*&& StrKit.isBlank(eventKey)*/) {
+			return new InFollowEvent(toUserName, fromUserName, createTime, msgType, event);
+		}
+		
 		// 上报地理位置事件
 		if ("LOCATION".equals(event)) {
 			InLocationEvent e = new InLocationEvent(toUserName, fromUserName, createTime, msgType, event);
