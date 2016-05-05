@@ -221,5 +221,85 @@ public class XMLMsgTest {
 		
 		Assert.assertTrue(inMsg instanceof InShakearoundUserShakeEvent);
 	}
-	
+
+	/**
+	 * 微信会员卡二维码扫描领取接口
+	 */
+	@Test
+	public void test010() {
+		String xml = "<xml>" +
+				"<ToUserName><![CDATA[gh_7638cbc70355]]></ToUserName>" +
+				"<FromUserName><![CDATA[o_CBes-OUGtQ4vxd_7r5-p5QRRXU]]></FromUserName>" +
+				"<CreateTime>1462420243</CreateTime>" +
+				"<MsgType><![CDATA[event]]></MsgType>" +
+				"<Event><![CDATA[user_view_card]]></Event>" +
+				"<CardId><![CDATA[p_CBes55910LQGAOStjVKaTChpsg]]>" +
+				"</CardId><UserCardCode><![CDATA[777670435071]]></UserCardCode>" +
+				"</xml>";
+		InMsg inMsg = InMsgParser.parse(xml);
+
+		Assert.assertTrue(inMsg instanceof InUserViewCardEvent);
+	}
+
+	/**
+	 * 微信会员卡二维码扫描领取接口
+	 */
+	@Test
+	public void test011() {
+		String xml = " <xml><ToUserName><![CDATA[gh_7638cbc70355]]></ToUserName>\n" +
+				"<FromUserName><![CDATA[o_CBes-OUGtQ4vxd_7r5-p5QRRXU]]></FromUserName>\n" +
+				"<CreateTime>1462420171</CreateTime>\n" +
+				"<MsgType><![CDATA[event]]></MsgType>\n" +
+				"<Event><![CDATA[submit_membercard_user_info]]></Event>\n" +
+				"<CardId><![CDATA[p_CBes55910LQGAOStjVKaTChpsg]]></CardId>\n" +
+				"<UserCardCode><![CDATA[777670435071]]></UserCardCode>\n" +
+				"</xml>";
+		InMsg inMsg = InMsgParser.parse(xml);
+
+		Assert.assertTrue(inMsg instanceof InSubmitMemberCardEvent);
+	}
+
+	/**
+	 * 微信会员卡二维码扫描领取接口
+	 */
+	@Test
+	public void test012() {
+		String xml = "<xml>\n" +
+				"<ToUserName><![CDATA[gh_7638cbc70355]]></ToUserName>\n" +
+				"<FromUserName><![CDATA[o_CBes-OUGtQ4vxd_7r5-p5QRRXU]]></FromUserName>\n" +
+				"<CreateTime>1462420730</CreateTime>\n" +
+				"<MsgType><![CDATA[event]]></MsgType>\n" +
+				"<Event><![CDATA[update_member_card]]></Event>\n" +
+				"<CardId><![CDATA[p_CBes55910LQGAOStjVKaTChpsg]]></CardId>\n" +
+				"<UserCardCode><![CDATA[777670435071]]></UserCardCode>\n" +
+				"<ModifyBonus>1000</ModifyBonus>\n" +
+				"<ModifyBalance>0</ModifyBalance>\n" +
+				"</xml>";
+		InMsg inMsg = InMsgParser.parse(xml);
+
+		Assert.assertTrue(inMsg instanceof InUpdateMemberCardEvent);
+	}
+
+	/**
+	 * 微信会员卡二维码扫描领取接口
+	 */
+	@Test
+	public void test013() {
+		String xml = "<xml>\n" +
+				"<ToUserName><![CDATA[gh_7638cbc70355]]></ToUserName>\n" +
+				"<FromUserName><![CDATA[o_CBes-OUGtQ4vxd_7r5-p5QRRXU]]></FromUserName>\n" +
+				"<CreateTime>1462420332</CreateTime>\n" +
+				"<MsgType><![CDATA[event]]></MsgType>\n" +
+				"<Event><![CDATA[user_pay_from_pay_cell]]></Event>\n" +
+				"<CardId><![CDATA[p_CBes55910LQGAOStjVKaTChpsg]]></CardId>\n" +
+				"<UserCardCode><![CDATA[777670435071]]></UserCardCode>\n" +
+				"<TransId><![CDATA[4001802001201605055526028099]]></TransId>\n" +
+				"<LocationId>403808221</LocationId>\n" +
+				"<Fee>100</Fee>\n" +
+				"<OriginalFee>100</OriginalFee>\n" +
+				"</xml>";
+		InMsg inMsg = InMsgParser.parse(xml);
+
+		Assert.assertTrue(inMsg instanceof InUserPayFromCardEvent);
+	}
 }
