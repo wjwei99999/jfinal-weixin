@@ -21,8 +21,8 @@ public class InUpdateMemberCardEvent extends EventInMsg {
 
     private String cardId;
     private String userCardCode;
-    private Integer modifyBonus;
-    private Integer modifyBalance;
+    private String modifyBonus;
+    private String modifyBalance;
 
     public InUpdateMemberCardEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
         super(toUserName, fromUserName, createTime, msgType, event);
@@ -44,19 +44,19 @@ public class InUpdateMemberCardEvent extends EventInMsg {
         this.userCardCode = userCardCode;
     }
 
-    public Integer getModifyBonus() {
-        return modifyBonus;
-    }
-
-    public void setModifyBonus(Integer modifyBonus) {
-        this.modifyBonus = modifyBonus;
-    }
-
-    public Integer getModifyBalance() {
+    public String getModifyBalance() {
         return modifyBalance;
     }
 
-    public void setModifyBalance(Integer modifyBalance) {
+    public void setModifyBalance(String modifyBalance) {
         this.modifyBalance = modifyBalance;
+    }
+
+    public String getModifyBonus() {
+        return modifyBonus;
+    }
+
+    public void setModifyBonus(String modifyBonus) {
+        this.modifyBonus = modifyBonus;
     }
 }

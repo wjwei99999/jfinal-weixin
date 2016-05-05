@@ -24,9 +24,9 @@ public class InUserPayFromCardEvent extends EventInMsg {
     private String cardId;
     private String userCardCode;
     private String transId;
-    private Integer locationId;
-    private Integer fee;
-    private Integer originalFee;
+    private String locationId;
+    private String fee;
+    private String originalFee;
 
     public InUserPayFromCardEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
         super(toUserName, fromUserName, createTime, msgType, event);
@@ -56,27 +56,27 @@ public class InUserPayFromCardEvent extends EventInMsg {
         this.transId = transId;
     }
 
-    public Integer getLocationId() {
+    public String getLocationId() {
         return locationId;
     }
 
-    public void setLocationId(Integer locationId) {
+    public void setLocationId(String locationId) {
         this.locationId = locationId;
     }
 
-    public Integer getFee() {
+    public String getFee() {
         return fee;
     }
 
-    public void setFee(Integer fee) {
+    public void setFee(String fee) {
         this.fee = fee;
     }
 
-    public Integer getOriginalFee() {
+    public String getOriginalFee() {
         return originalFee;
     }
 
-    public void setOriginalFee(Integer originalFee) {
+    public void setOriginalFee(String originalFee) {
         this.originalFee = originalFee;
     }
 }

@@ -95,4 +95,24 @@ public abstract class MsgControllerAdapter extends MsgController {
 	protected void processInWifiEvent(InWifiEvent inWifiEvent) {
 		// WIFI连网后下发消息 by unas at 2016-1-29
 	}
+
+	@Override
+	protected void processInUserViewCardEvent(InUserViewCardEvent msg) {
+
+	}
+
+	@Override
+	protected void processInSubmitMemberCardEvent(InSubmitMemberCardEvent msg) {
+
+	}
+
+	@Override
+	protected void processInUpdateMemberCardEvent(InUpdateMemberCardEvent msg) {
+
+	}
+
+	@Override
+	protected void processInUserPayFromCardEvent(InUserPayFromCardEvent msg) {
+
+	}
 }

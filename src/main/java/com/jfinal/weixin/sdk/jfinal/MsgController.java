@@ -93,10 +93,18 @@ public abstract class MsgController extends Controller {
 			processInPoiCheckNotifyEvent((InPoiCheckNotifyEvent) msg);
 		else if (msg instanceof InWifiEvent)
 			processInWifiEvent((InWifiEvent) msg);
+		else if (msg instanceof InUserViewCardEvent)
+			processInUserViewCardEvent((InUserViewCardEvent) msg);
+		else if (msg instanceof InSubmitMemberCardEvent)
+			processInSubmitMemberCardEvent((InSubmitMemberCardEvent) msg);
+		else if (msg instanceof InUpdateMemberCardEvent)
+			processInUpdateMemberCardEvent((InUpdateMemberCardEvent) msg);
+		else if (msg instanceof InUserPayFromCardEvent)
+			processInUserPayFromCardEvent((InUserPayFromCardEvent) msg);
 		else
 			log.error("未能识别的消息类型。 消息 xml 内容为：\n" + getInMsgXml());
 	}
-	
+
 	/**
 	 * 在接收到微信服务器的 InMsg 消息后后响应 OutMsg 消息
 	 */
@@ -205,6 +213,15 @@ public abstract class MsgController extends Controller {
 
 	// WIFI连网后下发消息 by unas at 2016-1-29
 	protected abstract void processInWifiEvent(InWifiEvent inWifiEvent);
+
+	// 微信会员卡二维码扫描领取接口
+	protected abstract void processInUserViewCardEvent(InUserViewCardEvent msg);
+	// 微信会员卡激活接口
+	protected abstract void processInSubmitMemberCardEvent(InSubmitMemberCardEvent msg);
+	// 微信会员卡积分变更
+	protected abstract void processInUpdateMemberCardEvent(InUpdateMemberCardEvent msg);
+	// 微信会员卡快速买单
+	protected abstract void processInUserPayFromCardEvent(InUserPayFromCardEvent msg);
 }
 
 

@@ -356,6 +356,37 @@ public class InMsgParser {
 			e.setShopId(XmlKit.elementText(root, "ShopId"));
 			return e;
 		}
+		if (InUserViewCardEvent.EVENT.equals(event)) {
+			InUserViewCardEvent e = new InUserViewCardEvent(toUserName, fromUserName, createTime, msgType, event);
+			e.setCardId(XmlKit.elementText(root, "CardId"));
+			e.setUserCardCode(XmlKit.elementText(root, "UserCardCode"));
+			return e;
+		}
+		if (InSubmitMemberCardEvent.EVENT.equals(event)) {
+			InSubmitMemberCardEvent e = new InSubmitMemberCardEvent(toUserName, fromUserName, createTime, msgType, event);
+			e.setCardId(XmlKit.elementText(root, "CardId"));
+			e.setUserCardCode(XmlKit.elementText(root, "UserCardCode"));
+			return e;
+		}
+		if (InUpdateMemberCardEvent.EVENT.equals(event)) {
+			InUpdateMemberCardEvent e = new InUpdateMemberCardEvent(toUserName, fromUserName, createTime, msgType, event);
+			e.setCardId(XmlKit.elementText(root, "CardId"));
+			e.setUserCardCode(XmlKit.elementText(root, "UserCardCode"));
+			e.setModifyBonus(XmlKit.elementText(root, "ModifyBonus"));
+			e.setModifyBalance(XmlKit.elementText(root, "ModifyBalance"));
+			return e;
+		}
+		if (InUserPayFromCardEvent.EVENT.equals(event)) {
+			InUserPayFromCardEvent e = new InUserPayFromCardEvent(toUserName, fromUserName, createTime, msgType, event);
+			e.setCardId(XmlKit.elementText(root, "CardId"));
+			e.setUserCardCode(XmlKit.elementText(root, "UserCardCode"));
+			e.setLocationId(XmlKit.elementText(root, "LocationId"));
+			e.setTransId(XmlKit.elementText(root, "TransId"));
+			e.setFee(XmlKit.elementText(root, "Fee"));
+			e.setOriginalFee(XmlKit.elementText(root, "OriginalFee"));
+			return e;
+		}
+
 		throw new RuntimeException("无法识别的事件类型" + event + "，请查阅微信公众平台开发文档");
 	}
 
