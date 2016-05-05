@@ -10,6 +10,7 @@ import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.msg.in.InMsg;
 
 /**
+ * <pre>
 	转发多客服消息
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -27,6 +28,7 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 			<KfAccount><![CDATA[test1@test]]></KfAccount>
 		</TransInfo>
 	</xml>
+ </pre>
 */
 public class OutCustomMsg extends OutMsg {
 

@@ -5,8 +5,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
  * 微信服务器在五秒内收不到响应会断掉连接,并且重新发起请求,总共重试三次。
  * 关于重试的消息排重,推荐使用 FromUserName + CreateTime 排重。
  * 假如服务器无法保证在五秒内处理并回复,可以直接回复空串,微信服务器不会对此作任何 处理,并且不会发起重试。
- * <p/>
- * <p/>
+ * <pre>
  * <xml>
  * <ToUserName><![CDATA[toUser]]></ToUserName>
  * <FromUserName><![CDATA[fromUser]]></FromUserName>
@@ -18,6 +17,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
  * <Result><![CDATA[fail]]></Result>
  * <Msg><![CDATA[xxxxxx]]></Msg>
  * </xml>
+ * </pre>
  */
 public class InPoiCheckNotifyEvent extends EventInMsg
 {

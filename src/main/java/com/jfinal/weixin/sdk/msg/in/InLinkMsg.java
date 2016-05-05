@@ -7,6 +7,7 @@
 package com.jfinal.weixin.sdk.msg.in;
 
 /**
+ * <pre>
 	接收链接消息
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -18,6 +19,7 @@ package com.jfinal.weixin.sdk.msg.in;
 			<Url><![CDATA[url]]></Url>
 			<MsgId>1234567890123456</MsgId>
 	</xml>
+ </pre>
 */
 public class InLinkMsg extends InMsg {
 	

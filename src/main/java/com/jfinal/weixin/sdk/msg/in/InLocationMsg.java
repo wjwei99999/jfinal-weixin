@@ -7,6 +7,7 @@
 package com.jfinal.weixin.sdk.msg.in;
 
 /**
+ * <pre>
 	接收地理位置消息
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -19,6 +20,7 @@ package com.jfinal.weixin.sdk.msg.in;
 			<Label><![CDATA[位置信息]]></Label>
 			<MsgId>1234567890123456</MsgId>
 	</xml>
+ </pre>
 */
 public class InLocationMsg extends InMsg {
 	private String location_X;

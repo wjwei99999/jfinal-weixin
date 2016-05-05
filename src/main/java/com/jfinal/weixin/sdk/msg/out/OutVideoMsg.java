@@ -9,6 +9,7 @@ package com.jfinal.weixin.sdk.msg.out;
 import com.jfinal.weixin.sdk.msg.in.InMsg;
 
 /**
+ * <pre>
 	回复视频消息
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -21,6 +22,7 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 				<Description><![CDATA[description]]></Description>
 			</Video>
 	</xml>
+ </pre>
  */
 public class OutVideoMsg extends OutMsg {
 	

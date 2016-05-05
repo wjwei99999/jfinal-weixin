@@ -8,7 +8,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
 
 /**
  * 在模版消息发送任务完成后，微信服务器会将是否送达成功作为通知，发送到开发者中心中填写的服务器配置地址中
- * 
+ * <pre>
 	<xml>
 		<ToUserName><![CDATA[gh_7f083739789a]]></ToUserName>
 		<FromUserName><![CDATA[oia2TjuEGTNoeX76QEjQNrcURxG8]]></FromUserName>
@@ -18,6 +18,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
 		<MsgID>200163836</MsgID>
 		<Status><![CDATA[success]]></Status>
 	</xml>
+ </pre>
  */
 public class InTemplateMsgEvent extends EventInMsg {
 	

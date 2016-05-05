@@ -18,6 +18,8 @@ public class TemplateMsgApi {
 	
 	/**
 	 * 发送模板消息
+	 * @param jsonStr json字符串
+	 * @return {ApiResult}
 	 */
 	public static ApiResult send(String jsonStr) {
 		String jsonResult = HttpUtils.post(sendApiUrl + AccessTokenApi.getAccessToken().getAccessToken(), jsonStr);

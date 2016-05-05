@@ -1,19 +1,17 @@
 package com.jfinal.weixin.sdk.kit;
 
-import java.io.IOException;
-import java.io.StringReader;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
+import com.jfinal.weixin.sdk.utils.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.jfinal.weixin.sdk.utils.IOUtils;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.StringReader;
 
 /**
  * 基于jdk的xml解析的简单封装
@@ -25,8 +23,8 @@ public class XmlKit {
 	
 	/**
 	 * 将xmlStr转为 w3c Document
-	 * @param xmlStr
-	 * @return
+	 * @param xmlStr xml字符串
+	 * @return {Document}
 	 */
 	public static Document parse(String xmlStr) {
 		DocumentBuilderFactory dbf = getDocumentBuilderFactory();
@@ -52,9 +50,9 @@ public class XmlKit {
 	
 	/**
 	 * 获取xml节点中的文本
-	 * @param element
-	 * @param name
-	 * @return
+	 * @param element 节点
+	 * @param name 节点名
+	 * @return {String}
 	 */
 	public static String elementText(Element element, String name) {
 		NodeList node = element.getElementsByTagName(name);
@@ -66,9 +64,9 @@ public class XmlKit {
 	
 	/**
 	 * 获取xml文档中的文本
-	 * @param element
-	 * @param name
-	 * @return
+	 * @param doc 文档
+	 * @param name tag名
+	 * @return {String}
 	 */
 	public static String documentText(Document doc, String name) {
 		NodeList node = doc.getElementsByTagName(name);
@@ -80,9 +78,9 @@ public class XmlKit {
 	
 	/**
 	 * 获取节点下的xml文档
-	 * @param element
-	 * @param name
-	 * @return
+	 * @param element 节点
+	 * @param name 节点名
+	 * @return {Document}
 	 */
 	public static Document element(Element element, String name) {
 		NodeList list = element.getElementsByTagName(name);

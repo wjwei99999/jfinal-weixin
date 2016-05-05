@@ -6,26 +6,18 @@
 
 package com.jfinal.weixin.sdk.msg;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.jfinal.kit.StrKit;
+import com.jfinal.weixin.sdk.kit.XmlKit;
+import com.jfinal.weixin.sdk.msg.in.*;
 import com.jfinal.weixin.sdk.msg.in.event.*;
+import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent.AroundBeacon;
+import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.jfinal.kit.StrKit;
-import com.jfinal.weixin.sdk.kit.XmlKit;
-import com.jfinal.weixin.sdk.msg.in.InImageMsg;
-import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
-import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
-import com.jfinal.weixin.sdk.msg.in.InMsg;
-import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
-import com.jfinal.weixin.sdk.msg.in.InTextMsg;
-import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
-import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
-import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent.AroundBeacon;
-import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InMsgParser {
 	
@@ -33,6 +25,8 @@ public class InMsgParser {
 	
 	/**
 	 * 从 xml 中解析出各类消息与事件
+	 * @param xml xml字符串
+	 * @return {InMsg}
 	 */
 	public static InMsg parse(String xml) {
 		Document doc = XmlKit.parse(xml);

@@ -7,6 +7,7 @@
 package com.jfinal.weixin.sdk.msg.in;
 
 /**
+ * <pre>
 	接收图片消息
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -17,6 +18,7 @@ package com.jfinal.weixin.sdk.msg.in;
 			<MediaId><![CDATA[media_id]]></MediaId>
 			<MsgId>1234567890123456</MsgId>
 	</xml>
+ </pre>
 */
 public class InImageMsg extends InMsg {
 	

@@ -94,7 +94,7 @@ public class MsgInterceptor implements Interceptor {
 	
 	/**
 	 * 配置开发者中心微信服务器所需的 url 与 token
-	 * @return true 为config server 请求，false 正式消息交互请求
+	 * @param c 控制器
 	 */
 	public void configServer(Controller c) {
 		// 通过 echostr 判断请求是否为配置微信服务器回调所需的 url 与 token

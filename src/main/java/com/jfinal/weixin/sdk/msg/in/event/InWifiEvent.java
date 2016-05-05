@@ -7,19 +7,21 @@
 package com.jfinal.weixin.sdk.msg.in.event;
 
 /**
- WIFI连网后下发消息  http://mp.weixin.qq.com/wiki/19/bac84e64da24f928c3e536c742d4e0b7.html
- <xml>
- <ToUserName><![CDATA[toUser]]></ToUserName>
- <FromUserName><![CDATA[FromUser]]></FromUserName>
- <CreateTime>123456789</CreateTime>
- <MsgType><![CDATA[event]]></MsgType>
- <Event><![CDATA[WifiConnected]]></Event>
- <ConnectTime>0</ConnectTime>
- <ExpireTime>0</ExpireTime>
- <VendorId>![CDATA[3001224419]]</VendorId>
- <ShopId>![CDATA[PlaceId]]</ShopId>
- <DeviceNo>![CDATA[DeviceNo]]</DeviceNo>
- </xml>
+ * <pre>
+     WIFI连网后下发消息  http://mp.weixin.qq.com/wiki/19/bac84e64da24f928c3e536c742d4e0b7.html
+     <xml>
+     <ToUserName><![CDATA[toUser]]></ToUserName>
+     <FromUserName><![CDATA[FromUser]]></FromUserName>
+     <CreateTime>123456789</CreateTime>
+     <MsgType><![CDATA[event]]></MsgType>
+     <Event><![CDATA[WifiConnected]]></Event>
+     <ConnectTime>0</ConnectTime>
+     <ExpireTime>0</ExpireTime>
+     <VendorId>![CDATA[3001224419]]</VendorId>
+     <ShopId>![CDATA[PlaceId]]</ShopId>
+     <DeviceNo>![CDATA[DeviceNo]]</DeviceNo>
+     </xml>
+ </pre>
  */
 public class InWifiEvent extends EventInMsg
 {

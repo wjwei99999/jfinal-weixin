@@ -6,12 +6,13 @@
 
 package com.jfinal.weixin.sdk.msg.out;
 
+import com.jfinal.weixin.sdk.msg.in.InMsg;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jfinal.weixin.sdk.msg.in.InMsg;
-
 /**
+ * <pre>
 	回复图文消息
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -34,7 +35,8 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 					<Url><![CDATA[url]]></Url>
 				</item>
 			</Articles>
-	</xml> 
+	</xml>
+ </pre>
  */
 public class OutNewsMsg extends OutMsg {
 	

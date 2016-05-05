@@ -9,6 +9,7 @@ package com.jfinal.weixin.sdk.msg.out;
 import com.jfinal.weixin.sdk.msg.in.InMsg;
 
 /**
+ * <pre>
 	回复图片消息
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -19,6 +20,7 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 				<MediaId><![CDATA[media_id]]></MediaId>
 			</Image>
 	</xml>
+ </pre>
  */
 public class OutImageMsg extends OutMsg {
 	

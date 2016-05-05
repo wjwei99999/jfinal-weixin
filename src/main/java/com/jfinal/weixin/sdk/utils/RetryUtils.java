@@ -23,7 +23,7 @@ public class RetryUtils {
 	 * 在遇到异常时尝试重试
 	 * @param retryLimit 重试次数
 	 * @param retryCallable 重试回调
-	 * @return V
+	 * @return V 结果
 	 */
 	public static <V extends ResultCheck> V retryOnException(int retryLimit,
 			java.util.concurrent.Callable<V> retryCallable) {
@@ -48,8 +48,8 @@ public class RetryUtils {
 	 * @param retryLimit 重试次数
 	 * @param sleepMillis 每次重试之后休眠的时间
 	 * @param retryCallable 重试回调
-	 * @return V
-	 * @throws java.lang.InterruptedException
+	 * @return V 结果
+	 * @throws java.lang.InterruptedException 线程异常
 	 */
 	public static <V extends ResultCheck> V retryOnException(int retryLimit, long sleepMillis,
 			java.util.concurrent.Callable<V> retryCallable) throws java.lang.InterruptedException {

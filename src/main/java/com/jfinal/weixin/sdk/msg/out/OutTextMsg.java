@@ -9,6 +9,7 @@ package com.jfinal.weixin.sdk.msg.out;
 import com.jfinal.weixin.sdk.msg.in.InMsg;
 
 /**
+ * <pre>
 	回复文本消息
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -17,6 +18,7 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 		<MsgType><![CDATA[text]]></MsgType>
 			<Content><![CDATA[你好]]></Content>
 	</xml>
+ </pre>
  */
 public class OutTextMsg extends OutMsg {
 	

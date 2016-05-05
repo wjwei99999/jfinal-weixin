@@ -6,10 +6,11 @@
 
 package com.jfinal.weixin.sdk.kit;
 
-import java.util.Arrays;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HashKit;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
+
+import java.util.Arrays;
 
 /**
  * 测试用的账号：
@@ -39,7 +40,7 @@ public class SignatureCheckKit {
 		}else{
 			return false;
 		}
-	 * @return
+	 * @return {boolean}
 	 */
 	public boolean checkSignature(String signature, String timestamp, String nonce) {
 		String TOKEN = ApiConfigKit.getApiConfig().getToken();

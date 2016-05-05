@@ -6,26 +6,28 @@
 
 package com.jfinal.weixin.sdk.api;
 
+import com.jfinal.weixin.sdk.utils.JsonUtils;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
-import com.jfinal.weixin.sdk.utils.JsonUtils;
-
 /**
  * 封装 API 响应结果，将 json 字符串转换成 java 数据类型
  * 
  * jackson 中 json 类型与 java 类型对应关系如下：
-	http://wiki.fasterxml.com/JacksonInFiveMinutes
-	JSON TYPE				JAVA TYPE
-	object					LinkedHashMap<String,Object>
-	array					ArrayList<Object>
-	string					String
-	number (no fraction)	Integer, Long or BigInteger (smallest applicable)
-	number (fraction)		Double (configurable to use BigDecimal)
-	true|false				Boolean
-	null					null
+ *  <pre>
+ *  http://wiki.fasterxml.com/JacksonInFiveMinutes
+ *  JSON TYPE				JAVA TYPE
+ *  object					LinkedHashMap<String,Object>
+ *  array					ArrayList<Object>
+ *  string					String
+ *  number (no fraction)	Integer, Long or BigInteger (smallest applicable)
+ *  number (fraction)		Double (configurable to use BigDecimal)
+ *  true|false				Boolean
+ *  null					null
+ *  </pre>
  */
 public class ApiResult {
 	
@@ -51,6 +53,8 @@ public class ApiResult {
 	
 	/**
 	 * 通过 json 创建 ApiResult 对象，等价于 new ApiResult(jsonStr)
+	 * @param jsonStr json字符串
+	 * @return {ApiResult}
 	 */
 	public static ApiResult create(String jsonStr) {
 		return new ApiResult(jsonStr);
@@ -78,6 +82,7 @@ public class ApiResult {
 	
 	/**
 	 * APi 请求是否成功返回
+	 * @return {boolean}
 	 */
 	public boolean isSucceed() {
 		Integer errorCode = getErrorCode();
@@ -151,6 +156,7 @@ public class ApiResult {
 	 * 42001 = access_token超时
 	 * 42002 = refresh_token超时
 	 * 40014 = 不合法的access_token
+	 * @return {boolean}
 	 */
 	public boolean isAccessTokenInvalid() {
 		Integer ec = getErrorCode();

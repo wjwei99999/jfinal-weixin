@@ -12,7 +12,7 @@ public abstract class IOUtils {
 	
 	/**
 	 * closeQuietly
-	 * @param closeable
+	 * @param closeable 自动关闭
 	 */
 	public static void closeQuietly(Closeable closeable) {
 		try {
@@ -61,7 +61,7 @@ public abstract class IOUtils {
 	 * InputStream to File
 	 * @param input  the <code>InputStream</code> to read from
 	 * @param file the File to write
-	 * @throws IOException
+	 * @throws IOException id异常
 	 */
 	public static void toFile(InputStream input, File file) throws IOException {
 		OutputStream os = new FileOutputStream(file);

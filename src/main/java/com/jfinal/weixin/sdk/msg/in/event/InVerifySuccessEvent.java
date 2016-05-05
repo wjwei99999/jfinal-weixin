@@ -7,13 +7,15 @@
 package com.jfinal.weixin.sdk.msg.in.event;
 
 /**
- <xml><ToUserName><![CDATA[toUser]]></ToUserName>
- <FromUserName><![CDATA[FromUser]]></FromUserName>
- <CreateTime>1442401156</CreateTime>
- <MsgType><![CDATA[event]]></MsgType>
- <Event><![CDATA[qualification_verify_success]]></Event>
- <ExpiredTime>1442401156</ExpiredTime>
- </xml>
+ * <pre>
+     <xml><ToUserName><![CDATA[toUser]]></ToUserName>
+     <FromUserName><![CDATA[FromUser]]></FromUserName>
+     <CreateTime>1442401156</CreateTime>
+     <MsgType><![CDATA[event]]></MsgType>
+     <Event><![CDATA[qualification_verify_success]]></Event>
+     <ExpiredTime>1442401156</ExpiredTime>
+     </xml>
+ </pre>
  */
 public class InVerifySuccessEvent extends EventInMsg
 {

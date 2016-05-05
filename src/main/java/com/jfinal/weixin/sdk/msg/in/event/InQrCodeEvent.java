@@ -7,6 +7,7 @@
 package com.jfinal.weixin.sdk.msg.in.event;
 
 /**
+ * <pre>
 	扫描带参数二维码事件
 	1. 用户未关注时，进行关注后的事件推送
 	<xml>
@@ -29,6 +30,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
 			<EventKey><![CDATA[SCENE_VALUE]]></EventKey>
 			<Ticket><![CDATA[TICKET]]></Ticket>
 	</xml>
+ </pre>
  */
 public class InQrCodeEvent extends EventInMsg {
 	

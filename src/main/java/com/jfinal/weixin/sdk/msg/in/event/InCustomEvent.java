@@ -7,36 +7,38 @@
 package com.jfinal.weixin.sdk.msg.in.event;
 
 /**
- 接入会话：
- <xml>
- <ToUserName><![CDATA[touser]]></ToUserName>
- <FromUserName><![CDATA[fromuser]]></FromUserName>
- <CreateTime>1399197672</CreateTime>
- <MsgType><![CDATA[event]]></MsgType>
- <Event><![CDATA[kf_create_session]]></Event>
- <KfAccount><![CDATA[test1@test]]></KfAccount>
- </xml>
+ * <pre>
+     接入会话：
+     <xml>
+     <ToUserName><![CDATA[touser]]></ToUserName>
+     <FromUserName><![CDATA[fromuser]]></FromUserName>
+     <CreateTime>1399197672</CreateTime>
+     <MsgType><![CDATA[event]]></MsgType>
+     <Event><![CDATA[kf_create_session]]></Event>
+     <KfAccount><![CDATA[test1@test]]></KfAccount>
+     </xml>
 
- 关闭会话：
- <xml>
- <ToUserName><![CDATA[touser]]></ToUserName>
- <FromUserName><![CDATA[fromuser]]></FromUserName>
- <CreateTime>1399197672</CreateTime>
- <MsgType><![CDATA[event]]></MsgType>
- <Event><![CDATA[kf_close_session]]></Event>
- <KfAccount><![CDATA[test1@test]]></KfAccount>
- </xml>
+     关闭会话：
+     <xml>
+     <ToUserName><![CDATA[touser]]></ToUserName>
+     <FromUserName><![CDATA[fromuser]]></FromUserName>
+     <CreateTime>1399197672</CreateTime>
+     <MsgType><![CDATA[event]]></MsgType>
+     <Event><![CDATA[kf_close_session]]></Event>
+     <KfAccount><![CDATA[test1@test]]></KfAccount>
+     </xml>
 
- 转接会话：
- <xml>
- <ToUserName><![CDATA[touser]]></ToUserName>
- <FromUserName><![CDATA[fromuser]]></FromUserName>
- <CreateTime>1399197672</CreateTime>
- <MsgType><![CDATA[event]]></MsgType>
- <Event><![CDATA[kf_switch_session]]></Event>
- <FromKfAccount><![CDATA[test1@test]]></FromKfAccount>
- <ToKfAccount><![CDATA[test2@test]]></ToKfAccount>
- </xml>
+     转接会话：
+     <xml>
+     <ToUserName><![CDATA[touser]]></ToUserName>
+     <FromUserName><![CDATA[fromuser]]></FromUserName>
+     <CreateTime>1399197672</CreateTime>
+     <MsgType><![CDATA[event]]></MsgType>
+     <Event><![CDATA[kf_switch_session]]></Event>
+     <FromKfAccount><![CDATA[test1@test]]></FromKfAccount>
+     <ToKfAccount><![CDATA[test2@test]]></ToKfAccount>
+     </xml>
+ </pre>
  */
 public class InCustomEvent extends EventInMsg
 {

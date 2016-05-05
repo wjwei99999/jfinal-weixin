@@ -1,9 +1,9 @@
 package com.jfinal.weixin.sdk.msg.in.event;
 
+import com.jfinal.weixin.sdk.msg.in.InMsg;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.jfinal.weixin.sdk.msg.in.InMsg;
 
 /**
  * 
@@ -13,34 +13,35 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
  * 微信会把这个事件推送到开发者填写的URL（登录公众平台进入开发者中心设置）。
  * 推送内容包含摇一摇时“周边”页卡展示出来的页面所对应的设备信息，
  * 以及附近最多五个属于该公众账号的设备的信息。
- 
- <xml>
-	 <ToUserName><![CDATA[toUser]]></ToUserName>
-	 <FromUserName><![CDATA[fromUser]]></FromUserName>
-	 <CreateTime>1433332012</CreateTime>
-	 <MsgType><![CDATA[event]]></MsgType>
-	 <Event><![CDATA[ShakearoundUserShake]]></Event>
-	 <ChosenBeacon>
-	 <Uuid><![CDATA[uuid]]></Uuid>
-	 <Major>major</Major>
-	 <Minor>minor</Minor>
-	 <Distance>0.057</Distance>
-	 </ChosenBeacon>
-		 <AroundBeacons>
-			 <AroundBeacon>
-			 <Uuid><![CDATA[uuid]]></Uuid>
-			 <Major>major</Major>
-			 <Minor>minor</Minor>
-			 <Distance>166.816</Distance>
-			 </AroundBeacon>
-			 <AroundBeacon>
-			 <Uuid><![CDATA[uuid]]></Uuid>
-			 <Major>major</Major>
-			 <Minor>minor</Minor>
-			 <Distance>15.013</Distance>
-			 </AroundBeacon>
-		 </AroundBeacons>
- </xml>
+ <pre>
+	<xml>
+		 <ToUserName><![CDATA[toUser]]></ToUserName>
+		 <FromUserName><![CDATA[fromUser]]></FromUserName>
+		 <CreateTime>1433332012</CreateTime>
+		 <MsgType><![CDATA[event]]></MsgType>
+		 <Event><![CDATA[ShakearoundUserShake]]></Event>
+		 <ChosenBeacon>
+		 <Uuid><![CDATA[uuid]]></Uuid>
+		 <Major>major</Major>
+		 <Minor>minor</Minor>
+		 <Distance>0.057</Distance>
+		 </ChosenBeacon>
+			 <AroundBeacons>
+				 <AroundBeacon>
+				 <Uuid><![CDATA[uuid]]></Uuid>
+				 <Major>major</Major>
+				 <Minor>minor</Minor>
+				 <Distance>166.816</Distance>
+				 </AroundBeacon>
+				 <AroundBeacon>
+				 <Uuid><![CDATA[uuid]]></Uuid>
+				 <Major>major</Major>
+				 <Minor>minor</Minor>
+				 <Distance>15.013</Distance>
+				 </AroundBeacon>
+			 </AroundBeacons>
+	</xml>
+ </pre>
 */
 public class InShakearoundUserShakeEvent extends InMsg {
 

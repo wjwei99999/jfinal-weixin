@@ -7,6 +7,7 @@
 package com.jfinal.weixin.sdk.msg.in;
 
 /**
+ * <pre>
 	接收文本消息
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -16,6 +17,7 @@ package com.jfinal.weixin.sdk.msg.in;
 			<Content><![CDATA[this is a test]]></Content>
 			<MsgId>1234567890123456</MsgId>
 	</xml>
+ </pre>
  */
 public class InTextMsg extends InMsg {
 	

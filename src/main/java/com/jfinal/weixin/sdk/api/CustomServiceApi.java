@@ -6,14 +6,14 @@
 
 package com.jfinal.weixin.sdk.api;
 
+import com.jfinal.weixin.sdk.kit.ParaMap;
+import com.jfinal.weixin.sdk.utils.HttpUtils;
+import com.jfinal.weixin.sdk.utils.JsonUtils;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.jfinal.weixin.sdk.kit.ParaMap;
-import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 多客服功能</br>
@@ -27,6 +27,8 @@ public class CustomServiceApi {
 
     /**
      * 获取客服聊天记录
+     * @param jsonStr json字符串
+     * @return {ApiResult}
      */
     public static ApiResult getRecord(String jsonStr) {
         String jsonResult = HttpUtils.post(getRecordUrl + AccessTokenApi.getAccessTokenStr(), jsonStr);
@@ -119,7 +121,7 @@ public class CustomServiceApi {
      * 设置客服帐号的头像
      * @param kf_account 完整客服账号，格式为：账号前缀@公众号微信号
      * @param headImg 客服人员的头像，头像图片文件必须是jpg格式，推荐使用640*640大小的图片以达到最佳效果
-     * @return
+     * @return ApiResult
      */
     public static ApiResult uploadKfAccountHeadImg(String kf_account, File headImg) {
         String accessToken = AccessTokenApi.getAccessTokenStr();
@@ -156,7 +158,7 @@ public class CustomServiceApi {
 
     /**
      * 发送客服消息
-     * @param message
+     * @param message 消息封装
      * @return ApiResult
      */
     private static ApiResult sendMsg(Map<String, Object> message) {
@@ -167,8 +169,9 @@ public class CustomServiceApi {
 
     /**
      * 发送文本客服消息
-     * @param openId
-     * @param text
+     * @param openId openId
+     * @param text 文本消息
+     * @return ApiResult
      */
     public static ApiResult sendText(String openId, String text) {
         Map<String, Object> json = new HashMap<String, Object>();
@@ -184,9 +187,9 @@ public class CustomServiceApi {
 
     /**
      * 发送图片消息
-     * @param openId
-     * @param media_id
-     * @return
+     * @param openId openId
+     * @param media_id 图片媒体id
+     * @return ApiResult
      */
     public static ApiResult sendImage(String openId, String media_id) {
         Map<String, Object> json = new HashMap<String, Object>();
@@ -202,9 +205,9 @@ public class CustomServiceApi {
 
     /**
      * 发送语言回复
-     * @param openId
-     * @param media_id
-     * @return
+     * @param openId openId
+     * @param media_id 媒体id
+     * @return ApiResult
      */
     public static ApiResult sendVoice(String openId, String media_id) {
         Map<String, Object> json = new HashMap<String, Object>();
@@ -220,11 +223,11 @@ public class CustomServiceApi {
 
     /**
      * 发送视频回复
-     * @param openId
-     * @param media_id
-     * @param title
-     * @param description
-     * @return
+     * @param openId openId
+     * @param media_id 媒体id
+     * @param title 视频标题
+     * @param description 视频描述
+     * @return {ApiResult}
      */
     public static ApiResult sendVideo(String openId, String media_id, String title, String description) {
         Map<String, Object> json = new HashMap<String, Object>();
@@ -242,13 +245,13 @@ public class CustomServiceApi {
 
     /**
      * 发送音乐回复
-     * @param openId
-     * @param musicurl
-     * @param hqmusicurl
-     * @param thumb_media_id
-     * @param title
-     * @param description
-     * @return
+     * @param openId openId
+     * @param musicurl 音乐地址
+     * @param hqmusicurl 音乐高清地址
+     * @param thumb_media_id 音乐媒体id
+     * @param title 音乐标题
+     * @param description 音乐描述
+     * @return {ApiResult}
      */
     public static ApiResult sendMusic(String openId, String musicurl, String hqmusicurl, String thumb_media_id, String title, String description) {
         Map<String, Object> json = new HashMap<String, Object>();
@@ -268,9 +271,9 @@ public class CustomServiceApi {
 
     /**
      * 发送图文回复，图文消息条数限制在8条以内
-     * @param openId
-     * @param articles
-     * @return
+     * @param openId openId
+     * @param articles 图文信息封装
+     * @return {ApiResult}
      */
     public static ApiResult sendNews(String openId, List<Articles> articles) {
         Map<String, Object> json = new HashMap<String, Object>();
@@ -323,7 +326,7 @@ public class CustomServiceApi {
      * 发送图文消息（点击跳转到图文消息页面），图文消息条数限制在8条以内
      * @param openId 普通用户openid
      * @param mediaId 素材id
-     * @return
+     * @return ApiResult
      */
     public static ApiResult sendMpNews(String openId, String mediaId) {
         Map<String, Object> json = new HashMap<String, Object>();
@@ -342,7 +345,7 @@ public class CustomServiceApi {
      * @param openId
      * @param card_id
      * @param card_ext 详情及签名规则: http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD.954-.E5.8D.A1.E5.88.B8.E6.89.A9.E5.B1.95.E5.AD.97.E6.AE.B5.E5.8F.8A.E7.AD.BE.E5.90.8D.E7.94.9F.E6.88.90.E7.AE.97.E6.B3.95
-     * @return
+     * @return ApiResult
      */
     public static ApiResult sendCoupon(String openId, String card_id, String card_ext) {
         Map<String, Object> json = new HashMap<String, Object>();

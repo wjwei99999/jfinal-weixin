@@ -1,20 +1,19 @@
 package com.jfinal.weixin.sdk.kit;
 
+import com.jfinal.kit.HashKit;
+import com.jfinal.kit.StrKit;
+import com.jfinal.weixin.sdk.utils.Charsets;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import com.jfinal.kit.HashKit;
-import com.jfinal.kit.StrKit;
-import com.jfinal.weixin.sdk.utils.Charsets;
 
 /**
  * 微信支付的统一下单工具类
@@ -57,7 +56,7 @@ public class PaymentKit {
 	 * urlEncode
 	 * @param src 微信参数
 	 * @return String
-	 * @throws UnsupportedEncodingException
+	 * @throws UnsupportedEncodingException 编码错误
 	 */
 	public static String urlEncode(String src) throws UnsupportedEncodingException {
 		return URLEncoder.encode(src, Charsets.UTF_8.name()).replace("+", "%20");
@@ -65,7 +64,9 @@ public class PaymentKit {
 	
 	/**
 	 * 生成签名
-	 * @return
+	 * @param params 参数
+	 * @param paternerKey 支付密钥
+	 * @return sign
 	 */
 	public static String createSign(Map<String, String> params, String paternerKey) {
 		// 生成签名前先去除sign
@@ -77,9 +78,9 @@ public class PaymentKit {
 	
 	/**
 	 * 支付异步通知时校验sign
-	 * @param params
-	 * @param paternerKey
-	 * @return
+	 * @param params 参数
+	 * @param paternerKey 支付密钥
+	 * @return {boolean}
 	 */
 	public static boolean verifyNotify(Map<String, String> params, String paternerKey){
 		String sign = params.get("sign");
@@ -110,7 +111,7 @@ public class PaymentKit {
 	
 	/**
 	 * 针对支付的xml，没有嵌套节点的简单处理
-	 * @param xml xml字符串
+	 * @param xmlStr xml字符串
 	 * @return Map<String, String> map集合
 	 */
 	public static Map<String, String> xmlToMap(String xmlStr) {

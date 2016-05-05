@@ -9,6 +9,7 @@ package com.jfinal.weixin.sdk.msg.out;
 import com.jfinal.weixin.sdk.msg.in.InMsg;
 
 /**
+ * <pre>
 	回复音乐消息
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -24,6 +25,7 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 				"<FuncFlag>${__msg.funcFlag}</FuncFlag>\n" +
 			</Music>
 	</xml>
+ </pre>
 */
 public class OutMusicMsg extends OutMsg {
 	

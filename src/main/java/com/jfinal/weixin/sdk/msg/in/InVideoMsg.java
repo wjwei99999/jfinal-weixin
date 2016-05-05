@@ -7,6 +7,7 @@
 package com.jfinal.weixin.sdk.msg.in;
 
 /**
+ * <pre>
 	接收视频消息
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -17,6 +18,7 @@ package com.jfinal.weixin.sdk.msg.in;
 			<ThumbMediaId><![CDATA[thumb_media_id]]></ThumbMediaId>
 			<MsgId>1234567890123456</MsgId>
 	</xml>
+ </pre>
 */
 public class InVideoMsg extends InMsg {
 	

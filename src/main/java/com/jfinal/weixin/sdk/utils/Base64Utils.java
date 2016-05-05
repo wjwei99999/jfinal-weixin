@@ -1,8 +1,7 @@
 package com.jfinal.weixin.sdk.utils;
 
-import java.nio.charset.Charset;
-
 import javax.xml.bind.DatatypeConverter;
+import java.nio.charset.Charset;
 
 /**
  * JDK6之后 Base64工具
@@ -15,13 +14,17 @@ public class Base64Utils {
 	
 	/**
 	 * 编码
+	 * @param value byte数组
+	 * @return {String}
 	 */
-	public static String encode(byte[] val) {
-		return DatatypeConverter.printBase64Binary(val);
+	public static String encode(byte[] value) {
+		return DatatypeConverter.printBase64Binary(value);
 	}
 	
 	/**
 	 * 编码
+	 * @param value 字符串
+	 * @return {String}
 	 */
 	public static String encode(String value) {
 		byte[] val = value.getBytes(Charsets.UTF_8);
@@ -30,6 +33,9 @@ public class Base64Utils {
 	
 	/**
 	 * 编码
+	 * @param value 字符串
+	 * @param charsetName charSet
+	 * @return {String}
 	 */
 	public static String encode(String value, String charsetName) {
 		byte[] val = value.getBytes(Charset.forName(charsetName));
@@ -38,6 +44,8 @@ public class Base64Utils {
 	
 	/**
 	 * 解码
+	 * @param value 字符串
+	 * @return {byte[]}
 	 */
 	public static byte[] decodeBase64(String value) {
 		return DatatypeConverter.parseBase64Binary(value);
@@ -45,6 +53,8 @@ public class Base64Utils {
 	
 	/**
 	 * 解码
+	 * @param value 字符串
+	 * @return {String}
 	 */
 	public static String decode(String value) {
 		byte[] decodedValue = Base64Utils.decodeBase64(value);
@@ -53,6 +63,9 @@ public class Base64Utils {
 	
 	/**
 	 * 解码
+	 * @param value 字符串
+	 * @param charsetName 字符集
+	 * @return {String}
 	 */
 	public static String decode(String value, String charsetName) {
 		byte[] decodedValue = Base64Utils.decodeBase64(value);

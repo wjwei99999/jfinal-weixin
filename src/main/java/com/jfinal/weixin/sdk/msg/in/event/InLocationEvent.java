@@ -7,6 +7,7 @@
 package com.jfinal.weixin.sdk.msg.in.event;
 
 /**
+ * <pre>
 	上报地理位置事件
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -18,6 +19,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
 			<Longitude>113.352425</Longitude>
 			<Precision>119.385040</Precision>
 	</xml>
+ </pre>
  */
 public class InLocationEvent extends EventInMsg {
 	

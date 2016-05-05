@@ -9,9 +9,9 @@ public abstract class ClassUtils {
 	
 	/**
 	 * 确定class是否可以被加载
-	 * @param className
-	 * @param classLoader
-	 * @return
+	 * @param className 完整类名
+	 * @param classLoader 类加载
+	 * @return {boolean}
 	 */
 	public static boolean isPresent(String className, ClassLoader classLoader) {
 		try {

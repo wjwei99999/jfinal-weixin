@@ -10,6 +10,7 @@ import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
 
 
 /**
+ * <pre>
 	接收语音识别结果，与 InVoiceMsg 唯一的不同是多了一个 Recognition 标记
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -21,6 +22,7 @@ import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
 			<Recognition><![CDATA[腾讯微信团队]]></Recognition>
 			<MsgId>1234567890123456</MsgId>
 	</xml>
+ </pre>
  */
 public class InSpeechRecognitionResults extends InVoiceMsg {
 	

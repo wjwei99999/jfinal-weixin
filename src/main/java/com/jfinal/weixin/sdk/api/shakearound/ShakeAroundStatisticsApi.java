@@ -1,14 +1,14 @@
 package com.jfinal.weixin.sdk.api.shakearound;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.api.shakearound.bean.DeviceIdentifier;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 数据统计接口
@@ -20,10 +20,10 @@ public class ShakeAroundStatisticsApi {
 	
 	/**
 	 * 以设备为维度的数据统计接口
-	 * @param deviceIdentifierList
+	 * @param deviceIdentifier 设备信息
 	 * @param beginDate 起始日期时间戳，最长时间跨度为30天，单位为秒
 	 * @param endDate 结束日期时间戳，最长时间跨度为30天，单位为秒
-	 * @return
+	 * @return {ApiResult}
 	 */
 	public static ApiResult getByDevice(DeviceIdentifier deviceIdentifier, Date beginDate, Date endDate) {
 		String url = statisticsDeviceUrl + AccessTokenApi.getAccessTokenStr();
@@ -46,7 +46,7 @@ public class ShakeAroundStatisticsApi {
 	 * 
 	 * @param date 指定查询日期时间戳，单位为秒
 	 * @param pageIndex 指定查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页
-	 * @return
+	 * @return {ApiResult}
 	 */
 	public static ApiResult getDeviceList(Date date, int pageIndex) {
 		String url = statisticsDeviceListUrl + AccessTokenApi.getAccessTokenStr();
@@ -66,7 +66,7 @@ public class ShakeAroundStatisticsApi {
 	 * @param pageId 指定页面的设备ID
 	 * @param beginDate 起始日期时间戳，最长时间跨度为30天，单位为秒
 	 * @param endDate 结束日期时间戳，最长时间跨度为30天，单位为秒
-	 * @return
+	 * @return {ApiResult}
 	 */
 	public static ApiResult getByPage(int pageId, Date beginDate, Date endDate) {
 		String url = statisticsPageUrl + AccessTokenApi.getAccessTokenStr();
@@ -89,7 +89,7 @@ public class ShakeAroundStatisticsApi {
 	 * 
 	 * @param date 指定查询日期时间戳
 	 * @param pageIndex 指定查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页
-	 * @return
+	 * @return {ApiResult}
 	 */
 	public static ApiResult getPageList(Date date, int pageIndex) {
 		String url = statisticsPageListUrl + AccessTokenApi.getAccessTokenStr();

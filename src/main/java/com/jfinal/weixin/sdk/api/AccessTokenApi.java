@@ -6,13 +6,13 @@
 
 package com.jfinal.weixin.sdk.api;
 
-import java.util.Map;
-import java.util.concurrent.Callable;
-
 import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
 import com.jfinal.weixin.sdk.kit.ParaMap;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.RetryUtils;
+
+import java.util.Map;
+import java.util.concurrent.Callable;
 
 /**
  * 认证并获取 access_token API
@@ -35,6 +35,7 @@ public class AccessTokenApi {
 	
 	/**
 	 * 从缓存中获取 access token，如果未取到或者 access token 不可用则先更新再获取
+	 * @return AccessToken accessToken
 	 */
 	public static AccessToken getAccessToken() {
 		String appId = ApiConfigKit.getApiConfig().getAppId();

@@ -6,18 +6,20 @@
 
 package com.jfinal.weixin.sdk.api;
 
+import com.jfinal.weixin.sdk.kit.ParaMap;
+import com.jfinal.weixin.sdk.utils.HttpUtils;
+import com.jfinal.weixin.sdk.utils.JsonUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jfinal.weixin.sdk.kit.ParaMap;
-import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
-
 /**
  * 用户管理 API
+ * <pre>
  * https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+ * </pre>
  */
 public class UserApi {
 	
@@ -91,7 +93,7 @@ public class UserApi {
 	 * 设置备注名
 	 * @param openid 用户标识
 	 * @param remark 新的备注名，长度必须小于30字符
-	 * @return
+	 * @return {ApiResult}
 	 */
 	public static ApiResult updateRemark(String openid, String remark) {
 		String url = updateRemarkUrl + AccessTokenApi.getAccessTokenStr();

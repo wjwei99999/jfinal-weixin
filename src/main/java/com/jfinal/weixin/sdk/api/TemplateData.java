@@ -1,15 +1,15 @@
 package com.jfinal.weixin.sdk.api;
 
-import java.util.HashMap;
-
 import com.jfinal.weixin.sdk.utils.JsonUtils;
+
+import java.util.HashMap;
 
 /**
  *	模板消息数据对象
  *
  * @author L.cm
- * @date 2014-11-10 下午3:32:30
- * @description 模板消息数据对象
+ * #date 2014-11-10 下午3:32:30
+ * #description 模板消息数据对象
  */
 public class TemplateData {
 
@@ -74,7 +74,7 @@ public class TemplateData {
 
 	/**
 	 * 直接转化成jsonString
-	 * @return
+	 * @return {String}
 	 */
 	public String build() {
 		return JsonUtils.toJson(this);

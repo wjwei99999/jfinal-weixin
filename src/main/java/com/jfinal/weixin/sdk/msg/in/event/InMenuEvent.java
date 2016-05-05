@@ -7,6 +7,7 @@
 package com.jfinal.weixin.sdk.msg.in.event;
 
 /**
+ * <pre>
 	自定义菜单事件
 	1： 点击菜单拉取消息时的事件推送
 	<xml>
@@ -161,7 +162,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
 	9. media_id：下发消息（除文本消息）
 	
 	10. view_limited：跳转图文消息URL
-	
+ </pre>
  */
 public class InMenuEvent extends EventInMsg {
 	// 1. 点击菜单拉取消息时的事件推送： CLICK

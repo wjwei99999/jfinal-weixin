@@ -1,16 +1,16 @@
 package com.jfinal.weixin.sdk.utils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import com.jfinal.json.FastJson;
 import com.jfinal.json.JFinalJson;
 import com.jfinal.json.Json;
 import com.jfinal.plugin.activerecord.CPI;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Record;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Json转换
@@ -29,7 +29,7 @@ public final class JsonUtils {
 	
 	/**
 	 * 将model转为json字符串
-	 * @param model
+	 * @param model jfinal model
 	 * @return JsonString
 	 */
 	public static String toJson(Model<? extends Model<?>> model) {
@@ -38,7 +38,7 @@ public final class JsonUtils {
 	
 	/**
 	 * 将Collection<Model>转换为json字符串
-	 * @param models
+	 * @param models jfinal model
 	 * @return JsonString
 	 */
 	public static String toJson(Collection<Model<? extends Model<?>>> models) {
@@ -51,7 +51,7 @@ public final class JsonUtils {
 	
 	/**
 	 * 将 record 转为json字符串
-	 * @param record
+	 * @param record jfinal record
 	 * @return JsonString
 	 */
 	public static String toJson(Record record) {
@@ -60,7 +60,7 @@ public final class JsonUtils {
 	
 	/**
 	 * 将List<Record>转换为json字符串
-	 * @param models
+	 * @param records jfinal records
 	 * @return JsonString
 	 */
 	public static String toJson(List<Record> records) {
@@ -125,7 +125,7 @@ public final class JsonUtils {
 	
 	/**
 	 * 将 Object 转为json字符串
-	 * @param record
+	 * @param object 对象
 	 * @return JsonString
 	 */
 	public static String toJson(Object object) {
@@ -137,9 +137,9 @@ public final class JsonUtils {
 	
 	/**
 	 * 将 json字符串 转为Object
-	 * @param jsonString
-	 * @param valueType
-	 * @return T
+	 * @param jsonString json字符串
+	 * @param valueType 结果类型
+	 * @return T 结果
 	 */
 	public static <T> T parse(String jsonString, Class<T> valueType) {
 		if (json == null) {

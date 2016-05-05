@@ -9,7 +9,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
 /**
  * 由于群发任务提交后，群发任务可能在一定时间后才完成，因此，群发接口调用时，仅会给出群发任务是否提交成功的提示，
  * 若群发任务提交成功，则在群发任务结束时，会向开发者在公众平台填写的开发者URL（callback URL）推送事件。
- * <p/>
+ * <pre>
  * <xml>
  * <ToUserName><![CDATA[gh_7f083739789a]]></ToUserName>
  * <FromUserName><![CDATA[oia2TjuEGTNoeX76QEjQNrcURxG8]]></FromUserName>
@@ -23,6 +23,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
  * <SentCount>75</SentCount>
  * <ErrorCount>5</ErrorCount>
  * </xml>
+ * </pre>
  */
 public class InMassEvent extends EventInMsg
 {

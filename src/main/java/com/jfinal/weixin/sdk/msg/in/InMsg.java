@@ -7,6 +7,7 @@
 package com.jfinal.weixin.sdk.msg.in;
 
 /**
+ * <pre>
 	接收消息，以下是接收文本消息的例子
 	接收文本消息
 	<xml>
@@ -17,6 +18,7 @@ package com.jfinal.weixin.sdk.msg.in;
 			<Content><![CDATA[this is a test]]></Content>
 			<MsgId>1234567890123456</MsgId>
 	</xml>
+ </pre>
  */
 public abstract class InMsg {
 	

@@ -96,9 +96,10 @@ public class ApiConfig implements Serializable {
 	}
 	
 	/**
-	 *  是否对消息进行加密，对应于微信平台的消息加解密方式：
-	 *  1：true进行加密且必须配置 encodingAesKey
-	 *  2：false采用明文模式，同时也支持混合模式
+	 * @param messageEncrypt
+	 * 是否对消息进行加密，对应于微信平台的消息加解密方式：
+	 * 1：true进行加密且必须配置 encodingAesKey
+	 * 2：false采用明文模式，同时也支持混合模式
 	 */
 	public void setEncryptMessage(boolean messageEncrypt) {
 		this.messageEncrypt = messageEncrypt;

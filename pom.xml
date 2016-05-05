@@ -127,6 +127,8 @@
 			</plugin>
 		</plugins>
 	</build>
+	<!-- push to oss -->
+	<!-- mvn clean deploy -P release -Dgpg.passphrase=xxxx -->
 	<profiles>
 		<profile>
 			<id>release</id>

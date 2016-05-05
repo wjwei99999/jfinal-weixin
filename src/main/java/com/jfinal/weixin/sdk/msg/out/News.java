@@ -7,6 +7,7 @@
 package com.jfinal.weixin.sdk.msg.out;
 
 /**
+ * <pre>
 	回复图文消息
 	<xml>
 		<ToUserName><![CDATA[toUser]]></ToUserName>
@@ -30,6 +31,7 @@ package com.jfinal.weixin.sdk.msg.out;
 				</item>
 			</Articles>
 	</xml>
+ </pre>
 */
 
 public class News {
