@@ -65,6 +65,7 @@ public class RetryUtils {
 			}
 			if (v.matching()) break;
 			log.error("retry on " + (i + 1) + " times but not matching v = " + (v == null ? null : v.getJson()));
+			Thread.sleep(sleepMillis);
 		}
 		return v;
 	}
