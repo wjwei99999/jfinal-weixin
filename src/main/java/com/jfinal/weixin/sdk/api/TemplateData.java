@@ -80,7 +80,7 @@ public class TemplateData {
 		return JsonUtils.toJson(this);
 	}
 
-	class TemplateItem extends HashMap<String, Item> {
+	public class TemplateItem extends HashMap<String, Item> {
 
 		private static final long serialVersionUID = -3728490424738325020L;
 		
@@ -91,7 +91,7 @@ public class TemplateData {
 		}
 	}
 
-	class Item {
+	public class Item {
 		private Object value;
 		private String color;
 

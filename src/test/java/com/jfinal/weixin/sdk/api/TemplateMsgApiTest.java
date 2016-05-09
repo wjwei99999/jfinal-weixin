@@ -18,7 +18,7 @@ public class TemplateMsgApiTest {
 			.setTemplate_id("UsOTFJfm7-XfskPd5p2wlBXYUjdwjUTZxnMXbOfVQ0A")
 			.setTopcolor("#eb414a")
 			.setUrl("http://m.xxxx.cn/qrcode/t/xxxxxx")
-			
+
 			// 模板参数
 			.add("first", "验票成功！\n", "#999")
 			.add("keyword1", "xxxxxx", "#999")
