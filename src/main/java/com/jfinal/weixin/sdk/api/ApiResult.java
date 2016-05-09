@@ -20,8 +20,8 @@ import java.util.Map;
  *  <pre>
  *  http://wiki.fasterxml.com/JacksonInFiveMinutes
  *  JSON TYPE				JAVA TYPE
- *  object					LinkedHashMap<String,Object>
- *  array					ArrayList<Object>
+ *  object					LinkedHashMap&lt;String,Object&gt;
+ *  array					ArrayList&lt;Object&gt;
  *  string					String
  *  number (no fraction)	Integer, Long or BigInteger (smallest applicable)
  *  number (fraction)		Double (configurable to use BigDecimal)
@@ -36,6 +36,7 @@ public class ApiResult {
 	
 	/**
 	 * 通过 json 构造 ApiResult，注意返回结果不为 json 的 api（如果有的话）
+	 * @param jsonStr json字符串
 	 */
 	@SuppressWarnings("unchecked")
 	public ApiResult(String jsonStr) {

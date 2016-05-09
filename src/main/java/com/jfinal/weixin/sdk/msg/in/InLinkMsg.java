@@ -9,16 +9,16 @@ package com.jfinal.weixin.sdk.msg.in;
 /**
  * <pre>
 	接收链接消息
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[fromUser]]></FromUserName>
-		<CreateTime>1351776360</CreateTime>
-		<MsgType><![CDATA[link]]></MsgType>
-			<Title><![CDATA[公众平台官网链接]]></Title>
-			<Description><![CDATA[公众平台官网链接]]></Description>
-			<Url><![CDATA[url]]></Url>
-			<MsgId>1234567890123456</MsgId>
-	</xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;1351776360&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[link]]&gt;&lt;/MsgType&gt;
+ &lt;Title&gt;&lt;![CDATA[公众平台官网链接]]&gt;&lt;/Title&gt;
+ &lt;Description&gt;&lt;![CDATA[公众平台官网链接]]&gt;&lt;/Description&gt;
+ &lt;Url&gt;&lt;![CDATA[url]]&gt;&lt;/Url&gt;
+ &lt;MsgId&gt;1234567890123456&lt;/MsgId&gt;
+ &lt;/xml&gt;
  </pre>
 */
 public class InLinkMsg extends InMsg {

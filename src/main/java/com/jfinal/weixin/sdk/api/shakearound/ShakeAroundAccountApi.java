@@ -1,13 +1,13 @@
 package com.jfinal.weixin.sdk.api.shakearound;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 申请开通摇一摇周边
@@ -28,7 +28,7 @@ public class ShakeAroundAccountApi {
 	 * @param industryId 平台定义的行业代号，具体请查看:http://3gimg.qq.com/shake_nearby/Qualificationdocuments.html
 	 * @param applyReason 申请理由，可为空，不超过250汉字或500个英文字母
 	 * @param qualificationCertUrls 相关资质文件的图片url，图片需先上传至微信侧服务器，用“素材管理-上传图片素材”接口上传图片，返回的图片URL再配置在此处；当不需要资质文件时，数组内可以不填写url
-	 * @return
+	 * @return ApiResult
 	 */
 	public static ApiResult register(String name, String phoneNumber, String email,
 			String industryId, String applyReason, String... qualificationCertUrls
@@ -53,7 +53,7 @@ public class ShakeAroundAccountApi {
 	
 	/**
 	 * 查询已经提交的开通摇一摇周边功能申请的审核状态。在申请提交后，工作人员会在三个工作日内完成审核。
-	 * @return
+	 * @return ApiResult
 	 */
 	public static ApiResult getAuditStatus() {
 		String url = auditStatusUrl + AccessTokenApi.getAccessTokenStr();

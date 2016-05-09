@@ -9,17 +9,17 @@ package com.jfinal.weixin.sdk.msg.in;
 /**
  * <pre>
 	接收地理位置消息
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[fromUser]]></FromUserName>
-		<CreateTime>1351776360</CreateTime>
-		<MsgType><![CDATA[location]]></MsgType>
-			<Location_X>23.134521</Location_X>
-			<Location_Y>113.358803</Location_Y>
-			<Scale>20</Scale>
-			<Label><![CDATA[位置信息]]></Label>
-			<MsgId>1234567890123456</MsgId>
-	</xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;1351776360&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[location]]&gt;&lt;/MsgType&gt;
+ &lt;Location_X&gt;23.134521&lt;/Location_X&gt;
+ &lt;Location_Y&gt;113.358803&lt;/Location_Y&gt;
+ &lt;Scale&gt;20&lt;/Scale&gt;
+ &lt;Label&gt;&lt;![CDATA[位置信息]]&gt;&lt;/Label&gt;
+ &lt;MsgId&gt;1234567890123456&lt;/MsgId&gt;
+ &lt;/xml&gt;
  </pre>
 */
 public class InLocationMsg extends InMsg {

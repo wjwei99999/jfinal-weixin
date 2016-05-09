@@ -11,20 +11,20 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 /**
  * <pre>
 	回复音乐消息
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[fromUser]]></FromUserName>
-		<CreateTime>12345678</CreateTime>
-		<MsgType><![CDATA[music]]></MsgType>
-			<Music>
-				<Title><![CDATA[TITLE]]></Title>
-				<Description><![CDATA[DESCRIPTION]]></Description>
-				<MusicUrl><![CDATA[MUSIC_Url]]></MusicUrl>
-				<HQMusicUrl><![CDATA[HQ_MUSIC_Url]]></HQMusicUrl>
-				// 官司方文档错误，无此标记: "<ThumbMediaId><![CDATA[${__msg.thumbMediaId}]]></ThumbMediaId>\n" +
-				"<FuncFlag>${__msg.funcFlag}</FuncFlag>\n" +
-			</Music>
-	</xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;12345678&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[music]]&gt;&lt;/MsgType&gt;
+ &lt;Music&gt;
+ &lt;Title&gt;&lt;![CDATA[TITLE]]&gt;&lt;/Title&gt;
+ &lt;Description&gt;&lt;![CDATA[DESCRIPTION]]&gt;&lt;/Description&gt;
+ &lt;MusicUrl&gt;&lt;![CDATA[MUSIC_Url]]&gt;&lt;/MusicUrl&gt;
+ &lt;HQMusicUrl&gt;&lt;![CDATA[HQ_MUSIC_Url]]&gt;&lt;/HQMusicUrl&gt;
+ // 官司方文档错误，无此标记: "&lt;ThumbMediaId&gt;&lt;![CDATA[${__msg.thumbMediaId}]]&gt;&lt;/ThumbMediaId&gt;\n" +
+ "&lt;FuncFlag&gt;${__msg.funcFlag}&lt;/FuncFlag&gt;\n" +
+ &lt;/Music&gt;
+ &lt;/xml&gt;
  </pre>
 */
 public class OutMusicMsg extends OutMsg {

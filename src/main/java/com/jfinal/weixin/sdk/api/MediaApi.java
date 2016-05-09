@@ -1,13 +1,13 @@
 package com.jfinal.weixin.sdk.api;
 
+import com.jfinal.weixin.sdk.utils.HttpUtils;
+import com.jfinal.weixin.sdk.utils.JsonUtils;
+
 import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 素材管理
@@ -50,7 +50,7 @@ public class MediaApi {
 	 * @param mediaId 用于群发的消息的media_id
 	 * @param title 消息的标题
 	 * @param description 消息的描述
-	 * @return
+	 * @return {ApiResult}
 	 */
 	public static ApiResult uploadVideo(String mediaId, String title, String description) {
 		String url = uploadVideoUrl + AccessTokenApi.getAccessTokenStr();
@@ -113,6 +113,7 @@ public class MediaApi {
 	
 	/**
 	 * 新增其他类型永久素材
+	 * @param file 文件
 	 * @return ApiResult
 	 */
 	public static ApiResult addMaterial(File file) {
@@ -126,6 +127,9 @@ public class MediaApi {
 	 * 新增视频永久素材
 	 * 素材的格式大小等要求与公众平台官网一致。
 	 * 具体是，图片大小不超过2M，支持bmp/png/jpeg/jpg/gif格式，语音大小不超过5M，长度不超过60秒，支持mp3/wma/wav/amr格式
+	 * @param file 文件
+	 * @param title 文件标题
+	 * @param introduction 介绍
 	 * @return ApiResult
 	 */
 	public static ApiResult addMaterial(File file, String title, String introduction) {
@@ -145,7 +149,6 @@ public class MediaApi {
 	/**
 	 * 获取永久素材
 	 * @param media_id 要获取的素材的media_id
-	 * @param mediaType 素材分图文消息，视频素材和其他素材
 	 * @return InputStream 流，考虑到这里可能返回json或file请自行使用IOUtils转换
 	 */
 	public static InputStream getMaterial(String media_id) {

@@ -10,19 +10,19 @@ package com.jfinal.weixin.sdk.msg.in.event;
  * 由于群发任务提交后，群发任务可能在一定时间后才完成，因此，群发接口调用时，仅会给出群发任务是否提交成功的提示，
  * 若群发任务提交成功，则在群发任务结束时，会向开发者在公众平台填写的开发者URL（callback URL）推送事件。
  * <pre>
- * <xml>
- * <ToUserName><![CDATA[gh_7f083739789a]]></ToUserName>
- * <FromUserName><![CDATA[oia2TjuEGTNoeX76QEjQNrcURxG8]]></FromUserName>
- * <CreateTime>1395658920</CreateTime>
- * <MsgType><![CDATA[event]]></MsgType>
- * <Event><![CDATA[MASSSENDJOBFINISH]]></Event>
- * <MsgID>1988</MsgID>
- * <Status><![CDATA[sendsuccess]]></Status>
- * <TotalCount>100</TotalCount>
- * <FilterCount>80</FilterCount>
- * <SentCount>75</SentCount>
- * <ErrorCount>5</ErrorCount>
- * </xml>
+ * &lt;xml&gt;
+ * &lt;ToUserName&gt;&lt;![CDATA[gh_7f083739789a]]&gt;&lt;/ToUserName&gt;
+ * &lt;FromUserName&gt;&lt;![CDATA[oia2TjuEGTNoeX76QEjQNrcURxG8]]&gt;&lt;/FromUserName&gt;
+ * &lt;CreateTime&gt;1395658920&lt;/CreateTime&gt;
+ * &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ * &lt;Event&gt;&lt;![CDATA[MASSSENDJOBFINISH]]&gt;&lt;/Event&gt;
+ * &lt;MsgID&gt;1988&lt;/MsgID&gt;
+ * &lt;Status&gt;&lt;![CDATA[sendsuccess]]&gt;&lt;/Status&gt;
+ * &lt;TotalCount&gt;100&lt;/TotalCount&gt;
+ * &lt;FilterCount&gt;80&lt;/FilterCount&gt;
+ * &lt;SentCount&gt;75&lt;/SentCount&gt;
+ * &lt;ErrorCount&gt;5&lt;/ErrorCount&gt;
+ * &lt;/xml&gt;
  * </pre>
  */
 public class InMassEvent extends EventInMsg

@@ -10,14 +10,14 @@ package com.jfinal.weixin.sdk.msg.in;
  * <pre>
 	接收消息，以下是接收文本消息的例子
 	接收文本消息
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[fromUser]]></FromUserName> 
-		<CreateTime>1348831860</CreateTime>
-		<MsgType><![CDATA[text]]></MsgType>
-			<Content><![CDATA[this is a test]]></Content>
-			<MsgId>1234567890123456</MsgId>
-	</xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;1348831860&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
+ &lt;Content&gt;&lt;![CDATA[this is a test]]&gt;&lt;/Content&gt;
+ &lt;MsgId&gt;1234567890123456&lt;/MsgId&gt;
+ &lt;/xml&gt;
  </pre>
  */
 public abstract class InMsg {

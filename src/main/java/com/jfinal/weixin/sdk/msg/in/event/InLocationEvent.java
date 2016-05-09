@@ -9,17 +9,17 @@ package com.jfinal.weixin.sdk.msg.in.event;
 /**
  * <pre>
 	上报地理位置事件
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[fromUser]]></FromUserName>
-		<CreateTime>123456789</CreateTime>
-		<MsgType><![CDATA[event]]></MsgType>
-			<Event><![CDATA[LOCATION]]></Event>
-			<Latitude>23.137466</Latitude>
-			<Longitude>113.352425</Longitude>
-			<Precision>119.385040</Precision>
-	</xml>
- </pre>
+ &lt;xml&gt;
+		&lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+		&lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+		&lt;CreateTime&gt;123456789&lt;/CreateTime&gt;
+		&lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+		&lt;Event&gt;&lt;![CDATA[LOCATION]]&gt;&lt;/Event&gt;
+		&lt;Latitude&gt;23.137466&lt;/Latitude&gt;
+		&lt;Longitude&gt;113.352425&lt;/Longitude&gt;
+		&lt;Precision&gt;119.385040&lt;/Precision&gt;
+ &lt;/xml&gt;
+ * </pre>
  */
 public class InLocationEvent extends EventInMsg {
 	

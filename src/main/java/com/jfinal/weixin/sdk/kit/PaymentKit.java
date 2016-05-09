@@ -108,7 +108,7 @@ public class PaymentKit {
 	/**
 	 * 针对支付的xml，没有嵌套节点的简单处理
 	 * @param xmlStr xml字符串
-	 * @return Map<String, String> map集合
+	 * @return map集合
 	 */
 	public static Map<String, String> xmlToMap(String xmlStr) {
 		XmlHelper xmlHelper = XmlHelper.of(xmlStr);

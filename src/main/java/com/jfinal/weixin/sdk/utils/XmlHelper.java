@@ -96,7 +96,7 @@ public class XmlHelper {
     /**
      * 获取Number
      * @param expression 路径
-     * @return
+     * @return {Number}
      */
     public Number getNumber(String expression) {
         return (Number) evalXPath(expression, null, XPathConstants.NUMBER);
@@ -105,7 +105,7 @@ public class XmlHelper {
     /**
      * 获取某个节点
      * @param expression 路径
-     * @return
+     * @return {Node}
      */
     public Node getNode(String expression) {
         return (Node) evalXPath(expression, null, XPathConstants.NODE);
@@ -145,7 +145,7 @@ public class XmlHelper {
      * 获取
      * @param node 节点
      * @param expression 相对于node的路径
-     * @return
+     * @return {Number}
      */
     public Number getNumber(Object node, String expression) {
         return (Number) evalXPath(expression, node, XPathConstants.NUMBER);
@@ -155,7 +155,7 @@ public class XmlHelper {
      * 获取某个节点
      * @param node 节点
      * @param expression 路径
-     * @return
+     * @return {Node}
      */
     public Node getNode(Object node, String expression) {
         return (Node) evalXPath(expression, node, XPathConstants.NODE);

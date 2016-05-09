@@ -6,11 +6,11 @@
 
 package com.jfinal.weixin.sdk.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * menu api
@@ -22,6 +22,7 @@ public class MenuApi {
 	
 	/**
 	 * 查询自定义菜单
+	 * @return {ApiResult}
 	 */
 	public static ApiResult getMenu() {
 		String jsonResult = HttpUtils.get(getMenu + AccessTokenApi.getAccessTokenStr());
@@ -30,6 +31,8 @@ public class MenuApi {
 	
 	/**
 	 * 创建自定义菜单
+	 * @param jsonStr json字符串
+	 * @return {ApiResult}
 	 */
 	public static ApiResult createMenu(String jsonStr) {
 		String jsonResult = HttpUtils.post(createMenu + AccessTokenApi.getAccessTokenStr(), jsonStr);
@@ -51,8 +54,8 @@ public class MenuApi {
 	
 	/**
 	 * 创建个性化菜单
-	 * @param jsonStr
-	 * @return
+	 * @param jsonStr json字符串
+	 * @return {ApiResult}
 	 */
 	public static ApiResult addConditional(String jsonStr) {
 		String jsonResult = HttpUtils.post(addConditionalUrl + AccessTokenApi.getAccessTokenStr(), jsonStr);
@@ -97,6 +100,7 @@ public class MenuApi {
 	
 	/**
 	 * 获取自定义菜单配置接口
+	 * @return {ApiResult}
 	 */
 	public static ApiResult getCurrentSelfMenuInfo() {
 		String jsonResult = HttpUtils.get(getCurrentSelfMenuInfoUrl + AccessTokenApi.getAccessTokenStr());

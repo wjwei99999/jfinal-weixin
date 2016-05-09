@@ -6,17 +6,17 @@ package com.jfinal.weixin.sdk.msg.in.event;
  * 关于重试的消息排重,推荐使用 FromUserName + CreateTime 排重。
  * 假如服务器无法保证在五秒内处理并回复,可以直接回复空串,微信服务器不会对此作任何 处理,并且不会发起重试。
  * <pre>
- * <xml>
- * <ToUserName><![CDATA[toUser]]></ToUserName>
- * <FromUserName><![CDATA[fromUser]]></FromUserName>
- * <CreateTime>1408622107</CreateTime>
- * <MsgType><![CDATA[event]]></MsgType>
- * <Event><![CDATA[poi_check_notify]]></Event>
- * <UniqId><![CDATA[123adb]]></UniqId>
- * <PoiId><![CDATA[123123]]></PoiId>
- * <Result><![CDATA[fail]]></Result>
- * <Msg><![CDATA[xxxxxx]]></Msg>
- * </xml>
+ * &lt;xml&gt;
+ * &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ * &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ * &lt;CreateTime&gt;1408622107&lt;/CreateTime&gt;
+ * &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ * &lt;Event&gt;&lt;![CDATA[poi_check_notify]]&gt;&lt;/Event&gt;
+ * &lt;UniqId&gt;&lt;![CDATA[123adb]]&gt;&lt;/UniqId&gt;
+ * &lt;PoiId&gt;&lt;![CDATA[123123]]&gt;&lt;/PoiId&gt;
+ * &lt;Result&gt;&lt;![CDATA[fail]]&gt;&lt;/Result&gt;
+ * &lt;Msg&gt;&lt;![CDATA[xxxxxx]]&gt;&lt;/Msg&gt;
+ * &lt;/xml&gt;
  * </pre>
  */
 public class InPoiCheckNotifyEvent extends EventInMsg

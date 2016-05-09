@@ -88,7 +88,7 @@ public class ShakeAroundDeviceApi {
 	/**
 	 * 配置设备与门店的关联关系
 	 * 支持创建门店后直接关联在设备上，无需为审核通过状态，摇周边后台自动更新门店的最新信息和状态。
-	 * @param deviceIdentifier
+	 * @param deviceIdentifier 设备信息
 	 * @param poiId 设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。当值为0时，将清除设备已关联的门店ID。门店相关信息具体可查看：https://mp.weixin.qq.com/zh_CN/htmledition/comm_htmledition/res/store_manage/store_manage_file.zip
 	 * @return {ApiResult}
 	 */
@@ -145,6 +145,7 @@ public class ShakeAroundDeviceApi {
 	
 	/**
 	 * 根据批次id查找
+	 * @param applyId 应用id
 	 * @param begin 页面列表的起始索引值；
 	 * @param count 待查询的页面数量，不能超过50个；
 	 * @return {ApiResult}

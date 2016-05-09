@@ -8,14 +8,14 @@ package com.jfinal.weixin.sdk.msg.in.event;
 
 /**
  * <pre>
-     <xml><ToUserName><![CDATA[toUser]]></ToUserName>
-     <FromUserName><![CDATA[FromUser]]></FromUserName>
-     <CreateTime>1442401061</CreateTime>
-     <MsgType><![CDATA[event]]></MsgType>
-     <Event><![CDATA[naming_verify_fail]]></Event>
-     <FailTime>1442401061</FailTime>
-     <FailReason><![CDATA[by time]]></FailReason>
-     </xml>
+ &lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[FromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;1442401061&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ &lt;Event&gt;&lt;![CDATA[naming_verify_fail]]&gt;&lt;/Event&gt;
+ &lt;FailTime&gt;1442401061&lt;/FailTime&gt;
+ &lt;FailReason&gt;&lt;![CDATA[by time]]&gt;&lt;/FailReason&gt;
+ &lt;/xml&gt;
  </pre>
  */
 public class InVerifyFailEvent extends EventInMsg

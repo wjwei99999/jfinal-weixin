@@ -9,15 +9,15 @@ package com.jfinal.weixin.sdk.msg.in;
 /**
  * <pre>
 	接收视频消息
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[fromUser]]></FromUserName>
-		<CreateTime>1357290913</CreateTime>
-		<MsgType><![CDATA[video]]></MsgType>
-			<MediaId><![CDATA[media_id]]></MediaId>
-			<ThumbMediaId><![CDATA[thumb_media_id]]></ThumbMediaId>
-			<MsgId>1234567890123456</MsgId>
-	</xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;1357290913&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[video]]&gt;&lt;/MsgType&gt;
+ &lt;MediaId&gt;&lt;![CDATA[media_id]]&gt;&lt;/MediaId&gt;
+ &lt;ThumbMediaId&gt;&lt;![CDATA[thumb_media_id]]&gt;&lt;/ThumbMediaId&gt;
+ &lt;MsgId&gt;1234567890123456&lt;/MsgId&gt;
+ &lt;/xml&gt;
  </pre>
 */
 public class InVideoMsg extends InMsg {

@@ -123,6 +123,7 @@
 					<encoding>UTF-8</encoding>
 					<outputDirectory>${basedir}</outputDirectory>
 					<reportOutputDirectory>${basedir}</reportOutputDirectory>
+					<excludePackageNames>com.jfinal.weixin.demo</excludePackageNames>
 				</configuration>
 			</plugin>
 		</plugins>

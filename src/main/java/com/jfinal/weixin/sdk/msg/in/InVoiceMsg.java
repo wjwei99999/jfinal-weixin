@@ -9,15 +9,15 @@ package com.jfinal.weixin.sdk.msg.in;
 /**
  * <pre>
 	接收语音消息
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[fromUser]]></FromUserName>
-		<CreateTime>1357290913</CreateTime>
-		<MsgType><![CDATA[voice]]></MsgType>
-			<MediaId><![CDATA[media_id]]></MediaId>
-			<Format><![CDATA[Format]]></Format>
-			<MsgId>1234567890123456</MsgId>
-	</xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;1357290913&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[voice]]&gt;&lt;/MsgType&gt;
+ &lt;MediaId&gt;&lt;![CDATA[media_id]]&gt;&lt;/MediaId&gt;
+ &lt;Format&gt;&lt;![CDATA[Format]]&gt;&lt;/Format&gt;
+ &lt;MsgId&gt;1234567890123456&lt;/MsgId&gt;
+ &lt;/xml&gt;
  </pre>
 */
 public class InVoiceMsg extends InMsg {

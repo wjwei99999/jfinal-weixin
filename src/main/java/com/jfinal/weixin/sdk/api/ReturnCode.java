@@ -153,9 +153,11 @@ public class ReturnCode {
         put(9001035, "设备申请参数不合法");
         put(9001036, "查询起始值begin不合法");
     }};
-    
+
     /**
      * 通过返回码获取返回信息
+     * @param errCode 错误码
+     * @return {String}
      */
     public static String get(int errCode){
         String result = errCodeToErrMsg.get(errCode);

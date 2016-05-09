@@ -9,18 +9,18 @@ package com.jfinal.weixin.sdk.msg.in.event;
 /**
  * <pre>
      WIFI连网后下发消息  http://mp.weixin.qq.com/wiki/19/bac84e64da24f928c3e536c742d4e0b7.html
-     <xml>
-     <ToUserName><![CDATA[toUser]]></ToUserName>
-     <FromUserName><![CDATA[FromUser]]></FromUserName>
-     <CreateTime>123456789</CreateTime>
-     <MsgType><![CDATA[event]]></MsgType>
-     <Event><![CDATA[WifiConnected]]></Event>
-     <ConnectTime>0</ConnectTime>
-     <ExpireTime>0</ExpireTime>
-     <VendorId>![CDATA[3001224419]]</VendorId>
-     <ShopId>![CDATA[PlaceId]]</ShopId>
-     <DeviceNo>![CDATA[DeviceNo]]</DeviceNo>
-     </xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[FromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;123456789&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ &lt;Event&gt;&lt;![CDATA[WifiConnected]]&gt;&lt;/Event&gt;
+ &lt;ConnectTime&gt;0&lt;/ConnectTime&gt;
+ &lt;ExpireTime&gt;0&lt;/ExpireTime&gt;
+ &lt;VendorId&gt;![CDATA[3001224419]]&lt;/VendorId&gt;
+ &lt;ShopId&gt;![CDATA[PlaceId]]&lt;/ShopId&gt;
+ &lt;DeviceNo&gt;![CDATA[DeviceNo]]&lt;/DeviceNo&gt;
+ &lt;/xml&gt;
  </pre>
  */
 public class InWifiEvent extends EventInMsg

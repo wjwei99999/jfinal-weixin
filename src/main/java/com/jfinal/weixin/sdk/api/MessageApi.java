@@ -1,10 +1,10 @@
 package com.jfinal.weixin.sdk.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 高级群发相关接口
@@ -22,8 +22,8 @@ public class MessageApi {
 	
 	/**
 	 * 根据分组进行群发【订阅号与服务号认证后均可用】
-	 * @param jsonStr
-	 * @return
+	 * @param jsonStr json字符串
+	 * @return {ApiResult}
 	 */
 	public static ApiResult sendAll(String jsonStr) {
 		return post(sendAllUrl, jsonStr);
@@ -33,8 +33,8 @@ public class MessageApi {
 	
 	/**
 	 * 根据OpenID列表群发【订阅号不可用，服务号认证后可用】
-	 * @param jsonStr
-	 * @return
+	 * @param jsonStr json字符串
+	 * @return {ApiResult}
 	 */
 	public static ApiResult send(String jsonStr) {
 		return post(sendUrl, jsonStr);
@@ -44,8 +44,8 @@ public class MessageApi {
 	
 	/**
 	 * 预览接口【订阅号与服务号认证后均可用】
-	 * @param jsonStr
-	 * @return
+	 * @param jsonStr json字符串
+	 * @return {ApiResult}
 	 */
 	public static ApiResult preview(String jsonStr) {
 		return post(previewUrl, jsonStr);

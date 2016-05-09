@@ -25,10 +25,11 @@ public class SignatureCheckKit {
 	
 	/**
 	 * php 示例
+	 * <pre>
 	 *  $signature = $_GET["signature"];
-        $timestamp = $_GET["timestamp"];
-        $nonce = $_GET["nonce"];	
-        		
+	    $timestamp = $_GET["timestamp"];
+	    $nonce = $_GET["nonce"];
+
 		$token = TOKEN;
 		$tmpArr = array($token, $timestamp, $nonce);
 		sort($tmpArr, SORT_STRING);
@@ -40,6 +41,10 @@ public class SignatureCheckKit {
 		}else{
 			return false;
 		}
+	 * </pre>
+	 * @param signature 微信加密签名
+	 * @param timestamp 时间戳
+	 * @param nonce 随机字符串
 	 * @return {boolean}
 	 */
 	public boolean checkSignature(String signature, String timestamp, String nonce) {

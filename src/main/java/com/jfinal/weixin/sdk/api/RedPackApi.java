@@ -1,9 +1,9 @@
 package com.jfinal.weixin.sdk.api;
 
-import java.util.Map;
-
 import com.jfinal.weixin.sdk.kit.PaymentKit;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
+
+import java.util.Map;
 
 /**
  * 微信红包api
@@ -18,8 +18,8 @@ public class RedPackApi {
 	 * 发送红包
 	 * @param params 请求参数
 	 * @param certPath 证书文件目录
-	 * @param certPass 证书密码
-	 * @return
+	 * @param partner 证书密码
+	 * @return {String}
 	 */
 	public static String sendRedPack(Map<String, String> params, String certPath, String partner) {
 		return HttpUtils.postSSL(sendRedPackUrl, PaymentKit.toXml(params), certPath, partner);
@@ -32,8 +32,8 @@ public class RedPackApi {
 	 * 根据商户订单号查询信息
 	 * @param params 请求参数
 	 * @param certPath 证书文件目录
-	 * @param certPass 证书密码
-	 * @return
+	 * @param partner 证书密码
+	 * @return {String}
 	 */
 	public static String getHbInfo(Map<String, String> params, String certPath, String partner) {
 		return HttpUtils.postSSL(getHBInfo, PaymentKit.toXml(params), certPath, partner);
@@ -46,8 +46,8 @@ public class RedPackApi {
 	 * 发送裂变红包
 	 * @param params 请求参数
 	 * @param certPath 证书文件目录
-	 * @param certPass 证书密码
-	 * @return
+	 * @param partner 证书密码
+	 * @return {String}
 	 */
 	public static String sendGroupRedPack(Map<String, String> params, String certPath, String partner) {
 		return HttpUtils.postSSL(sendGroupRedPackUrl, PaymentKit.toXml(params), certPath, partner);

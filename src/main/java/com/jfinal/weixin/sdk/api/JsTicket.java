@@ -1,10 +1,10 @@
 package com.jfinal.weixin.sdk.api;
 
-import java.io.Serializable;
-import java.util.Map;
-
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 import com.jfinal.weixin.sdk.utils.RetryUtils.ResultCheck;
+
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * JsTicket返回封装
@@ -87,6 +87,7 @@ public class JsTicket implements ResultCheck, Serializable {
 
 	/**
 	 * APi 请求是否成功返回
+	 * @return boolean
 	 */
 	public boolean isSucceed() {
 		Integer errorCode = getErrorCode();

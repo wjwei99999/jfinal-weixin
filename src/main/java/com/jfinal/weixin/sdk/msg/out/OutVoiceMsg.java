@@ -11,15 +11,15 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 /**
  * <pre>
 	回复语音消息
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[fromUser]]></FromUserName>
-		<CreateTime>12345678</CreateTime>
-		<MsgType><![CDATA[voice]]></MsgType>
-			<Voice>
-				<MediaId><![CDATA[media_id]]></MediaId>
-			</Voice>
-	</xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;12345678&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[voice]]&gt;&lt;/MsgType&gt;
+ &lt;Voice&gt;
+ &lt;MediaId&gt;&lt;![CDATA[media_id]]&gt;&lt;/MediaId&gt;
+ &lt;/Voice&gt;
+ &lt;/xml&gt;
  </pre>
  */
 public class OutVoiceMsg extends OutMsg {

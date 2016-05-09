@@ -9,15 +9,15 @@ package com.jfinal.weixin.sdk.msg.in;
 /**
  * <pre>
 	接收图片消息
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[fromUser]]></FromUserName>
-		<CreateTime>1348831860</CreateTime>
-		<MsgType><![CDATA[image]]></MsgType>
-			<PicUrl><![CDATA[this is a url]]></PicUrl>
-			<MediaId><![CDATA[media_id]]></MediaId>
-			<MsgId>1234567890123456</MsgId>
-	</xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;1348831860&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[image]]&gt;&lt;/MsgType&gt;
+ &lt;PicUrl&gt;&lt;![CDATA[this is a url]]&gt;&lt;/PicUrl&gt;
+ &lt;MediaId&gt;&lt;![CDATA[media_id]]&gt;&lt;/MediaId&gt;
+ &lt;MsgId&gt;1234567890123456&lt;/MsgId&gt;
+ &lt;/xml&gt;
  </pre>
 */
 public class InImageMsg extends InMsg {

@@ -8,28 +8,28 @@ package com.jfinal.weixin.sdk.msg.in.event;
 
 /**
  * <pre>
-	扫描带参数二维码事件
-	1. 用户未关注时，进行关注后的事件推送
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[FromUser]]></FromUserName>
-		<CreateTime>123456789</CreateTime>
-		<MsgType><![CDATA[event]]></MsgType>
-			<Event><![CDATA[subscribe]]></Event>
-			<EventKey><![CDATA[qrscene_123123]]></EventKey>
-			<Ticket><![CDATA[TICKET]]></Ticket>
-	</xml>
-	
-	2. 用户已关注时的事件推送
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[FromUser]]></FromUserName>
-		<CreateTime>123456789</CreateTime>
-		<MsgType><![CDATA[event]]></MsgType>
-			<Event><![CDATA[SCAN]]></Event>
-			<EventKey><![CDATA[SCENE_VALUE]]></EventKey>
-			<Ticket><![CDATA[TICKET]]></Ticket>
-	</xml>
+ 扫描带参数二维码事件
+ 1. 用户未关注时，进行关注后的事件推送
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[FromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;123456789&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ &lt;Event&gt;&lt;![CDATA[subscribe]]&gt;&lt;/Event&gt;
+ &lt;EventKey&gt;&lt;![CDATA[qrscene_123123]]&gt;&lt;/EventKey&gt;
+ &lt;Ticket&gt;&lt;![CDATA[TICKET]]&gt;&lt;/Ticket&gt;
+ &lt;/xml&gt;
+
+ 2. 用户已关注时的事件推送
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[FromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;123456789&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ &lt;Event&gt;&lt;![CDATA[SCAN]]&gt;&lt;/Event&gt;
+ &lt;EventKey&gt;&lt;![CDATA[SCENE_VALUE]]&gt;&lt;/EventKey&gt;
+ &lt;Ticket&gt;&lt;![CDATA[TICKET]]&gt;&lt;/Ticket&gt;
+ &lt;/xml&gt;
  </pre>
  */
 public class InQrCodeEvent extends EventInMsg {

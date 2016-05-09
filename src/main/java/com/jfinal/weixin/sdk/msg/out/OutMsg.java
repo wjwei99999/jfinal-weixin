@@ -11,13 +11,13 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 /**
  * <pre>
 	回复文本消息
-	<xml>
-	<ToUserName><![CDATA[toUser]]></ToUserName>
-	<FromUserName><![CDATA[fromUser]]></FromUserName>
-	<CreateTime>12345678</CreateTime>
-	<MsgType><![CDATA[text]]></MsgType>
-	<Content><![CDATA[你好]]></Content>
-	</xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;12345678&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
+ &lt;Content&gt;&lt;![CDATA[你好]]&gt;&lt;/Content&gt;
+ &lt;/xml&gt;
  </pre>
  */
 public abstract class OutMsg {

@@ -11,23 +11,23 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 
 /**
  * <pre>
-	转发多客服消息
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[fromUser]]></FromUserName>
-		<CreateTime>12345678</CreateTime>
-		<MsgType><![CDATA[transfer_customer_service]]></MsgType>
-	</xml>
-	或者转发到指定客服
-	<xml>
-		<ToUserName><![CDATA[touser]]></ToUserName>
-		<FromUserName><![CDATA[fromuser]]></FromUserName>
-		<CreateTime>1399197672</CreateTime>
-		<MsgType><![CDATA[transfer_customer_service]]></MsgType>
-		<TransInfo>
-			<KfAccount><![CDATA[test1@test]]></KfAccount>
-		</TransInfo>
-	</xml>
+ 转发多客服消息
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;12345678&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[transfer_customer_service]]&gt;&lt;/MsgType&gt;
+ &lt;/xml&gt;
+ 或者转发到指定客服
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[touser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromuser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;1399197672&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[transfer_customer_service]]&gt;&lt;/MsgType&gt;
+ &lt;TransInfo&gt;
+ &lt;KfAccount&gt;&lt;![CDATA[test1@test]]&gt;&lt;/KfAccount&gt;
+ &lt;/TransInfo&gt;
+ &lt;/xml&gt;
  </pre>
 */
 public class OutCustomMsg extends OutMsg {

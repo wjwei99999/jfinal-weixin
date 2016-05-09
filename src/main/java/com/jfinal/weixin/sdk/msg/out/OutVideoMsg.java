@@ -11,17 +11,17 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 /**
  * <pre>
 	回复视频消息
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[fromUser]]></FromUserName>
-		<CreateTime>12345678</CreateTime>
-		<MsgType><![CDATA[video]]></MsgType>
-			<Video>
-				<MediaId><![CDATA[media_id]]></MediaId>
-				<Title><![CDATA[title]]></Title>
-				<Description><![CDATA[description]]></Description>
-			</Video>
-	</xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;12345678&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[video]]&gt;&lt;/MsgType&gt;
+ &lt;Video&gt;
+ &lt;MediaId&gt;&lt;![CDATA[media_id]]&gt;&lt;/MediaId&gt;
+ &lt;Title&gt;&lt;![CDATA[title]]&gt;&lt;/Title&gt;
+ &lt;Description&gt;&lt;![CDATA[description]]&gt;&lt;/Description&gt;
+ &lt;/Video&gt;
+ &lt;/xml&gt;
  </pre>
  */
 public class OutVideoMsg extends OutMsg {

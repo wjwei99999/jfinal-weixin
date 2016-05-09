@@ -107,6 +107,7 @@ public abstract class MsgController extends Controller {
 
 	/**
 	 * 在接收到微信服务器的 InMsg 消息后后响应 OutMsg 消息
+	 * @param outMsg 输出对象
 	 */
 	public void render(OutMsg outMsg) {
 		String outMsgXml = outMsg.toXml();

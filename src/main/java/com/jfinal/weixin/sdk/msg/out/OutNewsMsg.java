@@ -14,28 +14,28 @@ import java.util.List;
 /**
  * <pre>
 	回复图文消息
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[fromUser]]></FromUserName>
-		<CreateTime>12345678</CreateTime>
-		<MsgType><![CDATA[news]]></MsgType>
-			<ArticleCount>2</ArticleCount>
-			<Articles>
-				<item>
-					<Title><![CDATA[title1]]></Title> 
-					<Description><![CDATA[description1]]></Description>
-					<PicUrl><![CDATA[picurl]]></PicUrl>
-					<Url><![CDATA[url]]></Url>
-				</item>
-				
-				<item>
-					<Title><![CDATA[title]]></Title>
-					<Description><![CDATA[description]]></Description>
-					<PicUrl><![CDATA[picurl]]></PicUrl>
-					<Url><![CDATA[url]]></Url>
-				</item>
-			</Articles>
-	</xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;12345678&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[news]]&gt;&lt;/MsgType&gt;
+ &lt;ArticleCount&gt;2&lt;/ArticleCount&gt;
+ &lt;Articles&gt;
+ &lt;item&gt;
+ &lt;Title&gt;&lt;![CDATA[title1]]&gt;&lt;/Title&gt;
+ &lt;Description&gt;&lt;![CDATA[description1]]&gt;&lt;/Description&gt;
+ &lt;PicUrl&gt;&lt;![CDATA[picurl]]&gt;&lt;/PicUrl&gt;
+ &lt;Url&gt;&lt;![CDATA[url]]&gt;&lt;/Url&gt;
+ &lt;/item&gt;
+
+ &lt;item&gt;
+ &lt;Title&gt;&lt;![CDATA[title]]&gt;&lt;/Title&gt;
+ &lt;Description&gt;&lt;![CDATA[description]]&gt;&lt;/Description&gt;
+ &lt;PicUrl&gt;&lt;![CDATA[picurl]]&gt;&lt;/PicUrl&gt;
+ &lt;Url&gt;&lt;![CDATA[url]]&gt;&lt;/Url&gt;
+ &lt;/item&gt;
+ &lt;/Articles&gt;
+ &lt;/xml&gt;
  </pre>
  */
 public class OutNewsMsg extends OutMsg {

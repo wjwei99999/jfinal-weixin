@@ -8,14 +8,14 @@ package com.jfinal.weixin.sdk.msg.in.event;
 
 /**
  * <pre>
-     <xml><ToUserName><![CDATA[toUser]]></ToUserName>
-     <FromUserName><![CDATA[FromUser]]></FromUserName>
-     <CreateTime>1442401156</CreateTime>
-     <MsgType><![CDATA[event]]></MsgType>
-     <Event><![CDATA[qualification_verify_success]]></Event>
-     <ExpiredTime>1442401156</ExpiredTime>
-     </xml>
- </pre>
+ &lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[FromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;1442401156&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ &lt;Event&gt;&lt;![CDATA[qualification_verify_success]]&gt;&lt;/Event&gt;
+ &lt;ExpiredTime&gt;1442401156&lt;/ExpiredTime&gt;
+ &lt;/xml&gt;
+ * </pre>
  */
 public class InVerifySuccessEvent extends EventInMsg
 {

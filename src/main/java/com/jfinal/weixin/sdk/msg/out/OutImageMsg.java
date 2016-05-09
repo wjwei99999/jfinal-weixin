@@ -11,15 +11,15 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 /**
  * <pre>
 	回复图片消息
-	<xml>
-		<ToUserName><![CDATA[toUser]]></ToUserName>
-		<FromUserName><![CDATA[fromUser]]></FromUserName>
-		<CreateTime>12345678</CreateTime>
-		<MsgType><![CDATA[image]]></MsgType>
-			<Image>
-				<MediaId><![CDATA[media_id]]></MediaId>
-			</Image>
-	</xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;12345678&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[image]]&gt;&lt;/MsgType&gt;
+ &lt;Image&gt;
+ &lt;MediaId&gt;&lt;![CDATA[media_id]]&gt;&lt;/MediaId&gt;
+ &lt;/Image&gt;
+ &lt;/xml&gt;
  </pre>
  */
 public class OutImageMsg extends OutMsg {

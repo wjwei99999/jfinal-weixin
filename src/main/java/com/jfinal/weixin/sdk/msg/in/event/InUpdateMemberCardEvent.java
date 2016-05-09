@@ -4,17 +4,17 @@ package com.jfinal.weixin.sdk.msg.in.event;
  * Created by L.cm on 2016/5/5.
  * 微信会员卡积分变更
  *
- // <xml>
- // <ToUserName><![CDATA[gh_7638cbc70355]]></ToUserName>
- // <FromUserName><![CDATA[o_CBes-OUGtQ4vxd_7r5-p5QRRXU]]></FromUserName>
- // <CreateTime>1462420730</CreateTime>
- // <MsgType><![CDATA[event]]></MsgType>
- // <Event><![CDATA[update_member_card]]></Event>
- // <CardId><![CDATA[p_CBes55910LQGAOStjVKaTChpsg]]></CardId>
- // <UserCardCode><![CDATA[777670435071]]></UserCardCode>
- // <ModifyBonus>1000</ModifyBonus>
- // <ModifyBalance>0</ModifyBalance>
- // </xml>
+ // &lt;xml&gt;
+ // &lt;ToUserName&gt;&lt;![CDATA[gh_7638cbc70355]]&gt;&lt;/ToUserName&gt;
+ // &lt;FromUserName&gt;&lt;![CDATA[o_CBes-OUGtQ4vxd_7r5-p5QRRXU]]&gt;&lt;/FromUserName&gt;
+ // &lt;CreateTime&gt;1462420730&lt;/CreateTime&gt;
+ // &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ // &lt;Event&gt;&lt;![CDATA[update_member_card]]&gt;&lt;/Event&gt;
+ // &lt;CardId&gt;&lt;![CDATA[p_CBes55910LQGAOStjVKaTChpsg]]&gt;&lt;/CardId&gt;
+ // &lt;UserCardCode&gt;&lt;![CDATA[777670435071]]&gt;&lt;/UserCardCode&gt;
+ // &lt;ModifyBonus&gt;1000&lt;/ModifyBonus&gt;
+ // &lt;ModifyBalance&gt;0&lt;/ModifyBalance&gt;
+ // &lt;/xml&gt;
  */
 public class InUpdateMemberCardEvent extends EventInMsg {
     public static final String EVENT = "update_member_card";

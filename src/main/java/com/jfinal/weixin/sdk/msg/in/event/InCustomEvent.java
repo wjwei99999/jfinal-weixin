@@ -9,35 +9,35 @@ package com.jfinal.weixin.sdk.msg.in.event;
 /**
  * <pre>
      接入会话：
-     <xml>
-     <ToUserName><![CDATA[touser]]></ToUserName>
-     <FromUserName><![CDATA[fromuser]]></FromUserName>
-     <CreateTime>1399197672</CreateTime>
-     <MsgType><![CDATA[event]]></MsgType>
-     <Event><![CDATA[kf_create_session]]></Event>
-     <KfAccount><![CDATA[test1@test]]></KfAccount>
-     </xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[touser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromuser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;1399197672&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ &lt;Event&gt;&lt;![CDATA[kf_create_session]]&gt;&lt;/Event&gt;
+ &lt;KfAccount&gt;&lt;![CDATA[test1@test]]&gt;&lt;/KfAccount&gt;
+ &lt;/xml&gt;
 
      关闭会话：
-     <xml>
-     <ToUserName><![CDATA[touser]]></ToUserName>
-     <FromUserName><![CDATA[fromuser]]></FromUserName>
-     <CreateTime>1399197672</CreateTime>
-     <MsgType><![CDATA[event]]></MsgType>
-     <Event><![CDATA[kf_close_session]]></Event>
-     <KfAccount><![CDATA[test1@test]]></KfAccount>
-     </xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[touser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromuser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;1399197672&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ &lt;Event&gt;&lt;![CDATA[kf_close_session]]&gt;&lt;/Event&gt;
+ &lt;KfAccount&gt;&lt;![CDATA[test1@test]]&gt;&lt;/KfAccount&gt;
+ &lt;/xml&gt;
 
      转接会话：
-     <xml>
-     <ToUserName><![CDATA[touser]]></ToUserName>
-     <FromUserName><![CDATA[fromuser]]></FromUserName>
-     <CreateTime>1399197672</CreateTime>
-     <MsgType><![CDATA[event]]></MsgType>
-     <Event><![CDATA[kf_switch_session]]></Event>
-     <FromKfAccount><![CDATA[test1@test]]></FromKfAccount>
-     <ToKfAccount><![CDATA[test2@test]]></ToKfAccount>
-     </xml>
+ &lt;xml&gt;
+ &lt;ToUserName&gt;&lt;![CDATA[touser]]&gt;&lt;/ToUserName&gt;
+ &lt;FromUserName&gt;&lt;![CDATA[fromuser]]&gt;&lt;/FromUserName&gt;
+ &lt;CreateTime&gt;1399197672&lt;/CreateTime&gt;
+ &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ &lt;Event&gt;&lt;![CDATA[kf_switch_session]]&gt;&lt;/Event&gt;
+ &lt;FromKfAccount&gt;&lt;![CDATA[test1@test]]&gt;&lt;/FromKfAccount&gt;
+ &lt;ToKfAccount&gt;&lt;![CDATA[test2@test]]&gt;&lt;/ToKfAccount&gt;
+ &lt;/xml&gt;
  </pre>
  */
 public class InCustomEvent extends EventInMsg

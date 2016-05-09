@@ -37,7 +37,7 @@ public final class JsonUtils {
 	}
 	
 	/**
-	 * 将Collection<Model>转换为json字符串
+	 * 将Collection&lt;Model&gt;转换为json字符串
 	 * @param models jfinal model
 	 * @return JsonString
 	 */
@@ -59,7 +59,7 @@ public final class JsonUtils {
 	}
 	
 	/**
-	 * 将List<Record>转换为json字符串
+	 * 将List&lt;Record&gt;转换为json字符串
 	 * @param records jfinal records
 	 * @return JsonString
 	 */
@@ -134,13 +134,14 @@ public final class JsonUtils {
 		}
 		return json.toJson(object);
 	}
-	
+
 	/**
 	 * 将 json字符串 转为Object
 	 * @param jsonString json字符串
 	 * @param valueType 结果类型
-	 * @return T 结果
-	 */
+	 * @param <T> 泛型标记
+     * @return T 结果
+     */
 	public static <T> T parse(String jsonString, Class<T> valueType) {
 		if (json == null) {
 			throw new RuntimeException("Jackson, Fastjson not supported");

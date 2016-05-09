@@ -4,19 +4,19 @@ package com.jfinal.weixin.sdk.msg.in.event;
  * Created by L.cm on 2016/5/5.
  * 微信会员卡快速买单
  *
- // <xml>
- // <ToUserName><![CDATA[gh_7638cbc70355]]></ToUserName>
- // <FromUserName><![CDATA[o_CBes-OUGtQ4vxd_7r5-p5QRRXU]]></FromUserName>
- // <CreateTime>1462420332</CreateTime>
- // <MsgType><![CDATA[event]]></MsgType>
- // <Event><![CDATA[user_pay_from_pay_cell]]></Event>
- // <CardId><![CDATA[p_CBes55910LQGAOStjVKaTChpsg]]></CardId>
- // <UserCardCode><![CDATA[777670435071]]></UserCardCode>
- // <TransId><![CDATA[4001802001201605055526028099]]></TransId>
- // <LocationId>403808221</LocationId>
- // <Fee>100</Fee>
- // <OriginalFee>100</OriginalFee>
- // </xml>
+ // &lt;xml&gt;
+ // &lt;ToUserName&gt;&lt;![CDATA[gh_7638cbc70355]]&gt;&lt;/ToUserName&gt;
+ // &lt;FromUserName&gt;&lt;![CDATA[o_CBes-OUGtQ4vxd_7r5-p5QRRXU]]&gt;&lt;/FromUserName&gt;
+ // &lt;CreateTime&gt;1462420332&lt;/CreateTime&gt;
+ // &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ // &lt;Event&gt;&lt;![CDATA[user_pay_from_pay_cell]]&gt;&lt;/Event&gt;
+ // &lt;CardId&gt;&lt;![CDATA[p_CBes55910LQGAOStjVKaTChpsg]]&gt;&lt;/CardId&gt;
+ // &lt;UserCardCode&gt;&lt;![CDATA[777670435071]]&gt;&lt;/UserCardCode&gt;
+ // &lt;TransId&gt;&lt;![CDATA[4001802001201605055526028099]]&gt;&lt;/TransId&gt;
+ // &lt;LocationId&gt;403808221&lt;/LocationId&gt;
+ // &lt;Fee&gt;100&lt;/Fee&gt;
+ // &lt;OriginalFee&gt;100&lt;/OriginalFee&gt;
+ // &lt;/xml&gt;
  */
 public class InUserPayFromCardEvent extends EventInMsg {
     public static final String EVENT = "user_pay_from_pay_cell";

@@ -1,13 +1,13 @@
 package com.jfinal.weixin.sdk.api.shakearound;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ShakeAroundPageApi {
 
@@ -21,7 +21,7 @@ public class ShakeAroundPageApi {
 	 * @param pageUrl 页面地址
 	 * @param description 在摇一摇页面展示的副标题，不超过7个汉字或14个英文字母
 	 * @param iconUrl 在摇一摇页面展示的图片。图片需先上传至微信侧服务器，用“素材管理-上传图片素材”接口上传图片，返回的图片URL再配置在此处
-	 * @return
+	 * @return ApiResult
 	 */
 	public static ApiResult addPage(String title, String pageUrl, String description, String iconUrl) {
 		return addPage(title, pageUrl, description, null, iconUrl);
@@ -36,7 +36,7 @@ public class ShakeAroundPageApi {
 	 * @param description 在摇一摇页面展示的副标题，不超过7个汉字或14个英文字母
 	 * @param iconUrl 在摇一摇页面展示的图片。图片需先上传至微信侧服务器，用“素材管理-上传图片素材”接口上传图片，返回的图片URL再配置在此处
 	 * @param comment 页面的备注信息，不超过15个汉字或30个英文字母
-	 * @return
+	 * @return ApiResult
 	 */
 	public static ApiResult addPage(String title, String pageUrl, String description, String comment, String iconUrl) {
 		String url = pageAddUrl + AccessTokenApi.getAccessTokenStr();
@@ -65,7 +65,7 @@ public class ShakeAroundPageApi {
 	 * @param pageUrl 页面地址
 	 * @param description 在摇一摇页面展示的副标题，不超过7个汉字或14个英文字母
 	 * @param iconUrl 在摇一摇页面展示的图片。图片需先上传至微信侧服务器，用“素材管理-上传图片素材”接口上传图片，返回的图片URL再配置在此处
-	 * @return
+	 * @return ApiResult
 	 */
 	public static ApiResult updatePage(int pageId, String title, String pageUrl, String description, String iconUrl) {
 		return updatePage(pageId, title, pageUrl, description, null, iconUrl);
@@ -81,7 +81,7 @@ public class ShakeAroundPageApi {
 	 * @param description 在摇一摇页面展示的副标题，不超过7个汉字或14个英文字母
 	 * @param iconUrl 在摇一摇页面展示的图片。图片需先上传至微信侧服务器，用“素材管理-上传图片素材”接口上传图片，返回的图片URL再配置在此处
 	 * @param comment 页面的备注信息，不超过15个汉字或30个英文字母
-	 * @return
+	 * @return ApiResult
 	 */
 	public static ApiResult updatePage(int pageId, String title, String pageUrl, String description, String comment, String iconUrl) {
 		String url = pageUpdateUrl + AccessTokenApi.getAccessTokenStr();
@@ -107,7 +107,7 @@ public class ShakeAroundPageApi {
 	 * 页面ID查询
 	 * 
 	 * @param pageIds 定页面ID查询
-	 * @return
+	 * @return ApiResult
 	 */
 	public static ApiResult searchByIds(int... pageIds) {
 		String url = pageSearchUrl + AccessTokenApi.getAccessTokenStr();
@@ -125,7 +125,7 @@ public class ShakeAroundPageApi {
 	 * 批量拉取页面列表。
 	 * @param begin 页面列表的起始索引值；
 	 * @param count 待查询的页面数量，不能超过50个；
-	 * @return
+	 * @return ApiResult
 	 */
 	public static ApiResult searchPage(int begin, int count) {
 		String url = pageSearchUrl + AccessTokenApi.getAccessTokenStr();
@@ -150,7 +150,7 @@ public class ShakeAroundPageApi {
 	 * 只有页面与设备没有关联关系时，才可被删除。
 	 * 
 	 * @param pageId 指定页面的id
-	 * @return
+	 * @return ApiResult
 	 */
 	public static ApiResult deletePage(int pageId) {
 		String url = pageDeleteUrl + AccessTokenApi.getAccessTokenStr();

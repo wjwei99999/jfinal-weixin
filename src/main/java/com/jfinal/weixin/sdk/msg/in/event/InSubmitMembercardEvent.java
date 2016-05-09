@@ -4,14 +4,14 @@ package com.jfinal.weixin.sdk.msg.in.event;
  * Created by L.cm on 2016/5/5.
  * 微信会员卡激活接口
  *
- // <xml><ToUserName><![CDATA[gh_7638cbc70355]]></ToUserName>
- // <FromUserName><![CDATA[o_CBes-OUGtQ4vxd_7r5-p5QRRXU]]></FromUserName>
- // <CreateTime>1462420171</CreateTime>
- // <MsgType><![CDATA[event]]></MsgType>
- // <Event><![CDATA[submit_membercard_user_info]]></Event>
- // <CardId><![CDATA[p_CBes55910LQGAOStjVKaTChpsg]]></CardId>
- // <UserCardCode><![CDATA[777670435071]]></UserCardCode>
- // </xml>
+ // &lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[gh_7638cbc70355]]&gt;&lt;/ToUserName&gt;
+ // &lt;FromUserName&gt;&lt;![CDATA[o_CBes-OUGtQ4vxd_7r5-p5QRRXU]]&gt;&lt;/FromUserName&gt;
+ // &lt;CreateTime&gt;1462420171&lt;/CreateTime&gt;
+ // &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ // &lt;Event&gt;&lt;![CDATA[submit_membercard_user_info]]&gt;&lt;/Event&gt;
+ // &lt;CardId&gt;&lt;![CDATA[p_CBes55910LQGAOStjVKaTChpsg]]&gt;&lt;/CardId&gt;
+ // &lt;UserCardCode&gt;&lt;![CDATA[777670435071]]&gt;&lt;/UserCardCode&gt;
+ // &lt;/xml&gt;
  */
 public class InSubmitMemberCardEvent extends EventInMsg {
     public static final String EVENT = "submit_membercard_user_info";

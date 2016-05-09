@@ -1,10 +1,10 @@
 package com.jfinal.weixin.sdk.api.shakearound;
 
-import java.io.File;
-
 import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
+
+import java.io.File;
 
 /**
  * 上传图片素材
@@ -28,8 +28,8 @@ public class ShakeAroundMaterialApi {
 	 * 若图片为申请开通摇一摇周边功能需要上传的资质文件图片，则其素材为license类型的图片，图片的文件大小不超过2MB，尺寸不限，形状不限。
 	 * 
 	 * @param file 文件
-	 * @param type Icon：摇一摇页面展示的icon图；License：申请开通摇一摇周边功能时需上传的资质文件；若不传type，则默认type=icon
-	 * @return
+	 * @param materialType Icon：摇一摇页面展示的icon图；License：申请开通摇一摇周边功能时需上传的资质文件；若不传type，则默认type=icon
+	 * @return ApiResult
 	 */
 	public static ApiResult addMaterial(File file, MaterialType materialType) {
 		String url = materialAddUrl + AccessTokenApi.getAccessTokenStr() + "&type=" + materialType.name();
@@ -44,7 +44,7 @@ public class ShakeAroundMaterialApi {
 	 * 若图片为申请开通摇一摇周边功能需要上传的资质文件图片，则其素材为license类型的图片，图片的文件大小不超过2MB，尺寸不限，形状不限。
 	 * 
 	 * @param file 文件
-	 * @return
+	 * @return ApiResult
 	 */
 	public static ApiResult addMaterial(File file) {
 		return addMaterial(file, MaterialType.Icon);

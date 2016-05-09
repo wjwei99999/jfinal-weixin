@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 多客服功能</br>
+ * 多客服功能<br>
  * 仅支持获取客服聊天记录接口，其他功能可以使用微信官方的多客服客户端软件来完成。
  * 
  * 客服接口：http://mp.weixin.qq.com/wiki/1/70a29afed17f56d537c833f89be979c9.html
@@ -342,8 +342,8 @@ public class CustomServiceApi {
 
     /**
      * 发送卡券
-     * @param openId
-     * @param card_id
+     * @param openId 普通用户openid
+     * @param card_id 卡券id
      * @param card_ext 详情及签名规则: http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD.954-.E5.8D.A1.E5.88.B8.E6.89.A9.E5.B1.95.E5.AD.97.E6.AE.B5.E5.8F.8A.E7.AD.BE.E5.90.8D.E7.94.9F.E6.88.90.E7.AE.97.E6.B3.95
      * @return ApiResult
      */

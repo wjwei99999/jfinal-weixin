@@ -4,15 +4,15 @@ package com.jfinal.weixin.sdk.msg.in.event;
  * Created by L.cm on 2016/5/5.
  * 微信会员卡二维码扫描领取接口
  *
- // <xml>
- // <ToUserName><![CDATA[gh_7638cbc70355]]></ToUserName>
- // <FromUserName><![CDATA[o_CBes-OUGtQ4vxd_7r5-p5QRRXU]]></FromUserName>
- // <CreateTime>1462420243</CreateTime>
- // <MsgType><![CDATA[event]]></MsgType>
- // <Event><![CDATA[user_view_card]]></Event>
- // <CardId><![CDATA[p_CBes55910LQGAOStjVKaTChpsg]]></CardId>
- // <UserCardCode><![CDATA[777670435071]]></UserCardCode>
- // </xml>
+ // &lt;xml&gt;
+ // &lt;ToUserName&gt;&lt;![CDATA[gh_7638cbc70355]]&gt;&lt;/ToUserName&gt;
+ // &lt;FromUserName&gt;&lt;![CDATA[o_CBes-OUGtQ4vxd_7r5-p5QRRXU]]&gt;&lt;/FromUserName&gt;
+ // &lt;CreateTime&gt;1462420243&lt;/CreateTime&gt;
+ // &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ // &lt;Event&gt;&lt;![CDATA[user_view_card]]&gt;&lt;/Event&gt;
+ // &lt;CardId&gt;&lt;![CDATA[p_CBes55910LQGAOStjVKaTChpsg]]&gt;&lt;/CardId&gt;
+ // &lt;UserCardCode&gt;&lt;![CDATA[777670435071]]&gt;&lt;/UserCardCode&gt;
+ // &lt;/xml&gt;
  *
  */
 public class InUserViewCardEvent extends EventInMsg {

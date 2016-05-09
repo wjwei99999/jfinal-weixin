@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * 用户管理 API
  * <pre>
- * https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+ * https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&amp;openid=OPENID&amp;lang=zh_CN
  * </pre>
  */
 public class UserApi {
