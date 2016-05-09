@@ -3,14 +3,10 @@ package com.jfinal.weixin.sdk.kit;
 import com.jfinal.kit.HashKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.utils.Charsets;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import com.jfinal.weixin.sdk.utils.XmlHelper;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -115,19 +111,8 @@ public class PaymentKit {
 	 * @return Map<String, String> map集合
 	 */
 	public static Map<String, String> xmlToMap(String xmlStr) {
-		Document document = XmlKit.parse(xmlStr);
-		Element root = document.getDocumentElement();
-		Map<String, String> params = new HashMap<String, String>();
-		
-		// 将节点封装成map形式
-		NodeList list = root.getChildNodes();
-		for (int i = 0; i < list.getLength(); i++) {
-			Node node = list.item(i);
-			params.put(node.getNodeName(), node.getTextContent());
-		}
-		// 含有空白符会生成一个#text参数
-		params.remove("#text");
-		return params;
+		XmlHelper xmlHelper = XmlHelper.of(xmlStr);
+		return xmlHelper.toMap();
 	}
 
 }

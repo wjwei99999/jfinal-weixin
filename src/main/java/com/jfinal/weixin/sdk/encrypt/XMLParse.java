@@ -8,10 +8,7 @@
 
 package com.jfinal.weixin.sdk.encrypt;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import com.jfinal.weixin.sdk.kit.XmlKit;
+import com.jfinal.weixin.sdk.utils.XmlHelper;
 
 /**
  * XMLParse class
@@ -22,19 +19,18 @@ class XMLParse {
 
 	/**
 	 * 提取出xml数据包中的加密消息
-	 * @param xmltext 待提取的xml字符串
+	 * @param xmlStr 待提取的xml字符串
 	 * @return 提取出的加密消息字符串
 	 * @throws AesException 
 	 */
 	public static Object[] extract(String xmlStr) throws AesException     {
 		Object[] result = new Object[3];
 		try {
-			Document document = XmlKit.parse(xmlStr);
-			Element root = document.getDocumentElement();
-			
+			XmlHelper xmlHelper = XmlHelper.of(xmlStr);
+
 			result[0] = 0;
-			result[1] = XmlKit.elementText(root, "Encrypt");
-			result[2] = XmlKit.elementText(root, "ToUserName");
+			result[1] = xmlHelper.getString("Encrypt");
+			result[2] = xmlHelper.getString("ToUserName");
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
