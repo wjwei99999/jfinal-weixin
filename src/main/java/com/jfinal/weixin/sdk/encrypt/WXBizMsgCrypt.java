@@ -13,15 +13,15 @@
  */
 package com.jfinal.weixin.sdk.encrypt;
 
-import java.util.Arrays;
-import java.util.Random;
+import com.jfinal.kit.LogKit;
+import com.jfinal.weixin.sdk.utils.Base64Utils;
+import com.jfinal.weixin.sdk.utils.Charsets;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-
-import com.jfinal.weixin.sdk.utils.Base64Utils;
-import com.jfinal.weixin.sdk.utils.Charsets;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * 提供接收和推送给公众平台消息的加解密接口(UTF8编码的字符串).
@@ -135,7 +135,7 @@ public class WXBizMsgCrypt {
 
 			return base64Encrypted;
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogKit.error(e.getMessage(), e);
 			throw new AesException(AesException.EncryptAESError);
 		}
 	}
@@ -162,7 +162,7 @@ public class WXBizMsgCrypt {
 			// 解密
 			original = cipher.doFinal(encrypted);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogKit.error(e.getMessage(), e);
 			throw new AesException(AesException.DecryptAESError);
 		}
 
@@ -180,7 +180,7 @@ public class WXBizMsgCrypt {
 			from_appid = new String(Arrays.copyOfRange(bytes, 20 + xmlLength, bytes.length),
 					Charsets.UTF_8);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogKit.error(e.getMessage(), e);
 			throw new AesException(AesException.IllegalBuffer);
 		}
 

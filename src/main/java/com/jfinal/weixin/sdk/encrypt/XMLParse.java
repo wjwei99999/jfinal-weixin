@@ -8,6 +8,7 @@
 
 package com.jfinal.weixin.sdk.encrypt;
 
+import com.jfinal.kit.LogKit;
 import com.jfinal.weixin.sdk.utils.XmlHelper;
 
 /**
@@ -33,7 +34,7 @@ class XMLParse {
 			result[2] = xmlHelper.getString("ToUserName");
 			return result;
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogKit.error(e.getMessage(), e);
 			throw new AesException(AesException.ParseXmlError);
 		}
 	}

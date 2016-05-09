@@ -8,6 +8,8 @@
 
 package com.jfinal.weixin.sdk.encrypt;
 
+import com.jfinal.kit.LogKit;
+
 import java.security.MessageDigest;
 import java.util.Arrays;
 
@@ -54,7 +56,7 @@ class SHA1 {
 			}
 			return hexstr.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogKit.error(e.getMessage(), e);
 			throw new AesException(AesException.ComputeSignatureError);
 		}
 	}
