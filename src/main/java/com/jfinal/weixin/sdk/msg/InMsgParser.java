@@ -43,10 +43,10 @@ public class InMsgParser {
 	 * 7：event 事件
 	 */
 	private static InMsg doParse(XmlHelper xmlHelper) {
-		String toUserName = xmlHelper.getString("ToUserName");
-		String fromUserName = xmlHelper.getString("FromUserName");
-		Integer createTime = xmlHelper.getNumber("CreateTime").intValue();
-		String msgType = xmlHelper.getString("MsgType");
+		String toUserName = xmlHelper.getString("//ToUserName");
+		String fromUserName = xmlHelper.getString("//FromUserName");
+		Integer createTime = xmlHelper.getNumber("//CreateTime").intValue();
+		String msgType = xmlHelper.getString("//MsgType");
 		if ("text".equals(msgType))
 			return parseInTextMsg(xmlHelper, toUserName, fromUserName, createTime, msgType);
 		if ("image".equals(msgType))
@@ -68,24 +68,24 @@ public class InMsgParser {
 	
 	private static InMsg parseInTextMsg(XmlHelper xmlHelper, String toUserName, String fromUserName, Integer createTime, String msgType) {
 		InTextMsg msg = new InTextMsg(toUserName, fromUserName, createTime, msgType);
-		msg.setContent(xmlHelper.getString("Content"));
-		msg.setMsgId(xmlHelper.getString("MsgId"));
+		msg.setContent(xmlHelper.getString("//Content"));
+		msg.setMsgId(xmlHelper.getString("//MsgId"));
 		return msg;
 	}
 	
 	private static InMsg parseInImageMsg(XmlHelper xmlHelper, String toUserName, String fromUserName, Integer createTime, String msgType) {
 		InImageMsg msg = new InImageMsg(toUserName, fromUserName, createTime, msgType);
-		msg.setPicUrl(xmlHelper.getString("PicUrl"));
-		msg.setMediaId(xmlHelper.getString("MediaId"));
-		msg.setMsgId(xmlHelper.getString("MsgId"));
+		msg.setPicUrl(xmlHelper.getString("//PicUrl"));
+		msg.setMediaId(xmlHelper.getString("//MediaId"));
+		msg.setMsgId(xmlHelper.getString("//MsgId"));
 		return msg;
 	}
 	
 	private static InMsg parseInVoiceMsgAndInSpeechRecognitionResults(XmlHelper xmlHelper, String toUserName, String fromUserName, Integer createTime, String msgType) {
-		String recognition = xmlHelper.getString("Recognition");
-		String mediaId     = xmlHelper.getString("MediaId");
-		String format      = xmlHelper.getString("Format");
-		String msgId       = xmlHelper.getString("MsgId");
+		String recognition = xmlHelper.getString("//Recognition");
+		String mediaId     = xmlHelper.getString("//MediaId");
+		String format      = xmlHelper.getString("//Format");
+		String msgId       = xmlHelper.getString("//MsgId");
 		if (StrKit.isBlank(recognition)) {
 			InVoiceMsg msg = new InVoiceMsg(toUserName, fromUserName, createTime, msgType);
 			msg.setMediaId(mediaId);
@@ -105,43 +105,43 @@ public class InMsgParser {
 	
 	private static InMsg parseInVideoMsg(XmlHelper xmlHelper, String toUserName, String fromUserName, Integer createTime, String msgType) {
 		InVideoMsg msg = new InVideoMsg(toUserName, fromUserName, createTime, msgType);
-		msg.setMediaId(xmlHelper.getString("MediaId"));
-		msg.setThumbMediaId(xmlHelper.getString("ThumbMediaId"));
-		msg.setMsgId(xmlHelper.getString("MsgId"));
+		msg.setMediaId(xmlHelper.getString("//MediaId"));
+		msg.setThumbMediaId(xmlHelper.getString("//ThumbMediaId"));
+		msg.setMsgId(xmlHelper.getString("//MsgId"));
 		return msg;
 	}
 
 	private static InMsg parseInShortVideoMsg(XmlHelper xmlHelper, String toUserName, String fromUserName, Integer createTime, String msgType) {
 		InShortVideoMsg msg = new InShortVideoMsg(toUserName, fromUserName, createTime, msgType);
-		msg.setMediaId(xmlHelper.getString("MediaId"));
-		msg.setThumbMediaId(xmlHelper.getString("ThumbMediaId"));
-		msg.setMsgId(xmlHelper.getString("MsgId"));
+		msg.setMediaId(xmlHelper.getString("//MediaId"));
+		msg.setThumbMediaId(xmlHelper.getString("//ThumbMediaId"));
+		msg.setMsgId(xmlHelper.getString("//MsgId"));
 		return msg;
 	}
 
 	private static InMsg parseInLocationMsg(XmlHelper xmlHelper, String toUserName, String fromUserName, Integer createTime, String msgType) {
 		InLocationMsg msg = new InLocationMsg(toUserName, fromUserName, createTime, msgType);
-		msg.setLocation_X(xmlHelper.getString("Location_X"));
-		msg.setLocation_Y(xmlHelper.getString("Location_Y"));
-		msg.setScale(xmlHelper.getString("Scale"));
-		msg.setLabel(xmlHelper.getString("Label"));
-		msg.setMsgId(xmlHelper.getString("MsgId"));
+		msg.setLocation_X(xmlHelper.getString("//Location_X"));
+		msg.setLocation_Y(xmlHelper.getString("//Location_Y"));
+		msg.setScale(xmlHelper.getString("//Scale"));
+		msg.setLabel(xmlHelper.getString("//Label"));
+		msg.setMsgId(xmlHelper.getString("//MsgId"));
 		return msg;
 	}
 	
 	private static InMsg parseInLinkMsg(XmlHelper xmlHelper, String toUserName, String fromUserName, Integer createTime, String msgType) {
 		InLinkMsg msg = new InLinkMsg(toUserName, fromUserName, createTime, msgType);
-		msg.setTitle(xmlHelper.getString("Title"));
-		msg.setDescription(xmlHelper.getString("Description"));
-		msg.setUrl(xmlHelper.getString("Url"));
-		msg.setMsgId(xmlHelper.getString("MsgId"));
+		msg.setTitle(xmlHelper.getString("//Title"));
+		msg.setDescription(xmlHelper.getString("//Description"));
+		msg.setUrl(xmlHelper.getString("//Url"));
+		msg.setMsgId(xmlHelper.getString("//MsgId"));
 		return msg;
 	}
 
 	// 解析各种事件
 	private static InMsg parseInEvent(XmlHelper xmlHelper, String toUserName, String fromUserName, Integer createTime, String msgType) {
-		String event = xmlHelper.getString("Event");
-		String eventKey = xmlHelper.getString("EventKey");
+		String event = xmlHelper.getString("//Event");
+		String eventKey = xmlHelper.getString("//EventKey");
 		
 		/**
 		 * 取消关注事件
@@ -155,7 +155,7 @@ public class InMsgParser {
 		}
 		
 		// 扫描带参数二维码事件之一		1: 用户未关注时，进行关注后的事件推送
-		String ticket = xmlHelper.getString("Ticket");
+		String ticket = xmlHelper.getString("//Ticket");
 		if ("subscribe".equals(event) && StrKit.notBlank(eventKey) && eventKey.startsWith("qrscene_")) {
 			InQrCodeEvent e = new InQrCodeEvent(toUserName, fromUserName, createTime, msgType, event);
 			e.setEventKey(eventKey);
@@ -183,9 +183,9 @@ public class InMsgParser {
 		// 上报地理位置事件
 		if ("LOCATION".equals(event)) {
 			InLocationEvent e = new InLocationEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setLatitude(xmlHelper.getString("Latitude"));
-			e.setLongitude(xmlHelper.getString("Longitude"));
-			e.setPrecision(xmlHelper.getString("Precision"));
+			e.setLatitude(xmlHelper.getString("//Latitude"));
+			e.setLongitude(xmlHelper.getString("//Longitude"));
+			e.setPrecision(xmlHelper.getString("//Precision"));
 			return e;
 		}
 		// 自定义菜单事件之一			1：点击菜单拉取消息时的事件推送
@@ -204,8 +204,8 @@ public class InMsgParser {
 		if ("scancode_push".equals(event) || "scancode_waitmsg".equals(event)) {
 			InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, msgType, event);
 			e.setEventKey(eventKey);
-			String scanType = xmlHelper.getString("ScanCodeInfo/ScanType");
-			String scanResult = xmlHelper.getString("ScanCodeInfo/ScanResult");
+			String scanType = xmlHelper.getString("//ScanCodeInfo/ScanType");
+			String scanResult = xmlHelper.getString("//ScanCodeInfo/ScanResult");
 			e.setScanCodeInfo(new ScanCodeInfo(scanType, scanResult));
 			return e;
 		}
@@ -248,50 +248,50 @@ public class InMsgParser {
 		// 模板消息是否送达成功通知事件
 		if ("TEMPLATESENDJOBFINISH".equals(event)) {
 			InTemplateMsgEvent e = new InTemplateMsgEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setMsgId(xmlHelper.getString("MsgID"));
-			e.setStatus(xmlHelper.getString("Status"));
+			e.setMsgId(xmlHelper.getString("//MsgID"));
+			e.setStatus(xmlHelper.getString("//Status"));
 			return e;
 		}
 		// 群发任务结束时是否送达成功通知事件
 		if ("MASSSENDJOBFINISH".equals(event)) {
 			InMassEvent e = new InMassEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setMsgId(xmlHelper.getString("MsgID"));
-			e.setStatus(xmlHelper.getString("Status"));
-			e.setTotalCount(xmlHelper.getString("TotalCount"));
-			e.setFilterCount(xmlHelper.getString("FilterCount"));
-			e.setSentCount(xmlHelper.getString("SentCount"));
-			e.setErrorCount(xmlHelper.getString("ErrorCount"));
+			e.setMsgId(xmlHelper.getString("//MsgID"));
+			e.setStatus(xmlHelper.getString("//Status"));
+			e.setTotalCount(xmlHelper.getString("//TotalCount"));
+			e.setFilterCount(xmlHelper.getString("//FilterCount"));
+			e.setSentCount(xmlHelper.getString("//SentCount"));
+			e.setErrorCount(xmlHelper.getString("//ErrorCount"));
 			return e;
 		}
 		// 多客服接入会话事件
 		if ("kf_create_session".equals(event)) {
 			InCustomEvent e = new InCustomEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setKfAccount(xmlHelper.getString("KfAccount"));
+			e.setKfAccount(xmlHelper.getString("//KfAccount"));
 			return e;
 		}
 		// 多客服关闭会话事件
 		if ("kf_close_session".equals(event)) {
 			InCustomEvent e = new InCustomEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setKfAccount(xmlHelper.getString("KfAccount"));
+			e.setKfAccount(xmlHelper.getString("//KfAccount"));
 			return e;
 		}
 		// 多客服转接会话事件
 		if ("kf_switch_session".equals(event)) {
 			InCustomEvent e = new InCustomEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setKfAccount(xmlHelper.getString("KfAccount"));
-			e.setToKfAccount(xmlHelper.getString("ToKfAccount"));
+			e.setKfAccount(xmlHelper.getString("//KfAccount"));
+			e.setToKfAccount(xmlHelper.getString("//ToKfAccount"));
 			return e;
 		}
 		// 微信摇一摇事件
 		if ("ShakearoundUserShake".equals(event)){
 			InShakearoundUserShakeEvent e = new InShakearoundUserShakeEvent(toUserName, fromUserName, createTime, msgType);
 			e.setEvent(event);
-			e.setUuid(xmlHelper.getString("ChosenBeacon/Uuid"));
-			e.setMajor(xmlHelper.getNumber("ChosenBeacon/Major").intValue());
-			e.setMinor(xmlHelper.getNumber("ChosenBeacon/Minor").intValue());
-			e.setDistance(xmlHelper.getNumber("ChosenBeacon/Distance").floatValue());
+			e.setUuid(xmlHelper.getString("//ChosenBeacon/Uuid"));
+			e.setMajor(xmlHelper.getNumber("//ChosenBeacon/Major").intValue());
+			e.setMinor(xmlHelper.getNumber("//ChosenBeacon/Minor").intValue());
+			e.setDistance(xmlHelper.getNumber("//ChosenBeacon/Distance").floatValue());
 
-			NodeList nodeList = xmlHelper.getNodeList("AroundBeacons/AroundBeacon");
+			NodeList nodeList = xmlHelper.getNodeList("//AroundBeacons/AroundBeacon");
 			if (nodeList != null && nodeList.getLength() > 0) {
 				AroundBeacon aroundBeacon = null;
 				List<AroundBeacon> aroundBeacons = new ArrayList<AroundBeacon>();
@@ -314,63 +314,63 @@ public class InMsgParser {
 		if ("qualification_verify_success".equals(event) || "naming_verify_success".equals(event)
 				 || "annual_renew".equals(event) || "verify_expired".equals(event)) {
 			InVerifySuccessEvent e = new InVerifySuccessEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setExpiredTime(xmlHelper.getString("expiredTime"));
+			e.setExpiredTime(xmlHelper.getString("//expiredTime"));
 			return e;
 		}
 		// 资质认证失败 || 名称认证失败
 		if ("qualification_verify_fail".equals(event) || "naming_verify_fail".equals(event)) {
 			InVerifyFailEvent e = new InVerifyFailEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setFailTime(xmlHelper.getString("failTime"));
-			e.setFailReason(xmlHelper.getString("failReason"));
+			e.setFailTime(xmlHelper.getString("//failTime"));
+			e.setFailReason(xmlHelper.getString("//failReason"));
 			return e;
 		}
 		// 门店在审核事件消息 , update by unas at 2016-1-29,add event param
 		if ("poi_check_notify".equals(event)) {
 			InPoiCheckNotifyEvent e = new InPoiCheckNotifyEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setUniqId(xmlHelper.getString("UniqId"));
-			e.setPoiId(xmlHelper.getString("PoiId"));
-			e.setResult(xmlHelper.getString("Result"));
-			e.setMsg(xmlHelper.getString("Msg"));
+			e.setUniqId(xmlHelper.getString("//UniqId"));
+			e.setPoiId(xmlHelper.getString("//PoiId"));
+			e.setResult(xmlHelper.getString("//Result"));
+			e.setMsg(xmlHelper.getString("//Msg"));
 			return e;
 		}
 		// WIFI连网后下发消息 by unas at 2016-1-29
 		if ("WifiConnected".equals(event)) {
 			InWifiEvent e = new InWifiEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setConnectTime(xmlHelper.getString("ConnectTime"));
-			e.setExpireTime(xmlHelper.getString("ExpireTime"));
-			e.setVendorId(xmlHelper.getString("VendorId"));
-			e.setDeviceNo(xmlHelper.getString("DeviceNo"));
-			e.setShopId(xmlHelper.getString("ShopId"));
+			e.setConnectTime(xmlHelper.getString("//ConnectTime"));
+			e.setExpireTime(xmlHelper.getString("//ExpireTime"));
+			e.setVendorId(xmlHelper.getString("//VendorId"));
+			e.setDeviceNo(xmlHelper.getString("//DeviceNo"));
+			e.setShopId(xmlHelper.getString("//ShopId"));
 			return e;
 		}
 		if (InUserViewCardEvent.EVENT.equals(event)) {
 			InUserViewCardEvent e = new InUserViewCardEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setCardId(xmlHelper.getString("CardId"));
-			e.setUserCardCode(xmlHelper.getString("UserCardCode"));
+			e.setCardId(xmlHelper.getString("//CardId"));
+			e.setUserCardCode(xmlHelper.getString("//UserCardCode"));
 			return e;
 		}
 		if (InSubmitMemberCardEvent.EVENT.equals(event)) {
 			InSubmitMemberCardEvent e = new InSubmitMemberCardEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setCardId(xmlHelper.getString("CardId"));
-			e.setUserCardCode(xmlHelper.getString("UserCardCode"));
+			e.setCardId(xmlHelper.getString("//CardId"));
+			e.setUserCardCode(xmlHelper.getString("//UserCardCode"));
 			return e;
 		}
 		if (InUpdateMemberCardEvent.EVENT.equals(event)) {
 			InUpdateMemberCardEvent e = new InUpdateMemberCardEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setCardId(xmlHelper.getString("CardId"));
-			e.setUserCardCode(xmlHelper.getString("UserCardCode"));
-			e.setModifyBonus(xmlHelper.getString("ModifyBonus"));
-			e.setModifyBalance(xmlHelper.getString("ModifyBalance"));
+			e.setCardId(xmlHelper.getString("//CardId"));
+			e.setUserCardCode(xmlHelper.getString("//UserCardCode"));
+			e.setModifyBonus(xmlHelper.getString("//ModifyBonus"));
+			e.setModifyBalance(xmlHelper.getString("//ModifyBalance"));
 			return e;
 		}
 		if (InUserPayFromCardEvent.EVENT.equals(event)) {
 			InUserPayFromCardEvent e = new InUserPayFromCardEvent(toUserName, fromUserName, createTime, msgType, event);
-			e.setCardId(xmlHelper.getString("CardId"));
-			e.setUserCardCode(xmlHelper.getString("UserCardCode"));
-			e.setLocationId(xmlHelper.getString("LocationId"));
-			e.setTransId(xmlHelper.getString("TransId"));
-			e.setFee(xmlHelper.getString("Fee"));
-			e.setOriginalFee(xmlHelper.getString("OriginalFee"));
+			e.setCardId(xmlHelper.getString("//CardId"));
+			e.setUserCardCode(xmlHelper.getString("//UserCardCode"));
+			e.setLocationId(xmlHelper.getString("//LocationId"));
+			e.setTransId(xmlHelper.getString("//TransId"));
+			e.setFee(xmlHelper.getString("//Fee"));
+			e.setOriginalFee(xmlHelper.getString("//OriginalFee"));
 			return e;
 		}
 

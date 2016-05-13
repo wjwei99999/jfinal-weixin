@@ -23,7 +23,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by L.cm on 2016/5/9.
+ * xpath解析xml
+ * <pre>
+ *     文档地址：
+ *     http://www.w3school.com.cn/xpath/index.asp
+ * </pre>
  */
 public class XmlHelper {
     private final XPath path;
@@ -67,7 +71,7 @@ public class XmlHelper {
     }
 
     private Object evalXPath(String expression, Object item, QName returnType) {
-        item = null == item ? doc.getDocumentElement() : item;
+        item = null == item ? doc : item;
         try {
             return path.evaluate(expression, item, returnType);
         } catch (XPathExpressionException e) {
