@@ -73,6 +73,10 @@ public class AccessToken implements ResultCheck, Serializable {
 		return expires_in;
 	}
 	
+	public Long getExpiredTime() {
+		return expiredTime;
+	}
+	
 	public Integer getErrorCode() {
 		return errcode;
 	}
