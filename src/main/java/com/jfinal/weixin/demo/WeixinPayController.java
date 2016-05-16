@@ -1,15 +1,5 @@
 package com.jfinal.weixin.demo;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.javen.utils.StringUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.StrKit;
@@ -18,6 +8,10 @@ import com.jfinal.weixin.sdk.api.PaymentApi.TradeType;
 import com.jfinal.weixin.sdk.kit.IpKit;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 感谢 *半杯* 童鞋联调支付API
  * @author L.cm
@@ -128,138 +122,119 @@ public class WeixinPayController extends Controller {
 	 * 2016年5月14日
 	 * 扫码支付获取二维码（模式一）
 	 */
-	public String getCodeUrl(){
-		String url="weixin://wxpay/bizpayurl?sign=XXXXX&appid=XXXXX&mch_id=XXXXX&product_id=XXXXX&time_stamp=XXXXX&nonce_str=XXXXX";
-		String product_id="001";
+	public String getCodeUrl(String productId){
+		String url="weixin://wxpay/bizpayurl?sign=%s&appid=%s&mch_id=%s&product_id=%s&time_stamp=%s&nonce_str=%s";
+
 		String timeStamp=Long.toString(System.currentTimeMillis() / 1000);
 		String nonceStr=Long.toString(System.currentTimeMillis());
 		Map<String, String> packageParams = new HashMap<String, String>();
 		packageParams.put("appid", appid);
 		packageParams.put("mch_id", partner);
-		packageParams.put("product_id",product_id);
+		packageParams.put("product_id", productId);
 		packageParams.put("time_stamp", timeStamp);
 		packageParams.put("nonce_str", nonceStr);
 		String packageSign = PaymentKit.createSign(packageParams, paternerKey);
 		
-		return StringUtils.replace(url, "XXXXX", packageSign,appid,partner,product_id,timeStamp,nonceStr);
+		return String.format(url, packageSign, appid, partner, productId, timeStamp, nonceStr);
 	}
 	
 	public void test(){
-		renderText(getCodeUrl());
+		String product_id = "001";
+		renderText(getCodeUrl(product_id));
 	}
-	
+
 	/**
 	 * @author Javen
 	 * 2016年5月14日
 	 * 扫码支付回调（模式一）
 	 */
 	public void wxpay(){
-		try {
-			HttpServletRequest request = getRequest();
-			 /**
-			 * 获取用户扫描二维码后，微信返回的信息
-			 */
-			InputStream inStream = request.getInputStream();
-			ByteArrayOutputStream outSteam = new ByteArrayOutputStream();
-			byte[] buffer = new byte[1024];
-			int len = 0;
-			while ((len = inStream.read(buffer)) != -1) {
-			    outSteam.write(buffer, 0, len);
-			}
-			outSteam.close();
-			inStream.close();
-			String result  = new String(outSteam.toByteArray(),"utf-8");
-			/**
-			 * 获取返回的信息内容中各个参数的值
-			 */
-			Map<String, String> map = PaymentKit.xmlToMap(result);
-			for (String key : map.keySet()) {
-				   System.out.println("key= "+ key + " and value= " + map.get(key));
-			}
-			
-			String appid=map.get("appid");
-			String openid = map.get("openid");
-			String mch_id = map.get("mch_id");
-			String is_subscribe = map.get("is_subscribe");
-			String nonce_str = map.get("nonce_str");
-			String product_id = map.get("product_id");
-			String sign = map.get("sign");
-			Map<String, String> packageParams = new HashMap<String, String>();
-			packageParams.put("appid", appid);
-			packageParams.put("openid", openid);
-			packageParams.put("mch_id",mch_id);
-			packageParams.put("is_subscribe",is_subscribe);
-			packageParams.put("nonce_str",nonce_str);
-			packageParams.put("product_id", product_id);
-			
-			String packageSign = PaymentKit.createSign(packageParams, paternerKey);
-			if (sign.equals(packageSign)) {
-				// 统一下单文档地址：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
-				
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("appid", appid);
-				params.put("mch_id", mch_id);
-				params.put("body", "测试扫码支付");
-				String out_trade_no=Long.toString(System.currentTimeMillis());
-				params.put("out_trade_no", out_trade_no);
-				int price=((int)(Float.valueOf(10)*100));
-				params.put("total_fee", price+"");
-				params.put("attach", out_trade_no);
-				
-				String ip = IpKit.getRealIp(getRequest());
-				if (StrKit.isBlank(ip)) {
-					ip = "127.0.0.1";
-				}
-				
-				params.put("spbill_create_ip", ip);
-				params.put("trade_type", TradeType.NATIVE.name());
-				params.put("nonce_str", System.currentTimeMillis() / 1000 + "");
-				params.put("notify_url", notify_url);
-				params.put("openid", openid);
-
-				String paysign = PaymentKit.createSign(params, paternerKey);
-				params.put("sign", paysign);
-				
-				String xmlResult = PaymentApi.pushOrder(params);
-				
-				System.out.println("prepay_xml>>>"+xmlResult);
-				Map<String, String> payResult = PaymentKit.xmlToMap(xmlResult);
-				
-				String return_code = payResult.get("return_code");
-				String return_msg = payResult.get("return_msg");
-				
-				if (StrKit.isBlank(return_code) || !"SUCCESS".equals(return_code)) {
-					System.out.println("return_code>>>"+return_msg);
-					return;
-				}
-				if (StrKit.isBlank(return_msg) || !"OK".equals(return_msg)) {
-					System.out.println("return_msg>>>>"+return_msg);
-					return;
-				}
-				// 以下字段在return_code 和result_code都为SUCCESS的时候有返回
-				String prepay_id = payResult.get("prepay_id");
-				
-				Map<String, String> prepayParams = new HashMap<String, String>();
-				prepayParams.put("return_code", "SUCCESS");
-				prepayParams.put("appId", appid);
-				prepayParams.put("mch_id", mch_id);
-				prepayParams.put("nonceStr", System.currentTimeMillis() + "");
-				prepayParams.put("prepay_id", prepay_id);
-				prepayParams.put("result_code", "SUCCESS");
-				String prepaySign = PaymentKit.createSign(prepayParams, paternerKey);
-				prepayParams.put("sign", prepaySign);
-				String xml = PaymentKit.toXml(prepayParams);
-				log.error(xml);
-				renderText(xml);
-			}
-			
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String result = HttpKit.readData(getRequest());
+		System.out.println("回调结果="+result);
+		/**
+		 * 获取返回的信息内容中各个参数的值
+		 */
+		Map<String, String> map = PaymentKit.xmlToMap(result);
+		for (String key : map.keySet()) {
+			   System.out.println("key= "+ key + " and value= " + map.get(key));
 		}
-		
+
+		String appid=map.get("appid");
+		String openid = map.get("openid");
+		String mch_id = map.get("mch_id");
+		String is_subscribe = map.get("is_subscribe");
+		String nonce_str = map.get("nonce_str");
+		String product_id = map.get("product_id");
+		String sign = map.get("sign");
+		Map<String, String> packageParams = new HashMap<String, String>();
+		packageParams.put("appid", appid);
+		packageParams.put("openid", openid);
+		packageParams.put("mch_id",mch_id);
+		packageParams.put("is_subscribe",is_subscribe);
+		packageParams.put("nonce_str",nonce_str);
+		packageParams.put("product_id", product_id);
+
+		String packageSign = PaymentKit.createSign(packageParams, paternerKey);
+		if (sign.equals(packageSign)) {
+			// 统一下单文档地址：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
+
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("appid", appid);
+			params.put("mch_id", mch_id);
+			params.put("body", "测试扫码支付");
+			String out_trade_no=Long.toString(System.currentTimeMillis());
+			params.put("out_trade_no", out_trade_no);
+			int price=((int)(Float.valueOf(10)*100));
+			params.put("total_fee", price+"");
+			params.put("attach", out_trade_no);
+
+			String ip = IpKit.getRealIp(getRequest());
+			if (StrKit.isBlank(ip)) {
+				ip = "127.0.0.1";
+			}
+
+			params.put("spbill_create_ip", ip);
+			params.put("trade_type", TradeType.NATIVE.name());
+			params.put("nonce_str", System.currentTimeMillis() / 1000 + "");
+			params.put("notify_url", notify_url);
+			params.put("openid", openid);
+
+			String paysign = PaymentKit.createSign(params, paternerKey);
+			params.put("sign", paysign);
+
+			String xmlResult = PaymentApi.pushOrder(params);
+
+			System.out.println("prepay_xml>>>"+xmlResult);
+			Map<String, String> payResult = PaymentKit.xmlToMap(xmlResult);
+
+			String return_code = payResult.get("return_code");
+			String return_msg = payResult.get("return_msg");
+
+			if (StrKit.isBlank(return_code) || !"SUCCESS".equals(return_code)) {
+				System.out.println("return_code>>>"+return_msg);
+				return;
+			}
+			if (StrKit.isBlank(return_msg) || !"OK".equals(return_msg)) {
+				System.out.println("return_msg>>>>"+return_msg);
+				return;
+			}
+			// 以下字段在return_code 和result_code都为SUCCESS的时候有返回
+			String prepay_id = payResult.get("prepay_id");
+
+			Map<String, String> prepayParams = new HashMap<String, String>();
+			prepayParams.put("return_code", "SUCCESS");
+			prepayParams.put("appId", appid);
+			prepayParams.put("mch_id", mch_id);
+			prepayParams.put("nonceStr", System.currentTimeMillis() + "");
+			prepayParams.put("prepay_id", prepay_id);
+			prepayParams.put("result_code", "SUCCESS");
+			String prepaySign = PaymentKit.createSign(prepayParams, paternerKey);
+			prepayParams.put("sign", prepaySign);
+			String xml = PaymentKit.toXml(prepayParams);
+
+			System.out.println(xml);
+
+			renderText(xml);
+		}
 	}
 }
