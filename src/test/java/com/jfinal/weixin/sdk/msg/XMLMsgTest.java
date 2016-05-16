@@ -302,4 +302,58 @@ public class XMLMsgTest {
 
 		Assert.assertTrue(inMsg instanceof InUserPayFromCardEvent);
 	}
+
+	// 微信小店订单支付成功接口消息
+	@Test
+	public void test014() {
+		String xml = "<xml>\n" +
+				"<ToUserName><![CDATA[gh_7638cbc70355]]></ToUserName>\n" +
+				"<FromUserName><![CDATA[o_CBes6AP0_HPzsRwzpe6kXF6FnM]]></FromUserName>\n" +
+				"<CreateTime>1463387703</CreateTime>\n" +
+				"<MsgType><![CDATA[event]]></MsgType>\n" +
+				"<Event><![CDATA[merchant_order]]></Event>\n" +
+				"<OrderId><![CDATA[12924804247712204496]]></OrderId>\n" +
+				"<OrderStatus>2</OrderStatus>\n" +
+				"<ProductId><![CDATA[p_CBes1Evak4u6Gd5l-T0yYlk5dk]]></ProductId>\n" +
+				"<SkuInfo><![CDATA[]]></SkuInfo>\n" +
+				"</xml>\n";
+
+		InMsg inMsg = InMsgParser.parse(xml);
+		Assert.assertTrue(inMsg instanceof InMerChantOrderEvent);
+	}
+
+	// 不存在的事件类型测试
+	@Test
+	public void test015() {
+		String xml = "<xml>\n" +
+				"<ToUserName><![CDATA[gh_7638cbc70355]]></ToUserName>\n" +
+				"<FromUserName><![CDATA[o_CBes6AP0_HPzsRwzpe6kXF6FnM]]></FromUserName>\n" +
+				"<CreateTime>1463387703</CreateTime>\n" +
+				"<MsgType><![CDATA[event]]></MsgType>\n" +
+				"<Event><![CDATA[test]]></Event>\n" +
+				"<OrderId><![CDATA[12924804247712204496]]></OrderId>\n" +
+				"<OrderStatus>2</OrderStatus>\n" +
+				"<ProductId><![CDATA[p_CBes1Evak4u6Gd5l-T0yYlk5dk]]></ProductId>\n" +
+				"<SkuInfo><![CDATA[]]></SkuInfo>\n" +
+				"</xml>\n";
+
+		InMsg inMsg = InMsgParser.parse(xml);
+		Assert.assertTrue(inMsg instanceof InNotDefinedEvent);
+	}
+
+	// 不存在的消息类型测试
+	@Test
+	public void test016() {
+		String xml = "<xml>"
+				+ "<ToUserName><![CDATA[gh_5f58ae0646df]]></ToUserName>"
+				+ "<FromUserName><![CDATA[oy_CjjrWbbbBQxMGSZxpA48XgIbo]]></FromUserName>"
+				+ "<CreateTime>1450496618</CreateTime>"
+				+ "<MsgType><![CDATA[test]]></MsgType>"
+				+ "<Content><![CDATA[hello]]></Content>"
+				+ "<MsgId>6229835537670016495</MsgId>"
+				+ "</xml>";
+
+		InMsg inMsg = InMsgParser.parse(xml);
+		Assert.assertTrue(inMsg instanceof InNotDefinedMsg);
+	}
 }

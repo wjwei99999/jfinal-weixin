@@ -6,13 +6,7 @@
 
 package com.jfinal.weixin.sdk.jfinal;
 
-import com.jfinal.weixin.sdk.msg.in.InImageMsg;
-import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
-import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
-import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
-import com.jfinal.weixin.sdk.msg.in.InTextMsg;
-import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
-import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
+import com.jfinal.weixin.sdk.msg.in.*;
 import com.jfinal.weixin.sdk.msg.in.event.*;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 
@@ -113,6 +107,23 @@ public abstract class MsgControllerAdapter extends MsgController {
 
 	@Override
 	protected void processInUserPayFromCardEvent(InUserPayFromCardEvent msg) {
+
+	}
+
+	@Override
+	protected void processInMerChantOrderEvent(InMerChantOrderEvent inMerChantOrderEvent) {
+
+	}
+
+	// 没有找到对应的事件消息
+	@Override
+	protected void processIsNotDefinedEvent(InNotDefinedEvent inNotDefinedEvent) {
+
+	}
+
+	// 没有找到对应的消息
+	@Override
+	protected void processIsNotDefinedMsg(InNotDefinedMsg inNotDefinedMsg) {
 
 	}
 }

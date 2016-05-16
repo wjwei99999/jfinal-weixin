@@ -6,6 +6,7 @@
 
 package com.jfinal.weixin.sdk.msg;
 
+import com.jfinal.kit.LogKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.msg.in.*;
 import com.jfinal.weixin.sdk.msg.in.event.*;
@@ -63,9 +64,16 @@ public class InMsgParser {
 			return parseInLinkMsg(xmlHelper, toUserName, fromUserName, createTime, msgType);
 		if ("event".equals(msgType))
 			return parseInEvent(xmlHelper, toUserName, fromUserName, createTime, msgType);
-		throw new RuntimeException("无法识别的消息类型 " + msgType + "，请查阅微信公众平台开发文档");
+
+		LogKit.error("无法识别的消息类型 " + msgType + "，请查阅微信公众平台开发文档");
+		return parseInNotDefinedMsg(toUserName, fromUserName, createTime, msgType);
 	}
-	
+
+	private static InMsg parseInNotDefinedMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
+		InNotDefinedMsg msg = new InNotDefinedMsg(toUserName, fromUserName, createTime, msgType);
+		return msg;
+	}
+
 	private static InMsg parseInTextMsg(XmlHelper xmlHelper, String toUserName, String fromUserName, Integer createTime, String msgType) {
 		InTextMsg msg = new InTextMsg(toUserName, fromUserName, createTime, msgType);
 		msg.setContent(xmlHelper.getString("//Content"));
@@ -373,8 +381,19 @@ public class InMsgParser {
 			e.setOriginalFee(xmlHelper.getString("//OriginalFee"));
 			return e;
 		}
+		// 微信小店支付消息
+		if (InMerChantOrderEvent.EVENT.equals(event)) {
+			InMerChantOrderEvent e = new InMerChantOrderEvent(toUserName, fromUserName, createTime, msgType, event);
+			e.setOrderId(xmlHelper.getString("//OrderId"));
+			e.setOrderStatus(xmlHelper.getNumber("//OrderStatus").intValue());
+			e.setProductId(xmlHelper.getString("//ProductId"));
+			e.setSkuInfo(xmlHelper.getString("//SkuInfo"));
+			return e;
+		}
 
-		throw new RuntimeException("无法识别的事件类型" + event + "，请查阅微信公众平台开发文档");
+		LogKit.error("无法识别的事件类型" + event + "，请查阅微信公众平台开发文档");
+		InNotDefinedEvent e = new InNotDefinedEvent(toUserName, fromUserName, createTime, msgType, event);
+		return e;
 	}
 
 }

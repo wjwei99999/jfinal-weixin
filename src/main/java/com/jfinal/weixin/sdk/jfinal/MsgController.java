@@ -16,14 +16,7 @@ import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.kit.MsgEncryptKit;
 import com.jfinal.weixin.sdk.msg.InMsgParser;
-import com.jfinal.weixin.sdk.msg.in.InImageMsg;
-import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
-import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
-import com.jfinal.weixin.sdk.msg.in.InMsg;
-import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
-import com.jfinal.weixin.sdk.msg.in.InTextMsg;
-import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
-import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
+import com.jfinal.weixin.sdk.msg.in.*;
 import com.jfinal.weixin.sdk.msg.in.event.*;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 import com.jfinal.weixin.sdk.msg.out.OutMsg;
@@ -101,8 +94,15 @@ public abstract class MsgController extends Controller {
 			processInUpdateMemberCardEvent((InUpdateMemberCardEvent) msg);
 		else if (msg instanceof InUserPayFromCardEvent)
 			processInUserPayFromCardEvent((InUserPayFromCardEvent) msg);
-		else
+		else if (msg instanceof InMerChantOrderEvent)
+			processInMerChantOrderEvent((InMerChantOrderEvent) msg);
+		else if (msg instanceof InNotDefinedEvent) {
+			log.error("未能识别的事件类型。 消息 xml 内容为：\n" + getInMsgXml());
+			processIsNotDefinedEvent((InNotDefinedEvent) msg);
+		} else if (msg instanceof InNotDefinedMsg) {
 			log.error("未能识别的消息类型。 消息 xml 内容为：\n" + getInMsgXml());
+			processIsNotDefinedMsg((InNotDefinedMsg) msg);
+		}
 	}
 
 	/**
@@ -216,13 +216,20 @@ public abstract class MsgController extends Controller {
 	protected abstract void processInWifiEvent(InWifiEvent inWifiEvent);
 
 	// 微信会员卡二维码扫描领取接口
-	protected abstract void processInUserViewCardEvent(InUserViewCardEvent msg);
+	protected abstract void processInUserViewCardEvent(InUserViewCardEvent inUserViewCardEvent);
 	// 微信会员卡激活接口
-	protected abstract void processInSubmitMemberCardEvent(InSubmitMemberCardEvent msg);
+	protected abstract void processInSubmitMemberCardEvent(InSubmitMemberCardEvent inSubmitMemberCardEvent);
 	// 微信会员卡积分变更
-	protected abstract void processInUpdateMemberCardEvent(InUpdateMemberCardEvent msg);
+	protected abstract void processInUpdateMemberCardEvent(InUpdateMemberCardEvent inUpdateMemberCardEvent);
 	// 微信会员卡快速买单
-	protected abstract void processInUserPayFromCardEvent(InUserPayFromCardEvent msg);
+	protected abstract void processInUserPayFromCardEvent(InUserPayFromCardEvent inUserPayFromCardEvent);
+	// 微信小店订单支付成功接口消息
+	protected abstract void processInMerChantOrderEvent(InMerChantOrderEvent inMerChantOrderEvent);
+
+	// 没有找到对应的事件消息
+	protected abstract void processIsNotDefinedEvent(InNotDefinedEvent inNotDefinedEvent);
+	// 没有找到对应的消息
+	protected abstract void processIsNotDefinedMsg(InNotDefinedMsg inNotDefinedMsg);
 }
 
 
