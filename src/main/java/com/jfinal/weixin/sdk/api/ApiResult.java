@@ -67,8 +67,11 @@ public class ApiResult {
 	 * 1：另一程序重新获取了该公众号的 access_token
 	 * 2：使用微信公众平台接口调试工具获取了该公众号的 access_token，此情况本质上与 1 中情况相同
 	 * 3：微信服务器重新调整了过期时间或者发生其它 access_token 异常情况
+	 *
+	 * 2016-06-21 by L.cm 添加 synchronized 锁感谢Git@osc #Lucare
+	 *
 	 */
-	private void refreshAccessTokenIfInvalid() {
+	private synchronized void refreshAccessTokenIfInvalid() {
 		if (isAccessTokenInvalid())
 			AccessTokenApi.refreshAccessToken();
 	}

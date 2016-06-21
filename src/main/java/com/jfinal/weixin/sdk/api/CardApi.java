@@ -19,4 +19,5 @@ public class CardApi {
         return new ApiResult(jsonResult);
     }
 
+    // https://api.weixin.qq.com/card/qrcode/create?access_token=TOKEN
 }
