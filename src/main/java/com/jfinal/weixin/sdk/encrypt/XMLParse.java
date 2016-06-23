@@ -17,7 +17,6 @@ import com.jfinal.weixin.sdk.utils.XmlHelper;
  * 提供提取消息格式中的密文及生成回复消息格式的接口.
  */
 class XMLParse {
-
 	/**
 	 * 提取出xml数据包中的加密消息
 	 * @param xmlStr 待提取的xml字符串
@@ -30,8 +29,8 @@ class XMLParse {
 			XmlHelper xmlHelper = XmlHelper.of(xmlStr);
 
 			result[0] = 0;
-			result[1] = xmlHelper.getString("Encrypt");
-			result[2] = xmlHelper.getString("ToUserName");
+			result[1] = xmlHelper.getString("//Encrypt");
+			result[2] = xmlHelper.getString("//ToUserName");
 			return result;
 		} catch (Exception e) {
 			LogKit.error(e.getMessage(), e);
@@ -48,10 +47,12 @@ class XMLParse {
 	 * @return 生成的xml字符串
 	 */
 	public static String generate(String encrypt, String signature, String timestamp, String nonce) {
-
-		String format = "<xml>\n" + "<Encrypt><![CDATA[%1$s]]></Encrypt>\n"
+		String format = "<xml>\n"
+				+ "<Encrypt><![CDATA[%1$s]]></Encrypt>\n"
 				+ "<MsgSignature><![CDATA[%2$s]]></MsgSignature>\n"
-				+ "<TimeStamp>%3$s</TimeStamp>\n" + "<Nonce><![CDATA[%4$s]]></Nonce>\n" + "</xml>";
+				+ "<TimeStamp>%3$s</TimeStamp>\n"
+				+ "<Nonce><![CDATA[%4$s]]></Nonce>\n"
+				+ "</xml>";
 		return String.format(format, encrypt, signature, timestamp, nonce);
 
 	}

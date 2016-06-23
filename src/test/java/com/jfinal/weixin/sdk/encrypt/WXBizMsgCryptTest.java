@@ -4,18 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
-import java.io.StringReader;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import com.jfinal.weixin.sdk.utils.XmlHelper;
+
+import junit.framework.Assert;
 
 public class WXBizMsgCryptTest {
 	String encodingAesKey = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFG";
@@ -37,25 +34,20 @@ public class WXBizMsgCryptTest {
 			WXBizMsgCrypt pc = new WXBizMsgCrypt(token, encodingAesKey, appId);
 			String afterEncrpt = pc.encryptMsg(replyMsg, timestamp, nonce);
 
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			StringReader sr = new StringReader(afterEncrpt);
-			InputSource is = new InputSource(sr);
-			Document document = db.parse(is);
-
-			Element root = document.getDocumentElement();
-			NodeList nodelist1 = root.getElementsByTagName("Encrypt");
-			NodeList nodelist2 = root.getElementsByTagName("MsgSignature");
-
-			String encrypt = nodelist1.item(0).getTextContent();
-			String msgSignature = nodelist2.item(0).getTextContent();
+			XmlHelper xmlHelper = XmlHelper.of(afterEncrpt);
+			String encrypt = xmlHelper.getString("//Encrypt");
+			String msgSignature = xmlHelper.getString("//MsgSignature");
+			
+			Assert.assertNotSame(encrypt, "");
+			Assert.assertNotSame(msgSignature, "");
+			
 			String fromXML = String.format(xmlFormat, encrypt);
 
 			// 第三方收到公众号平台发送的消息
 			String afterDecrpt = pc.decryptMsg(msgSignature, timestamp, nonce, fromXML);
 			assertEquals(replyMsg, afterDecrpt);
 		} catch (AesException e) {
-			// fail("正常流程，怎么就抛出异常了？？？？？？");
+			fail("正常流程，怎么就抛出异常了？？？？？？");
 		}
 	}
 
@@ -98,16 +90,12 @@ public class WXBizMsgCryptTest {
 		try {
 			WXBizMsgCrypt pc = new WXBizMsgCrypt(token, encodingAesKey, appId);
 			String afterEncrpt = pc.encryptMsg(replyMsg, timestamp, nonce);
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			StringReader sr = new StringReader(afterEncrpt);
-			InputSource is = new InputSource(sr);
-			Document document = db.parse(is);
 
-			Element root = document.getDocumentElement();
-			NodeList nodelist1 = root.getElementsByTagName("Encrypt");
-
-			String encrypt = nodelist1.item(0).getTextContent();
+			XmlHelper xmlHelper = XmlHelper.of(afterEncrpt);
+			String encrypt = xmlHelper.getString("//Encrypt");
+			
+			Assert.assertNotSame(encrypt, "");
+			
 			String fromXML = String.format(xmlFormat, encrypt);
 			pc.decryptMsg("12345", timestamp, nonce, fromXML); // 这里签名错误
 		} catch (AesException e) {
