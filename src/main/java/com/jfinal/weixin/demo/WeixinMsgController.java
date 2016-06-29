@@ -6,24 +6,10 @@
 
 package com.jfinal.weixin.demo;
 
-import com.jfinal.kit.PropKit;
 import com.jfinal.log.Log;
-import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.jfinal.MsgControllerAdapter;
-import com.jfinal.weixin.sdk.msg.in.InImageMsg;
-import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
-import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
-import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
-import com.jfinal.weixin.sdk.msg.in.InTextMsg;
-import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
-import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
-import com.jfinal.weixin.sdk.msg.in.event.InCustomEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InMassEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InTemplateMsgEvent;
+import com.jfinal.weixin.sdk.msg.in.*;
+import com.jfinal.weixin.sdk.msg.in.event.*;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 import com.jfinal.weixin.sdk.msg.out.OutCustomMsg;
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
@@ -38,28 +24,6 @@ public class WeixinMsgController extends MsgControllerAdapter {
 
 	static Log logger = Log.getLog(WeixinMsgController.class);
 	private static final String helpStr = "\t发送 help 可获得帮助，发送\"视频\" 可获取视频教程，发送 \"美女\" 可看美女，发送 music 可听音乐 ，发送新闻可看JFinal新版本消息。公众号功能持续完善中";
-
-	/**
-	 * 如果要支持多公众账号，只需要在此返回各个公众号对应的  ApiConfig 对象即可
-	 * 可以通过在请求 url 中挂参数来动态从数据库中获取 ApiConfig 属性值
-	 */
-	public ApiConfig getApiConfig() {
-		ApiConfig ac = new ApiConfig();
-		
-		// 配置微信 API 相关常量
-		ac.setToken(PropKit.get("token"));
-		ac.setAppId(PropKit.get("appId"));
-		ac.setAppSecret(PropKit.get("appSecret"));
-		
-		/**
-		 *  是否对消息进行加密，对应于微信平台的消息加解密方式：
-		 *  1：true进行加密且必须配置 encodingAesKey
-		 *  2：false采用明文模式，同时也支持混合模式
-		 */
-		ac.setEncryptMessage(PropKit.getBoolean("encryptMessage", false));
-		ac.setEncodingAesKey(PropKit.get("encodingAesKey", "setting it in config file"));
-		return ac;
-	}
 
 	protected void processInTextMsg(InTextMsg inTextMsg)
 	{

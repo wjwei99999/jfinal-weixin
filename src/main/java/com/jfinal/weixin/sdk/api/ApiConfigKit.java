@@ -1,18 +1,27 @@
 package com.jfinal.weixin.sdk.api;
 
+import com.jfinal.kit.StrKit;
+import com.jfinal.log.Log;
 import com.jfinal.weixin.sdk.cache.DefaultAccessTokenCache;
 import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 将 ApiConfig 绑定到 ThreadLocal 的工具类，以方便在当前线程的各个地方获取 ApiConfig 对象：
  * 1：如果控制器继承自 MsgController 该过程是自动的，详细可查看 MsgInterceptor 与之的配合
  * 2：如果控制器继承自 ApiController 该过程是自动的，详细可查看 ApiInterceptor 与之的配合
  * 3：如果控制器没有继承自 MsgController、ApiController，则需要先手动调用 
- *    ApiConfigKit.setThreadLocalApiConfig(ApiConfig) 来绑定 apiConfig 到线程之上
+ *    ApiConfigKit.setThreadLocalAppId(appId) 来绑定 appId 到线程之上
  */
 public class ApiConfigKit {
+	private static final Log log =  Log.getLog(ApiConfigKit.class);
 	
-	private static final ThreadLocal<ApiConfig> tl = new ThreadLocal<ApiConfig>();
+	private static final ThreadLocal<String> TL = new ThreadLocal<String>();
+
+	private static final Map<String, ApiConfig> CFG_MAP = new ConcurrentHashMap<String, ApiConfig>();
+	private static final String DEFAULT_CFG_KEY = "_default_cfg_key_";
 	
 	// 开发模式将输出消息交互 xml 到控制台
 	private static boolean devMode = false;
@@ -24,20 +33,68 @@ public class ApiConfigKit {
 	public static boolean isDevMode() {
 		return devMode;
 	}
-	
-	public static void setThreadLocalApiConfig(ApiConfig apiConfig) {
-		tl.set(apiConfig);
+
+	/**
+	 * 设置默认公众号接口配置
+	 * @param apiConfig 默认公众号配置
+	 * @return
+	 */
+	public static ApiConfig setDefaultApiConfig(ApiConfig apiConfig) {
+		return CFG_MAP.put(DEFAULT_CFG_KEY, apiConfig);
+	}
+
+	/**
+	 * 添加公众号配置，每个appId只需添加一次，相同appId将被覆盖。
+	 * 第一次添加的将作为默认公众号配置
+	 * @param apiConfig 公众号配置
+	 * @return
+	 */
+	public static ApiConfig putApiConfig(ApiConfig apiConfig) {
+		if (CFG_MAP.size() == 0) {
+			setDefaultApiConfig(apiConfig);
+		}
+		return CFG_MAP.put(apiConfig.getAppId(), apiConfig);
+	}
+
+	public static ApiConfig removeApiConfig(ApiConfig apiConfig) {
+		return removeApiConfig(apiConfig.getAppId());
+	}
+
+	public static ApiConfig removeApiConfig(String appId) {
+		return CFG_MAP.remove(appId);
 	}
 	
-	public static void removeThreadLocalApiConfig() {
-		tl.remove();
+	public static void setThreadLocalAppId(String appId) {
+		if (StrKit.isBlank(appId)) {
+			appId = DEFAULT_CFG_KEY;
+		}
+		TL.set(appId);
+	}
+	
+	public static void removeThreadLocalAppId() {
+		TL.remove();
+	}
+
+	public static String getAppId() {
+		String appId = TL.get();
+		if (StrKit.isBlank(appId)) {
+			appId = DEFAULT_CFG_KEY;
+		}
+		return appId;
 	}
 	
 	public static ApiConfig getApiConfig() {
-		ApiConfig result = tl.get();
-		if (result == null)
-			throw new IllegalStateException("需要事先使用 ApiConfigKit.setThreadLocalApiConfig(apiConfig) 将 ApiConfig对象存入，才可以调用 ApiConfigKit.getApiConfig() 方法");
-		return result;
+		String appId = getAppId();
+		return getApiConfig(appId);
+	}
+
+	public static ApiConfig getApiConfig(String appId) {
+		log.debug("appId: " + appId);
+		ApiConfig cfg = CFG_MAP.get(appId);
+		if (cfg == null)
+			throw new IllegalStateException("需事先调用 ApiConfigKit.addApiConfig(apiConfig) 将 appId对应的 ApiConfig 对象存入，" +
+					"如JFinalConfig.afterJFinalStart()中调用, 才可以使用 ApiConfigKit.getApiConfig() 系列方法");
+		return cfg;
 	}
 	
 	static IAccessTokenCache accessTokenCache = new DefaultAccessTokenCache();

@@ -14,6 +14,7 @@ import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
 import com.jfinal.kit.PropKit;
+import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 
 public class WeixinConfig extends JFinalConfig {
@@ -58,7 +59,8 @@ public class WeixinConfig extends JFinalConfig {
 	}
 	
 	public void configInterceptor(Interceptors me) {
-		
+		// ApiInterceptor.setAppIdParser(new AppIdParser.DefaultParameterAppIdParser("appId")); 默认无需设置
+		// MsgInterceptor.setAppIdParser(new AppIdParser.DefaultParameterAppIdParser("appId")); 默认无需设置
 	}
 	
 	public void configHandler(Handlers me) {
@@ -71,6 +73,26 @@ public class WeixinConfig extends JFinalConfig {
 		// 1.6新增的2种初始化
 //		ApiConfigKit.setAccessTokenCache(new RedisAccessTokenCache(Redis.use("weixin")));
 //		ApiConfigKit.setAccessTokenCache(new RedisAccessTokenCache("weixin"));
+
+		ApiConfig ac = new ApiConfig();
+		// 配置微信 API 相关参数
+		ac.setToken(PropKit.get("token"));
+		ac.setAppId(PropKit.get("appId"));
+		ac.setAppSecret(PropKit.get("appSecret"));
+
+		/**
+		 *  是否对消息进行加密，对应于微信平台的消息加解密方式：
+		 *  1：true进行加密且必须配置 encodingAesKey
+		 *  2：false采用明文模式，同时也支持混合模式
+		 */
+		ac.setEncryptMessage(PropKit.getBoolean("encryptMessage", false));
+		ac.setEncodingAesKey(PropKit.get("encodingAesKey", "setting it in config file"));
+
+		/**
+		 * 单个公众号时，和ApiConfigKit.putApiConfig(ac)等价。
+		 * 多个公众号时，重复调用ApiConfigKit.putApiConfig(ac)依次添加即可。
+		 */
+		ApiConfigKit.setDefaultApiConfig(ac);
 	}
 
 	public static void main(String[] args) {
