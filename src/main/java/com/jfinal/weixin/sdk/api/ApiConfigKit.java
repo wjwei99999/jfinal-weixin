@@ -66,7 +66,7 @@ public class ApiConfigKit {
 
 	public static void setThreadLocalAppId(String appId) {
 		if (StrKit.isBlank(appId)) {
-			appId = DEFAULT_CFG_KEY;
+			appId = CFG_MAP.get(DEFAULT_CFG_KEY).getAppId();
 		}
 		TL.set(appId);
 	}
