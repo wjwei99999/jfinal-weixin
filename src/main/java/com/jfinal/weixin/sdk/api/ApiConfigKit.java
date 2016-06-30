@@ -12,24 +12,24 @@ import java.util.concurrent.ConcurrentHashMap;
  * 将 ApiConfig 绑定到 ThreadLocal 的工具类，以方便在当前线程的各个地方获取 ApiConfig 对象：
  * 1：如果控制器继承自 MsgController 该过程是自动的，详细可查看 MsgInterceptor 与之的配合
  * 2：如果控制器继承自 ApiController 该过程是自动的，详细可查看 ApiInterceptor 与之的配合
- * 3：如果控制器没有继承自 MsgController、ApiController，则需要先手动调用 
+ * 3：如果控制器没有继承自 MsgController、ApiController，则需要先手动调用
  *    ApiConfigKit.setThreadLocalAppId(appId) 来绑定 appId 到线程之上
  */
 public class ApiConfigKit {
 	private static final Log log =  Log.getLog(ApiConfigKit.class);
-	
+
 	private static final ThreadLocal<String> TL = new ThreadLocal<String>();
 
 	private static final Map<String, ApiConfig> CFG_MAP = new ConcurrentHashMap<String, ApiConfig>();
 	private static final String DEFAULT_CFG_KEY = "_default_cfg_key_";
-	
+
 	// 开发模式将输出消息交互 xml 到控制台
 	private static boolean devMode = false;
-	
+
 	public static void setDevMode(boolean devMode) {
 		ApiConfigKit.devMode = devMode;
 	}
-	
+
 	public static boolean isDevMode() {
 		return devMode;
 	}
@@ -63,14 +63,14 @@ public class ApiConfigKit {
 	public static ApiConfig removeApiConfig(String appId) {
 		return CFG_MAP.remove(appId);
 	}
-	
+
 	public static void setThreadLocalAppId(String appId) {
 		if (StrKit.isBlank(appId)) {
 			appId = DEFAULT_CFG_KEY;
 		}
 		TL.set(appId);
 	}
-	
+
 	public static void removeThreadLocalAppId() {
 		TL.remove();
 	}
@@ -78,11 +78,11 @@ public class ApiConfigKit {
 	public static String getAppId() {
 		String appId = TL.get();
 		if (StrKit.isBlank(appId)) {
-			appId = DEFAULT_CFG_KEY;
+			appId = CFG_MAP.get(DEFAULT_CFG_KEY).getAppId();
 		}
 		return appId;
 	}
-	
+
 	public static ApiConfig getApiConfig() {
 		String appId = getAppId();
 		return getApiConfig(appId);
@@ -96,13 +96,13 @@ public class ApiConfigKit {
 					"如JFinalConfig.afterJFinalStart()中调用, 才可以使用 ApiConfigKit.getApiConfig() 系列方法");
 		return cfg;
 	}
-	
+
 	static IAccessTokenCache accessTokenCache = new DefaultAccessTokenCache();
-	
+
 	public static void setAccessTokenCache(IAccessTokenCache accessTokenCache) {
 		ApiConfigKit.accessTokenCache = accessTokenCache;
 	}
-	
+
 	public static IAccessTokenCache getAccessTokenCache() {
 		return ApiConfigKit.accessTokenCache;
 	}
