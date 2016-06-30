@@ -35,23 +35,14 @@ public class ApiConfigKit {
 	}
 
 	/**
-	 * 设置默认公众号接口配置
-	 * @param apiConfig 默认公众号配置
-	 * @return
-	 */
-	public static ApiConfig setDefaultApiConfig(ApiConfig apiConfig) {
-		return CFG_MAP.put(DEFAULT_CFG_KEY, apiConfig);
-	}
-
-	/**
 	 * 添加公众号配置，每个appId只需添加一次，相同appId将被覆盖。
-	 * 第一次添加的将作为默认公众号配置
+	 * 第一个添加的将作为默认公众号配置
 	 * @param apiConfig 公众号配置
 	 * @return
 	 */
 	public static ApiConfig putApiConfig(ApiConfig apiConfig) {
 		if (CFG_MAP.size() == 0) {
-			setDefaultApiConfig(apiConfig);
+            CFG_MAP.put(DEFAULT_CFG_KEY, apiConfig);
 		}
 		return CFG_MAP.put(apiConfig.getAppId(), apiConfig);
 	}
@@ -92,7 +83,7 @@ public class ApiConfigKit {
 		log.debug("appId: " + appId);
 		ApiConfig cfg = CFG_MAP.get(appId);
 		if (cfg == null)
-			throw new IllegalStateException("需事先调用 ApiConfigKit.addApiConfig(apiConfig) 将 appId对应的 ApiConfig 对象存入，" +
+			throw new IllegalStateException("需事先调用 ApiConfigKit.putApiConfig(apiConfig) 将 appId对应的 ApiConfig 对象存入，" +
 					"如JFinalConfig.afterJFinalStart()中调用, 才可以使用 ApiConfigKit.getApiConfig() 系列方法");
 		return cfg;
 	}
