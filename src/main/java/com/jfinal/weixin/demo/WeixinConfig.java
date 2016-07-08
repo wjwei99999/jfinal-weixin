@@ -6,12 +6,7 @@
 
 package com.jfinal.weixin.demo;
 
-import com.jfinal.config.Constants;
-import com.jfinal.config.Handlers;
-import com.jfinal.config.Interceptors;
-import com.jfinal.config.JFinalConfig;
-import com.jfinal.config.Plugins;
-import com.jfinal.config.Routes;
+import com.jfinal.config.*;
 import com.jfinal.core.JFinal;
 import com.jfinal.kit.PropKit;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
@@ -52,9 +47,11 @@ public class WeixinConfig extends JFinalConfig {
 		
 		// EhCachePlugin ecp = new EhCachePlugin();
 		// me.add(ecp);
-		
-		// RedisPlugin redisPlugin = new RedisPlugin("weixin", "127.0.0.1");
-		// me.add(redisPlugin);
+
+		// 使用redis分布accessToken
+//		RedisPlugin redisPlugin = new RedisPlugin("weixin", "127.0.0.1");
+//		redisPlugin.setSerializer(JdkSerializer.me); // 需要使用fst高性能序列化的用户请删除这一行（Fst jar依赖请查看WIKI）
+//		me.add(redisPlugin);
 	}
 	
 	public void configInterceptor(Interceptors me) {
