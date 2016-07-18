@@ -22,7 +22,10 @@ public class WeixinPayController extends Controller {
 	private static String partner = "";
 	private static String paternerKey = "";
 	private static String notify_url = "http://www.xxx.com/pay/pay_notify";
-	
+
+	/**
+	 * 公众号支付js-sdk
+	 */
 	public void index() {
 		// openId，采用 网页授权获取 access_token API：SnsAccessTokenApi获取
 		String openId = "";
@@ -82,7 +85,10 @@ public class WeixinPayController extends Controller {
 		System.out.println(jsonStr);
 		render("/jsp/pay.jsp");
 	}
-	
+
+	/**
+	 * 支付成功通知
+	 */
 	public void pay_notify() {
 		// 支付结果通用通知文档: https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_7
 		String xmlMsg = HttpKit.readData(getRequest());
@@ -120,7 +126,7 @@ public class WeixinPayController extends Controller {
 	 * 
 	 * @author Javen
 	 * 2016年5月14日
-	 * 扫码支付获取二维码（模式一）
+	 * PC扫码支付获取二维码（模式一）
 	 */
 	public String getCodeUrl(String productId){
 		String url="weixin://wxpay/bizpayurl?sign=%s&appid=%s&mch_id=%s&product_id=%s&time_stamp=%s&nonce_str=%s";
@@ -146,7 +152,7 @@ public class WeixinPayController extends Controller {
 	/**
 	 * @author Javen
 	 * 2016年5月14日
-	 * 扫码支付回调（模式一）
+	 * PC扫码支付回调（模式一）
 	 */
 	public void wxpay(){
 		String result = HttpKit.readData(getRequest());
@@ -237,4 +243,58 @@ public class WeixinPayController extends Controller {
 			renderText(xml);
 		}
 	}
+
+	/**
+	 * PC支付模式二，PC支付不需要openid
+	 */
+	public void pcModeTwo() {
+		// 统一下单文档地址：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("appid", appid);
+		params.put("mch_id", partner);
+		params.put("body", "JFinal2.2极速开发");
+
+		// 商品ID trade_type=NATIVE，此参数必传。此id为二维码中包含的商品ID，商户自行定义。
+		params.put("product_id", "1");
+		// 商户订单号 商户系统内部的订单号,32个字符内、可包含字母, 其他说明见商户订单号
+		params.put("out_trade_no", "97777368222");
+		params.put("total_fee", "1");
+
+		String ip = IpKit.getRealIp(getRequest());
+		if (StrKit.isBlank(ip)) {
+			ip = "127.0.0.1";
+		}
+
+		params.put("spbill_create_ip", ip);
+		params.put("trade_type", TradeType.NATIVE.name());
+		params.put("nonce_str", System.currentTimeMillis() / 1000 + "");
+		params.put("notify_url", notify_url);
+
+		String sign = PaymentKit.createSign(params, paternerKey);
+		params.put("sign", sign);
+		String xmlResult = PaymentApi.pushOrder(params);
+
+		System.out.println(xmlResult);
+		Map<String, String> result = PaymentKit.xmlToMap(xmlResult);
+
+		String return_code = result.get("return_code");
+		String return_msg = result.get("return_msg");
+		if (StrKit.isBlank(return_code) || !"SUCCESS".equals(return_code)) {
+			renderText(return_msg);
+			return;
+		}
+		String result_code = result.get("result_code");
+		if (StrKit.isBlank(result_code) || !"SUCCESS".equals(result_code)) {
+			renderText(return_msg);
+			return;
+		}
+		// 以下字段在return_code 和result_code都为SUCCESS的时候有返回
+		String prepay_id = result.get("prepay_id");
+		// trade_type为NATIVE是有返回，可将该参数值生成二维码展示出来进行扫码支付
+		String code_url = result.get("code_url");
+
+		setAttr("code_url", code_url);
+		render("/jsp/pc_pay.jsp");
+	}
+
 }

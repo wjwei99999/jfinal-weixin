@@ -63,7 +63,7 @@ public class XmlHelper {
     }
 
     public static XmlHelper of(String xmlStr) {
-        StringReader sr = new StringReader(xmlStr);
+        StringReader sr = new StringReader(xmlStr.trim());
         InputSource inputSource = new InputSource(sr);
         XmlHelper xmlHelper = create(inputSource);
         IOUtils.closeQuietly(sr);

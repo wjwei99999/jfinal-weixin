@@ -1,18 +1,15 @@
 package com.jfinal.weixin.sdk.encrypt;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
+import com.jfinal.weixin.sdk.utils.XmlHelper;
+import junit.framework.Assert;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import com.jfinal.weixin.sdk.utils.XmlHelper;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
-import junit.framework.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class WXBizMsgCryptTest {
 	String encodingAesKey = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFG";
@@ -47,7 +44,8 @@ public class WXBizMsgCryptTest {
 			String afterDecrpt = pc.decryptMsg(msgSignature, timestamp, nonce, fromXML);
 			assertEquals(replyMsg, afterDecrpt);
 		} catch (AesException e) {
-			fail("正常流程，怎么就抛出异常了？？？？？？");
+			e.printStackTrace();
+			fail("正常流程，怎么就抛出异常了？解决方案：http://git.oschina.net/jfinal/jfinal-weixin/wikis/%E6%B6%88%E6%81%AF%E7%9A%84%E5%8A%A0%E8%A7%A3%E5%AF%86%E6%8E%A5%E5%8F%A3JCE%E6%97%A0%E9%99%90%E5%88%B6%E6%9D%83%E9%99%90%E7%AD%96%E7%95%A5");
 		}
 	}
 
@@ -57,8 +55,7 @@ public class WXBizMsgCryptTest {
 			WXBizMsgCrypt pc = new WXBizMsgCrypt(token, encodingAesKey, appId);
 			assertEquals(afterAesEncrypt, pc.encrypt(randomStr, replyMsg));
 		} catch (AesException e) {
-			e.printStackTrace();
-			fail("no异常");
+			fail(e.getMessage());
 		}
 	}
 
@@ -67,10 +64,8 @@ public class WXBizMsgCryptTest {
 		try {
 			WXBizMsgCrypt pc = new WXBizMsgCrypt(token, encodingAesKey, appId);
 			assertEquals(afterAesEncrypt2, pc.encrypt(randomStr, replyMsg2));
-
 		} catch (AesException e) {
-			e.printStackTrace();
-			fail("no异常");
+			fail(e.getMessage());
 		}
 	}
 

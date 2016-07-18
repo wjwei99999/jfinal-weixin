@@ -9,7 +9,6 @@ import java.nio.charset.Charset;
  * 参考：http://www.importnew.com/14961.html
  */
 public class Base64Utils {
-	
 	private Base64Utils() {}
 	
 	/**
@@ -28,7 +27,7 @@ public class Base64Utils {
 	 */
 	public static String encode(String value) {
 		byte[] val = value.getBytes(Charsets.UTF_8);
-		return DatatypeConverter.printBase64Binary(val);
+		return Base64Utils.encode(val);
 	}
 	
 	/**
@@ -39,7 +38,7 @@ public class Base64Utils {
 	 */
 	public static String encode(String value, String charsetName) {
 		byte[] val = value.getBytes(Charset.forName(charsetName));
-		return DatatypeConverter.printBase64Binary(val);
+		return Base64Utils.encode(val);
 	}
 	
 	/**
