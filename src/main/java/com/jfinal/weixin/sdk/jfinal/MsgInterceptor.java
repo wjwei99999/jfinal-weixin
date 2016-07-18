@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2011-2014, James Zhan 詹波 (jfinal@126.com).
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
 
@@ -20,27 +20,33 @@ import com.jfinal.weixin.sdk.kit.SignatureCheckKit;
  * 2：响应开发者中心服务器配置 URL 与 Token 请求
  * 3：签名检测
  * 注意： MsgController 的继承类如果覆盖了 index 方法，则需要对该 index 方法声明该拦截器
- * 		因为子类覆盖父类方法会使父类方法配置的拦截器失效，从而失去本拦截器的功能
+ * 因为子类覆盖父类方法会使父类方法配置的拦截器失效，从而失去本拦截器的功能
  */
 public class MsgInterceptor implements Interceptor {
-	
-	private static final Log log =  Log.getLog(MsgInterceptor.class);
-	
+	private static final Log log = Log.getLog(MsgInterceptor.class);
+
+	private static AppIdParser _parser = new AppIdParser.DefaultParameterAppIdParser();
+
+	public static void setAppIdParser(AppIdParser parser) {
+		_parser = parser;
+	}
+
 	public void intercept(Invocation inv) {
 		Controller controller = inv.getController();
-		if (controller instanceof MsgController == false)
+		if (!(controller instanceof MsgController))
 			throw new RuntimeException("控制器需要继承 MsgController");
-		
+
 		try {
-			// 将 ApiConfig 对象与当前线程绑定，以便在后续操作中方便获取该对象： ApiConfigKit.getApiConfig();
-			ApiConfigKit.setThreadLocalApiConfig(((MsgController)controller).getApiConfig());
-			
+			String appId = _parser.getAppId(controller);
+			// 将 appId 与当前线程绑定，以便在后续操作中方便获取ApiConfig对象： ApiConfigKit.getApiConfig();
+			ApiConfigKit.setThreadLocalAppId(appId);
+
 			// 如果是服务器配置请求，则配置服务器并返回
 			if (isConfigServerRequest(controller)) {
 				configServer(controller);
-				return ;
+				return;
 			}
-			
+
 			// 对开发测试更加友好
 			if (ApiConfigKit.isDevMode()) {
 				inv.invoke();
@@ -48,18 +54,16 @@ public class MsgInterceptor implements Interceptor {
 				// 签名检测
 				if (checkSignature(controller)) {
 					inv.invoke();
-				}
-				else {
+				} else {
 					controller.renderText("签名验证失败，请确定是微信服务器在发送消息过来");
 				}
 			}
-			
-		}
-		finally {
-			ApiConfigKit.removeThreadLocalApiConfig();
+
+		} finally {
+			ApiConfigKit.removeThreadLocalAppId();
 		}
 	}
-	
+
 	/**
 	 * 检测签名
 	 */
@@ -71,29 +75,29 @@ public class MsgInterceptor implements Interceptor {
 			controller.renderText("check signature failure");
 			return false;
 		}
-		
+
 		if (SignatureCheckKit.me.checkSignature(signature, timestamp, nonce)) {
 			return true;
-		}
-		else {
+		} else {
 			log.error("check signature failure: " +
 					" signature = " + controller.getPara("signature") +
 					" timestamp = " + controller.getPara("timestamp") +
 					" nonce = " + controller.getPara("nonce"));
-			
+
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 是否为开发者中心保存服务器配置的请求
 	 */
 	private boolean isConfigServerRequest(Controller controller) {
 		return StrKit.notBlank(controller.getPara("echostr"));
 	}
-	
+
 	/**
 	 * 配置开发者中心微信服务器所需的 url 与 token
+	 *
 	 * @param c 控制器
 	 */
 	public void configServer(Controller c) {

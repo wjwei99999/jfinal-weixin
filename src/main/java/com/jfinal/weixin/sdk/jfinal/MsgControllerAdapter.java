@@ -17,37 +17,37 @@ import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResult
 public abstract class MsgControllerAdapter extends MsgController {
 	//  关注/取消关注事件
 	protected abstract void processInFollowEvent(InFollowEvent inFollowEvent);
-	
+
 	// 接收文本消息事件
 	protected abstract void processInTextMsg(InTextMsg inTextMsg);
-	
+
 	// 自定义菜单事件
 	protected abstract void processInMenuEvent(InMenuEvent inMenuEvent);
-	
+
 	// 接收图片消息事件
 	protected void processInImageMsg(InImageMsg inImageMsg) {}
-	
+
 	// 接收语音消息事件
 	protected void processInVoiceMsg(InVoiceMsg inVoiceMsg) {}
-	
+
 	// 接收视频消息事件
 	protected void processInVideoMsg(InVideoMsg inVideoMsg) {}
-	
+
 	// 接收地理位置消息事件
 	protected void processInLocationMsg(InLocationMsg inLocationMsg) {}
-	
+
 	// 接收链接消息事件
 	protected void processInLinkMsg(InLinkMsg inLinkMsg) {}
-	
+
 	// 扫描带参数二维码事件
 	protected void processInQrCodeEvent(InQrCodeEvent inQrCodeEvent) {}
-	
+
 	// 上报地理位置事件
 	protected void processInLocationEvent(InLocationEvent inLocationEvent) {}
-	
+
 	// 接收语音识别结果，与 InVoiceMsg 唯一的不同是多了一个 Recognition 标记
 	protected void processInSpeechRecognitionResults(InSpeechRecognitionResults inSpeechRecognitionResults) {}
-	
+
 	// 在模版消息发送任务完成后事件
 	protected void processInTemplateMsgEvent(InTemplateMsgEvent inTemplateMsgEvent) {}
 
