@@ -11,14 +11,14 @@ import com.jfinal.core.Controller;
  */
 public interface AppIdParser {
 
-	public String getAppId(Invocation inv);
+	String getAppId(Invocation inv);
 
-	public String getAppId(Controller ctl);
+	String getAppId(Controller ctl);
 
 
 	/**
 	 * 默认appId解析器，根据设置的标识Key名称，从请求parameterMap中直接取appId值
-	 * <p/>
+	 *
 	 * 默认标识Key名称为"_appId_"
 	 */
 	public class DefaultParameterAppIdParser implements AppIdParser {

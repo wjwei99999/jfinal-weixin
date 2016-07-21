@@ -38,7 +38,7 @@ public class ApiConfigKit {
 	 * 添加公众号配置，每个appId只需添加一次，相同appId将被覆盖。
 	 * 第一个添加的将作为默认公众号配置
 	 * @param apiConfig 公众号配置
-	 * @return
+	 * @return ApiConfig 公众号配置
 	 */
 	public static ApiConfig putApiConfig(ApiConfig apiConfig) {
 		if (CFG_MAP.size() == 0) {
