@@ -1,5 +1,7 @@
 package com.jfinal.weixin.sdk.msg.out;
 
+import java.io.Serializable;
+
 /**
  * 将消息转发到多客服
  * @author L.cm
@@ -7,7 +9,7 @@ package com.jfinal.weixin.sdk.msg.out;
  * site:http://www.dreamlu.net
  * date: 2016年2月21日 下午2:31:34
  */
-public class TransInfo {
+public class TransInfo implements Serializable {
 	// 指定会话接入的客服账号
 	private String KfAccount;
 

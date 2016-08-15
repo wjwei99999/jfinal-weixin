@@ -6,6 +6,8 @@
 
 package com.jfinal.weixin.sdk.msg.in;
 
+import java.io.Serializable;
+
 /**
  * <pre>
 	接收消息，以下是接收文本消息的例子
@@ -20,17 +22,17 @@ package com.jfinal.weixin.sdk.msg.in;
  &lt;/xml&gt;
  </pre>
  */
-public abstract class InMsg {
-	
+public abstract class InMsg implements Serializable {
+
 	// 开发者微信号
 	protected String toUserName;
-	
+
 	// 发送方帐号（一个OpenID）
 	protected String fromUserName;
-	
+
 	// 消息创建时间 （整型）
 	protected Integer createTime;
-	
+
 	/**
 	 * 消息类型
 	 * 1：text 文本消息
@@ -42,42 +44,42 @@ public abstract class InMsg {
 	 * 7：event 事件
 	 */
 	protected String msgType;
-	
+
 	public InMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;
 		this.createTime = createTime;
 		this.msgType = msgType;
 	}
-	
+
 	public String getToUserName() {
 		return toUserName;
 	}
-	
+
 	public void setToUserName(String toUserName) {
 		this.toUserName = toUserName;
 	}
-	
+
 	public String getFromUserName() {
 		return fromUserName;
 	}
-	
+
 	public void setFromUserName(String fromUserName) {
 		this.fromUserName = fromUserName;
 	}
-	
+
 	public Integer getCreateTime() {
 		return createTime;
 	}
-	
+
 	public void setCreateTime(Integer createTime) {
 		this.createTime = createTime;
 	}
-	
+
 	public String getMsgType() {
 		return msgType;
 	}
-	
+
 	public void setMsgType(String msgType) {
 		this.msgType = msgType;
 	}

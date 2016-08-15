@@ -1,14 +1,16 @@
 package com.jfinal.weixin.sdk.msg.in.event;
 
+import java.io.Serializable;
+
 /**
  * 菜单二维码扫描的结果实体
  * @author L.cm
  */
-public class ScanCodeInfo {
-	
+public class ScanCodeInfo implements Serializable {
+
 	private String ScanType;
 	private String ScanResult;
-	
+
 	public ScanCodeInfo(String scanType, String scanResult) {
 		super();
 		ScanType = scanType;
@@ -26,5 +28,5 @@ public class ScanCodeInfo {
 	public void setScanResult(String scanResult) {
 		ScanResult = scanResult;
 	}
-	
+
 }
