@@ -11,7 +11,6 @@ import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
 import com.jfinal.weixin.sdk.kit.ParaMap;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.RetryUtils;
-
 import java.util.Map;
 import java.util.concurrent.Callable;
 
@@ -39,18 +38,24 @@ public class AccessTokenApi {
 	 * @return AccessToken accessToken
 	 */
 	public static AccessToken getAccessToken() {
-		String appId = ApiConfigKit.getApiConfig().getAppId();
-		String accessTokenJson = accessTokenCache.get(appId);
-		AccessToken result = null;
-		if (StrKit.notBlank(accessTokenJson)) {
-			result = new AccessToken(accessTokenJson);
-		}
-		if (result != null && result.isAvailable())
+		ApiConfig ac = ApiConfigKit.getApiConfig();
+		AccessToken result = getAvailableAccessToken(ac);
+		if (result != null) {
 			return result;
-
-		refreshAccessToken();
-		accessTokenJson = accessTokenCache.get(appId);
-		return new AccessToken(accessTokenJson);
+		}
+		
+		return refreshAccessTokenIfNecessary(ac);
+	}
+	
+	private static AccessToken getAvailableAccessToken(ApiConfig ac) {
+		String accessTokenJson = accessTokenCache.get(ac.getAppId());
+		if (StrKit.notBlank(accessTokenJson)) {
+			AccessToken result = new AccessToken(accessTokenJson);
+			if (result != null && result.isAvailable()) {
+				return result;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -60,12 +65,29 @@ public class AccessTokenApi {
 	public static String getAccessTokenStr() {
 		return getAccessToken().getAccessToken();
 	}
+	
+	/**
+	 * synchronized 配合再次获取 token 并检测可用性，防止多线程重复刷新 token 值
+	 */
+	private static synchronized AccessToken refreshAccessTokenIfNecessary(ApiConfig ac) {
+		AccessToken result = getAvailableAccessToken(ac);
+		if (result != null) {
+			return result;
+		}
+		return refreshAccessToken(ac);
+	}
+	
+	/**
+	 * 无条件强制更新 access token 值，不再对 cache 中的 token 进行判断
+	 */
+	public static AccessToken refreshAccessToken() {
+		return refreshAccessToken(ApiConfigKit.getApiConfig());
+	}
 
 	/**
-	 * 强制更新 access token 值
+	 * 无条件强制更新 access token 值，不再对 cache 中的 token 进行判断
 	 */
-	public static synchronized void refreshAccessToken() {
-		ApiConfig ac = ApiConfigKit.getApiConfig();
+	public static AccessToken refreshAccessToken(ApiConfig ac) {
 		String appId = ac.getAppId();
 		String appSecret = ac.getAppSecret();
 		final Map<String, String> queryParas = ParaMap.create("appid", appId).put("secret", appSecret).getData();
@@ -84,6 +106,7 @@ public class AccessTokenApi {
 		if (null != result) {
 			accessTokenCache.set(ac.getAppId(), result.getJson());
 		}
+		return result;
 	}
 
 }
