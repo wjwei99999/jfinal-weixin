@@ -33,7 +33,7 @@ public class RetryUtils {
 			} catch (Exception e) {
 				LogKit.warn("retry on " + (i + 1) + " times v = " + (v == null ? null : v.getJson()) , e);
 			}
-			if (v.matching()) break;
+			if (null != v && v.matching()) break;
 			LogKit.error("retry on " + (i + 1) + " times but not matching v = " + (v == null ? null : v.getJson()));
 		}
 		return v;
@@ -58,7 +58,7 @@ public class RetryUtils {
 			} catch (Exception e) {
 				LogKit.warn("retry on " + (i + 1) + " times v = " + (v == null ? null : v.getJson()) , e);
 			}
-			if (v.matching()) break;
+			if (null != v && v.matching()) break;
 			LogKit.error("retry on " + (i + 1) + " times but not matching v = " + (v == null ? null : v.getJson()));
 			Thread.sleep(sleepMillis);
 		}
