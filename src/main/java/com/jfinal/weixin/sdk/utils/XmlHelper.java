@@ -15,7 +15,6 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -54,11 +53,6 @@ public class XmlHelper {
 
     public static XmlHelper of(InputStream is) {
         InputSource inputSource = new InputSource(is);
-        return create(inputSource);
-    }
-
-    public static XmlHelper of(File file) {
-        InputSource inputSource = new InputSource(file.toURI().toASCIIString());
         return create(inputSource);
     }
 
@@ -187,10 +181,9 @@ public class XmlHelper {
         NodeList list = root.getChildNodes();
         for (int i = 0; i < list.getLength(); i++) {
             Node node = list.item(i);
-            params.put(node.getNodeName(), node.getTextContent());
+            String textContent = this.getString(node, "text()");
+            params.put(node.getNodeName(), textContent);
         }
-        // 含有空白符会生成一个#text参数
-        params.remove("#text");
         return params;
     }
 
