@@ -181,8 +181,9 @@ public class XmlHelper {
         NodeList list = root.getChildNodes();
         for (int i = 0; i < list.getLength(); i++) {
             Node node = list.item(i);
-            String textContent = this.getString(node, "text()");
-            params.put(node.getNodeName(), textContent);
+            if (node instanceof Element) {
+                params.put(node.getNodeName(), node.getTextContent());
+            }
         }
         return params;
     }
