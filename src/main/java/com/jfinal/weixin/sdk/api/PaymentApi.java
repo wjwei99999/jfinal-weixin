@@ -12,12 +12,12 @@ import java.util.Map;
  * @author L.cm
  */
 public class PaymentApi {
-	
+
 	private PaymentApi() {}
-	
+
 	// 文档地址：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
 	private static String unifiedOrderUrl = "https://api.mch.weixin.qq.com/pay/unifiedorder";
-	
+
 	/**
 	 * 交易类型枚举
 	 * WAP的文档：https://pay.weixin.qq.com/wiki/doc/api/wap.php?chapter=15_1
@@ -28,10 +28,10 @@ public class PaymentApi {
 	 * date: 2015年10月27日 下午9:46:27
 	 * </pre>
 	 */
-	public static enum TradeType {
-		JSAPI, NATIVE, APP, WAP
+	public enum TradeType {
+		JSAPI, NATIVE, APP, WAP, MWEB
 	}
-	
+
 	/**
 	 * 统一下单
 	 * @param params 参数map
@@ -48,7 +48,7 @@ public class PaymentApi {
 		String xmlStr = HttpUtils.post(url, PaymentKit.toXml(params));
 		return PaymentKit.xmlToMap(xmlStr);
 	}
-	
+
 	/**
 	 * 文档说明：https://pay.weixin.qq.com/wiki/doc/api/wap.php?chapter=15_4
 	 * <pre>
@@ -79,10 +79,10 @@ public class PaymentApi {
 
 		return "weixin://wap/pay?" + string2;
 	}
-	
+
 	// 文档地址：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_2
 	private static String orderQueryUrl = "https://api.mch.weixin.qq.com/pay/orderquery";
-	
+
 	/**
 	 * 根据商户订单号查询信息
 	 * @param appid 公众账号ID
@@ -98,7 +98,7 @@ public class PaymentApi {
 		params.put("transaction_id", transaction_id);
 		return request(orderQueryUrl, params, paternerKey);
 	}
-	
+
 	/**
 	 * 根据商户订单号查询信息
 	 * @param appid 公众账号ID
@@ -114,10 +114,10 @@ public class PaymentApi {
 		params.put("out_trade_no", out_trade_no);
 		return request(orderQueryUrl, params, paternerKey);
 	}
-	
+
 	// 文档地址：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_3
 	private static String closeOrderUrl = "https://api.mch.weixin.qq.com/pay/closeorder";
-	
+
 	/**
 	 * 关闭订单
 	 * @param appid 公众账号ID
@@ -133,10 +133,10 @@ public class PaymentApi {
 		params.put("out_trade_no", out_trade_no);
 		return request(closeOrderUrl, params, paternerKey);
 	}
-	
+
 	// 申请退款文档地址：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_4
 	public static String refundUrl = "https://api.mch.weixin.qq.com/secapi/pay/refund";
-	
+
 	/**
 	 * 申请退款，内部添加了随机字符串nonce_str和签名sign
 	 * @param params 参数map，内部添加了随机字符串nonce_str和签名sign
@@ -152,16 +152,16 @@ public class PaymentApi {
 		String xmlStr = HttpUtils.postSSL(refundUrl, PaymentKit.toXml(params), certPath, partner);
 		return PaymentKit.xmlToMap(xmlStr);
 	}
-	
+
 	// 查询退款文档地址：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_5
 	private static String refundQueryUrl = "https://api.mch.weixin.qq.com/pay/refundquery";
-	
+
 	private static Map<String, String> baseRefundQuery(Map<String, String> params, String appid, String mch_id, String paternerKey) {
 		params.put("appid", appid);
 		params.put("mch_id", mch_id);
 		return request(refundQueryUrl, params, paternerKey);
 	}
-	
+
 	/**
 	 * 根据微信订单号查询退款
 	 * @param appid 公众账号ID
@@ -175,7 +175,7 @@ public class PaymentApi {
 		params.put("transaction_id", transaction_id);
 		return baseRefundQuery(params, appid, mch_id, paternerKey);
 	}
-	
+
 	/**
 	 * 根据微信订单号查询退款
 	 * @param appid 公众账号ID
@@ -189,7 +189,7 @@ public class PaymentApi {
 		params.put("out_trade_no", out_trade_no);
 		return baseRefundQuery(params, appid, mch_id, paternerKey);
 	}
-	
+
 	/**
 	 * 根据微信订单号查询退款
 	 * @param appid 公众账号ID
@@ -203,7 +203,7 @@ public class PaymentApi {
 		params.put("out_refund_no", out_refund_no);
 		return baseRefundQuery(params, appid, mch_id, paternerKey);
 	}
-	
+
 	/**
 	 * 根据微信订单号查询退款
 	 * @param appid 公众账号ID
@@ -217,9 +217,9 @@ public class PaymentApi {
 		params.put("refund_id", refund_id);
 		return baseRefundQuery(params, appid, mch_id, paternerKey);
 	}
-	
+
 	private static String downloadBillUrl = "https://api.mch.weixin.qq.com/pay/downloadbill";
-	
+
 	/**
 	 * <pre>
 	 * ALL，返回当日所有订单信息，默认值
@@ -231,7 +231,7 @@ public class PaymentApi {
 	public static enum BillType {
 		ALL, SUCCESS, REFUND, REVOKED
 	}
-	
+
 	/**
 	 * 下载对账单
 	 * <pre>
@@ -252,7 +252,7 @@ public class PaymentApi {
 	public static String downloadBill(String appid, String mch_id, String paternerKey, String billDate) {
 		return downloadBill(appid, mch_id, paternerKey, billDate, null);
 	}
-	
+
 	/**
 	 * 下载对账单
 	 * <pre>
@@ -286,5 +286,5 @@ public class PaymentApi {
 		params.put("sign", sign);
 		return HttpUtils.post(downloadBillUrl, PaymentKit.toXml(params));
 	}
-	
+
 }
