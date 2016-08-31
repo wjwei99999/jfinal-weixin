@@ -20,45 +20,45 @@ import java.util.Arrays;
  * token = __my__token__
  */
 public class SignatureCheckKit {
-	
-	public static final SignatureCheckKit me = new SignatureCheckKit();
-	
-	/**
-	 * php 示例
-	 * <pre>
-	 *  $signature = $_GET["signature"];
-	    $timestamp = $_GET["timestamp"];
-	    $nonce = $_GET["nonce"];
 
-		$token = TOKEN;
-		$tmpArr = array($token, $timestamp, $nonce);
-		sort($tmpArr, SORT_STRING);
-		$tmpStr = implode( $tmpArr );
-		$tmpStr = sha1( $tmpStr );
-		
-		if( $tmpStr == $signature ){
-			return true;
-		}else{
-			return false;
-		}
-	 * </pre>
-	 * @param signature 微信加密签名
-	 * @param timestamp 时间戳
-	 * @param nonce 随机字符串
-	 * @return {boolean}
-	 */
-	public boolean checkSignature(String signature, String timestamp, String nonce) {
-		String TOKEN = ApiConfigKit.getApiConfig().getToken();
-		String array[] = {TOKEN, timestamp, nonce};
-		Arrays.sort(array);
-		String tempStr = new StringBuilder().append(array[0] + array[1] + array[2]).toString();
-		tempStr = HashKit.sha1(tempStr);
-		return tempStr.equalsIgnoreCase(signature);
-	}
-	
-	public boolean checkSignature(Controller c) {
+    public static final SignatureCheckKit me = new SignatureCheckKit();
+
+    /**
+     * php 示例
+     * <pre>
+     *  $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+
+        $token = TOKEN;
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode( $tmpArr );
+        $tmpStr = sha1( $tmpStr );
+
+        if( $tmpStr == $signature ){
+            return true;
+        }else{
+            return false;
+        }
+     * </pre>
+     * @param signature 微信加密签名
+     * @param timestamp 时间戳
+     * @param nonce 随机字符串
+     * @return {boolean}
+     */
+    public boolean checkSignature(String signature, String timestamp, String nonce) {
+        String TOKEN = ApiConfigKit.getApiConfig().getToken();
+        String array[] = {TOKEN, timestamp, nonce};
+        Arrays.sort(array);
+        String tempStr = new StringBuilder().append(array[0] + array[1] + array[2]).toString();
+        tempStr = HashKit.sha1(tempStr);
+        return tempStr.equalsIgnoreCase(signature);
+    }
+
+    public boolean checkSignature(Controller c) {
         return checkSignature(c.getPara("signature"), c.getPara("timestamp"), c.getPara("nonce"));
-	}
+    }
 }
 
 

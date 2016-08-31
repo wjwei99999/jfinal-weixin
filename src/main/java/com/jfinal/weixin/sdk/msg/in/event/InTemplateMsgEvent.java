@@ -21,41 +21,41 @@ package com.jfinal.weixin.sdk.msg.in.event;
  </pre>
  */
 public class InTemplateMsgEvent extends EventInMsg {
-	
-	//"success": 成功
-	public static final String EVENT_INTEMPLATEMSG_STATUS_SUCCESS = "success";
-	//"block": 用户拒绝接收
-	public static final String EVENT_INTEMPLATEMSG_STATUS_BLOCK = "block";
+
+    //"success": 成功
+    public static final String EVENT_INTEMPLATEMSG_STATUS_SUCCESS = "success";
+    //"block": 用户拒绝接收
+    public static final String EVENT_INTEMPLATEMSG_STATUS_BLOCK = "block";
     //"failed: system failed": 发送失败（非用户拒绝）
-	public static final String EVENT_INTEMPLATEMSG_STATUS_FAILED = "failed: system failed";
+    public static final String EVENT_INTEMPLATEMSG_STATUS_FAILED = "failed: system failed";
 
-	private String msgId;
-	
-	/**
-	 * "success": 成功
-	 * "block": 用户拒绝接收
-	 * "failed: system failed": 发送失败（非用户拒绝）
-	 */
-	private String status;
-	
-	public InTemplateMsgEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
-		super(toUserName, fromUserName, createTime, msgType, event);
-	}
+    private String msgId;
 
-	public String getMsgId() {
-		return msgId;
-	}
-	
-	public void setMsgId(String msgId) {
-		this.msgId = msgId;
-	}
-	
-	public String getStatus() {
-		return status;
-	}
-	
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    /**
+     * "success": 成功
+     * "block": 用户拒绝接收
+     * "failed: system failed": 发送失败（非用户拒绝）
+     */
+    private String status;
+
+    public InTemplateMsgEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
+        super(toUserName, fromUserName, createTime, msgType, event);
+    }
+
+    public String getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
 

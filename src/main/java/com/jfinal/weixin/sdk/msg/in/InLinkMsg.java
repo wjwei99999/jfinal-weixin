@@ -8,7 +8,7 @@ package com.jfinal.weixin.sdk.msg.in;
 
 /**
  * <pre>
-	接收链接消息
+    接收链接消息
  &lt;xml&gt;
  &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
  &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
@@ -22,47 +22,47 @@ package com.jfinal.weixin.sdk.msg.in;
  </pre>
 */
 public class InLinkMsg extends InMsg {
-	
-	private String title;
-	private String description;
-	private String url;
-	private String msgId;
-	
-	public InLinkMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
-		super(toUserName, fromUserName, createTime, msgType);
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public String getUrl() {
-		return url;
-	}
-	
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	
-	public String getMsgId() {
-		return msgId;
-	}
-	
-	public void setMsgId(String msgId) {
-		this.msgId = msgId;
-	}
+
+    private String title;
+    private String description;
+    private String url;
+    private String msgId;
+
+    public InLinkMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
+        super(toUserName, fromUserName, createTime, msgType);
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
+    }
 }
 
 

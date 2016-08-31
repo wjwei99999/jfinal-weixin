@@ -10,20 +10,20 @@ import java.io.Serializable;
  * date: 2016年2月21日 下午2:31:34
  */
 public class TransInfo implements Serializable {
-	// 指定会话接入的客服账号
-	private String KfAccount;
+    // 指定会话接入的客服账号
+    private String KfAccount;
 
-	public TransInfo() {}
+    public TransInfo() {}
 
-	public TransInfo(String kfAccount) {
-		KfAccount = kfAccount;
-	}
+    public TransInfo(String kfAccount) {
+        KfAccount = kfAccount;
+    }
 
-	public String getKfAccount() {
-		return KfAccount;
-	}
+    public String getKfAccount() {
+        return KfAccount;
+    }
 
-	public void setKfAccount(String kfAccount) {
-		KfAccount = kfAccount;
-	}
+    public void setKfAccount(String kfAccount) {
+        KfAccount = kfAccount;
+    }
 }

@@ -42,20 +42,19 @@ if (StrKit.notBlank(_wxShareUrl)) {
 } else {
     return;
 }
+// 先从参数中获取，获取不到时从配置文件中找
+String appId = request.getParameter("appId");
+if (StrKit.isBlank(appId)) {
+    appId = PropKit.get("appId");
+}
 
-String appId = PropKit.get("appId");
-String appSecret = PropKit.get("appSecret");
-ApiConfig ac = new ApiConfig();
-ac.setAppId(appId);
-ac.setAppSecret(appSecret);
-
-ApiConfigKit.setThreadLocalApiConfig(ac);
-String _wxJsapiTicket = "";
+ApiConfigKit.setThreadLocalAppId(appId);
+String _wxJsApiTicket = "";
 try {
     JsTicket jsTicket = JsTicketApi.getTicket(JsApiType.jsapi);
-    _wxJsapiTicket      = jsTicket.getTicket();
+    _wxJsApiTicket      = jsTicket.getTicket();
 } finally {
-    ApiConfigKit.removeThreadLocalApiConfig();
+    ApiConfigKit.removeThreadLocalAppId();
 }
 
 Map<String, String> _wxMap = new TreeMap<String, String>();
@@ -67,7 +66,7 @@ String _wxTimestamp        = (System.currentTimeMillis() / 1000) + "";
 //参数封装
 _wxMap.put("noncestr", _wxNoncestr);
 _wxMap.put("timestamp", _wxTimestamp );
-_wxMap.put("jsapi_ticket", _wxJsapiTicket);
+_wxMap.put("jsapi_ticket", _wxJsApiTicket);
 _wxMap.put("url", _wxShareUrl);
 
 // 加密获取signature

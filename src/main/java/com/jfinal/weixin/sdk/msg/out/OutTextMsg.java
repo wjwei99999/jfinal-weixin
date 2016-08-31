@@ -10,7 +10,7 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 
 /**
  * <pre>
-	回复文本消息
+    回复文本消息
  &lt;xml&gt;
  &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
  &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
@@ -21,34 +21,34 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
  </pre>
  */
 public class OutTextMsg extends OutMsg {
-	
-	private String content;
-	
-	public OutTextMsg() {
-		this.msgType = "text";
-	}
-	
-	public OutTextMsg(InMsg inMsg) {
-		super(inMsg);
-		this.msgType = "text";
-	}
-	
-	@Override
-	protected void subXml(StringBuilder sb) {
-		if (null == content) {
-			throw new NullPointerException("content is null");
-		}
-		sb.append("<Content><![CDATA[").append(content).append("]]></Content>\n");
-	}
-	
-	public String getContent() {
-		return content;
-	}
-	
-	public OutTextMsg setContent(String content) {
-		this.content = content;
-		return this;
-	}
+
+    private String content;
+
+    public OutTextMsg() {
+        this.msgType = "text";
+    }
+
+    public OutTextMsg(InMsg inMsg) {
+        super(inMsg);
+        this.msgType = "text";
+    }
+
+    @Override
+    protected void subXml(StringBuilder sb) {
+        if (null == content) {
+            throw new NullPointerException("content is null");
+        }
+        sb.append("<Content><![CDATA[").append(content).append("]]></Content>\n");
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public OutTextMsg setContent(String content) {
+        this.content = content;
+        return this;
+    }
 
 }
 

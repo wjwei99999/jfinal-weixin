@@ -8,7 +8,7 @@ package com.jfinal.weixin.sdk.msg.in;
 
 /**
  * <pre>
-	接收文本消息
+    接收文本消息
  &lt;xml&gt;
  &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
  &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
@@ -20,30 +20,30 @@ package com.jfinal.weixin.sdk.msg.in;
  </pre>
  */
 public class InTextMsg extends InMsg {
-	
-	private String content;
-	private String msgId;
-	
-	public InTextMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
-		super(toUserName, fromUserName, createTime, msgType);
-	}
-	
-	public String getContent() {
-		return content;
-	}
-	
-	public void setContent(String content) {
-		this.content = content;
-	}
-	
-	public String getMsgId() {
-		return msgId;
-	}
-	
-	public void setMsgId(String msgId) {
-		this.msgId = msgId;
-	}
-	
+
+    private String content;
+    private String msgId;
+
+    public InTextMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
+        super(toUserName, fromUserName, createTime, msgType);
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
+    }
+
 }
 
 

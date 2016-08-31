@@ -11,11 +11,11 @@ import com.jfinal.weixin.sdk.utils.HttpUtils;
  */
 public class AutoReplyInfoApi {
 
-	private static String getCurrentAutoreplyInfoUrl = "https://api.weixin.qq.com/cgi-bin/get_current_autoreply_info?access_token=";
-	
-	public static ApiResult getCurrent() {
-		String jsonResult = HttpUtils.get(getCurrentAutoreplyInfoUrl + AccessTokenApi.getAccessTokenStr());
-		return new ApiResult(jsonResult);
-	}
-	
+    private static String getCurrentAutoreplyInfoUrl = "https://api.weixin.qq.com/cgi-bin/get_current_autoreply_info?access_token=";
+
+    public static ApiResult getCurrent() {
+        String jsonResult = HttpUtils.get(getCurrentAutoreplyInfoUrl + AccessTokenApi.getAccessTokenStr());
+        return new ApiResult(jsonResult);
+    }
+
 }

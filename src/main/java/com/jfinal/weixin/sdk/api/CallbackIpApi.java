@@ -15,14 +15,14 @@ import com.jfinal.weixin.sdk.utils.HttpUtils;
  */
 public class CallbackIpApi
 {
-	private static String apiUrl = "https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=";
+    private static String apiUrl = "https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=";
 
-	/**
-	 * 获取微信服务器IP地址
-	 * @return {ApiResult}
-	 */
-	public static ApiResult getCallbackIp() {
-		String jsonResult = HttpUtils.get(apiUrl + AccessTokenApi.getAccessTokenStr());
-		return new ApiResult(jsonResult);
-	}
+    /**
+     * 获取微信服务器IP地址
+     * @return {ApiResult}
+     */
+    public static ApiResult getCallbackIp() {
+        String jsonResult = HttpUtils.get(apiUrl + AccessTokenApi.getAccessTokenStr());
+        return new ApiResult(jsonResult);
+    }
 }

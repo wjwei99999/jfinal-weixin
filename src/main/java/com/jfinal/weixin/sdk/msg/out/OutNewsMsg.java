@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <pre>
-	回复图文消息
+    回复图文消息
  &lt;xml&gt;
  &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
  &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
@@ -39,63 +39,63 @@ import java.util.List;
  </pre>
  */
 public class OutNewsMsg extends OutMsg {
-	
-	private List<News> articles = new ArrayList<News>();
-	
-	public OutNewsMsg() {
-		this.msgType = "news";
-	}
-	
-	public OutNewsMsg(InMsg inMsg) {
-		super(inMsg);
-		this.msgType = "news";
-	}
-	
-	@Override
-	protected void subXml(StringBuilder sb) {
-		sb.append("<ArticleCount>").append(getArticleCount()).append("</ArticleCount>\n");
-		sb.append("<Articles>\n");
-		for (News x : articles) {
-			sb.append("<item>\n");
-			
-			sb.append("<Title><![CDATA[").append(nullToBlank(x.getTitle())).append("]]></Title>\n");
-			sb.append("<Description><![CDATA[").append(nullToBlank(x.getDescription())).append("]]></Description>\n");
-			sb.append("<PicUrl><![CDATA[").append(nullToBlank(x.getPicUrl())).append("]]></PicUrl>\n");
-			sb.append("<Url><![CDATA[").append(nullToBlank(x.getUrl())).append("]]></Url>\n");
-			
-			sb.append("</item>\n");
-		}
-		sb.append("</Articles>\n");
-	}
-	
-	public Integer getArticleCount() {
-		return articles.size();
-	}
-	
-	public List<News> getArticles() {
-		return articles;
-	}
-	
-	public void setArticles(List<News> articles) {
-		if (articles != null)
-			this.articles = articles;
-	}
-	
-	public OutNewsMsg addNews(List<News> articles) {
-		if (articles != null)
-			this.articles.addAll(articles);
-		return this;
-	}
-	
-	public OutNewsMsg addNews(String title, String description, String picUrl, String url) {
-		this.articles.add(new News(title, description, picUrl, url));
-		return this;
-	}
-	
-	public OutNewsMsg addNews(News news) {
-		this.articles.add(news);
-		return this;
-	}
+
+    private List<News> articles = new ArrayList<News>();
+
+    public OutNewsMsg() {
+        this.msgType = "news";
+    }
+
+    public OutNewsMsg(InMsg inMsg) {
+        super(inMsg);
+        this.msgType = "news";
+    }
+
+    @Override
+    protected void subXml(StringBuilder sb) {
+        sb.append("<ArticleCount>").append(getArticleCount()).append("</ArticleCount>\n");
+        sb.append("<Articles>\n");
+        for (News x : articles) {
+            sb.append("<item>\n");
+
+            sb.append("<Title><![CDATA[").append(nullToBlank(x.getTitle())).append("]]></Title>\n");
+            sb.append("<Description><![CDATA[").append(nullToBlank(x.getDescription())).append("]]></Description>\n");
+            sb.append("<PicUrl><![CDATA[").append(nullToBlank(x.getPicUrl())).append("]]></PicUrl>\n");
+            sb.append("<Url><![CDATA[").append(nullToBlank(x.getUrl())).append("]]></Url>\n");
+
+            sb.append("</item>\n");
+        }
+        sb.append("</Articles>\n");
+    }
+
+    public Integer getArticleCount() {
+        return articles.size();
+    }
+
+    public List<News> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<News> articles) {
+        if (articles != null)
+            this.articles = articles;
+    }
+
+    public OutNewsMsg addNews(List<News> articles) {
+        if (articles != null)
+            this.articles.addAll(articles);
+        return this;
+    }
+
+    public OutNewsMsg addNews(String title, String description, String picUrl, String url) {
+        this.articles.add(new News(title, description, picUrl, url));
+        return this;
+    }
+
+    public OutNewsMsg addNews(News news) {
+        this.articles.add(news);
+        return this;
+    }
 
 }
 

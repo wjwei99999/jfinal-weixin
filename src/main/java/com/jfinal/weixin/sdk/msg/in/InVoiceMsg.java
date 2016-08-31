@@ -8,7 +8,7 @@ package com.jfinal.weixin.sdk.msg.in;
 
 /**
  * <pre>
-	接收语音消息
+    接收语音消息
  &lt;xml&gt;
  &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
  &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
@@ -21,38 +21,38 @@ package com.jfinal.weixin.sdk.msg.in;
  </pre>
 */
 public class InVoiceMsg extends InMsg {
-	
-	private String mediaId;
-	private String format;
-	private String msgId;
-	
-	public InVoiceMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
-		super(toUserName, fromUserName, createTime, msgType);
-	}
-	
-	public String getMediaId() {
-		return mediaId;
-	}
-	
-	public void setMediaId(String mediaId) {
-		this.mediaId = mediaId;
-	}
-	
-	public String getFormat() {
-		return format;
-	}
-	
-	public void setFormat(String format) {
-		this.format = format;
-	}
-	
-	public String getMsgId() {
-		return msgId;
-	}
-	
-	public void setMsgId(String msgId) {
-		this.msgId = msgId;
-	}
+
+    private String mediaId;
+    private String format;
+    private String msgId;
+
+    public InVoiceMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
+        super(toUserName, fromUserName, createTime, msgType);
+    }
+
+    public String getMediaId() {
+        return mediaId;
+    }
+
+    public void setMediaId(String mediaId) {
+        this.mediaId = mediaId;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public String getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
+    }
 }
 
 

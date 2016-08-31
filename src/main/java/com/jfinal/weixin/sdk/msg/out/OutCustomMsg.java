@@ -32,34 +32,34 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 */
 public class OutCustomMsg extends OutMsg {
 
-	private TransInfo transInfo;
+    private TransInfo transInfo;
 
-	public OutCustomMsg() {
-		this.msgType = "transfer_customer_service";
-	}
+    public OutCustomMsg() {
+        this.msgType = "transfer_customer_service";
+    }
 
-	public OutCustomMsg(InMsg inMsg) {
-		super(inMsg);
-		this.msgType = "transfer_customer_service";
-	}
-	
-	@Override
-	protected void subXml(StringBuilder sb) {
-		if (null != transInfo && StrKit.notBlank(transInfo.getKfAccount())) {
-			sb.append("<TransInfo>\n");
-			sb.append("<KfAccount><![CDATA[").append(transInfo.getKfAccount()).append("]]></KfAccount>\n");
-			sb.append("</TransInfo>\n");
-		}
-	}
-	
-	public TransInfo getTransInfo() {
-		return transInfo;
-	}
-	
-	public void setTransInfo(TransInfo transInfo) {
-		this.transInfo = transInfo;
-	}
-	
+    public OutCustomMsg(InMsg inMsg) {
+        super(inMsg);
+        this.msgType = "transfer_customer_service";
+    }
+
+    @Override
+    protected void subXml(StringBuilder sb) {
+        if (null != transInfo && StrKit.notBlank(transInfo.getKfAccount())) {
+            sb.append("<TransInfo>\n");
+            sb.append("<KfAccount><![CDATA[").append(transInfo.getKfAccount()).append("]]></KfAccount>\n");
+            sb.append("</TransInfo>\n");
+        }
+    }
+
+    public TransInfo getTransInfo() {
+        return transInfo;
+    }
+
+    public void setTransInfo(TransInfo transInfo) {
+        this.transInfo = transInfo;
+    }
+
 }
 
 

@@ -8,7 +8,7 @@ package com.jfinal.weixin.sdk.msg.in;
 
 /**
  * <pre>
-	接收图片消息
+    接收图片消息
  &lt;xml&gt;
  &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
  &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
@@ -21,38 +21,38 @@ package com.jfinal.weixin.sdk.msg.in;
  </pre>
 */
 public class InImageMsg extends InMsg {
-	
-	private String picUrl;
-	private String mediaId;
-	private String msgId;
-	
-	public InImageMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
-		super(toUserName, fromUserName, createTime, msgType);
-	}
-	
-	public String getPicUrl() {
-		return picUrl;
-	}
-	
-	public void setPicUrl(String picUrl) {
-		this.picUrl = picUrl;
-	}
-	
-	public String getMediaId() {
-		return mediaId;
-	}
-	
-	public void setMediaId(String mediaId) {
-		this.mediaId = mediaId;
-	}
-	
-	public String getMsgId() {
-		return msgId;
-	}
-	
-	public void setMsgId(String msgId) {
-		this.msgId = msgId;
-	}
+
+    private String picUrl;
+    private String mediaId;
+    private String msgId;
+
+    public InImageMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
+        super(toUserName, fromUserName, createTime, msgType);
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
+    public String getMediaId() {
+        return mediaId;
+    }
+
+    public void setMediaId(String mediaId) {
+        this.mediaId = mediaId;
+    }
+
+    public String getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
+    }
 }
 
 

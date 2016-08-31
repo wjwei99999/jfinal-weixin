@@ -8,22 +8,22 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DefaultAccessTokenCache implements IAccessTokenCache {
 
-	private Map<String, String> map = new ConcurrentHashMap<String, String>();
+    private Map<String, String> map = new ConcurrentHashMap<String, String>();
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public String get(String key) {
-		return map.get(key);
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public String get(String key) {
+        return map.get(key);
+    }
 
-	@Override
-	public void set(String key, String jsonValue) {
-		map.put(key, jsonValue);
-	}
+    @Override
+    public void set(String key, String jsonValue) {
+        map.put(key, jsonValue);
+    }
 
-	@Override
-	public void remove(String key) {
-		map.remove(key);
-	}
+    @Override
+    public void remove(String key) {
+        map.remove(key);
+    }
 
 }

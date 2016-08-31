@@ -5,35 +5,35 @@ import com.jfinal.plugin.redis.Redis;
 
 public class RedisAccessTokenCache implements IAccessTokenCache {
 
-	private final String ACCESS_TOKEN_PREFIX = "jfinal-weixin:";
+    private final String ACCESS_TOKEN_PREFIX = "jfinal-weixin:";
 
-	private final Cache cache;
+    private final Cache cache;
 
-	public RedisAccessTokenCache() {
-		this.cache = Redis.use();
-	}
+    public RedisAccessTokenCache() {
+        this.cache = Redis.use();
+    }
 
-	public RedisAccessTokenCache(String cacheName) {
-		this.cache = Redis.use(cacheName);
-	}
+    public RedisAccessTokenCache(String cacheName) {
+        this.cache = Redis.use(cacheName);
+    }
 
-	public RedisAccessTokenCache(Cache cache) {
-		this.cache = cache;
-	}
+    public RedisAccessTokenCache(Cache cache) {
+        this.cache = cache;
+    }
 
-	@Override
-	public String get(String key) {
-		return cache.get(ACCESS_TOKEN_PREFIX + key);
-	}
+    @Override
+    public String get(String key) {
+        return cache.get(ACCESS_TOKEN_PREFIX + key);
+    }
 
-	@Override
-	public void set(String key, String jsonValue) {
-		cache.setex(ACCESS_TOKEN_PREFIX + key, DEFAULT_TIME_OUT, jsonValue);
-	}
+    @Override
+    public void set(String key, String jsonValue) {
+        cache.setex(ACCESS_TOKEN_PREFIX + key, DEFAULT_TIME_OUT, jsonValue);
+    }
 
-	@Override
-	public void remove(String key) {
-		cache.del(ACCESS_TOKEN_PREFIX + key);
-	}
+    @Override
+    public void remove(String key) {
+        cache.del(ACCESS_TOKEN_PREFIX + key);
+    }
 
 }

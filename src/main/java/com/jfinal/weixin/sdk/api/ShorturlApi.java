@@ -18,22 +18,22 @@ import com.jfinal.weixin.sdk.utils.JsonUtils;
  */
 public class ShorturlApi
 {
-	private static String apiUrl = "https://api.weixin.qq.com/cgi-bin/shorturl?access_token=";
-	
-	public static ApiResult getShorturl(String jsonStr) {
-		String jsonResult = HttpUtils.post(apiUrl + AccessTokenApi.getAccessTokenStr(), jsonStr);
-		return new ApiResult(jsonResult);
-	}
-	
-	/**
-	 * 长链接转短链接接口
-	 * @param longUrl 需要转换的长链接，支持http://、https://、weixin://wxpay 格式的url
-	 * @return ApiResult 短连接信息
-	 */
-	public static ApiResult getShortUrl(String longUrl) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("action", "long2short");
-		params.put("long_url", longUrl);
-		return getShorturl(JsonUtils.toJson(params));
-	}
+    private static String apiUrl = "https://api.weixin.qq.com/cgi-bin/shorturl?access_token=";
+
+    public static ApiResult getShorturl(String jsonStr) {
+        String jsonResult = HttpUtils.post(apiUrl + AccessTokenApi.getAccessTokenStr(), jsonStr);
+        return new ApiResult(jsonResult);
+    }
+
+    /**
+     * 长链接转短链接接口
+     * @param longUrl 需要转换的长链接，支持http://、https://、weixin://wxpay 格式的url
+     * @return ApiResult 短连接信息
+     */
+    public static ApiResult getShortUrl(String longUrl) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("action", "long2short");
+        params.put("long_url", longUrl);
+        return getShorturl(JsonUtils.toJson(params));
+    }
 }

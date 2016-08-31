@@ -24,7 +24,7 @@ public class SnsAccessTokenApi
     private static String url = "https://api.weixin.qq.com/sns/oauth2/access_token?grant_type=authorization_code";
     private static String authorize_uri = "https://open.weixin.qq.com/connect/oauth2/authorize";
     private static String qrconnect_url = "https://open.weixin.qq.com/connect/qrconnect";
-    
+
     /**
      * 生成Authorize链接
      * @param appId 应用id
@@ -35,7 +35,7 @@ public class SnsAccessTokenApi
     public static String getAuthorizeURL(String appId, String redirect_uri, boolean snsapiBase) {
         return getAuthorizeURL(appId, redirect_uri, null, snsapiBase);
     }
-    
+
     /**
      * 生成Authorize链接
      * @param appId 应用id
@@ -59,12 +59,12 @@ public class SnsAccessTokenApi
         if (StrKit.isBlank(state)) {
             params.put("state", "wx#wechat_redirect");
         } else {
-        	params.put("state", state.concat("#wechat_redirect"));
+            params.put("state", state.concat("#wechat_redirect"));
         }
         String para = PaymentKit.packageSign(params, false);
         return authorize_uri + "?" + para;
     }
-    
+
 
     /**
      * 生成网页二维码授权链接
@@ -75,7 +75,7 @@ public class SnsAccessTokenApi
     public static String getQrConnectURL(String appId, String redirect_uri) {
         return getQrConnectURL(appId, redirect_uri, null);
     }
-    
+
     /**
      * 生成网页二维码授权链接
      * @param appId 应用id
@@ -92,12 +92,12 @@ public class SnsAccessTokenApi
         if (StrKit.isBlank(state)) {
             params.put("state", "wx#wechat_redirect");
         } else {
-        	params.put("state", state.concat("#wechat_redirect"));
+            params.put("state", state.concat("#wechat_redirect"));
         }
         String para = PaymentKit.packageSign(params, false);
         return qrconnect_url + "?" + para;
     }
-    
+
     /**
      * 通过code获取access_token
      *
@@ -109,9 +109,9 @@ public class SnsAccessTokenApi
     public static SnsAccessToken getSnsAccessToken(String appId, String secret, String code)
     {
         final Map<String, String> queryParas = ParaMap.create("appid", appId).put("secret", secret).put("code", code).getData();
-        
+
         return RetryUtils.retryOnException(3, new Callable<SnsAccessToken>() {
-            
+
             @Override
             public SnsAccessToken call() throws Exception {
                 String json = HttpUtils.get(url, queryParas);

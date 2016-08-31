@@ -11,7 +11,7 @@ import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
 
 /**
  * <pre>
-	接收语音识别结果，与 InVoiceMsg 唯一的不同是多了一个 Recognition 标记
+    接收语音识别结果，与 InVoiceMsg 唯一的不同是多了一个 Recognition 标记
  &lt;xml&gt;
  &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
  &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
@@ -25,19 +25,19 @@ import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
  </pre>
  */
 public class InSpeechRecognitionResults extends InVoiceMsg {
-	
-	private String recognition;
-	
-	public InSpeechRecognitionResults(String toUserName, String fromUserName, Integer createTime, String msgType) {
-		super(toUserName, fromUserName, createTime, msgType);
-	}
-	
-	public String getRecognition() {
-		return recognition;
-	}
-	
-	public void setRecognition(String recognition) {
-		this.recognition = recognition;
-	}
-	
+
+    private String recognition;
+
+    public InSpeechRecognitionResults(String toUserName, String fromUserName, Integer createTime, String msgType) {
+        super(toUserName, fromUserName, createTime, msgType);
+    }
+
+    public String getRecognition() {
+        return recognition;
+    }
+
+    public void setRecognition(String recognition) {
+        this.recognition = recognition;
+    }
+
 }

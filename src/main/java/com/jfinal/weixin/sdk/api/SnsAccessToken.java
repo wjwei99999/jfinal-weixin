@@ -17,11 +17,11 @@ import com.jfinal.weixin.sdk.utils.RetryUtils.ResultCheck;
  * SnsAccessToken
  * 封装 access_token
  */
-public class SnsAccessToken implements ResultCheck, Serializable 
+public class SnsAccessToken implements ResultCheck, Serializable
 {
-    
+
     private static final long serialVersionUID = 6369625123403343963L;
-    
+
     private String access_token;    // 正确获取到 access_token 时有值
     private Integer expires_in;        // 正确获取到 access_token 时有值
     private String refresh_token;    //
@@ -69,7 +69,7 @@ public class SnsAccessToken implements ResultCheck, Serializable
         Number number = (Number) temp.get(key);
         return number == null ? null : number.intValue();
     }
-    
+
     public boolean isAvailable()
     {
         if (expiredTime == null)
@@ -127,9 +127,9 @@ public class SnsAccessToken implements ResultCheck, Serializable
         return unionid;
     }
 
-	@Override
-	public boolean matching() {
-		return isAvailable();
-	}
+    @Override
+    public boolean matching() {
+        return isAvailable();
+    }
 
 }

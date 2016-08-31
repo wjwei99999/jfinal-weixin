@@ -22,10 +22,10 @@ package com.jfinal.weixin.sdk.msg.in.event;
 public class InPoiCheckNotifyEvent extends EventInMsg
 {
 
-//	UniqId商户自己内部 ID,即字段中的 sid
-//	PoiId 微信的门店 ID,微信内门店唯一标示 ID
-//	Result 审核结果,成功 succ 或失败 fail
-//	Msg 成功的通知信息,或审核失败的驳回理由
+//    UniqId商户自己内部 ID,即字段中的 sid
+//    PoiId 微信的门店 ID,微信内门店唯一标示 ID
+//    Result 审核结果,成功 succ 或失败 fail
+//    Msg 成功的通知信息,或审核失败的驳回理由
 
     private String uniqId;
     private String poiId;
