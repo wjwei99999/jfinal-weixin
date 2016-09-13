@@ -1,12 +1,14 @@
 package com.jfinal.weixin.sdk.api;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
 import com.jfinal.weixin.sdk.cache.DefaultAccessTokenCache;
 import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.jfinal.weixin.sdk.session.DefaultWxSessionManager;
+import com.jfinal.weixin.sdk.session.WxSessionManager;
 
 /**
  * 将 ApiConfig 绑定到 ThreadLocal 的工具类，以方便在当前线程的各个地方获取 ApiConfig 对象：
@@ -16,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *    ApiConfigKit.setThreadLocalAppId(appId) 来绑定 appId 到线程之上
  */
 public class ApiConfigKit {
-    private static final Log log =  Log.getLog(ApiConfigKit.class);
+    private static final Log log = Log.getLog(ApiConfigKit.class);
 
     private static final ThreadLocal<String> TL = new ThreadLocal<String>();
 
@@ -98,4 +100,35 @@ public class ApiConfigKit {
         return ApiConfigKit.accessTokenCache;
     }
 
+    /**
+     * 是否启用session，默认不启用
+     */
+    private static WxSessionManager sessionManager = null;
+    
+    /**
+     * 启用默认的session管理器
+     */
+    public static void enableDefaultWxSessionManager() {
+        setWxSessionManager(new DefaultWxSessionManager());
+    }
+    
+    /**
+     * 设置微信session管理器
+     * @param sessionManager session管理器
+     */
+    public static void setWxSessionManager(WxSessionManager sessionManager) {
+        ApiConfigKit.sessionManager = sessionManager;
+    }
+    
+    /**
+     * 获取微信session管理器
+     * @return sessionManager session管理器
+     */
+    public static WxSessionManager getWxSessionManager() {
+        WxSessionManager sessionManager = ApiConfigKit.sessionManager;
+        if (null == sessionManager) {
+            throw new NullPointerException("WxSessionManager is null, Please setWxSessionManager first！");
+        }
+        return sessionManager;
+    }
 }

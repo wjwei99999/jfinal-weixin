@@ -4,8 +4,7 @@ import com.jfinal.plugin.redis.Cache;
 import com.jfinal.plugin.redis.Redis;
 
 public class RedisAccessTokenCache implements IAccessTokenCache {
-
-    private final String ACCESS_TOKEN_PREFIX = "jfinal-weixin:";
+    private final String ACCESS_TOKEN_PREFIX = "jfinal-weixin:token:";
 
     private final Cache cache;
 
@@ -23,17 +22,17 @@ public class RedisAccessTokenCache implements IAccessTokenCache {
 
     @Override
     public String get(String key) {
-        return cache.get(ACCESS_TOKEN_PREFIX + key);
+        return cache.get(ACCESS_TOKEN_PREFIX.concat(key));
     }
 
     @Override
     public void set(String key, String jsonValue) {
-        cache.setex(ACCESS_TOKEN_PREFIX + key, DEFAULT_TIME_OUT, jsonValue);
+        cache.setex(ACCESS_TOKEN_PREFIX.concat(key), DEFAULT_TIME_OUT, jsonValue);
     }
 
     @Override
     public void remove(String key) {
-        cache.del(ACCESS_TOKEN_PREFIX + key);
+        cache.del(ACCESS_TOKEN_PREFIX.concat(key));
     }
 
 }

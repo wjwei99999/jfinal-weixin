@@ -15,11 +15,38 @@ import com.jfinal.log.Log;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.kit.MsgEncryptKit;
 import com.jfinal.weixin.sdk.msg.InMsgParser;
-import com.jfinal.weixin.sdk.msg.in.*;
-import com.jfinal.weixin.sdk.msg.in.event.*;
+import com.jfinal.weixin.sdk.msg.in.InImageMsg;
+import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
+import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
+import com.jfinal.weixin.sdk.msg.in.InMsg;
+import com.jfinal.weixin.sdk.msg.in.InNotDefinedMsg;
+import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InTextMsg;
+import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
+import com.jfinal.weixin.sdk.msg.in.event.InCustomEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMassEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMerChantOrderEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InNotDefinedEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InPoiCheckNotifyEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InSubmitMemberCardEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InTemplateMsgEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InUpdateMemberCardEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InUserPayFromCardEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InUserViewCardEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InVerifyFailEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InVerifySuccessEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InWifiEvent;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 import com.jfinal.weixin.sdk.msg.out.OutMsg;
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
+import com.jfinal.weixin.sdk.session.WxSession;
+import com.jfinal.weixin.sdk.session.WxSessionManager;
 
 /**
  * 接收微信服务器消息，自动解析成 InMsg 并分发到相应的处理方法
@@ -43,6 +70,7 @@ public abstract class MsgController extends Controller {
 
         // 解析消息并根据消息类型分发到相应的处理方法
         InMsg msg = getInMsg();
+        
         if (msg instanceof InTextMsg)
             processInTextMsg((InTextMsg) msg);
         else if (msg instanceof InImageMsg)
@@ -319,6 +347,89 @@ public abstract class MsgController extends Controller {
      * @param inNotDefinedMsg 没有对应消息
      */
     protected abstract void processIsNotDefinedMsg(InNotDefinedMsg inNotDefinedMsg);
+    
+    /**
+     * 微信会话维持session Id，也就是FromUserName
+     */
+    private String getWxSessionId() {
+        if (null == inMsg) {
+            throw new NullPointerException("weixin xml 尚未解析或者解析失败！");
+        }
+        // 用户id
+        return inMsg.getFromUserName();
+    }
+    
+    /**
+     * Return WxSession.
+     */
+    public WxSession getWxSession() {
+        String sessionId = getWxSessionId();
+        // 默认getSession(true)
+        if (null == sessionId) {
+            throw new NullPointerException("weixin FromUserName is null！");
+        }
+        WxSessionManager sessionManager = ApiConfigKit.getWxSessionManager();
+        WxSession session = sessionManager.get(sessionId);
+        if (null == session) {
+            session = new WxSession(sessionId);
+            sessionManager.save(session);
+        }
+        // 由于sessionManager不参与序列化，加上序列化的问题，故手动设置
+        session.setManager(sessionManager);
+        return session;
+    }
+    
+    /**
+     * Return WxSession.
+     * @param create a boolean specifying create WxSession if it not exists
+     */
+    public WxSession getWxSession(boolean create) {
+        if (create) {
+            return this.getWxSession();
+        }
+        String sessionId = getWxSessionId();
+        if (null == sessionId) {
+            return null;
+        }
+        WxSessionManager sessionManager = ApiConfigKit.getWxSessionManager();
+        WxSession session = sessionManager.get(sessionId);
+        if (null != session) {
+            // 由于sessionManager不参与序列化，加上序列化的问题，故手动设置
+            session.setManager(sessionManager);
+        }
+        return session;
+    }
+    
+    /**
+     * Return a Object from session.
+     * @param key a String specifying the key of the Object stored in session
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T getWxSessionAttr(String key) {
+        WxSession session = this.getWxSession(false);
+        return session != null ? (T) session.getAttribute(key) : null;
+    }
+    
+    /**
+     * Store Object to session.
+     * @param key a String specifying the key of the Object stored in session
+     * @param value a Object specifying the value stored in session
+     */
+    public Controller setWxSessionAttr(String key, Object value) {
+        this.getWxSession(true).setAttribute(key, value);
+        return this;
+    }
+    
+    /**
+     * Remove Object in session.
+     * @param key a String specifying the key of the Object stored in session
+     */
+    public Controller removeWxSessionAttr(String key) {
+        WxSession session = this.getWxSession(false);
+        if (session != null)
+            session.removeAttribute(key);
+        return this;
+    }
 }
 
 

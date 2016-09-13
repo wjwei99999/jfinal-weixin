@@ -15,7 +15,7 @@ public class XPathTest {
                 "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n" +
                 "<bookstore>\n" +
                     "<book>\n" +
-                        "<title lang=\"eng\">Harry Potter</title>\n" +
+                        "<title lang=\"xxx\">Harry Potter</title>\n" +
                         "<price>29.99</price>\n" +
                     "</book>\n" +
                     "<book>\n" +
@@ -39,5 +39,8 @@ public class XPathTest {
         Assert.assertEquals(titleLang2, "eng");
 
         Assert.assertEquals(titleLang, titleLang2);
+        
+        boolean isEn = xmlHelper.getBoolean("//book[1]/title/@lang=\"eng\"");
+        System.out.println(isEn);
     }
 }

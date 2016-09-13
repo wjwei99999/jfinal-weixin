@@ -10,7 +10,6 @@ public class DefaultAccessTokenCache implements IAccessTokenCache {
 
     private Map<String, String> map = new ConcurrentHashMap<String, String>();
 
-    @SuppressWarnings("unchecked")
     @Override
     public String get(String key) {
         return map.get(key);
