@@ -95,6 +95,12 @@ public class WeixinConfig extends JFinalConfig {
          * 多个公众号时，重复调用ApiConfigKit.putApiConfig(ac)依次添加即可，第一个添加的是默认。
          */
         ApiConfigKit.putApiConfig(ac);
+        
+        // 微信 WxSession的配置
+        // 启用默认的Session管理器
+//        ApiConfigKit.enableDefaultWxSessionManager();
+        // 启用redis Session管理器
+//        ApiConfigKit.setWxSessionManager(new RedisWxSessionManager("weixin"));
     }
 
     public static void main(String[] args) {
