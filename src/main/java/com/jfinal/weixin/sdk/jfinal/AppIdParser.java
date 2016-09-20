@@ -21,10 +21,14 @@ public interface AppIdParser {
      *
      * 默认标识Key名称为"appId"
      */
-    public class DefaultParameterAppIdParser implements AppIdParser {
+    class DefaultParameterAppIdParser implements AppIdParser {
         private static final String DEFAULT_APP_ID_KEY = "appId";
 
-        private String appIdKey = DEFAULT_APP_ID_KEY;
+        private final String appIdKey;
+
+        public DefaultParameterAppIdParser() {
+            this.appIdKey = DEFAULT_APP_ID_KEY;
+        }
 
         public DefaultParameterAppIdParser(String appIdKey) {
             this.appIdKey = appIdKey;
