@@ -11,7 +11,7 @@ public class InNotDefinedMsg extends InMsg {
      * 新增xmlHelper，用于用户扩展。
      * 对于不支持的消息类型中，拿去想要的参数。
      */
-    protected XmlHelper xmlHelper;
+    protected transient XmlHelper xmlHelper;
     
     public InNotDefinedMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
         super(toUserName, fromUserName, createTime, msgType);

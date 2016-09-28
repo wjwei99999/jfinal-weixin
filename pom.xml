@@ -17,8 +17,6 @@
     <version>7</version>
   </parent>
 
-  <repositories />
-
   <scm>
     <connection>scm:git:git@git.oschina.net:jfinal/jfinal-weixin.git</connection>
     <developerConnection>scm:git:git@git.oschina.net:jfinal/jfinal-weixin.git</developerConnection>
@@ -129,6 +127,15 @@
       </plugin>
     </plugins>
   </build>
+
+  <!-- 使用aliyun maven -->
+  <repositories>
+    <repository>
+      <id>aliyun</id>
+      <name>aliyun</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+    </repository>
+  </repositories>
 
   <profiles>
     <profile>
