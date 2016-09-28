@@ -9,7 +9,7 @@ import com.jfinal.weixin.sdk.utils.XmlHelper;
 public class InNotDefinedMsg extends InMsg {
     /**
      * 新增xmlHelper，用于用户扩展。
-     * 对于不支持的消息类型中，拿去想要的参数。
+     * 对于不支持的消息类型中，获取xml中想要的参数。
      */
     protected transient XmlHelper xmlHelper;
     

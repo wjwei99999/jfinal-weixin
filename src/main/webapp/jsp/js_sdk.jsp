@@ -47,12 +47,17 @@ String appId = request.getParameter("appId");
 if (StrKit.isBlank(appId)) {
     appId = PropKit.get("appId");
 }
+// 方便测试 1.9添加参数&test=true
+String isTest = request.getParameter("test");
+if (null == isTest || !isTest.equals("true")) {
+    isTest = "false"; 
+}
 
 ApiConfigKit.setThreadLocalAppId(appId);
 String _wxJsApiTicket = "";
 try {
     JsTicket jsTicket = JsTicketApi.getTicket(JsApiType.jsapi);
-    _wxJsApiTicket      = jsTicket.getTicket();
+    _wxJsApiTicket    = jsTicket.getTicket();
 } finally {
     ApiConfigKit.removeThreadLocalAppId();
 }
@@ -80,8 +85,8 @@ String _wxSignature = HashKit.sha1(_wxSignString);
  %>
 <%--兼容新老版本 --%>
 wx.config({
-    debug: false,
-    appId: '<%=appId%>',
+    debug: <%=isTest %>,
+    appId: '<%=appId %>',
     timestamp: '<%=_wxTimestamp %>',
     nonceStr:  '<%=_wxNoncestr  %>',
     signature: '<%=_wxSignature %>',
@@ -123,11 +128,17 @@ wx.config({
     ]
 });
 
-<%--
+<%
+// 测试模式
+if (isTest.equals("true")) {
+%>
 wx.error(function (res) {
     alert(res.errMsg);
 });
---%>
+<%
+}
+%>
+
 <%-- 默认分享数据 --%>
 var shareData = typeof(shareData) === 'undefined' ? {
     title: '微信JS-SDK Demo测试',
@@ -143,27 +154,3 @@ wx.ready(function () {
     wx.onMenuShareWeibo(shareData);
     wx.onMenuShareQQ(shareData);
 });
-<%--老版微信--%>
-document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-    WeixinJSBridge.on('menu:share:appmessage', function(argv){
-          WeixinJSBridge.invoke('sendAppMessage',{
-            "appid": "wx6eb49a04d0f504a8",
-            "img_url": shareData.imgUrl,
-            "img_width": "640",
-            "img_height": "640",
-            "link": shareData.link,
-            "desc": shareData.desc,
-            "title": shareData.title
-        }, function(res) {});
-    });
-    WeixinJSBridge.on('menu:share:timeline', function(argv){
-        WeixinJSBridge.invoke('shareTimeline',{
-            "img_url": shareData.imgUrl,
-            "img_width": "640",
-            "img_height": "640",
-            "link": shareData.link,
-            "desc": shareData.desc,
-            "title": shareData.title
-        }, function(res) {});
-    });
-}, false);
