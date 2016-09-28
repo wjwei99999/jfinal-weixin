@@ -66,11 +66,12 @@ public class InMsgParser {
             return parseInEvent(xmlHelper, toUserName, fromUserName, createTime, msgType);
 
         LogKit.error("无法识别的消息类型 " + msgType + "，请查阅微信公众平台开发文档");
-        return parseInNotDefinedMsg(toUserName, fromUserName, createTime, msgType);
+        return parseInNotDefinedMsg(xmlHelper, toUserName, fromUserName, createTime, msgType);
     }
 
-    private static InMsg parseInNotDefinedMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
+    private static InMsg parseInNotDefinedMsg(XmlHelper xmlHelper, String toUserName, String fromUserName, Integer createTime, String msgType) {
         InNotDefinedMsg msg = new InNotDefinedMsg(toUserName, fromUserName, createTime, msgType);
+        msg.setXmlHelper(xmlHelper);
         return msg;
     }
 
@@ -393,6 +394,7 @@ public class InMsgParser {
 
         LogKit.error("无法识别的事件类型" + event + "，请查阅微信公众平台开发文档");
         InNotDefinedEvent e = new InNotDefinedEvent(toUserName, fromUserName, createTime, msgType, event);
+        e.setXmlHelper(xmlHelper);
         return e;
     }
 
