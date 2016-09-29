@@ -109,7 +109,7 @@
   </div>
   </body>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
-<script type="text/javascript" src="js_sdk.jsp"></script>
+<script type="text/javascript" src="js_sdk.jsp?test=true"></script>
 <script type="text/javascript">
 wx.ready(function () {
   // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
@@ -551,10 +551,6 @@ wx.ready(function () {
 
   wx.onMenuShareAppMessage(shareData);
   wx.onMenuShareTimeline(shareData);
-});
-
-wx.error(function (res) {
-  alert(res.errMsg);
 });
 </script>
 </html>
