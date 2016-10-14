@@ -1,10 +1,19 @@
 package com.jfinal.weixin.demo;
 
 import com.jfinal.weixin.sdk.api.*;
+import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
 import com.jfinal.weixin.sdk.jfinal.ApiController;
 
 public class WeixinApiController extends ApiController {
 
+    static IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
+    
+    public void getToken() {
+        String key = getPara("key");
+        String json = accessTokenCache.get(key);
+        renderText(json);
+    }
+    
     /**
      * 获取公众号菜单
      */

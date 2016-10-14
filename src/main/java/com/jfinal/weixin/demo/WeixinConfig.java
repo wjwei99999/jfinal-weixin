@@ -16,6 +16,7 @@ import com.jfinal.core.JFinal;
 import com.jfinal.kit.PropKit;
 import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
+import com.jfinal.weixin.sdk.cache.LocalTestTokenCache;
 
 public class WeixinConfig extends JFinalConfig {
 
@@ -101,6 +102,17 @@ public class WeixinConfig extends JFinalConfig {
 //        ApiConfigKit.enableDefaultWxSessionManager();
         // 启用redis Session管理器
 //        ApiConfigKit.setWxSessionManager(new RedisWxSessionManager("weixin"));
+        
+        /**
+         * 1.9 新增LocalTestTokenCache用于本地和线上同时使用一套appId时避免本地将线上AccessToken冲掉
+         * @see WeixinApiController#getToken()
+         */
+        boolean isLocal = true;
+        if (isLocal) {
+            String onLineTokenUrl = "http://www.jfinal.com/weixin/api/getToken";
+            ApiConfigKit.setAccessTokenCache(new LocalTestTokenCache(onLineTokenUrl));
+        }
+        
     }
 
     public static void main(String[] args) {
