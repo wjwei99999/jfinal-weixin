@@ -7,6 +7,7 @@ import com.jfinal.weixin.sdk.api.PaymentApi;
 import com.jfinal.weixin.sdk.api.PaymentApi.TradeType;
 import com.jfinal.weixin.sdk.kit.IpKit;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
+import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 import java.util.HashMap;
@@ -243,6 +244,70 @@ public class WeixinPayController extends Controller {
             renderText(xml);
         }
     }
+    
+    
+    /**
+	 * 刷卡支付
+	 * 文档：https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=5_1
+	 */
+	public void micropay(){
+		String url="https://api.mch.weixin.qq.com/pay/micropay";
+		
+		String total_fee="1";
+		String auth_code = getPara("auth_code");//测试时直接手动输入刷卡页面上的18位数字
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("appid", appid);
+		params.put("mch_id", partner);
+		params.put("device_info", "javen205");//终端设备号
+		params.put("nonce_str", System.currentTimeMillis() / 1000 + "");
+		params.put("body", "刷卡支付测试");
+//		params.put("detail", "json字符串");//非必须
+		params.put("attach", "javen205");//附加参数非必须
+		String out_trade_no=System.currentTimeMillis()+"";
+		params.put("out_trade_no", out_trade_no);
+		params.put("total_fee", total_fee);
+		
+		String ip = IpKit.getRealIp(getRequest());
+		if (StrKit.isBlank(ip)) {
+			ip = "127.0.0.1";
+		}
+		
+		params.put("spbill_create_ip", ip);
+		params.put("auth_code", auth_code);
+		
+		String sign = PaymentKit.createSign(params, paternerKey);
+		params.put("sign", sign);
+		
+		String xmlResult = HttpUtils.post(url, PaymentKit.toXml(params));
+		//同步返回结果
+		System.out.println("xmlResult:"+xmlResult);
+		
+		Map<String, String> result = PaymentKit.xmlToMap(xmlResult);
+		String return_code = result.get("return_code");
+		if (StrKit.isBlank(return_code) || !"SUCCESS".equals(return_code)) {
+			//通讯失败 
+			String err_code = result.get("err_code");
+			//用户支付中，需要输入密码
+			if (err_code.equals("USERPAYING")) {
+				//等待5秒后调用【查询订单API】https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=9_2
+				
+			}
+			renderText("通讯失败>>"+xmlResult);
+			return;
+		}
+		
+		String result_code = result.get("result_code");
+		if (StrKit.isBlank(result_code) || !"SUCCESS".equals(result_code)) {
+			//支付失败
+			renderText("支付失败>>"+xmlResult);
+			return;
+		}
+		
+		//支付成功 返回参会入库 业务逻辑处理
+		
+		renderText(xmlResult);
+	}
 
     /**
      * PC支付模式二，PC支付不需要openid
