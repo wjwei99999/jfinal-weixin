@@ -6,13 +6,21 @@
 
 package com.jfinal.weixin.demo;
 
+import com.jfinal.kit.JsonKit;
 import com.jfinal.log.Log;
+import com.jfinal.weixin.sdk.api.ApiConfig;
+import com.jfinal.weixin.sdk.api.ApiConfigKit;
+import com.jfinal.weixin.sdk.api.ApiResult;
+import com.jfinal.weixin.sdk.api.CustomServiceApi;
+import com.jfinal.weixin.sdk.api.component.ComponentAuthApi;
+import com.jfinal.weixin.sdk.api.component.ComponentAuthorizerAccessToken;
 import com.jfinal.weixin.sdk.jfinal.MsgControllerAdapter;
 import com.jfinal.weixin.sdk.msg.in.*;
 import com.jfinal.weixin.sdk.msg.in.event.*;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 import com.jfinal.weixin.sdk.msg.out.OutCustomMsg;
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
+import com.jfinal.weixin.sdk.utils.ComponentWeixinUtil;
 
 /**
  * 将此 DemoController 在YourJFinalConfig 中注册路由，
@@ -27,6 +35,11 @@ public class WeixinMsgController extends MsgControllerAdapter {
 
     protected void processInTextMsg(InTextMsg inTextMsg)
     {
+        final String msgContent = inTextMsg.getContent();
+        if (msgContent.equals("TESTCOMPONENT_MSG_TYPE_TEXT") || msgContent.startsWith(
+            "QUERY_AUTH_CODE")) {
+            processTestTextMsg(inTextMsg);
+        }
         //转发给多客服PC客户端
         OutCustomMsg outCustomMsg = new OutCustomMsg(inTextMsg);
         render(outCustomMsg);
@@ -164,6 +177,63 @@ public class WeixinMsgController extends MsgControllerAdapter {
         renderNull();
     }
 
+
+    @Override
+    public ApiConfig getApiConfig() {
+        return null;
+    }
+
+    @Override
+    public void processEvent(EventInMsg msg) {
+        final String toUserName = msg.getToUserName();
+        if (toUserName.equals("gh_3c884a361561")) {
+            processTestEvent(msg);
+        } else {
+            super.processEvent(msg);
+        }
+    }
+
+
+    private void processTestEvent(EventInMsg msg) {
+        OutTextMsg outMsg = new OutTextMsg(msg);
+        outMsg.setContent(msg.getEvent() + "from_callback");
+        render(outMsg);
+    }
+
+    protected void processTestTextMsg(InTextMsg inTextMsg) {
+        String msgContent = inTextMsg.getContent().trim();
+        if (msgContent.equals("TESTCOMPONENT_MSG_TYPE_TEXT")) {
+            final String toUserName = inTextMsg.getToUserName();
+            if (toUserName.equals("gh_3c884a361561")) {
+                OutTextMsg outMsg = new OutTextMsg(inTextMsg);
+                outMsg.setContent(msgContent + "_callback");
+                render(outMsg);
+            }
+
+        } else if (msgContent.startsWith("QUERY_AUTH_CODE")) {
+            final String toUserName = inTextMsg.getToUserName();
+            if (toUserName.equals("gh_3c884a361561")) {
+                OutTextMsg outMsg = new OutTextMsg(inTextMsg);
+                outMsg.setContent("success");
+                render(outMsg);
+                String query_auth_code = msgContent.split(":")[1];
+                ApiConfigKit.setThreadLocalComponentApiConfig(ComponentWeixinUtil.getApiConfig());
+                final ApiResult auth = ComponentAuthApi.auth(query_auth_code);
+                if (auth != null && auth.isSucceed()) {
+                    final String authorization_info = JsonKit.toJson(auth.get(
+                        "authorization_info"));
+                    ComponentAuthorizerAccessToken token = new ComponentAuthorizerAccessToken(
+                        authorization_info);
+
+                    ApiConfigKit.putApiConfig(new ApiConfig("",
+                                                            token.getAuthorizerAppId(),
+                                                            ""));
+                    final ApiResult apiResult = CustomServiceApi.sendText(inTextMsg.getFromUserName(),
+                                                                          query_auth_code + "_from_api");
+                }
+            }
+        }
+    }
 //    /**
 //     * 实现父类抽方法，处理文本消息
 //     * 本例子中根据消息中的不同文本内容分别做出了不同的响应，同时也是为了测试 jfinal weixin sdk的基本功能：
