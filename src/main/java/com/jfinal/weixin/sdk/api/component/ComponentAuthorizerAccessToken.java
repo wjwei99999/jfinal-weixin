@@ -4,8 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
 
-package com.jfinal.weixin.sdk.api;
+package com.jfinal.weixin.sdk.api.component;
 
+import com.jfinal.weixin.sdk.api.ReturnCode;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 import com.jfinal.weixin.sdk.utils.RetryUtils.ResultCheck;
 
@@ -15,25 +16,33 @@ import java.util.Map;
 /**
  * 封装 access_token
  */
-public class AccessToken implements ResultCheck, Serializable {
+public class ComponentAuthorizerAccessToken implements ResultCheck, Serializable {
 
     private static final long serialVersionUID = -822464425433824314L;
-
-    private String  access_token;    // 正确获取到 access_token 时有值
+    /**
+     * "authorizer_appid": "wxf8b4f85f3a794e77",
+     * "authorizer_access_token": "QXjUqNqfYVH0yBE1iI_7vuN_9gQbpjfK7hYwJ3P7xOa88a89-Aga5x1NMYJyB8G2yKt1KCl0nPC3W9GJzw0Zzq_dBxc8pxIGUNi_bFes0qM",
+     * "expires_in": 7200,
+     * "authorizer_refresh_token": "dTo-YCXPL4llX-u1W1pPpnp8Hgm4wpJtlR6iV0doKdY",
+     */
+    private String  authorizer_appid;    // 正确获取到 access_token 时有值
+    private String  authorizer_access_token;    // 正确获取到 access_token 时有值
+    private String  authorizer_refresh_token;    // 正确获取到 access_token 时有值
     private Integer expires_in;        // 正确获取到 access_token 时有值
     private Integer errcode;        // 出错时有值
     private String  errmsg;            // 出错时有值
-
-    private Long   expiredTime;        // 正确获取到 access_token 时有值，存放过期时间
-    private String json;
+    private Long    expiredTime;        // 正确获取到 access_token 时有值，存放过期时间
+    private String  json;
 
     @SuppressWarnings("unchecked")
-    public AccessToken(String jsonStr) {
+    public ComponentAuthorizerAccessToken(String jsonStr) {
         this.json = jsonStr;
 
         try {
             Map<String, Object> temp = JsonUtils.parse(jsonStr, Map.class);
-            access_token = (String) temp.get("access_token");
+            authorizer_appid = (String) temp.get("authorizer_appid");
+            authorizer_refresh_token = (String) temp.get("authorizer_refresh_token");
+            authorizer_access_token = (String) temp.get("authorizer_access_token");
             expires_in = getInt(temp, "expires_in");
             errcode = getInt(temp, "errcode");
             errmsg = (String) temp.get("errmsg");
@@ -46,11 +55,12 @@ public class AccessToken implements ResultCheck, Serializable {
         }
     }
 
-    public AccessToken(String access_token, Integer expires_in) {
-        this.access_token = access_token;
-        this.expires_in = expires_in;
-        if (expires_in != null)
-            expiredTime = System.currentTimeMillis() + ((expires_in - 5) * 1000);
+    public ComponentAuthorizerAccessToken(String appId,
+                                          String authorizerAccessToken,
+                                          String authorizerRefreshToken) {
+        this.authorizer_appid = appId;
+        this.authorizer_access_token = authorizerAccessToken;
+        this.authorizer_refresh_token = authorizerRefreshToken;
     }
 
     public String getJson() {
@@ -64,7 +74,7 @@ public class AccessToken implements ResultCheck, Serializable {
             return false;
         if (expiredTime < System.currentTimeMillis())
             return false;
-        return access_token != null;
+        return authorizer_access_token != null;
     }
 
     private Integer getInt(Map<String, Object> temp, String key) {
@@ -72,8 +82,16 @@ public class AccessToken implements ResultCheck, Serializable {
         return number == null ? null : number.intValue();
     }
 
-    public String getAccessToken() {
-        return access_token;
+    public String getAuthorizerAppId() {
+        return authorizer_appid;
+    }
+
+    public String getAuthorizerAccessToken() {
+        return authorizer_access_token;
+    }
+
+    public String getAuthorizerRefreshToken() {
+        return authorizer_refresh_token;
     }
 
     public Integer getExpiresIn() {
@@ -101,4 +119,5 @@ public class AccessToken implements ResultCheck, Serializable {
     public boolean matching() {
         return isAvailable();
     }
+
 }
