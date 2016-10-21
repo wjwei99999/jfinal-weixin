@@ -2,13 +2,9 @@ package com.jfinal.weixin.sdk.cache;
 
 import com.jfinal.plugin.redis.Cache;
 import com.jfinal.plugin.redis.Redis;
-import com.jfinal.weixin.sdk.api.component.ComponentAccessToken;
-import com.jfinal.weixin.sdk.api.component.ComponentAuthorizerAccessToken;
-import com.jfinal.weixin.sdk.api.component.ComponentPreAuthCode;
-import com.jfinal.weixin.sdk.api.component.ComponentVerifyTicket;
 
 public class RedisAccessTokenCache implements IAccessTokenCache {
-
+    private final String ACCESS_TOKEN_PREFIX = "jfinal-weixin:token:";
 
     private final Cache cache;
 
@@ -25,66 +21,18 @@ public class RedisAccessTokenCache implements IAccessTokenCache {
     }
 
     @Override
-    public <T> T get(String key) {
-        return cache.get(ACCESS_TOKEN_PREFIX + key);
+    public String get(String key) {
+        return cache.get(ACCESS_TOKEN_PREFIX.concat(key));
     }
 
     @Override
-    public void set(String key, Object object) {
-        cache.setex(ACCESS_TOKEN_PREFIX + key, DEFAULT_TIME_OUT, object);
-    }
-
-    @Override
-    public void setComponentVerifyTicket(String key, ComponentVerifyTicket value) {
-        cache.set(COMPONENT_VERIFY_TICKET_PREFIX + key, value);
-    }
-
-    @Override
-    public ComponentVerifyTicket getComponentVerifyTicket(String key) {
-        return cache.get(COMPONENT_VERIFY_TICKET_PREFIX + key);
-    }
-
-    @Override
-    public void setComponentAccessToken(String key, ComponentAccessToken value) {
-        cache.setex(COMPONENT_ACCESS_TOKEN_PREFIX + key,
-                    value.getExpiresIn() - TIME_OUT_OFFSET,
-                    value);
-    }
-
-    @Override
-    public ComponentAccessToken getComponentAccessToken(String key) {
-        return cache.get(COMPONENT_ACCESS_TOKEN_PREFIX + key);
-    }
-
-    @Override
-    public void setComponentPreAuthCode(String key, ComponentPreAuthCode value) {
-        cache.setex(COMPONENT_PRE_AUTH_CODE_PREFIX + key,
-                    value.getExpiresIn() - TIME_OUT_OFFSET,
-                    value);
-    }
-
-    @Override
-    public ComponentPreAuthCode getComponentPreAuthCode(String key) {
-        return cache.get(COMPONENT_PRE_AUTH_CODE_PREFIX + key);
-    }
-
-    @Override
-    public void setComponentAuthorizerAccessToken(String key1,
-                                                  String key2,
-                                                  ComponentAuthorizerAccessToken value) {
-        cache.set(COMPONENT_AUTHORIZER_ACCESS_TOKEN_PREFIX + key1 + "_" + key2, value);
-    }
-
-
-    @Override
-    public ComponentAuthorizerAccessToken getComponentAuthorizerAccessToken(String key1,
-                                                                            String key2) {
-        return cache.get(COMPONENT_AUTHORIZER_ACCESS_TOKEN_PREFIX + key1 + "_" + key2);
+    public void set(String key, String jsonValue) {
+        cache.setex(ACCESS_TOKEN_PREFIX.concat(key), DEFAULT_TIME_OUT, jsonValue);
     }
 
     @Override
     public void remove(String key) {
-        cache.del(ACCESS_TOKEN_PREFIX + key);
+        cache.del(ACCESS_TOKEN_PREFIX.concat(key));
     }
 
 }

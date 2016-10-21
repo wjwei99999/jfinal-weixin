@@ -1,20 +1,15 @@
 package com.jfinal.weixin.sdk.kit;
 
-import com.jfinal.weixin.sdk.api.ApiConfig;
-import com.jfinal.weixin.sdk.api.ApiConfigKit;
-import com.jfinal.weixin.sdk.encrypt.AesException;
-import com.jfinal.weixin.sdk.encrypt.WXBizMsgCrypt;
+import java.io.StringReader;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.StringReader;
+import com.jfinal.weixin.sdk.api.ApiConfig;
+import com.jfinal.weixin.sdk.api.ApiConfigKit;
+import com.jfinal.weixin.sdk.encrypt.WXBizMsgCrypt;
 
 /**
  * 对微信平台官方给出的加密解析代码进行再次封装
@@ -76,69 +71,6 @@ public class MsgEncryptKit {
             return pc.decryptMsg(msgSignature, timestamp, nonce, fromXML);    // 此处 timestamp 如果与加密前的不同则报签名不正确的异常
         }
         catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static String decrypt(String encryptedMsg,
-                                  String timestamp,
-                                  String nonce,
-                                  String msgSignature,
-                                  ApiConfig ac) throws ParserConfigurationException, SAXException, IOException, AesException {
-        DocumentBuilderFactory dbf      = DocumentBuilderFactory.newInstance();
-        DocumentBuilder        db       = dbf.newDocumentBuilder();
-        StringReader           sr       = new StringReader(encryptedMsg);
-        InputSource            is       = new InputSource(sr);
-        Document               document = db.parse(is);
-
-        Element  root      = document.getDocumentElement();
-        NodeList nodelist1 = root.getElementsByTagName("Encrypt");
-        // NodeList nodelist2 = root.getElementsByTagName("MsgSignature");
-
-        String encrypt = nodelist1.item(0).getTextContent();
-        // String msgSignature = nodelist2.item(0).getTextContent();
-
-        String fromXML = String.format(format, encrypt);
-
-        String encodingAesKey = ac.getEncodingAesKey();
-        if (encodingAesKey == null)
-            throw new IllegalStateException(
-                "encodingAesKey can not be null, config encodingAesKey first.");
-
-        WXBizMsgCrypt pc = new WXBizMsgCrypt(ac.getToken(), encodingAesKey, ac.getAppId());
-        return pc.decryptMsg(msgSignature,
-                             timestamp,
-                             nonce,
-                             fromXML);    // 此处 timestamp 如果与加密前的不同则报签名不正确的异常
-    }
-
-    private static String encrypt(String msg,
-                                  String timestamp,
-                                  String nonce,
-                                  ApiConfig ac) throws AesException {
-        WXBizMsgCrypt pc = new WXBizMsgCrypt(ac.getToken(), ac.getEncodingAesKey(), ac.getAppId());
-        return pc.encryptMsg(msg, timestamp, nonce);
-    }
-
-
-    public static String decryptComponent(String encryptedMsg,
-                                          String timestamp,
-                                          String nonce,
-                                          String msgSignature) {
-        try {
-            ApiConfig ac = ApiConfigKit.getComponentApiConfig();
-
-            return decrypt(encryptedMsg, timestamp, nonce, msgSignature, ac);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static String encryptComponent(String msg, String timestamp, String nonce) {
-        try {
-            ApiConfig ac = ApiConfigKit.getComponentApiConfig();
-            return encrypt(msg, timestamp, nonce, ac);
-        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
