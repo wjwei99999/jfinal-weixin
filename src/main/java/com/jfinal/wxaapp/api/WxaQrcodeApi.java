@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2011-2014, L.cm 卢春梦 (qq596392912@gmail.com).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ */
+
 package com.jfinal.wxaapp.api;
 
 import com.jfinal.weixin.sdk.api.AccessTokenApi;
@@ -7,7 +13,7 @@ import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
- * 微信小程序系列api，预留
+ * 微信二维码api
  * @author L.cm
  *
  */
@@ -25,7 +31,7 @@ public class WxaQrcodeApi {
      * width 默认430
      * @param path 不能为空，最大长度 128 字节
      */
-    public static ApiResult createQrcode(String path) {
+    public ApiResult createQrcode(String path) {
         return createQrcode(path, 430);
     }
     
@@ -39,7 +45,7 @@ public class WxaQrcodeApi {
      * @param path 不能为空，最大长度 128 字节
      * @param width 默认430 二维码的宽度
      */
-    public static ApiResult createQrcode(String path, int width) {
+    public ApiResult createQrcode(String path, int width) {
         String url = createWxaQrcodeURL + AccessTokenApi.getAccessTokenStr();
         ParaMap pm = ParaMap.create("path", path).put("width", String.valueOf(width));
         return new ApiResult(HttpUtils.post(url, JsonUtils.toJson(pm.getData())));
