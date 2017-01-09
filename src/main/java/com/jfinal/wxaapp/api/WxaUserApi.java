@@ -21,7 +21,7 @@ import com.jfinal.weixin.sdk.utils.HttpUtils;
  *
  */
 public class WxaUserApi {
-    private static String jsCode2sessionUrl = "https://api.weixin.qq.com/sns/jscode2session?";
+    private static String jsCode2sessionUrl = "https://api.weixin.qq.com/sns/jscode2session";
     
     /**
      * @param appid 小程序唯一标识
