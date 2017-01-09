@@ -71,6 +71,11 @@ public class TemplateData {
         data.put(key, new Item(value, color));
         return this;
     }
+    
+    public TemplateData add(String key, String value){
+        data.put(key, new Item(value));
+        return this;
+    }
 
     /**
      * 直接转化成jsonString
@@ -107,7 +112,10 @@ public class TemplateData {
         public void setColor(String color) {
             this.color = color;
         }
-
+        
+        public Item(Object value) {
+            this(value, "#999");
+        }
         public Item(Object value, String color) {
             this.value = value;
             this.color = color;
