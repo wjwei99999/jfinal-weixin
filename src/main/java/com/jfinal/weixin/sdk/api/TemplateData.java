@@ -2,6 +2,7 @@ package com.jfinal.weixin.sdk.api;
 
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -11,7 +12,8 @@ import java.util.HashMap;
  * #date 2014-11-10 下午3:32:30
  * #description 模板消息数据对象
  */
-public class TemplateData {
+public class TemplateData implements Serializable {
+    private static final long serialVersionUID = 8038149984818112449L;
 
     private String touser;
     private String template_id;
