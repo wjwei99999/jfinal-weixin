@@ -1,5 +1,7 @@
-package com.jfinal.weixin.sdk.api;
+package com.jfinal.wxaapp.api;
 
+import com.jfinal.weixin.sdk.api.AccessTokenApi;
+import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.kit.ParaMap;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
@@ -9,7 +11,7 @@ import com.jfinal.weixin.sdk.utils.JsonUtils;
  * @author L.cm
  *
  */
-public class WxaAppApi {
+public class WxaQrcodeApi {
     // 文档地址:https://mp.weixin.qq.com/debug/wxadoc/dev/api/qrcode.html
     private static String createWxaQrcodeURL = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=";
     
