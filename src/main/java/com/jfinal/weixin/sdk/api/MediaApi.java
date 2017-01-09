@@ -64,6 +64,24 @@ public class MediaApi {
         return new ApiResult(jsonResult);
     }
 
+    private static String uploadNews = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token=";
+    
+    /**
+     * 上传图文消息素材【订阅号与服务号认证后均可用】
+     * @param mediaArticles
+     * @return {ApiResult}
+     */
+    public static ApiResult uploadNews(List<MediaArticles> mediaArticles) {
+        String url = uploadNews + AccessTokenApi.getAccessTokenStr();
+
+        Map<String, Object> dataMap = new HashMap<String, Object>();
+        dataMap.put("articles", mediaArticles);
+
+        String jsonResult = HttpUtils.post(url, JsonUtils.toJson(dataMap));
+        return new ApiResult(jsonResult);
+    }
+    
+    
     private static String get_url = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=";
 
     /**

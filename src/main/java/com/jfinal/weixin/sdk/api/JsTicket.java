@@ -85,6 +85,10 @@ public class JsTicket implements ResultCheck, Serializable {
         return errmsg;
     }
 
+    public Long getExpiredTime() {
+        return expiredTime;
+    }
+
     /**
      * APi 请求是否成功返回
      * @return boolean

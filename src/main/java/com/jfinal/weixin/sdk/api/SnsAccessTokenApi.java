@@ -6,22 +6,20 @@
 
 package com.jfinal.weixin.sdk.api;
 
-import com.jfinal.kit.StrKit;
-import com.jfinal.weixin.sdk.kit.ParaMap;
-import com.jfinal.weixin.sdk.kit.PaymentKit;
-import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.RetryUtils;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
+import com.jfinal.kit.StrKit;
+import com.jfinal.weixin.sdk.kit.PaymentKit;
+import com.jfinal.weixin.sdk.utils.HttpUtils;
+import com.jfinal.weixin.sdk.utils.RetryUtils;
+
 /**
  * 网页授权获取 access_token API
  */
-public class SnsAccessTokenApi
-{
-    private static String url = "https://api.weixin.qq.com/sns/oauth2/access_token?grant_type=authorization_code";
+public class SnsAccessTokenApi {
+    private static String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={appid}&secret={secret}&code={code}&grant_type=authorization_code";
     private static String authorize_uri = "https://open.weixin.qq.com/connect/oauth2/authorize";
     private static String qrconnect_url = "https://open.weixin.qq.com/connect/qrconnect";
 
@@ -106,17 +104,17 @@ public class SnsAccessTokenApi
      * @param secret 应用密钥AppSecret
      * @return SnsAccessToken
      */
-    public static SnsAccessToken getSnsAccessToken(String appId, String secret, String code)
-    {
-        final Map<String, String> queryParas = ParaMap.create("appid", appId).put("secret", secret).put("code", code).getData();
+    public static SnsAccessToken getSnsAccessToken(String appId, String secret, String code) {
+        final String accessTokenUrl = url.replace("{appid}", appId).replace("{secret}", secret).replace("{code}", code);
 
         return RetryUtils.retryOnException(3, new Callable<SnsAccessToken>() {
 
             @Override
             public SnsAccessToken call() throws Exception {
-                String json = HttpUtils.get(url, queryParas);
+                String json = HttpUtils.get(accessTokenUrl);
                 return new SnsAccessToken(json);
             }
         });
     }
+
 }
