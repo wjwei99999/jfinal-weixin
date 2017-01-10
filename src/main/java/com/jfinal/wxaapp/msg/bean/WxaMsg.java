@@ -4,26 +4,19 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
 
-package com.jfinal.wxaapp.msg;
+package com.jfinal.wxaapp.msg.bean;
 
 import java.io.Serializable;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @SuppressWarnings("serial")
 public class WxaMsg implements Serializable {
     // 开发者微信号
-    @JsonProperty("ToUserName")
-    @JSONField(name = "ToUserName")
     protected String toUserName;
     // 发送方帐号（一个OpenID）
-    @JsonProperty("FromUserName")
-    @JSONField(name = "FromUserName")
     protected String fromUserName;
     // 消息创建时间 （整型）
-    @JsonProperty("CreateTime")
-    @JSONField(name = "CreateTime")
     protected Integer createTime;
     /**
      * 消息类型

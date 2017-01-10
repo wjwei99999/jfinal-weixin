@@ -6,6 +6,8 @@
 
 package com.jfinal.wxaapp.msg;
 
+import com.jfinal.wxaapp.msg.bean.WxaMsg;
+
 public interface IMsgParser {
     WxaMsg parser(String msgStr);
 }
