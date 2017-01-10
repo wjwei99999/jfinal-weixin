@@ -11,7 +11,6 @@ import java.io.File;
 import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.api.MediaFile;
-import com.jfinal.weixin.sdk.api.MediaApi.MediaType;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 
 /**
@@ -37,12 +36,12 @@ public class WxaMaterialApi {
     
     /**
      * 上传临时素材
-     * @param mediaType 上传的临时多媒体文件有格式
      * @param file 需要上传的文件
+     * @param type image
      * @return ApiResult
      */
-    public ApiResult uploadMedia(MediaType mediaType, File file) {
-        String url = uploadUrl + AccessTokenApi.getAccessTokenStr() + "&type=" + mediaType.get();
+    public ApiResult uploadMedia(File file, String type) {
+        String url = uploadUrl + AccessTokenApi.getAccessTokenStr() + "&type=" + type;
         String jsonStr = HttpUtils.upload(url, file, null);
         return new ApiResult(jsonStr);
     }

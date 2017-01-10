@@ -18,9 +18,10 @@ public class MediaApi {
 
     /**
      * 上传的临时多媒体文件有格式
+     * 分别有图片（image）、语音（voice）、视频（video）和缩略图（thumb）
      */
     public static enum MediaType {
-        IMAGE, VOICE, VIDEO, THUMB, NEWS;
+        IMAGE, VOICE, VIDEO, THUMB;
 
         // 转化成小写形式
         public String get() {
@@ -134,8 +135,8 @@ public class MediaApi {
      * @param file 文件
      * @return ApiResult
      */
-    public static ApiResult addMaterial(File file) {
-        String url = addMaterialUrl + AccessTokenApi.getAccessTokenStr();
+    public static ApiResult addMaterial(File file, MediaType mediaType) {
+        String url = addMaterialUrl + AccessTokenApi.getAccessTokenStr() + "&type=" + mediaType.get();
 
         String jsonResult = HttpUtils.upload(url, file, null);
         return new ApiResult(jsonResult);
