@@ -4,7 +4,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
 
-package com.jfinal.wxaapp.jfinal;
+package com.jfinal.wxaapp.session;
 
 import java.util.Map;
 
@@ -14,8 +14,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.kit.Ret;
 import com.jfinal.kit.StrKit;
 import com.jfinal.wxaapp.WxaConfigKit;
-import com.jfinal.wxaapp.session.WxaSessionManager;
-import com.jfinal.wxaapp.session.WxaSessionWrapper;
+import com.jfinal.wxaapp.jfinal.WxaController;
 
 /**
  * 微信小程序session存储管理拦截器
@@ -24,12 +23,6 @@ import com.jfinal.wxaapp.session.WxaSessionWrapper;
  */
 public class WxaSessionInterceptor implements Interceptor {
 	
-	private final WxaSessionManager sessionManager;
-	
-	public WxaSessionInterceptor() {
-		sessionManager = WxaConfigKit.getSessionManager();
-	}
-
 	@Override
 	public void intercept(Invocation inv) {
 		Controller controller = inv.getController();
@@ -50,7 +43,7 @@ public class WxaSessionInterceptor implements Interceptor {
 			controller.renderJson(errorMap);
 			return;
 		}
-		WxaSessionWrapper sessionWrapper = new WxaSessionWrapper(controller.getRequest(), sessionManager, waxSessionId);
+		WxaSessionWrapper sessionWrapper = new WxaSessionWrapper(controller.getRequest(), waxSessionId);
 		controller.setHttpServletRequest(sessionWrapper);
 		inv.invoke();
 	}

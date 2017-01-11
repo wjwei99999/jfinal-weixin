@@ -5,14 +5,20 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 
 import com.jfinal.kit.StrKit;
+import com.jfinal.wxaapp.WxaConfigKit;
 
-public class WxaSessionWrapper extends HttpServletRequestWrapper {
+/**
+ * 默认的Session管理器
+ * @author L.cm
+ */
+class WxaSessionWrapper extends HttpServletRequestWrapper {
+    // session管理器
+    private static WxaSessionManager sessionManager = WxaConfigKit.getSessionManager();
+    // sessionId，由小程序请求传递
     private final String wxaSessionId;
-    private WxaSessionManager sessionManager;
     
-    public WxaSessionWrapper(HttpServletRequest request, WxaSessionManager sessionManager, String wxaSessionId) {
+    public WxaSessionWrapper(HttpServletRequest request, String wxaSessionId) {
         super(request);
-        this.sessionManager = sessionManager;
         this.wxaSessionId = wxaSessionId;
     }
 

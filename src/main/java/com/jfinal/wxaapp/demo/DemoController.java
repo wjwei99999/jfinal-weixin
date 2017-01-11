@@ -2,7 +2,7 @@ package com.jfinal.wxaapp.demo;
 
 import com.jfinal.aop.Before;
 import com.jfinal.wxaapp.jfinal.WxaController;
-import com.jfinal.wxaapp.jfinal.WxaSessionInterceptor;
+import com.jfinal.wxaapp.session.WxaSessionInterceptor;
 
 @Before(WxaSessionInterceptor.class)
 public class DemoController extends WxaController {
