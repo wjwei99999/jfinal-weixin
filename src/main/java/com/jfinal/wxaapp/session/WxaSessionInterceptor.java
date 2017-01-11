@@ -6,13 +6,13 @@
 
 package com.jfinal.wxaapp.session;
 
-import java.util.Map;
+import java.util.UUID;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
-import com.jfinal.kit.Ret;
 import com.jfinal.kit.StrKit;
+import com.jfinal.log.Log;
 import com.jfinal.wxaapp.WxaConfigKit;
 import com.jfinal.wxaapp.jfinal.WxaController;
 
@@ -22,7 +22,8 @@ import com.jfinal.wxaapp.jfinal.WxaController;
  *
  */
 public class WxaSessionInterceptor implements Interceptor {
-	
+	private static Log log = Log.getLog(WxaSessionInterceptor.class);
+
 	@Override
 	public void intercept(Invocation inv) {
 		Controller controller = inv.getController();
@@ -37,11 +38,8 @@ public class WxaSessionInterceptor implements Interceptor {
 		}
 		// sessionId isBlank
 		if (StrKit.isBlank(waxSessionId)) {
-			Map<Object, Object> errorMap = Ret.create("errcode", 500)
-					.put("errmsg", "waxSessionId isBlank!")
-					.getData();
-			controller.renderJson(errorMap);
-			return;
+			waxSessionId = UUID.randomUUID().toString();
+			log.error("waxSessionId isBlank! 我们猜测你只是想执行登陆！ 故新生成了waxSessionId: " + waxSessionId);
 		}
 		WxaSessionWrapper sessionWrapper = new WxaSessionWrapper(controller.getRequest(), waxSessionId);
 		controller.setHttpServletRequest(sessionWrapper);

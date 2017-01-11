@@ -8,8 +8,6 @@ package com.jfinal.wxaapp.msg.bean;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 @SuppressWarnings("serial")
 public class WxaMsg implements Serializable {
     // 开发者微信号
@@ -24,7 +22,6 @@ public class WxaMsg implements Serializable {
      * 2：image 图片消息
      * 3: Event 事件消息
      */
-    @JsonProperty("MsgType")
     protected String msgType;
     
     public WxaMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
