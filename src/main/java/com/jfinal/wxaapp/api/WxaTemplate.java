@@ -21,11 +21,7 @@ public class WxaTemplate implements Serializable {
     
     private TemplateItem data;
 
-    public static WxaTemplate New() {
-        return new WxaTemplate();
-    }
-
-    private WxaTemplate() {
+    public WxaTemplate() {
         this.data = new TemplateItem();
     }
 
