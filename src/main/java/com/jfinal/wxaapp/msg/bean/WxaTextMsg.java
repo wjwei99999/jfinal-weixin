@@ -6,6 +6,8 @@
 
 package com.jfinal.wxaapp.msg.bean;
 
+import com.jfinal.wxaapp.msg.MsgModel;
+
 /**
  * 文本消息
  * @author L.cm
@@ -19,8 +21,10 @@ public class WxaTextMsg extends WxaMsg {
     // 消息id，64位整型
     private Long msgId;
     
-    public WxaTextMsg(String toUserName, String fromUserName, Integer createTime) {
-        super(toUserName, fromUserName, createTime, "text");
+    public WxaTextMsg(MsgModel msgModel) {
+        super(msgModel);
+        this.msgId = msgModel.getMsgId();
+        this.content = msgModel.getContent();
     }
 
     public String getContent() {

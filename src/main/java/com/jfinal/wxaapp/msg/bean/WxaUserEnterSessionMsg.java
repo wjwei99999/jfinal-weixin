@@ -6,14 +6,18 @@
 
 package com.jfinal.wxaapp.msg.bean;
 
+import com.jfinal.wxaapp.msg.MsgModel;
+
 public class WxaUserEnterSessionMsg extends WxaMsg {
     private static final long serialVersionUID = 1909321793183745030L;
 
     protected String event;
     protected String sessionFrom;
 
-    public WxaUserEnterSessionMsg(String toUserName, String fromUserName, Integer createTime) {
-        super(toUserName, fromUserName, createTime, "event");
+    public WxaUserEnterSessionMsg(MsgModel msgModel) {
+        super(msgModel);
+        this.event = msgModel.getEvent();
+        this.sessionFrom = msgModel.getSessionFrom();
     }
 
     public String getEvent() {

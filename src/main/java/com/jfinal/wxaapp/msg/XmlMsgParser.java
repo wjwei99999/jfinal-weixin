@@ -6,15 +6,14 @@ import com.jfinal.log.Log;
 import com.jfinal.weixin.sdk.utils.XmlHelper;
 import com.jfinal.wxaapp.msg.bean.WxaMsg;
 
-public class XmlMsgParser implements IMsgParser {
+public class XmlMsgParser extends MsgModelParser implements IMsgParser {
 	private static Log log = Log.getLog(XmlMsgParser.class);
 	
 	@Override
 	public WxaMsg parser(String msgStr) {
 		XmlHelper xmlHelper = XmlHelper.of(msgStr);
 		MsgModel msgModel = toMsgModel(xmlHelper);
-		System.out.println(msgModel);
-		return null;
+		return parserMsg(msgModel);
 	}
 
 	private static MsgModel toMsgModel(XmlHelper xmlHelper) {

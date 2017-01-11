@@ -6,6 +6,8 @@
 
 package com.jfinal.wxaapp.msg.bean;
 
+import com.jfinal.wxaapp.msg.MsgModel;
+
 /**
  * 图片消息
  * @author L.cm
@@ -16,10 +18,13 @@ public class WxaImageMsg extends WxaMsg {
 
     private String picUrl;
     private String mediaId;
-    private String msgId;
+    private Long msgId;
     
-    public WxaImageMsg(String toUserName, String fromUserName, Integer createTime) {
-        super(toUserName, fromUserName, createTime, "image");
+    public WxaImageMsg(MsgModel msgModel) {
+        super(msgModel);
+        this.msgId = msgModel.getMsgId();
+        this.picUrl = msgModel.getPicUrl();
+        this.mediaId = msgModel.getMediaId();
     }
 
     public String getPicUrl() {
@@ -28,7 +33,7 @@ public class WxaImageMsg extends WxaMsg {
     public String getMediaId() {
         return mediaId;
     }
-    public String getMsgId() {
+    public Long getMsgId() {
         return msgId;
     }
 }

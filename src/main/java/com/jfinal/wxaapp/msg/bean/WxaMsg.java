@@ -8,6 +8,8 @@ package com.jfinal.wxaapp.msg.bean;
 
 import java.io.Serializable;
 
+import com.jfinal.wxaapp.msg.MsgModel;
+
 @SuppressWarnings("serial")
 public class WxaMsg implements Serializable {
     // 开发者微信号
@@ -24,11 +26,11 @@ public class WxaMsg implements Serializable {
      */
     protected String msgType;
     
-    public WxaMsg(String toUserName, String fromUserName, Integer createTime, String msgType) {
-        this.toUserName = toUserName;
-        this.fromUserName = fromUserName;
-        this.createTime = createTime;
-        this.msgType = msgType;
+    public WxaMsg(MsgModel msgModel) {
+        this.toUserName = msgModel.getToUserName();
+        this.fromUserName = msgModel.getFromUserName();
+        this.createTime = msgModel.getCreateTime();
+        this.msgType = msgModel.getMsgType();
     }
 
     public String getToUserName() {
