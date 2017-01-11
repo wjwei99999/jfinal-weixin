@@ -17,6 +17,7 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.cache.LocalTestTokenCache;
+import com.jfinal.wxaapp.demo.DemoController;
 
 public class WeixinConfig extends JFinalConfig {
 
@@ -46,6 +47,7 @@ public class WeixinConfig extends JFinalConfig {
         me.add("/msg", WeixinMsgController.class);
         me.add("/api", WeixinApiController.class, "/api");
         me.add("/pay", WeixinPayController.class);
+        me.add("/demo", DemoController.class);
     }
 
     public void configPlugin(Plugins me) {

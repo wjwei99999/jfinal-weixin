@@ -9,7 +9,6 @@ package com.jfinal.wxaapp.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
@@ -28,7 +27,7 @@ public class WxaMessageApi {
      * @return ApiResult
      */
     private ApiResult sendMsg(Map<String, Object> message) {
-        String accessToken = AccessTokenApi.getAccessTokenStr();
+        String accessToken = WxaAccessTokenApi.getAccessTokenStr();
         String jsonResult = HttpUtils.post(customMessageUrl + accessToken, JsonUtils.toJson(message));
         return new ApiResult(jsonResult);
     }

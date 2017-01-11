@@ -8,7 +8,6 @@ package com.jfinal.wxaapp.api;
 
 import java.io.File;
 
-import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.api.MediaFile;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
@@ -27,7 +26,7 @@ public class WxaMaterialApi {
      * @return MediaFile
      */
     public MediaFile getMedia(String mediaId) {
-        String url = getUrl + AccessTokenApi.getAccessTokenStr() + "&media_id=" + mediaId;
+        String url = getUrl + WxaAccessTokenApi.getAccessTokenStr() + "&media_id=" + mediaId;
         return HttpUtils.download(url);
     }
     
@@ -41,7 +40,7 @@ public class WxaMaterialApi {
      * @return ApiResult
      */
     public ApiResult uploadMedia(File file, String type) {
-        String url = uploadUrl + AccessTokenApi.getAccessTokenStr() + "&type=" + type;
+        String url = uploadUrl + WxaAccessTokenApi.getAccessTokenStr() + "&type=" + type;
         String jsonStr = HttpUtils.upload(url, file, null);
         return new ApiResult(jsonStr);
     }

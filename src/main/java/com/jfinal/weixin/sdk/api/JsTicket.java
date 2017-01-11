@@ -1,16 +1,16 @@
 package com.jfinal.weixin.sdk.api;
 
-import com.jfinal.weixin.sdk.utils.JsonUtils;
-import com.jfinal.weixin.sdk.utils.RetryUtils.ResultCheck;
-
 import java.io.Serializable;
 import java.util.Map;
+
+import com.jfinal.weixin.sdk.utils.JsonUtils;
+import com.jfinal.weixin.sdk.utils.RetryUtils.ResultCheck;
 
 /**
  * JsTicket返回封装
  */
+@SuppressWarnings("unchecked")
 public class JsTicket implements ResultCheck, Serializable {
-
     private static final long serialVersionUID = 6600179487477942329L;
 
     private String ticket; // 正确获取到 ticket 时有值
@@ -25,33 +25,33 @@ public class JsTicket implements ResultCheck, Serializable {
         this.json = jsonStr;
 
         try {
-            @SuppressWarnings("unchecked")
             Map<String, Object> temp = JsonUtils.parse(jsonStr, Map.class);
             ticket = (String) temp.get("ticket");
-            expires_in = getInt(temp, "expires_in");
-            errcode = getInt(temp, "errcode");
+            expires_in = (Integer) temp.get("expires_in");
+            errcode = (Integer) temp.get("errcode");
             errmsg = (String) temp.get("errmsg");
 
             if (expires_in != null)
                 expiredTime = System.currentTimeMillis() + ((expires_in - 5) * 1000);
+            // 用户缓存时还原
+            if (temp.containsKey("expiredTime")) {
+                 expiredTime = (Long) temp.get("expiredTime");
+            }
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    @Override
-    public String toString() {
-        return getJson();
-    }
-
-    private Integer getInt(Map<String, Object> temp, String key) {
-        Number number = (Number) temp.get(key);
-        return number == null ? null : number.intValue();
-    }
-
     public String getJson() {
         return json;
+    }
+
+    public String getCacheJson() {
+        Map<String, Object> temp = JsonUtils.parse(json, Map.class);
+        temp.put("expiredTime", expiredTime);
+        temp.remove("expires_in");
+        return JsonUtils.toJson(temp);
     }
 
     public boolean isAvailable() {

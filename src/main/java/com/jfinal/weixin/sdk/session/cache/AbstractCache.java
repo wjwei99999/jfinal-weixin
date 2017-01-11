@@ -1,9 +1,7 @@
 package com.jfinal.weixin.sdk.session.cache;
 
 import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * 超时和限制大小的缓存的默认实现<br>
@@ -19,12 +17,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @param <V> 值类型
  */
 public abstract class AbstractCache<K, V> implements Cache<K, V>, Iterable<V>{
-
-	protected Map<K, CacheObj<K, V>> cacheMap;
-
-	private final ReentrantReadWriteLock cacheLock = new ReentrantReadWriteLock();
-	private final Lock readLock = cacheLock.readLock();
-	private final Lock writeLock = cacheLock.writeLock();
+	protected ConcurrentMap<K, CacheObj<K, V>> cacheMap;
 
 	/** 返回缓存容量，<code>0</code>表示无大小限制 */
 	protected int capacity;
@@ -47,20 +40,14 @@ public abstract class AbstractCache<K, V> implements Cache<K, V>, Iterable<V>{
 
 	@Override
 	public void put(K key, V object, long timeout) {
-		writeLock.lock();
-
-		try {
-			CacheObj<K, V> co = new CacheObj<K, V>(key, object, timeout);
-			if (timeout != 0) {
-				existCustomTimeout = true;
-			}
-			if (isFull()) {
-				pruneCache();
-			}
-			cacheMap.put(key, co);
-		} finally {
-			writeLock.unlock();
+		CacheObj<K, V> co = new CacheObj<K, V>(key, object, timeout);
+		if (timeout != 0) {
+			existCustomTimeout = true;
 		}
+		if (isFull()) {
+			pruneCache();
+		}
+		cacheMap.put(key, co);
 	}
 	// ---------------------------------------------------------------- put end
 
@@ -81,31 +68,25 @@ public abstract class AbstractCache<K, V> implements Cache<K, V>, Iterable<V>{
 
 	@Override
 	public V get(K key) {
-		readLock.lock();
-
-		try {
-			//不存在或已移除
-			final CacheObj<K, V> co = cacheMap.get(key);
-			if (co == null) {
-				missCount++;
-				return null;
-			}
-			
-			//过期
-			if (co.isExpired() == true) {
-				// remove(key); // 此方法无法获得锁
-				cacheMap.remove(key);
-
-				missCount++;
-				return null;
-			}
-
-			//命中
-			hitCount++;
-			return co.get();
-		} finally {
-			readLock.unlock();
+		//不存在或已移除
+		final CacheObj<K, V> co = cacheMap.get(key);
+		if (co == null) {
+			missCount++;
+			return null;
 		}
+		
+		//过期
+		if (co.isExpired() == true) {
+			// remove(key); // 此方法无法获得锁
+			cacheMap.remove(key);
+
+			missCount++;
+			return null;
+		}
+
+		//命中
+		hitCount++;
+		return co.get();
 	}
 	// ---------------------------------------------------------------- get end
 
@@ -123,12 +104,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V>, Iterable<V>{
 
 	@Override 
 	public final int prune() {
-		writeLock.lock();
-		try {
-			return pruneCache();
-		} finally {
-			writeLock.unlock();
-		}
+		return pruneCache();
 	}
 	// ---------------------------------------------------------------- prune end
 
@@ -162,22 +138,12 @@ public abstract class AbstractCache<K, V> implements Cache<K, V>, Iterable<V>{
 
 	@Override
 	public void remove(K key) {
-		writeLock.lock();
-		try {
-			cacheMap.remove(key);
-		} finally {
-			writeLock.unlock();
-		}
+		cacheMap.remove(key);
 	}
 
 	@Override
 	public void clear() {
-		writeLock.lock();
-		try {
-			cacheMap.clear();
-		} finally {
-			writeLock.unlock();
-		}
+		cacheMap.clear();
 	}
 
 	@Override

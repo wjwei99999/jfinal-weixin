@@ -14,6 +14,8 @@ import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.encrypt.WxaBizDataCrypt;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
+import com.jfinal.wxaapp.WxaConfig;
+import com.jfinal.wxaapp.WxaConfigKit;
 
 /**
  * 微信小程序用户api接口
@@ -28,10 +30,11 @@ public class WxaUserApi {
      * @param secret 小程序的 app secret
      * @param jsCode 登录时获取的 code
     */
-    public ApiResult getSessionKey(String appId, String secret, String jsCode) {
+    public ApiResult getSessionKey(String jsCode) {
+        WxaConfig wc = WxaConfigKit.getWxaConfig();
         Map<String, String> params = new HashMap<String, String>();
-        params.put("appid", appId);
-        params.put("secret", secret);
+        params.put("appid", wc.getAppId());
+        params.put("secret", wc.getAppSecret());
         params.put("js_code", jsCode);
         params.put("grant_type", "authorization_code");
         String para = PaymentKit.packageSign(params, false);

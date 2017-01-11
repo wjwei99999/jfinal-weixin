@@ -6,7 +6,6 @@
 
 package com.jfinal.wxaapp.api;
 
-import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.kit.ParaMap;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
@@ -46,7 +45,7 @@ public class WxaQrcodeApi {
      * @param width 默认430 二维码的宽度
      */
     public ApiResult createQrcode(String path, int width) {
-        String url = createWxaQrcodeURL + AccessTokenApi.getAccessTokenStr();
+        String url = createWxaQrcodeURL + WxaAccessTokenApi.getAccessTokenStr();
         ParaMap pm = ParaMap.create("path", path).put("width", String.valueOf(width));
         return new ApiResult(HttpUtils.post(url, JsonUtils.toJson(pm.getData())));
     }

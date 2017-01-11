@@ -1,9 +1,9 @@
 package com.jfinal.weixin.sdk.session.cache;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 定时缓存<br>
@@ -27,7 +27,7 @@ public class TimedCache<K, V> extends AbstractCache<K, V> {
 	public TimedCache(long timeout) {
 		this.capacity = 0;
 		this.timeout = timeout;
-		cacheMap = new HashMap<K, CacheObj<K, V>>();
+		cacheMap = new ConcurrentHashMap<K, CacheObj<K, V>>();
 	}
 
 	// ---------------------------------------------------------------- prune

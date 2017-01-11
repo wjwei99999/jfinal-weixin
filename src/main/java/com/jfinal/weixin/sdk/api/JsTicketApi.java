@@ -71,7 +71,7 @@ public class JsTicketApi {
             });
 
             if (null != jsApiType) {
-                accessTokenCache.set(key, jsTicket.getJson());
+                accessTokenCache.set(key, jsTicket.getCacheJson());
             }
 
         }

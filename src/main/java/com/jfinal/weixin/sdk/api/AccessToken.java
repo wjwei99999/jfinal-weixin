@@ -15,8 +15,8 @@ import com.jfinal.weixin.sdk.utils.RetryUtils.ResultCheck;
 /**
  * 封装 access_token
  */
+@SuppressWarnings("unchecked")
 public class AccessToken implements ResultCheck, Serializable {
-
     private static final long serialVersionUID = -822464425433824314L;
 
     private String access_token;    // 正确获取到 access_token 时有值
@@ -27,19 +27,22 @@ public class AccessToken implements ResultCheck, Serializable {
     private Long expiredTime;        // 正确获取到 access_token 时有值，存放过期时间
     private String json;
 
-    @SuppressWarnings("unchecked")
     public AccessToken(String jsonStr) {
         this.json = jsonStr;
 
         try {
             Map<String, Object> temp = JsonUtils.parse(jsonStr, Map.class);
             access_token = (String) temp.get("access_token");
-            expires_in = getInt(temp, "expires_in");
-            errcode = getInt(temp, "errcode");
+            expires_in = (Integer) temp.get("expires_in");
+            errcode = (Integer) temp.get("errcode");
             errmsg = (String) temp.get("errmsg");
 
             if (expires_in != null)
                 expiredTime = System.currentTimeMillis() + ((expires_in -5) * 1000);
+            // 用户缓存时还原
+            if (temp.containsKey("expiredTime")) {
+                 expiredTime = (Long) temp.get("expiredTime");
+            }
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -50,6 +53,13 @@ public class AccessToken implements ResultCheck, Serializable {
         return json;
     }
 
+    public String getCacheJson() {
+        Map<String, Object> temp = JsonUtils.parse(json, Map.class);
+        temp.put("expiredTime", expiredTime);
+        temp.remove("expires_in");
+        return JsonUtils.toJson(temp);
+    }
+
     public boolean isAvailable() {
         if (expiredTime == null)
             return false;
@@ -58,11 +68,6 @@ public class AccessToken implements ResultCheck, Serializable {
         if (expiredTime < System.currentTimeMillis())
             return false;
         return access_token != null;
-    }
-
-    private Integer getInt(Map<String, Object> temp, String key) {
-        Number number = (Number) temp.get(key);
-        return number == null ? null : number.intValue();
     }
 
     public String getAccessToken() {

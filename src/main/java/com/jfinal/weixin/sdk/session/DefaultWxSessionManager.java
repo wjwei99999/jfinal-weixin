@@ -7,7 +7,6 @@ import com.jfinal.weixin.sdk.session.cache.TimedCache;
  * @author L.cm
  */
 public class DefaultWxSessionManager implements WxSessionManager {
-
     private final TimedCache<String, WxSession> timedCache;
     
     public DefaultWxSessionManager() {

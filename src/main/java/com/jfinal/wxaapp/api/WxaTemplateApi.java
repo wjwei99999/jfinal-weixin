@@ -6,7 +6,6 @@
 
 package com.jfinal.wxaapp.api;
 
-import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.api.TemplateMsgApi;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
@@ -25,7 +24,7 @@ public class WxaTemplateApi {
      * @return {ApiResult}
      */
     public ApiResult send(String jsonStr) {
-        String jsonResult = HttpUtils.post(sendApiUrl + AccessTokenApi.getAccessTokenStr(), jsonStr);
+        String jsonResult = HttpUtils.post(sendApiUrl + WxaAccessTokenApi.getAccessTokenStr(), jsonStr);
         return new ApiResult(jsonResult);
     }
 
