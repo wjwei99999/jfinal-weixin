@@ -59,6 +59,17 @@ public class WxaConfigKit {
         WxaConfigKit.msgParser = msgParser;
     }
 
+    // 开发模式将输出消息交互 xml、json 到控制台
+    private static boolean devMode = false;
+    
+    public static void setDevMode(boolean devMode) {
+        WxaConfigKit.devMode = devMode;
+    }
+    
+    public static boolean isDevMode() {
+        return devMode;
+    }
+    
     public static WxaConfig getWxaConfig() {
         WxaConfig wc = new WxaConfig();
         wc.setAppId("wx9114b997bd86f8ed");
