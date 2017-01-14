@@ -71,9 +71,11 @@ public class WxaConfigKit {
     }
     
     public static WxaConfig getWxaConfig() {
+//    	AppID(小程序ID) wx4f53594f9a6b3dcb
+//    	AppSecret(小程序密钥) eec6482ba3804df05bd10895bace0579
         WxaConfig wc = new WxaConfig();
-        wc.setAppId("wx9114b997bd86f8ed");
-        wc.setAppSecret("d27551c7803cf16015e536b192d5d03b");
+        wc.setAppId("wx4f53594f9a6b3dcb");
+        wc.setAppSecret("eec6482ba3804df05bd10895bace0579");
         return wc;
     }
 }
