@@ -45,7 +45,7 @@ public class WxaSessionInterceptor implements Interceptor {
 		if (StrKit.isBlank(waxSessionId)) {
 			if (skipSession == null) {
 				Map<Object, Object> data = Ret.create("errcode", 500)
-						.put("errmsg", "code is blank")
+						.put("errmsg", "waxSessionId isBlank")
 						.getData();
 				controller.renderJson(data);
 				return;
