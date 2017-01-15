@@ -6,11 +6,14 @@
 
 package com.jfinal.wxaapp.session;
 
+import java.lang.reflect.Method;
+import java.util.Map;
 import java.util.UUID;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
+import com.jfinal.kit.Ret;
 import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
 import com.jfinal.wxaapp.WxaConfigKit;
@@ -36,8 +39,17 @@ public class WxaSessionInterceptor implements Interceptor {
 		if (StrKit.isBlank(waxSessionId)) {
 			waxSessionId = controller.getPara(sessionIdName);
 		}
+		Method method = inv.getMethod();
+		SkipWaxSession skipSession = method.getAnnotation(SkipWaxSession.class);
 		// sessionId isBlank
 		if (StrKit.isBlank(waxSessionId)) {
+			if (skipSession == null) {
+				Map<Object, Object> data = Ret.create("errcode", 500)
+						.put("errmsg", "code is blank")
+						.getData();
+				controller.renderJson(data);
+				return;
+			}
 			waxSessionId = UUID.randomUUID().toString();
 			log.error("waxSessionId isBlank! 我们猜测你只是想执行登陆！ 故新生成了waxSessionId: " + waxSessionId);
 		}
