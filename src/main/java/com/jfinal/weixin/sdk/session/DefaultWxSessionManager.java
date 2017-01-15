@@ -10,7 +10,7 @@ public class DefaultWxSessionManager implements WxSessionManager {
     private final TimedCache<String, WxSession> timedCache;
     
     public DefaultWxSessionManager() {
-        this.timedCache = new TimedCache<String, WxSession>(TIME_OUT * 60 * 1000l);
+        this.timedCache = new TimedCache<String, WxSession>(TIME_OUT);
     }
 
     @Override

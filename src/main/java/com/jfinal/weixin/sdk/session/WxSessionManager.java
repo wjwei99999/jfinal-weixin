@@ -6,9 +6,9 @@ package com.jfinal.weixin.sdk.session;
  */
 public interface WxSessionManager {
     /**
-     * 默认30分钟的缓存
+     * 默认为session_key的超时时间
      */
-    int TIME_OUT = 30;
+    int TIME_OUT = 2592000 - 5;
     
     /**
      * 获取WxSession

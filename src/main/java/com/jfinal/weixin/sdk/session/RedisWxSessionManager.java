@@ -31,7 +31,7 @@ public class RedisWxSessionManager implements WxSessionManager {
 
     @Override
     public void save(WxSession session) {
-        cache.setex(SESSION_PREFIX.concat(session.id), TIME_OUT * 60, session);
+        cache.setex(SESSION_PREFIX.concat(session.id), TIME_OUT / 1000 / 60, session);
     }
 
     @Override
