@@ -26,8 +26,7 @@ public class WxaUserApi {
     private static String jsCode2sessionUrl = "https://api.weixin.qq.com/sns/jscode2session";
     
     /**
-     * @param appid 小程序唯一标识
-     * @param secret 小程序的 app secret
+     * 获取sessionKey
      * @param jsCode 登录时获取的 code
     */
     public ApiResult getSessionKey(String jsCode) {

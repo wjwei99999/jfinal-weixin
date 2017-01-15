@@ -53,16 +53,16 @@ public class WxaMessageApi {
     /**
      * 发送图片消息
      * @param openId openId
-     * @param media_id 图片媒体id
+     * @param mediaId 图片媒体id
      * @return ApiResult
      */
-    public ApiResult sendImage(String openId, String media_id) {
+    public ApiResult sendImage(String openId, String mediaId) {
         Map<String, Object> json = new HashMap<String, Object>();
         json.put("touser", openId);
         json.put("msgtype", "image");
 
         Map<String, Object> image = new HashMap<String, Object>();
-        image.put("media_id", media_id);
+        image.put("media_id", mediaId);
 
         json.put("image", image);
         return sendMsg(json);

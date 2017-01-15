@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 /**
- *    模板消息数据对象
+ * 模板消息数据对象
  *
  * @author L.cm
  * #date 2014-11-10 下午3:32:30
@@ -18,7 +18,6 @@ public class TemplateData implements Serializable {
     private String touser;
     private String template_id;
     private String url;
-    private String topcolor;
     private TemplateItem data;
 
     public static TemplateData New() {
@@ -53,15 +52,6 @@ public class TemplateData implements Serializable {
 
     public TemplateData setUrl(String url) {
         this.url = url;
-        return this;
-    }
-
-    public String getTopcolor() {
-        return topcolor;
-    }
-
-    public TemplateData setTopcolor(String topcolor) {
-        this.topcolor = topcolor;
         return this;
     }
 

@@ -16,7 +16,6 @@ public class TemplateMsgApiTest {
             .setTouser("oOGf-jgjmwxFVU66D-lFO2AFK8ic")
             // 模板id
             .setTemplate_id("UsOTFJfm7-XfskPd5p2wlBXYUjdwjUTZxnMXbOfVQ0A")
-            .setTopcolor("#eb414a")
             .setUrl("http://m.xxxx.cn/qrcode/t/xxxxxx")
 
             // 模板参数
