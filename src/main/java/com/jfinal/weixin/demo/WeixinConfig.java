@@ -14,6 +14,7 @@ import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
 import com.jfinal.kit.PropKit;
+import com.jfinal.template.Engine;
 import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.cache.LocalTestTokenCache;
@@ -119,4 +120,9 @@ public class WeixinConfig extends JFinalConfig {
     public static void main(String[] args) {
         JFinal.start("src/main/webapp", 80, "/", 5);
     }
+
+	@Override
+	public void configEngine(Engine engine) {
+		
+	}
 }

@@ -1,10 +1,8 @@
 package com.jfinal.weixin.demo;
 
-import java.util.Map;
-
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Duang;
-import com.jfinal.kit.Ret;
+import com.jfinal.kit.JMap;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.wxaapp.api.WxaUserApi;
@@ -24,9 +22,8 @@ public class WxaUserApiController extends WxaController {
 	public void login() {
 		String jsCode = getPara("code");
 		if (StrKit.isBlank(jsCode)) {
-			Map<Object, Object> data = Ret.create("errcode", 500)
-					.put("errmsg", "code is blank")
-					.getData();
+			JMap data = JMap.create("errcode", 500)
+					.set("errmsg", "code is blank");
 			renderJson(data);
 			return;
 		}
@@ -63,18 +60,16 @@ public class WxaUserApiController extends WxaController {
 		// 获取sessionKey
 		String sessionKey = getSessionAttr("sessionKey");
 		if (StrKit.isBlank(sessionKey)) {
-			Map<Object, Object> data = Ret.create("errcode", 500)
-					.put("errmsg", "sessionKey is blank")
-					.getData();
+			JMap data = JMap.create("errcode", 500)
+					.set("errmsg", "sessionKey is blank");
 			renderJson(data);
 			return;
 		}
 		// 用户信息校验
 		boolean check = wxaUserApi.checkUserInfo(sessionKey, rawData, signature);
 		if (!check) {
-			Map<Object, Object> data = Ret.create("errcode", 500)
-					.put("errmsg", "UserInfo check fail")
-					.getData();
+			JMap data = JMap.create("errcode", 500)
+					.set("errmsg", "UserInfo check fail");
 			renderJson(data);
 			return;
 		}
