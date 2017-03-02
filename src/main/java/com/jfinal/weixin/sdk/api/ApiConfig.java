@@ -104,6 +104,7 @@ public class ApiConfig implements Serializable {
     public void setEncryptMessage(boolean messageEncrypt) {
         this.messageEncrypt = messageEncrypt;
     }
+    
 }
 
 

@@ -23,11 +23,16 @@ public class ApiConfigKit {
     private static final ThreadLocal<ApiConfig> API_CONFIG_THREAD_LOCAL           = new ThreadLocal<ApiConfig>();
     private static final ThreadLocal<ApiConfig> COMPONENT_API_CONFIG_THREAD_LOCAL = new ThreadLocal<ApiConfig>();
     private static final ThreadLocal<String>    TL                                = new ThreadLocal<String>();
+    private static final ThreadLocal<String>    TL_AUTHORIZER_APPID               = new ThreadLocal<String>(); // 存放授权方 AppId
     private static final Map<String, ApiConfig> CFG_MAP                           = new ConcurrentHashMap<String, ApiConfig>();
     private static final String                 DEFAULT_CFG_KEY                   = "_default_cfg_key_";
-    private static       IAccessTokenCache      accessTokenCache                  = new DefaultAccessTokenCache();
+    private static       IAccessTokenCache      accessTokenCache                  = getAccessTokenCache();
     // 开发模式将输出消息交互 xml 到控制台
     private static       boolean                devMode                           = false;
+    /**
+     * 公众号第三方平台模式，默认 flase
+     */
+    private static       boolean				componentMode					  = false;
     /**
      * 是否启用session，默认不启用
      */
@@ -41,6 +46,22 @@ public class ApiConfigKit {
         ApiConfigKit.devMode = devMode;
     }
 
+    /**
+     * 获取是否为公众号第三方平台模式
+     * @return
+     */
+    public static  boolean isComponentMode(){
+    	return componentMode;
+    }
+    
+    /**
+     * 设置公众号第三方平台模式
+     * @param componentMode
+     */
+    public static void setComponentMode(boolean componentMode){
+    	ApiConfigKit.componentMode = componentMode;
+    }
+    
     /**
      * 添加公众号配置，每个appId只需添加一次，相同appId将被覆盖。
      * 第一个添加的将作为默认公众号配置
@@ -74,6 +95,10 @@ public class ApiConfigKit {
         TL.remove();
     }
 
+    /**
+     * 在公众号第三方模式（componentMode=true）下，该属性存储的是第三方平台 appId
+     * @return
+     */
     public static String getAppId() {
         String appId = TL.get();
         if (StrKit.isBlank(appId)) {
@@ -149,5 +174,21 @@ public class ApiConfigKit {
             throw new IllegalStateException(
                 "需要事先使用 ApiConfigKit.setThreadLocalApiConfig(apiConfig) 将 ApiConfig对象存入，才可以调用 ApiConfigKit.getComponentApiConfig() 方法");
         return result;
+    }
+    
+    public static void setThreadLocalAuthorizerAppId(String authorizerAppId) {
+        TL_AUTHORIZER_APPID.set(authorizerAppId);
+    }
+
+    public static void removeThreadLocalAuthorizerAppId() {
+    	TL_AUTHORIZER_APPID.remove();
+    }
+
+    public static String getThreadLocalAuthorizerAppId() {
+        String appId = TL_AUTHORIZER_APPID.get();
+        if (appId == null)
+            throw new IllegalStateException(
+                "需要事先使用  ApiConfigKit.setThreadLocalAuthorizerAppId(String authorizerAppId) 将 authorizerAppId 存入，才可以调用  ApiConfigKit.getThreadLocalAuthorizerAppId() 方法");
+        return appId;
     }
 }

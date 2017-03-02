@@ -17,9 +17,13 @@ public class ComponentAPIInterceptor implements Interceptor {
             throw new RuntimeException("控制器需要继承 ApiController");
 
         try {
-            ApiConfigKit.setThreadLocalComponentApiConfig(((ComponentAPIController) controller).getApiConfig());
+        	
+        	ApiConfigKit.setThreadLocalComponentApiConfig(ApiConfigKit.getApiConfig());
+        	
             inv.invoke();
+            
         } finally {
+        	ApiConfigKit.removeThreadLocalAuthorizerAppId();
             ApiConfigKit.removeThreadLocalComponentApiConfig();
         }
     }

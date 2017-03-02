@@ -14,12 +14,19 @@ import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
 import com.jfinal.kit.PropKit;
+import com.jfinal.log.Log;
+import com.jfinal.plugin.redis.RedisPlugin;
+import com.jfinal.plugin.redis.serializer.JdkSerializer;
+import com.jfinal.template.Engine;
 import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.cache.LocalTestTokenCache;
+import com.jfinal.weixin.sdk.cache.RedisAccessTokenCache;
 
 public class WeixinConfig extends JFinalConfig {
 
+	Log logger = Log.getLog(WeixinConfig.class);
+	
     /**
      * 如果生产环境配置文件存在，则优先加载该配置，否则加载开发环境配置文件
      * @param pro 生产环境配置文件
@@ -37,15 +44,25 @@ public class WeixinConfig extends JFinalConfig {
     public void configConstant(Constants me) {
         loadProp("a_little_config_pro.txt", "a_little_config.txt");
         me.setDevMode(PropKit.getBoolean("devMode", false));
-
         // ApiConfigKit 设为开发模式可以在开发阶段输出请求交互的 xml 与 json 数据
         ApiConfigKit.setDevMode(me.getDevMode());
+        // 设置为公众号第三方平台模式
+        ApiConfigKit.setComponentMode(PropKit.getBoolean("componentMode", true));
     }
 
     public void configRoute(Routes me) {
+    	
+    	me.setBaseViewPath("/_front");
+    	
         me.add("/msg", WeixinMsgController.class);
         me.add("/api", WeixinApiController.class, "/api");
         me.add("/pay", WeixinPayController.class);
+
+        me.add("/open/authmsg", WeixinAuthMessageController.class);
+        me.add("/open/msg", WeixinMsgController.class);	// 接收处理授权方公众号的消息和事件
+        me.add("/auth",WeixinComponentAuthController.class);
+        me.add("/componentsns",WeixinComponentSnsController.class);
+        
     }
 
     public void configPlugin(Plugins me) {
@@ -56,9 +73,9 @@ public class WeixinConfig extends JFinalConfig {
         // me.add(ecp);
 
         // 使用redis分布accessToken
-        // RedisPlugin redisPlugin = new RedisPlugin("weixin", "127.0.0.1");
-        // redisPlugin.setSerializer(JdkSerializer.me); // 需要使用fst高性能序列化的用户请删除这一行（Fst jar依赖请查看WIKI）
-        // me.add(redisPlugin);
+         RedisPlugin redisPlugin = new RedisPlugin("weixin", "127.0.0.1");
+         redisPlugin.setSerializer(JdkSerializer.me); // 需要使用fst高性能序列化的用户请删除这一行（Fst jar依赖请查看WIKI）
+         me.add(redisPlugin);
     }
 
     public void configInterceptor(Interceptors me) {
@@ -73,10 +90,10 @@ public class WeixinConfig extends JFinalConfig {
 
     public void afterJFinalStart() {
         // 1.5 之后支持redis存储access_token、js_ticket，需要先启动RedisPlugin
-//        ApiConfigKit.setAccessTokenCache(new RedisAccessTokenCache());
+    	// ApiConfigKit.setAccessTokenCache(new RedisAccessTokenCache());
         // 1.6新增的2种初始化
-//        ApiConfigKit.setAccessTokenCache(new RedisAccessTokenCache(Redis.use("weixin")));
-//        ApiConfigKit.setAccessTokenCache(new RedisAccessTokenCache("weixin"));
+    	// ApiConfigKit.setAccessTokenCache(new RedisAccessTokenCache(Redis.use("weixin")));
+    	// ApiConfigKit.setAccessTokenCache(new RedisAccessTokenCache("weixin"));
 
         ApiConfig ac = new ApiConfig();
         // 配置微信 API 相关参数
@@ -89,7 +106,7 @@ public class WeixinConfig extends JFinalConfig {
          *  1：true进行加密且必须配置 encodingAesKey
          *  2：false采用明文模式，同时也支持混合模式
          */
-        ac.setEncryptMessage(PropKit.getBoolean("encryptMessage", false));
+        ac.setEncryptMessage(PropKit.getBoolean("encryptMessage", true));
         ac.setEncodingAesKey(PropKit.get("encodingAesKey", "setting it in config file"));
 
         /**
@@ -97,17 +114,24 @@ public class WeixinConfig extends JFinalConfig {
          */
         ApiConfigKit.putApiConfig(ac);
         
+        
         // 微信 WxSession的配置
         // 启用默认的Session管理器
-//        ApiConfigKit.enableDefaultWxSessionManager();
+        // ApiConfigKit.enableDefaultWxSessionManager();
         // 启用redis Session管理器
-//        ApiConfigKit.setWxSessionManager(new RedisWxSessionManager("weixin"));
+        // ApiConfigKit.setWxSessionManager(new RedisWxSessionManager("weixin"));
+        
+        /**
+         * 公众号第三方平台模式下，建议使用 RedisAccessTokenCache()，应用重启后授权信息不丢失
+         */
+        ApiConfigKit.setAccessTokenCache(new RedisAccessTokenCache());
+        //ApiConfigKit.setAccessTokenCache(new DefaultAccessTokenCache());
         
         /**
          * 1.9 新增LocalTestTokenCache用于本地和线上同时使用一套appId时避免本地将线上AccessToken冲掉
          * @see WeixinApiController#getToken()
          */
-        boolean isLocal = true;
+        boolean isLocal = false;
         if (isLocal) {
             String onLineTokenUrl = "http://www.jfinal.com/weixin/api/getToken";
             ApiConfigKit.setAccessTokenCache(new LocalTestTokenCache(onLineTokenUrl));
@@ -118,4 +142,9 @@ public class WeixinConfig extends JFinalConfig {
     public static void main(String[] args) {
         JFinal.start("src/main/webapp", 80, "/", 5);
     }
+
+	@Override
+	public void configEngine(Engine me) {
+		me.addSharedFunction("/_front/common/location_replace.html");		
+	}
 }

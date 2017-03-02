@@ -38,7 +38,6 @@ public class AccessTokenApi {
     static              ServiceLoader<AuthorizedApi> apiLoader        = ServiceLoader.load(
         AuthorizedApi.class);
     static final        AuthorizedApi                authorizedApi    = apiLoader.iterator().next();
-    // "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
     private static      String                       url              = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential";
 
     protected static boolean isAuthorized(String appId) {
@@ -61,12 +60,18 @@ public class AccessTokenApi {
     }
 
     /**
-     * 直接获取 accessToken 字符串，方便使用
+     * 直接获取 accessToken 字符串，方便使用。
+     * 根据是否为公众号第三方模式来获取对应的 accessToken
      *
      * @return String accessToken
      */
     public static String getAccessTokenStr() {
-        return getAccessToken().getAccessToken();
+    	
+    	if(ApiConfigKit.isComponentMode()){
+    		return  ComponentAuthApi.getComponentAuthorizerAccessTokenStr();	
+    	} else {
+    		return getAccessToken().getAccessToken();
+    	}
     }
 
     /**

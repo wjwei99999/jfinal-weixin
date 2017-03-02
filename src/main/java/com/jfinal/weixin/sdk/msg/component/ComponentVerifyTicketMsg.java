@@ -8,12 +8,12 @@ package com.jfinal.weixin.sdk.msg.component;
 
 /**
  * <pre>
- * 接收文本消息
+ * 接收微信服务器每隔 10 分钟定时推送 component_verify_ticket 的消息
  * <xml>
- * <AppId> </AppId>
+ * <AppId>第三方平台appid</AppId>
  * <CreateTime>1413192605 </CreateTime>
- * <InfoType> </InfoType>
- * <ComponentVerifyTicket> </ComponentVerifyTicket>
+ * <InfoType>component_verify_ticket</InfoType>
+ * <ComponentVerifyTicket>Ticket内容</ComponentVerifyTicket>
  * </xml>
  * </pre>
  */

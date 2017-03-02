@@ -119,5 +119,29 @@ public class ComponentAuthorizerAccessToken implements ResultCheck, Serializable
     public boolean matching() {
         return isAvailable();
     }
+    
+    /**
+     * 组织存储刷新后的令牌。
+     * 刷新令牌接口不返回授权方 AppId，所以要重新组织存储
+     * @param tokenCache
+     * @param refreshToken
+     */
+    public ComponentAuthorizerAccessToken (String authorizerAppId,ComponentAuthorizerAccessToken refreshToken){
+    	
+    	try {
+            authorizer_appid = authorizerAppId;
+            authorizer_refresh_token = refreshToken.getAuthorizerRefreshToken();
+            authorizer_access_token = refreshToken.getAuthorizerAccessToken();
+            expires_in = refreshToken.getExpiresIn();
+            errcode = refreshToken.getErrorCode();
+            errmsg = refreshToken.getErrorMsg();
+
+            if (expires_in != null)
+                expiredTime = System.currentTimeMillis() + ((expires_in - 5) * 1000);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

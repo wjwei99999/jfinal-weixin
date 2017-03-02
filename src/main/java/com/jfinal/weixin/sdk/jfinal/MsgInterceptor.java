@@ -37,10 +37,22 @@ public class MsgInterceptor implements Interceptor {
             throw new RuntimeException("控制器需要继承 MsgController");
 
         try {
-            String appId = _parser.getAppId(controller);
-            // 将 appId 与当前线程绑定，以便在后续操作中方便获取ApiConfig对象： ApiConfigKit.getApiConfig();
-            ApiConfigKit.setThreadLocalAppId(appId);
-
+        	
+        	if(ApiConfigKit.isComponentMode()){
+        		/**
+            	 * 代公众号处理消息和事件，获取 appid
+            	 * 收到消息的示例 /msg/wx1d72971e8550ae68?signature=8c9……
+            	 */
+            	String authorizerAppId = controller.getPara(0);
+            	ApiConfigKit.setThreadLocalAuthorizerAppId(authorizerAppId);
+            	ApiConfigKit.setThreadLocalComponentApiConfig(ApiConfigKit.getApiConfig());
+            	
+        	} else {
+        		String appId = _parser.getAppId(controller);
+                // 将 appId 与当前线程绑定，以便在后续操作中方便获取ApiConfig对象： ApiConfigKit.getApiConfig();
+                ApiConfigKit.setThreadLocalAppId(appId);
+        	}
+        	
             // 如果是服务器配置请求，则配置服务器并返回
             if (isConfigServerRequest(controller)) {
                 configServer(controller);
@@ -60,7 +72,8 @@ public class MsgInterceptor implements Interceptor {
             }
 
         } finally {
-            ApiConfigKit.removeThreadLocalAppId();
+        	ApiConfigKit.removeThreadLocalAuthorizerAppId();
+            ApiConfigKit.removeThreadLocalComponentApiConfig();
         }
     }
 

@@ -1,6 +1,13 @@
 # Jfinal Weixin 极速开发
 JFinal Weixin 是基于 JFinal 的微信公众号极速开发 SDK，只需浏览 Demo 代码即可进行极速开发，自 JFinal Weixin 1.2 版本开始已添加对多公众号支持。
 
+新增[公众号第三方平台](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318292&token=&lang=zh_CN)支持，在**公众号第三方平台**配置如下信息和其他必要信息即可使用。
+
+登录授权的发起页域名：`xx域名.com`
+授权事件接收URL：`http://xx域名.com/open/authmsg`
+公众号消息与事件接收URL：`http://xx域名.com/open/msg/$APPID$`
+网页开发域名：`xx域名.com`
+
 ## 1、WeixinConfig配置
 `详情请见`：[JFinal weixin中的WeixinConfig配置](http://git.oschina.net/jfinal/jfinal-weixin/wikis/JFinal-weixin%E4%B8%AD%E7%9A%84WeixinConfig%E9%85%8D%E7%BD%AE)
 

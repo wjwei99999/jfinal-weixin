@@ -51,8 +51,7 @@ public class ComponentAuthApi {
     static              String                       refresh       = "https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token={0}";
     static              String                       info          = "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token={0}";
     static              IAccessTokenCache            tokenCache    = ApiConfigKit.getAccessTokenCache();
-    static              ServiceLoader<AuthorizedApi> apiLoader     = ServiceLoader.load(
-        AuthorizedApi.class);
+    static              ServiceLoader<AuthorizedApi> apiLoader     = ServiceLoader.load(AuthorizedApi.class);
     static              AuthorizedApi                authorizedApi = apiLoader.iterator().next();
 
     /**
@@ -94,22 +93,6 @@ public class ComponentAuthApi {
         return apiResult;
     }
 
-    /**
-     * 从缓存中获取 access token，如果未取到或者 access token 不可用则先更新再获取
-     *
-     * @return AccessToken accessToken
-     */
-    public static ComponentAuthorizerAccessToken getComponentAuthorizerAccessToken(String authorizer_appid) {
-        String appId = ApiConfigKit.getComponentApiConfig().getAppId();
-        ComponentAuthorizerAccessToken result = tokenCache.getComponentAuthorizerAccessToken(appId,
-                                                                                             authorizer_appid);
-        if (result != null && result.isAvailable())
-            return result;
-        refreshAccessToken(authorizer_appid);
-        return tokenCache.getComponentAuthorizerAccessToken(appId, authorizer_appid);
-    }
-
-
     public static AuthorizedInfo getAuthorizer(String authorizer_appid) {
         ApiConfig ac    = ApiConfigKit.getComponentApiConfig();
         String    appId = ac.getAppId();
@@ -128,22 +111,56 @@ public class ComponentAuthApi {
      *
      * @return String accessToken
      */
+    public static String getComponentAuthorizerAccessTokenStr() {
+    	String authorizerAppId =ApiConfigKit.getThreadLocalAuthorizerAppId();
+        return getComponentAuthorizerAccessToken(authorizerAppId).getAuthorizerAccessToken();
+    }
+    
+    /**
+     * 直接获取 accessToken 字符串，方便使用
+     *
+     * @return String accessToken
+     */
     public static String getComponentAuthorizerAccessTokenStr(String authorizer_appid) {
         return getComponentAuthorizerAccessToken(authorizer_appid).getAuthorizerAccessToken();
     }
-
+    
+    /**
+     * 从缓存中获取 access token，如果未取到或者 access token 不可用则先更新再获取
+     * @param authorizer_appid 授权方 appid
+     * @return ComponentAuthorizerAccessToken 授权方 accessToken
+     */
+    public static ComponentAuthorizerAccessToken getComponentAuthorizerAccessToken(String authorizer_appid) {
+        String appId = ApiConfigKit.getComponentApiConfig().getAppId();
+        ComponentAuthorizerAccessToken result = tokenCache.getComponentAuthorizerAccessToken(appId,
+                                                                                             authorizer_appid);
+        if (result != null && result.isAvailable()){
+        	return result;
+        }
+        refreshAccessToken(authorizer_appid);
+        return tokenCache.getComponentAuthorizerAccessToken(appId, authorizer_appid);
+    }
+    
+    /**
+     * 强制更新 access token 值
+     */
+    public static synchronized void refreshAccessToken() {
+    	String authorizerAppId =ApiConfigKit.getThreadLocalAuthorizerAppId();
+    	refreshAccessToken(authorizerAppId);
+    }
+    
     /**
      * 强制更新 access token 值
      */
     public static synchronized void refreshAccessToken(String authorizer_appid) {
         ApiConfig ac        = ApiConfigKit.getComponentApiConfig();
         String    appId     = ac.getAppId();
-        String    appSecret = ac.getAppSecret();
         ComponentAuthorizerAccessToken accessToken = tokenCache.getComponentAuthorizerAccessToken(
             appId,
             authorizer_appid);
-        if (accessToken == null || !accessToken.isAvailable()) {
-            accessToken = authorizedApi.of(authorizer_appid);
+        if (accessToken == null) {
+            throw new NullPointerException("授权方令牌 ComponentAuthorizerAccessToken 为 null");
+        	//accessToken = authorizedApi.of(authorizer_appid);
         }
         final Map<String, String> queryParas = ParaMap.create("component_appid", appId)
                                                       .put("authorizer_appid",
@@ -169,7 +186,7 @@ public class ComponentAuthApi {
                                                                             });
 
         // 三次请求如果仍然返回了不可用的 access token 仍然 put 进去，便于上层通过 AccessToken 中的属性判断底层的情况
-        tokenCache.setComponentAuthorizerAccessToken(appId, authorizer_appid, result);
+        tokenCache.setComponentAuthorizerAccessToken(appId, authorizer_appid, new ComponentAuthorizerAccessToken(accessToken.getAuthorizerAppId(),result));
     }
 
 }

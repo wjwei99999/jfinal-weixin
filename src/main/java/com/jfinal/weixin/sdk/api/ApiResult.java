@@ -6,6 +6,7 @@
 
 package com.jfinal.weixin.sdk.api;
 
+import com.jfinal.weixin.sdk.api.component.ComponentAuthApi;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 import java.math.BigDecimal;
@@ -70,10 +71,18 @@ public class ApiResult {
      *
      * 2016-06-21 by L.cm 添加 synchronized 锁感谢Git@osc #Lucare
      *
+     * 根据是否为公众号第三方模式来获取对应的 accessToken
      */
     private synchronized void refreshAccessTokenIfInvalid() {
-        if (isAccessTokenInvalid())
-            AccessTokenApi.refreshAccessToken();
+        if (isAccessTokenInvalid()){ 
+        	
+        	if(ApiConfigKit.isComponentMode()){
+        		ComponentAuthApi.refreshAccessToken();	
+        	} else {
+        		AccessTokenApi.refreshAccessToken();
+        	}
+        	
+        }
     }
 
     public String getJson() {
