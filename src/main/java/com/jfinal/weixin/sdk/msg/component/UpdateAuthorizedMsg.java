@@ -8,7 +8,7 @@ package com.jfinal.weixin.sdk.msg.component;
 
 /**
  * <pre>
- * 接收文本消息
+ * 接收公众号对第三方平台更新授权的通知
  * <xml>
  * <AppId>第三方平台appid</AppId>
  * <CreateTime>1413192760</CreateTime>

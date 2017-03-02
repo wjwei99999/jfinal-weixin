@@ -15,8 +15,21 @@ import com.jfinal.weixin.sdk.api.CustomServiceApi;
 import com.jfinal.weixin.sdk.api.component.ComponentAuthApi;
 import com.jfinal.weixin.sdk.api.component.ComponentAuthorizerAccessToken;
 import com.jfinal.weixin.sdk.jfinal.MsgControllerAdapter;
-import com.jfinal.weixin.sdk.msg.in.*;
-import com.jfinal.weixin.sdk.msg.in.event.*;
+import com.jfinal.weixin.sdk.msg.in.InImageMsg;
+import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
+import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
+import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InTextMsg;
+import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
+import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
+import com.jfinal.weixin.sdk.msg.in.event.InCustomEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMassEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InTemplateMsgEvent;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 import com.jfinal.weixin.sdk.msg.out.OutCustomMsg;
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
@@ -40,6 +53,7 @@ public class WeixinMsgController extends MsgControllerAdapter {
             "QUERY_AUTH_CODE")) {
             processTestTextMsg(inTextMsg);
         }
+        
         //转发给多客服PC客户端
         OutCustomMsg outCustomMsg = new OutCustomMsg(inTextMsg);
         render(outCustomMsg);
@@ -115,6 +129,7 @@ public class WeixinMsgController extends MsgControllerAdapter {
         if (InFollowEvent.EVENT_INFOLLOW_UNSUBSCRIBE.equals(inFollowEvent.getEvent()))
         {
             logger.debug("取消关注：" + inFollowEvent.getFromUserName());
+            renderNull();
         }
     }
 
@@ -180,7 +195,7 @@ public class WeixinMsgController extends MsgControllerAdapter {
 
     @Override
     public ApiConfig getApiConfig() {
-        return null;
+    	return ApiConfigKit.getApiConfig();
     }
 
     @Override
@@ -224,7 +239,7 @@ public class WeixinMsgController extends MsgControllerAdapter {
                         "authorization_info"));
                     ComponentAuthorizerAccessToken token = new ComponentAuthorizerAccessToken(
                         authorization_info);
-
+            		// TODO 持久化
                     ApiConfigKit.putApiConfig(new ApiConfig("",
                                                             token.getAuthorizerAppId(),
                                                             ""));

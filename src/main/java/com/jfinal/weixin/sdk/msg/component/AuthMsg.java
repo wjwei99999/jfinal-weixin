@@ -8,16 +8,7 @@ package com.jfinal.weixin.sdk.msg.component;
 
 /**
  * <pre>
- * 接收消息，以下是接收文本消息的例子
- * 接收文本消息
- * &lt;xml&gt;
- * &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
- * &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
- * &lt;CreateTime&gt;1348831860&lt;/CreateTime&gt;
- * &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
- * &lt;Content&gt;&lt;![CDATA[this is a test]]&gt;&lt;/Content&gt;
- * &lt;MsgId&gt;1234567890123456&lt;/MsgId&gt;
- * &lt;/xml&gt;
+ * 接收公众号授权给第三方平台的消息
  * </pre>
  */
 public abstract class AuthMsg {
@@ -30,13 +21,10 @@ public abstract class AuthMsg {
 
     /**
      * 消息类型
-     * 1：text 文本消息
-     * 2：image 图片消息
-     * 3：voice 语音消息
-     * 4：video 视频消息
-     * 5：location 地址位置消息
-     * 6：link 链接消息
-     * 7：event 事件
+     * 1：component_verify_ticket 每10分钟推送一次的安全ticket
+     * 2：authorized 授权成功通知
+     * 3：unauthorized 取消授权通知
+     * 4：updateauthorized 授权更新通知
      */
     protected String infoType;
 

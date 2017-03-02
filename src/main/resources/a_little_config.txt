@@ -2,6 +2,8 @@ jdbcUrl = jdbc:mysql://127.0.0.1/jfinal_weixin?characterEncoding=utf8&zeroDateTi
 user = root
 password =
 devMode = true
+# 公众号第三方平台模式
+componentMode = true
 
 # 微信服务器回调所用的 token
 token=__my__token__
@@ -10,8 +12,14 @@ token=__my__token__
 appId=wx9803d1188fa5fbda
 appSecret=db859c968763c582794e7c3d003c3d87
 
-#是否对消息进行加密，是否对消息进行加密，对应于微信平台的消息加解密方式，false支持明文模式及兼容模式，true支持安全模式及兼容模式
-#encryptMessage=true
-#encodingAesKey=yourEncodingAesKey
+# 公众号第三方平台
+# 注意：最后一对 appId、appSecret 才是有效的
+appId=wx1***************
+appSecret=779*****************************
+
+# 是否对消息进行加密，是否对消息进行加密，对应于微信平台的消息加解密方式，false支持明文模式及兼容模式，true支持安全模式及兼容模式
+# 如果公众号第三方平台模式= true，encryptMessage 必须设置为 true
+encryptMessage=true
+encodingAesKey=yourEncodingAesKey
 
 

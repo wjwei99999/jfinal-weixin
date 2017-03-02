@@ -11,19 +11,22 @@ import com.jfinal.core.Controller;
 import com.jfinal.ext.interceptor.NotAction;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.StrKit;
-import com.jfinal.log.Log;
 import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.kit.MsgEncryptKit;
 import com.jfinal.weixin.sdk.msg.ComponentMsgParser;
-import com.jfinal.weixin.sdk.msg.component.*;
+import com.jfinal.weixin.sdk.msg.component.AuthMsg;
+import com.jfinal.weixin.sdk.msg.component.AuthorizedMsg;
+import com.jfinal.weixin.sdk.msg.component.ComponentVerifyTicketMsg;
+import com.jfinal.weixin.sdk.msg.component.NotDefinedComponentMsg;
+import com.jfinal.weixin.sdk.msg.component.UnAuthorizedMsg;
+import com.jfinal.weixin.sdk.msg.component.UpdateAuthorizedMsg;
 
 /**
  * 接收微信服务器消息，自动解析成 InMsg 并分发到相应的处理方法
  */
 public abstract class AuthMessageController extends Controller {
 
-    private static final Log     log      = Log.getLog(AuthMessageController.class);
     private              String  inMsgXml = null;        // 本次请求 xml数据
     private              AuthMsg inMsg    = null;            // 本次请求 xml 解析后的 InMsg 对象
 

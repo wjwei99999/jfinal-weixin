@@ -8,12 +8,14 @@ package com.jfinal.weixin.sdk.msg.component;
 
 /**
  * <pre>
- * 接收文本消息
+ * 接收公众号对第三方平台授权成功的通知
  * <xml>
- * <AppId> </AppId>
+ * <AppId>第三方平台appid</AppId>
  * <CreateTime>1413192605 </CreateTime>
- * <InfoType> </InfoType>
- * <ComponentVerifyTicket> </ComponentVerifyTicket>
+ * <InfoType>authorized</InfoType>
+ * <AuthorizerAppid>公众号appid</AuthorizerAppid>
+ * <AuthorizationCode>授权码（code）</AuthorizationCode>
+ * <AuthorizationCodeExpiredTime>过期时间</AuthorizationCodeExpiredTime>
  * </xml>
  * </pre>
  */

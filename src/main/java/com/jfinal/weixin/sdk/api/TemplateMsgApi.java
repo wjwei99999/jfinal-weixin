@@ -22,9 +22,10 @@ public class TemplateMsgApi {
      * @return {ApiResult}
      */
     public static ApiResult send(String jsonStr) {
-        String jsonResult = HttpUtils.post(sendApiUrl + AccessTokenApi.getAccessToken().getAccessToken(), jsonStr);
+        String jsonResult = HttpUtils.post(sendApiUrl + AccessTokenApi.getAccessTokenStr(), jsonStr);
         return new ApiResult(jsonResult);
     }
+    
 }
 
 
