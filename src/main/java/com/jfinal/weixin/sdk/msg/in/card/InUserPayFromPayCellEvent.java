@@ -3,7 +3,7 @@ package com.jfinal.weixin.sdk.msg.in.card;
 import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 
 /**
- *
+ * 买单事件推送
  * @author L.cm
 <xml>
   <ToUserName><![CDATA[gh_e2243xxxxxxx]]></ToUserName>
@@ -21,10 +21,59 @@ import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
  */
 @SuppressWarnings("serial")
 public class InUserPayFromPayCellEvent extends EventInMsg {
-	public static final String EVENT = "user_pay_from_pay_cell";
+    public static final String EVENT = "user_pay_from_pay_cell";
 
-	public InUserPayFromPayCellEvent(String toUserName, String fromUserName, Integer createTime, String msgType,
-			String event) {
-		super(toUserName, fromUserName, createTime, msgType, event);
-	}
+    public InUserPayFromPayCellEvent(String toUserName, String fromUserName, Integer createTime, String msgType,
+            String event) {
+        super(toUserName, fromUserName, createTime, msgType, event);
+    }
+    // 卡券ID。
+    private String cardId;
+    // 卡券Code码
+    private String userCardCode;
+    // 微信支付交易订单号（只有使用买单功能核销的卡券才会出现）
+    private String transId;
+    // 门店ID，当前卡券核销的门店ID（只有通过卡券商户助手和买单核销时才会出现）
+    private String locationId;
+    // 实付金额，单位为分
+    private String fee;
+    // 应付金额，单位为分
+    private String originalFee;
+
+    public String getCardId() {
+        return cardId;
+    }
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+    public String getUserCardCode() {
+        return userCardCode;
+    }
+    public void setUserCardCode(String userCardCode) {
+        this.userCardCode = userCardCode;
+    }
+    public String getTransId() {
+        return transId;
+    }
+    public void setTransId(String transId) {
+        this.transId = transId;
+    }
+    public String getLocationId() {
+        return locationId;
+    }
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
+    }
+    public String getFee() {
+        return fee;
+    }
+    public void setFee(String fee) {
+        this.fee = fee;
+    }
+    public String getOriginalFee() {
+        return originalFee;
+    }
+    public void setOriginalFee(String originalFee) {
+        this.originalFee = originalFee;
+    }
 }

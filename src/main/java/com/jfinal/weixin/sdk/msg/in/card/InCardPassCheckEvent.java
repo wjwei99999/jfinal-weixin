@@ -3,7 +3,7 @@ package com.jfinal.weixin.sdk.msg.in.card;
 import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 
 /**
- *
+ *审核事件推送
  * @author L.cm
 <xml>
   <ToUserName><![CDATA[toUser]]></ToUserName>

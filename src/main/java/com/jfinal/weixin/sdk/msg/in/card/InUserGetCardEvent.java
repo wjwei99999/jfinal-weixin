@@ -3,7 +3,7 @@ package com.jfinal.weixin.sdk.msg.in.card;
 import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 
 /**
- *
+ * 领取事件推送
  * @author Dreamlu
  * 文档地址：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025274&token=&lang=zh_CN&anchor=2.2
 

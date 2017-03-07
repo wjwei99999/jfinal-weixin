@@ -2,6 +2,9 @@ package com.jfinal.weixin.sdk.msg.in.card;
 
 import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 
+/**
+ * 删除事件推送
+ */
 @SuppressWarnings("serial")
 public class InUserDelCardEvent extends EventInMsg {
 	public static final String EVENT = "user_del_card";

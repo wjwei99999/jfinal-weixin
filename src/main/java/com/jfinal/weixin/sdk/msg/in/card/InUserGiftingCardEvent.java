@@ -3,6 +3,7 @@ package com.jfinal.weixin.sdk.msg.in.card;
 import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 
 /**
+ * 转赠事件推送
 <xml>
   <ToUserName><![CDATA[gh_3fcea188bf78]]></ToUserName>
   <FromUserName><![CDATA[obLatjjwDolFjRRd3doGIdwNqRXw]]></FromUserName>
@@ -18,7 +19,7 @@ import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
  */
 @SuppressWarnings("serial")
 public class InUserGiftingCardEvent extends EventInMsg {
-	public static final String EVENT = "user_gifting_card";
+    public static final String EVENT = "user_gifting_card";
 
     private String cardId;
     private String userCardCode;

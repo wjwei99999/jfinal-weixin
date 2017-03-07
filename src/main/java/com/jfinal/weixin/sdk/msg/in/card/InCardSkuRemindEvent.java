@@ -3,7 +3,7 @@ package com.jfinal.weixin.sdk.msg.in.card;
 import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 
 /**
- *
+ * 库存报警事件
  * @author L.cm
 <xml>
   <ToUserName><![CDATA[gh_2d62d*****0]]></ToUserName>
@@ -22,6 +22,21 @@ public class InCardSkuRemindEvent extends EventInMsg {
 	public InCardSkuRemindEvent(String toUserName, String fromUserName, Integer createTime, String msgType,
 			String event) {
 		super(toUserName, fromUserName, createTime, msgType, event);
-		// TODO Auto-generated constructor stub
+	}
+	
+	private String cardId; //卡券ID
+	private String detail; //报警详细信息
+
+	public String getCardId() {
+		return cardId;
+	}
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 }
