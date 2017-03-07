@@ -22,6 +22,7 @@ import java.io.Serializable;
  &lt;/xml&gt;
  </pre>
  */
+@SuppressWarnings("serial")
 public abstract class InMsg implements Serializable {
 
     // 开发者微信号

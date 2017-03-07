@@ -25,8 +25,8 @@ package com.jfinal.weixin.sdk.msg.in.event;
  * &lt;/xml&gt;
  * </pre>
  */
-public class InMassEvent extends EventInMsg
-{
+@SuppressWarnings("serial")
+public class InMassEvent extends EventInMsg {
     //群发成功
     public static final String EVENT_INMASS_STATUS_SENDSUCCESS = "sendsuccess";
     //群发失败，其他失败情况是err(num)

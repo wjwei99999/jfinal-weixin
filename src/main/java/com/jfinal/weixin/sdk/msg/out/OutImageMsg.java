@@ -22,6 +22,7 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
  &lt;/xml&gt;
  </pre>
  */
+@SuppressWarnings("serial")
 public class OutImageMsg extends OutMsg {
 
     private String mediaId;

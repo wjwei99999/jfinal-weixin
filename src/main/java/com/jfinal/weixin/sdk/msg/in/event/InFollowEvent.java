@@ -38,8 +38,8 @@ package com.jfinal.weixin.sdk.msg.in.event;
  &lt;/xml&gt;
  </pre>
  */
-public class InFollowEvent extends EventInMsg
-{
+@SuppressWarnings("serial")
+public class InFollowEvent extends EventInMsg {
     // 订阅：subscribe
     public static final String EVENT_INFOLLOW_SUBSCRIBE = "subscribe";
     // 取消订阅：unsubscribe

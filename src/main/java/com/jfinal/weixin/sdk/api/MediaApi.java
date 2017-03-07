@@ -82,9 +82,8 @@ public class MediaApi {
         return new ApiResult(jsonResult);
     }
     
-    
     private static String get_url = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=";
-
+    
     /**
      * 获取临时素材
      * @param media_id 素材Id
@@ -94,7 +93,23 @@ public class MediaApi {
         String url = get_url + AccessTokenApi.getAccessTokenStr() + "&media_id=" + media_id;
         return HttpUtils.download(url);
     }
-
+    
+    private static String get_jssdk_media = "https://api.weixin.qq.com/cgi-bin/media/get/jssdk?access_token=";
+    
+    /**
+     * 高清语音素材获取接口
+     * 
+     * 公众号可以使用本接口获取从JSSDK的uploadVoice接口上传的临时语音素材，格式为speex，16K采样率。
+     * 该音频比上文的临时素材获取接口（格式为amr，8K采样率）更加清晰，适合用作语音识别等对音质要求较高的业务。
+     * 
+     * @param media_id 素材Id
+     * @return MediaFile
+     */
+    public static MediaFile getJssdkMedia(String media_id) {
+        String url = get_jssdk_media + AccessTokenApi.getAccessTokenStr() + "&media_id=" + media_id;
+        return HttpUtils.download(url);
+    }
+    
     private static String add_news_url = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=";
 
     /**

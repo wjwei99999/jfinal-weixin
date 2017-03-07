@@ -43,6 +43,7 @@ import java.util.List;
  &lt;/xml&gt;
  </pre>
 */
+@SuppressWarnings("serial")
 public class InShakearoundUserShakeEvent extends InMsg {
 
     private String event;//事件

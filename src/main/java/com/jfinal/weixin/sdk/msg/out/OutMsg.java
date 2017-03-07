@@ -22,6 +22,7 @@ import java.io.Serializable;
  &lt;/xml&gt;
  </pre>
  */
+@SuppressWarnings("serial")
 public abstract class OutMsg implements Serializable {
     // 接收方帐号（收到的OpenID）
     protected String toUserName;

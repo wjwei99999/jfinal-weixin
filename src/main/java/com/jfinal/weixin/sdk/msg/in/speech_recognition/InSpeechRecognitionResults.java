@@ -24,6 +24,7 @@ import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
  &lt;/xml&gt;
  </pre>
  */
+@SuppressWarnings("serial")
 public class InSpeechRecognitionResults extends InVoiceMsg {
 
     private String recognition;

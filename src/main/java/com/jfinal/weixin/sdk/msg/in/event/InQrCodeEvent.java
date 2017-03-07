@@ -32,6 +32,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
  &lt;/xml&gt;
  </pre>
  */
+@SuppressWarnings("serial")
 public class InQrCodeEvent extends EventInMsg {
 
     // 1. 用户未关注时，进行关注后的事件推送： subscribe

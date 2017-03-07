@@ -22,6 +22,7 @@ package com.jfinal.weixin.sdk.msg.in;
  &lt;/xml&gt;
  </pre>
 */
+@SuppressWarnings("serial")
 public class InLocationMsg extends InMsg {
     private String location_X;
     private String location_Y;

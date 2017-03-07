@@ -35,7 +35,7 @@ import java.io.Serializable;
  &lt;/xml&gt;
   </pre>
 */
-
+@SuppressWarnings("serial")
 public class News implements Serializable {
     private String title;        // 不是必须
     private String description;    // 不是必须

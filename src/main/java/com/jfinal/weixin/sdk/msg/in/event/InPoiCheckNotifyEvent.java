@@ -19,8 +19,8 @@ package com.jfinal.weixin.sdk.msg.in.event;
  * &lt;/xml&gt;
  * </pre>
  */
-public class InPoiCheckNotifyEvent extends EventInMsg
-{
+@SuppressWarnings("serial")
+public class InPoiCheckNotifyEvent extends EventInMsg {
 
 //    UniqId商户自己内部 ID,即字段中的 sid
 //    PoiId 微信的门店 ID,微信内门店唯一标示 ID

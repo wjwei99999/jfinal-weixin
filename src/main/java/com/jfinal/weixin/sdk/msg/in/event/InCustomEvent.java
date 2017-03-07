@@ -40,8 +40,8 @@ package com.jfinal.weixin.sdk.msg.in.event;
  &lt;/xml&gt;
  </pre>
  */
-public class InCustomEvent extends EventInMsg
-{
+@SuppressWarnings("serial")
+public class InCustomEvent extends EventInMsg {
     // 接入会话：kf_create_session
     public static final String EVENT_INCUSTOM_KF_CREATE_SESSION = "kf_create_session";
     // 关闭会话：kf_close_session

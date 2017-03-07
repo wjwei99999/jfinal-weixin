@@ -23,8 +23,8 @@ package com.jfinal.weixin.sdk.msg.in.event;
  &lt;/xml&gt;
  </pre>
  */
-public class InWifiEvent extends EventInMsg
-{
+@SuppressWarnings("serial")
+public class InWifiEvent extends EventInMsg {
     private String connectTime;
     private String expireTime;
     private String vendorId;

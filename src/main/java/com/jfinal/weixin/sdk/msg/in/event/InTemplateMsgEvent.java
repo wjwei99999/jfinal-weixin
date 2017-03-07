@@ -20,6 +20,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
  &lt;/xml&gt;
  </pre>
  */
+@SuppressWarnings("serial")
 public class InTemplateMsgEvent extends EventInMsg {
 
     //"success": 成功

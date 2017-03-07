@@ -13,6 +13,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
  * &lt;/xml&gt;
  * </pre>
  */
+@SuppressWarnings("serial")
 public class InSubmitMemberCardEvent extends EventInMsg {
     public static final String EVENT = "submit_membercard_user_info";
 

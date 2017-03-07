@@ -19,6 +19,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
  * &lt;/xml&gt;
  * </pre>
  */
+@SuppressWarnings("serial")
 public class InUserPayFromCardEvent extends EventInMsg {
     public static final String EVENT = "user_pay_from_pay_cell";
 

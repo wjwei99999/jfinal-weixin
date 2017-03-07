@@ -23,42 +23,33 @@ import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
 public class WeixinMsgController extends MsgControllerAdapter {
 
     static Log logger = Log.getLog(WeixinMsgController.class);
-    private static final String helpStr = "\t发送 help 可获得帮助，发送\"视频\" 可获取视频教程，发送 \"美女\" 可看美女，发送 music 可听音乐 ，发送新闻可看JFinal新版本消息。公众号功能持续完善中";
 
-    protected void processInTextMsg(InTextMsg inTextMsg)
-    {
-        //转发给多客服PC客户端
-        OutCustomMsg outCustomMsg = new OutCustomMsg(inTextMsg);
-        render(outCustomMsg);
+    protected void processInTextMsg(InTextMsg inTextMsg) {
+        OutTextMsg outMsg = new OutTextMsg(inTextMsg);
+        outMsg.setContent("文本消息~");
+        render(outMsg);
     }
 
     @Override
-    protected void processInVoiceMsg(InVoiceMsg inVoiceMsg)
-    {
-        //转发给多客服PC客户端
-        OutCustomMsg outCustomMsg = new OutCustomMsg(inVoiceMsg);
-        render(outCustomMsg);
+    protected void processInVoiceMsg(InVoiceMsg inVoiceMsg) {
+        OutTextMsg outMsg = new OutTextMsg(inVoiceMsg);
+        outMsg.setContent("语音消息~");
     }
 
     @Override
-    protected void processInVideoMsg(InVideoMsg inVideoMsg)
-    {
-        //转发给多客服PC客户端
-        OutCustomMsg outCustomMsg = new OutCustomMsg(inVideoMsg);
-        render(outCustomMsg);
+    protected void processInVideoMsg(InVideoMsg inVideoMsg) {
+        OutTextMsg outMsg = new OutTextMsg(inVideoMsg);
+        outMsg.setContent("接收视频消息~");
     }
 
     @Override
-    protected void processInShortVideoMsg(InShortVideoMsg inShortVideoMsg)
-    {
-        //转发给多客服PC客户端
-        OutCustomMsg outCustomMsg = new OutCustomMsg(inShortVideoMsg);
-        render(outCustomMsg);
+    protected void processInShortVideoMsg(InShortVideoMsg inShortVideoMsg) {
+        OutTextMsg outMsg = new OutTextMsg(inShortVideoMsg);
+        outMsg.setContent("小视频消息~");
     }
 
     @Override
-    protected void processInLocationMsg(InLocationMsg inLocationMsg)
-    {
+    protected void processInLocationMsg(InLocationMsg inLocationMsg) {
         //转发给多客服PC客户端
         OutCustomMsg outCustomMsg = new OutCustomMsg(inLocationMsg);
         render(outCustomMsg);

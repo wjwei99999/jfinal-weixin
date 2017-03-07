@@ -17,8 +17,8 @@ package com.jfinal.weixin.sdk.msg.in.event;
  &lt;/xml&gt;
  * </pre>
  */
-public class InVerifySuccessEvent extends EventInMsg
-{
+@SuppressWarnings("serial")
+public class InVerifySuccessEvent extends EventInMsg {
     //资质认证成功
     public static final String EVENT_IN_QUALIFICATION_VERIFY_SUCCESS = "qualification_verify_success";
     //名称认证成功

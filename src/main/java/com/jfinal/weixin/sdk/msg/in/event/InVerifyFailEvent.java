@@ -18,8 +18,8 @@ package com.jfinal.weixin.sdk.msg.in.event;
  &lt;/xml&gt;
  </pre>
  */
-public class InVerifyFailEvent extends EventInMsg
-{
+@SuppressWarnings("serial")
+public class InVerifyFailEvent extends EventInMsg {
     //资质认证失败
     public static final String EVENT_IN_QUALIFICATION_VERIFY_FAIL = "qualification_verify_fail";
     //名称认证失败

@@ -20,6 +20,7 @@ package com.jfinal.weixin.sdk.msg.in;
  &lt;/xml&gt;
  </pre>
 */
+@SuppressWarnings("serial")
 public class InImageMsg extends InMsg {
 
     private String picUrl;

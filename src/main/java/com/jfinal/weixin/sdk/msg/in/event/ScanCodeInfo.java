@@ -6,6 +6,7 @@ import java.io.Serializable;
  * 菜单二维码扫描的结果实体
  * @author L.cm
  */
+@SuppressWarnings("serial")
 public class ScanCodeInfo implements Serializable {
 
     private String ScanType;

@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2011-2014, L.cm 卢春梦 (qq596392912@gmail.com).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ */
+
 package com.jfinal.wxaapp.msg;
 
 import java.lang.reflect.Field;
@@ -6,6 +12,11 @@ import com.jfinal.log.Log;
 import com.jfinal.weixin.sdk.utils.XmlHelper;
 import com.jfinal.wxaapp.msg.bean.WxaMsg;
 
+/**
+ * xml格式消息解析
+ * @author l.cm
+ *
+ */
 public class XmlMsgParser extends MsgModelParser implements IMsgParser {
 	private static Log log = Log.getLog(XmlMsgParser.class);
 	

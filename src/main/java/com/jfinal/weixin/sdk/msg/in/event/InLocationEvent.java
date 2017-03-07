@@ -21,6 +21,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
  &lt;/xml&gt;
  * </pre>
  */
+@SuppressWarnings("serial")
 public class InLocationEvent extends EventInMsg {
 
     private String latitude;

@@ -164,6 +164,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
  10. view_limited：跳转图文消息URL
  </pre>
  */
+@SuppressWarnings("serial")
 public class InMenuEvent extends EventInMsg {
     // 1. 点击菜单拉取消息时的事件推送： CLICK
     public static final String EVENT_INMENU_CLICK = "CLICK";

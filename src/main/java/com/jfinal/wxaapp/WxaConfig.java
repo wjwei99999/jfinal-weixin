@@ -1,7 +1,18 @@
+/**
+ * Copyright (c) 2011-2014, L.cm 卢春梦 (qq596392912@gmail.com).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ */
+
 package com.jfinal.wxaapp;
 
 import java.io.Serializable;
 
+/**
+ * 微信小程序配置
+ * @author L.cm
+ *
+ */
 public class WxaConfig implements Serializable {
     private static final long serialVersionUID = 8274925821039698118L;
     

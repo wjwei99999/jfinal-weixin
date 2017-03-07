@@ -38,6 +38,7 @@ import java.util.List;
  &lt;/xml&gt;
  </pre>
  */
+@SuppressWarnings("serial")
 public class OutNewsMsg extends OutMsg {
 
     private List<News> articles = new ArrayList<News>();

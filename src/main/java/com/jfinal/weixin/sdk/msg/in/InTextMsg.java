@@ -19,6 +19,7 @@ package com.jfinal.weixin.sdk.msg.in;
  &lt;/xml&gt;
  </pre>
  */
+@SuppressWarnings("serial")
 public class InTextMsg extends InMsg {
 
     private String content;

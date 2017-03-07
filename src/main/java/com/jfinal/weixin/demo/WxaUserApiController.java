@@ -1,16 +1,16 @@
 package com.jfinal.weixin.demo;
 
-import com.jfinal.aop.Before;
 import com.jfinal.aop.Duang;
 import com.jfinal.kit.JMap;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.wxaapp.api.WxaUserApi;
 import com.jfinal.wxaapp.jfinal.WxaController;
-import com.jfinal.wxaapp.session.SkipWaxSession;
-import com.jfinal.wxaapp.session.WxaSessionInterceptor;
 
-@Before(WxaSessionInterceptor.class)
+/**
+ * 微信小程序用户api接口
+ * @author L.cm
+ */
 public class WxaUserApiController extends WxaController {
 	// 微信用户接口api
 	protected WxaUserApi wxaUserApi = Duang.duang(WxaUserApi.class);
@@ -18,7 +18,6 @@ public class WxaUserApiController extends WxaController {
 	/**
 	 * 登陆接口
 	 */
-	@SkipWaxSession // 该注解表示，如果wxa没有传递sessionid时自动生成
 	public void login() {
 		String jsCode = getPara("code");
 		if (StrKit.isBlank(jsCode)) {

@@ -8,8 +8,8 @@ package com.jfinal.weixin.sdk.msg.in.event;
 
 import com.jfinal.weixin.sdk.msg.in.InMsg;
 
-public abstract class EventInMsg extends InMsg
-{
+@SuppressWarnings("serial")
+public abstract class EventInMsg extends InMsg {
     protected String event;
 
     public EventInMsg(String toUserName, String fromUserName, Integer createTime, String msgType, String event)

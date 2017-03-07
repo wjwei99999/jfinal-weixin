@@ -21,6 +21,7 @@ package com.jfinal.weixin.sdk.msg.in;
  &lt;/xml&gt;
  </pre>
 */
+@SuppressWarnings("serial")
 public class InLinkMsg extends InMsg {
 
     private String title;
