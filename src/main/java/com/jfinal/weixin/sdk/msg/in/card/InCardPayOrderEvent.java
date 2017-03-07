@@ -157,6 +157,18 @@ public class InCardPayOrderEvent extends EventInMsg implements ICardMsgParse {
 
     @Override
     public void parse(XmlHelper xmlHelper) {
-        
+        setOrderId(xmlHelper.getString("//OrderId"));
+        setStatus(xmlHelper.getString("//Status"));
+        setCreateOrderTime(xmlHelper.getString("//CreateOrderTime"));
+        setPayFinishTime(xmlHelper.getString("//PayFinishTime"));
+        setDesc(xmlHelper.getString("//Desc"));
+        setFreeCoinCount(xmlHelper.getString("//FreeCoinCount"));
+        setPayCoinCount(xmlHelper.getString("//PayCoinCount"));
+        setRefundFreeCoinCount(xmlHelper.getString("//RefundFreeCoinCount"));
+        setRefundPayCoinCount(xmlHelper.getString("//RefundPayCoinCount"));
+        setOrderType(xmlHelper.getString("//OrderType"));
+        setOrderType(xmlHelper.getString("//OrderType"));
+        setMemo(xmlHelper.getString("//Memo"));
+        setReceiptInfo(xmlHelper.getString("//ReceiptInfo"));
     }
 }

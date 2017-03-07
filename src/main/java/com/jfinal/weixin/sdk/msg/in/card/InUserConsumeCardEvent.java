@@ -95,9 +95,16 @@ public class InUserConsumeCardEvent extends EventInMsg implements ICardMsgParse 
     public void setOuterStr(String outerStr) {
         this.outerStr = outerStr;
     }
+    
     @Override
     public void parse(XmlHelper xmlHelper) {
         setCardId(xmlHelper.getString("//CardId"));
         setUserCardCode(xmlHelper.getString("//UserCardCode"));
+        setConsumeSource(xmlHelper.getString("//ConsumeSource"));
+        setLocationName(xmlHelper.getString("//LocationName"));
+        setStaffOpenId(xmlHelper.getString("//StaffOpenId"));
+        setVerifyCode(xmlHelper.getString("//VerifyCode"));
+        setRemarkAmount(xmlHelper.getString("//RemarkAmount"));
+        setOuterStr(xmlHelper.getString("//OuterStr"));
     }
 }

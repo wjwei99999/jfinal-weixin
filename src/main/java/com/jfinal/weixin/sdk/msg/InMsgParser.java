@@ -446,12 +446,6 @@ public class InMsgParser {
             e.parse(xmlHelper);
             return e;
         }
-        // 卡券买单事件推送
-        if (InUserPayFromPayCellEvent.EVENT.equals(event)) {
-            InUserPayFromPayCellEvent e = new InUserPayFromPayCellEvent(toUserName, fromUserName, createTime);
-            e.parse(xmlHelper);
-            return e;
-        }
         
         LogKit.error("无法识别的事件类型" + event + "，请查阅微信公众平台开发文档");
         InNotDefinedEvent e = new InNotDefinedEvent(toUserName, fromUserName, createTime, event);

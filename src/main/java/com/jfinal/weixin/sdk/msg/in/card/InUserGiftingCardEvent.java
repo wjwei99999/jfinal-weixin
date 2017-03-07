@@ -76,5 +76,8 @@ public class InUserGiftingCardEvent extends EventInMsg implements ICardMsgParse 
     public void parse(XmlHelper xmlHelper) {
         setCardId(xmlHelper.getString("//CardId"));
         setUserCardCode(xmlHelper.getString("//UserCardCode"));
+        setIsReturnBack(xmlHelper.getString("//IsReturnBack"));
+        setFriendUserName(xmlHelper.getString("//FriendUserName"));
+        setIsChatRoom(xmlHelper.getString("//IsChatRoom"));
     }
 }

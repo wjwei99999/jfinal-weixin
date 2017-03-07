@@ -118,6 +118,13 @@ public class InUserGetCardEvent extends EventInMsg implements ICardMsgParse {
     @Override
     public void parse(XmlHelper xmlHelper) {
         setCardId(xmlHelper.getString("//CardId"));
+        setIsGiveByFriend(xmlHelper.getString("//IsGiveByFriend"));
         setUserCardCode(xmlHelper.getString("//UserCardCode"));
+        setFriendUserName(xmlHelper.getString("//FriendUserName"));
+        setOuterId(xmlHelper.getString("//OuterId"));
+        setOldUserCardCode(xmlHelper.getString("//OldUserCardCode"));
+        setOuterStr(xmlHelper.getString("//OuterStr"));
+        setIsRestoreMemberCard(xmlHelper.getString("//IsRestoreMemberCard"));
+        setIsRecommendByFriend(xmlHelper.getString("//IsRecommendByFriend"));
     }
 }
