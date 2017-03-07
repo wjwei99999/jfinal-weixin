@@ -24,8 +24,8 @@ public class InUserViewCardEvent extends EventInMsg {
     private String cardId;
     private String userCardCode;
 
-    public InUserViewCardEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
-        super(toUserName, fromUserName, createTime, msgType, event);
+    public InUserViewCardEvent(String toUserName, String fromUserName, Integer createTime) {
+        super(toUserName, fromUserName, createTime, EVENT);
     }
 
     public String getCardId() {

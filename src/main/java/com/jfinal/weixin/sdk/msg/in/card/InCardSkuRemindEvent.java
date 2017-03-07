@@ -19,9 +19,8 @@ import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 public class InCardSkuRemindEvent extends EventInMsg {
 	public static final String EVENT = "card_pay_order";
 
-	public InCardSkuRemindEvent(String toUserName, String fromUserName, Integer createTime, String msgType,
-			String event) {
-		super(toUserName, fromUserName, createTime, msgType, event);
+	public InCardSkuRemindEvent(String toUserName, String fromUserName, Integer createTime) {
+		super(toUserName, fromUserName, createTime, EVENT);
 	}
 	
 	private String cardId; //卡券ID

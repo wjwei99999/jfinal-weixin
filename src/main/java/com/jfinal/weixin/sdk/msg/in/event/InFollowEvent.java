@@ -45,9 +45,9 @@ public class InFollowEvent extends EventInMsg {
     // 取消订阅：unsubscribe
     public static final String EVENT_INFOLLOW_UNSUBSCRIBE = "unsubscribe";
 
-    public InFollowEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event)
+    public InFollowEvent(String toUserName, String fromUserName, Integer createTime, String event)
     {
-        super(toUserName, fromUserName, createTime, msgType, event);
+        super(toUserName, fromUserName, createTime, event);
     }
 }
 

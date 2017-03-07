@@ -23,9 +23,8 @@ import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 public class InUserPayFromPayCellEvent extends EventInMsg {
     public static final String EVENT = "user_pay_from_pay_cell";
 
-    public InUserPayFromPayCellEvent(String toUserName, String fromUserName, Integer createTime, String msgType,
-            String event) {
-        super(toUserName, fromUserName, createTime, msgType, event);
+    public InUserPayFromPayCellEvent(String toUserName, String fromUserName, Integer createTime) {
+        super(toUserName, fromUserName, createTime, EVENT);
     }
     // 卡券ID。
     private String cardId;

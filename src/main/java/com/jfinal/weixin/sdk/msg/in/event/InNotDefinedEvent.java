@@ -13,8 +13,8 @@ public class InNotDefinedEvent extends EventInMsg {
      */
     protected transient XmlHelper xmlHelper;
     
-    public InNotDefinedEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
-        super(toUserName, fromUserName, createTime, msgType, event);
+    public InNotDefinedEvent(String toUserName, String fromUserName, Integer createTime, String event) {
+        super(toUserName, fromUserName, createTime, event);
     }
 
     public XmlHelper getXmlHelper() {

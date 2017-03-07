@@ -30,9 +30,9 @@ public class InVerifySuccessEvent extends EventInMsg {
 
     private String expiredTime;
 
-    public InVerifySuccessEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event)
+    public InVerifySuccessEvent(String toUserName, String fromUserName, Integer createTime, String event)
     {
-        super(toUserName, fromUserName, createTime, msgType, event);
+        super(toUserName, fromUserName, createTime, event);
     }
 
     public String getExpiredTime()

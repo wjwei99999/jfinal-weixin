@@ -24,10 +24,9 @@ import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 @SuppressWarnings("serial")
 public class InUserConsumeCardEvent extends EventInMsg {
 	public static final String EVENT = "user_consume_card";
-
-	public InUserConsumeCardEvent(String toUserName, String fromUserName, Integer createTime, String msgType,
-			String event) {
-		super(toUserName, fromUserName, createTime, msgType, event);
+	
+	public InUserConsumeCardEvent(String toUserName, String fromUserName, Integer createTime) {
+		super(toUserName, fromUserName, createTime, EVENT);
 	}
 	
 	//卡券ID。

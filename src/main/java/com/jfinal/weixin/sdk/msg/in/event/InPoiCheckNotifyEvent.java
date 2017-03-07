@@ -32,10 +32,10 @@ public class InPoiCheckNotifyEvent extends EventInMsg {
     private String result;
     private String msg;
 
-    public InPoiCheckNotifyEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event)
+    public InPoiCheckNotifyEvent(String toUserName, String fromUserName, Integer createTime, String event)
     {
         //unas update at 2016-1-29,add event param & extends EventInMsg
-        super(toUserName, fromUserName, createTime, msgType, event);
+        super(toUserName, fromUserName, createTime, event);
     }
 
     public String getUniqId()

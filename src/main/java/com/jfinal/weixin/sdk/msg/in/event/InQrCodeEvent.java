@@ -45,8 +45,8 @@ public class InQrCodeEvent extends EventInMsg {
     private String eventKey;
     private String ticket;
 
-    public InQrCodeEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
-        super(toUserName, fromUserName, createTime, msgType, event);
+    public InQrCodeEvent(String toUserName, String fromUserName, Integer createTime, String event) {
+        super(toUserName, fromUserName, createTime, event);
     }
 
     public String getEventKey() {

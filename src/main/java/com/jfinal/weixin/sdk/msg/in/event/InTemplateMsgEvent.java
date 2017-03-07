@@ -39,8 +39,8 @@ public class InTemplateMsgEvent extends EventInMsg {
      */
     private String status;
 
-    public InTemplateMsgEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
-        super(toUserName, fromUserName, createTime, msgType, event);
+    public InTemplateMsgEvent(String toUserName, String fromUserName, Integer createTime, String event) {
+        super(toUserName, fromUserName, createTime, event);
     }
 
     public String getMsgId() {

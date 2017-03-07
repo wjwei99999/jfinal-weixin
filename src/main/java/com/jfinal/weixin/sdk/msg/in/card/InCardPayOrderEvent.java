@@ -54,9 +54,8 @@ public class InCardPayOrderEvent extends EventInMsg {
 	//所开发票的详情
 	private String receiptInfo;
 	
-	public InCardPayOrderEvent(String toUserName, String fromUserName, Integer createTime, String msgType,
-			String event) {
-		super(toUserName, fromUserName, createTime, msgType, event);
+	public InCardPayOrderEvent(String toUserName, String fromUserName, Integer createTime) {
+		super(toUserName, fromUserName, createTime, EVENT);
 	}
 
 	public String getOrderId() {

@@ -52,9 +52,9 @@ public class InCustomEvent extends EventInMsg {
     private String kfAccount;
     private String toKfAccount;
 
-    public InCustomEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event)
+    public InCustomEvent(String toUserName, String fromUserName, Integer createTime, String event)
     {
-        super(toUserName, fromUserName, createTime, msgType, event);
+        super(toUserName, fromUserName, createTime, event);
     }
 
     public String getKfAccount()

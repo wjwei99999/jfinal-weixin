@@ -32,8 +32,8 @@ public class InUserPayFromCardEvent extends EventInMsg {
     private String fee;
     private String originalFee;
 
-    public InUserPayFromCardEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
-        super(toUserName, fromUserName, createTime, msgType, event);
+    public InUserPayFromCardEvent(String toUserName, String fromUserName, Integer createTime) {
+        super(toUserName, fromUserName, createTime, EVENT);
     }
 
     public String getCardId() {

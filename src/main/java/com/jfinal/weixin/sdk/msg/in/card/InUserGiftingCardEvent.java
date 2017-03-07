@@ -27,48 +27,47 @@ public class InUserGiftingCardEvent extends EventInMsg {
     private String friendUserName;
     private String isChatRoom;
 
-	public InUserGiftingCardEvent(String toUserName, String fromUserName, Integer createTime, String msgType,
-			String event) {
-		super(toUserName, fromUserName, createTime, msgType, event);
-	}
+    public InUserGiftingCardEvent(String toUserName, String fromUserName, Integer createTime) {
+        super(toUserName, fromUserName, createTime, EVENT);
+    }
 
-	public String getCardId() {
-		return cardId;
-	}
+    public String getCardId() {
+        return cardId;
+    }
 
-	public void setCardId(String cardId) {
-		this.cardId = cardId;
-	}
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
 
-	public String getUserCardCode() {
-		return userCardCode;
-	}
+    public String getUserCardCode() {
+        return userCardCode;
+    }
 
-	public void setUserCardCode(String userCardCode) {
-		this.userCardCode = userCardCode;
-	}
+    public void setUserCardCode(String userCardCode) {
+        this.userCardCode = userCardCode;
+    }
 
-	public String getIsReturnBack() {
-		return isReturnBack;
-	}
+    public String getIsReturnBack() {
+        return isReturnBack;
+    }
 
-	public void setIsReturnBack(String isReturnBack) {
-		this.isReturnBack = isReturnBack;
-	}
+    public void setIsReturnBack(String isReturnBack) {
+        this.isReturnBack = isReturnBack;
+    }
 
-	public String getFriendUserName() {
-		return friendUserName;
-	}
+    public String getFriendUserName() {
+        return friendUserName;
+    }
 
-	public void setFriendUserName(String friendUserName) {
-		this.friendUserName = friendUserName;
-	}
+    public void setFriendUserName(String friendUserName) {
+        this.friendUserName = friendUserName;
+    }
 
-	public String getIsChatRoom() {
-		return isChatRoom;
-	}
+    public String getIsChatRoom() {
+        return isChatRoom;
+    }
 
-	public void setIsChatRoom(String isChatRoom) {
-		this.isChatRoom = isChatRoom;
-	}
+    public void setIsChatRoom(String isChatRoom) {
+        this.isChatRoom = isChatRoom;
+    }
 }

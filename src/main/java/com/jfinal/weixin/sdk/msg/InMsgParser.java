@@ -161,20 +161,20 @@ public class InMsgParser {
          *     挪至最前面进行判断，以便消除微信平台 bug 的影响
          */
         if ("unsubscribe".equals(event)) {
-            return new InFollowEvent(toUserName, fromUserName, createTime, msgType, event);
+            return new InFollowEvent(toUserName, fromUserName, createTime, event);
         }
 
         // 扫描带参数二维码事件之一        1: 用户未关注时，进行关注后的事件推送
         String ticket = xmlHelper.getString("//Ticket");
         if ("subscribe".equals(event) && StrKit.notBlank(eventKey) && eventKey.startsWith("qrscene_")) {
-            InQrCodeEvent e = new InQrCodeEvent(toUserName, fromUserName, createTime, msgType, event);
+            InQrCodeEvent e = new InQrCodeEvent(toUserName, fromUserName, createTime, event);
             e.setEventKey(eventKey);
             e.setTicket(ticket);
             return e;
         }
         // 扫描带参数二维码事件之二        2: 用户已关注时的事件推送
         if ("SCAN".equals(event)) {
-            InQrCodeEvent e = new InQrCodeEvent(toUserName, fromUserName, createTime, msgType, event);
+            InQrCodeEvent e = new InQrCodeEvent(toUserName, fromUserName, createTime, event);
             e.setEventKey(eventKey);
             e.setTicket(ticket);
             return e;
@@ -187,12 +187,12 @@ public class InMsgParser {
          *     消除微信平台 bug 的影响
          */
         if ("subscribe".equals(event) /*&& StrKit.isBlank(eventKey)*/) {
-            return new InFollowEvent(toUserName, fromUserName, createTime, msgType, event);
+            return new InFollowEvent(toUserName, fromUserName, createTime, event);
         }
 
         // 上报地理位置事件
         if ("LOCATION".equals(event)) {
-            InLocationEvent e = new InLocationEvent(toUserName, fromUserName, createTime, msgType, event);
+            InLocationEvent e = new InLocationEvent(toUserName, fromUserName, createTime, event);
             e.setLatitude(xmlHelper.getString("//Latitude"));
             e.setLongitude(xmlHelper.getString("//Longitude"));
             e.setPrecision(xmlHelper.getString("//Precision"));
@@ -200,19 +200,19 @@ public class InMsgParser {
         }
         // 自定义菜单事件之一            1：点击菜单拉取消息时的事件推送
         if ("CLICK".equals(event)) {
-            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, msgType, event);
+            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, event);
             e.setEventKey(eventKey);
             return e;
         }
         // 自定义菜单事件之二            2：点击菜单跳转链接时的事件推送
         if ("VIEW".equals(event)) {
-            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, msgType, event);
+            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, event);
             e.setEventKey(eventKey);
             return e;
         }
         // 扫码推事件 和 扫码推事件且弹出“消息接收中”提示框
         if ("scancode_push".equals(event) || "scancode_waitmsg".equals(event)) {
-            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, msgType, event);
+            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, event);
             e.setEventKey(eventKey);
             String scanType = xmlHelper.getString("//ScanCodeInfo/ScanType");
             String scanResult = xmlHelper.getString("//ScanCodeInfo/ScanResult");
@@ -221,50 +221,50 @@ public class InMsgParser {
         }
         // 5. pic_sysphoto：弹出系统拍照发图，这个后台其实收不到该菜单的消息，点击它后，调用的是手机里面的照相机功能，而照相以后再发过来时，就收到的是一个图片消息了
         if ("pic_sysphoto".equals(event)) {
-            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, msgType, event);
+            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, event);
             e.setEventKey(eventKey);
             return e;
         }
         // pic_photo_or_album：弹出拍照或者相册发图
         if ("pic_photo_or_album".equals(event)) {
-            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, msgType, event);
+            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, event);
             e.setEventKey(eventKey);
             return e;
         }
         // pic_weixin：弹出微信相册发图器
         if ("pic_weixin".equals(event)) {
-            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, msgType, event);
+            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, event);
             e.setEventKey(eventKey);
             return e;
         }
         // location_select：弹出地理位置选择器
         if ("location_select".equals(event)) {
-            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, msgType, event);
+            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, event);
             e.setEventKey(eventKey);
             return e;
         }
         // media_id：下发消息（除文本消息）
         if ("media_id".equals(event)) {
-            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, msgType, event);
+            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, event);
             e.setEventKey(eventKey);
             return e;
         }
         // view_limited：跳转图文消息URL
         if ("view_limited".equals(event)) {
-            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, msgType, event);
+            InMenuEvent e = new InMenuEvent(toUserName, fromUserName, createTime, event);
             e.setEventKey(eventKey);
             return e;
         }
         // 模板消息是否送达成功通知事件
         if ("TEMPLATESENDJOBFINISH".equals(event)) {
-            InTemplateMsgEvent e = new InTemplateMsgEvent(toUserName, fromUserName, createTime, msgType, event);
+            InTemplateMsgEvent e = new InTemplateMsgEvent(toUserName, fromUserName, createTime, event);
             e.setMsgId(xmlHelper.getString("//MsgID"));
             e.setStatus(xmlHelper.getString("//Status"));
             return e;
         }
         // 群发任务结束时是否送达成功通知事件
         if ("MASSSENDJOBFINISH".equals(event)) {
-            InMassEvent e = new InMassEvent(toUserName, fromUserName, createTime, msgType, event);
+            InMassEvent e = new InMassEvent(toUserName, fromUserName, createTime, event);
             e.setMsgId(xmlHelper.getString("//MsgID"));
             e.setStatus(xmlHelper.getString("//Status"));
             e.setTotalCount(xmlHelper.getString("//TotalCount"));
@@ -275,19 +275,19 @@ public class InMsgParser {
         }
         // 多客服接入会话事件
         if ("kf_create_session".equals(event)) {
-            InCustomEvent e = new InCustomEvent(toUserName, fromUserName, createTime, msgType, event);
+            InCustomEvent e = new InCustomEvent(toUserName, fromUserName, createTime, event);
             e.setKfAccount(xmlHelper.getString("//KfAccount"));
             return e;
         }
         // 多客服关闭会话事件
         if ("kf_close_session".equals(event)) {
-            InCustomEvent e = new InCustomEvent(toUserName, fromUserName, createTime, msgType, event);
+            InCustomEvent e = new InCustomEvent(toUserName, fromUserName, createTime, event);
             e.setKfAccount(xmlHelper.getString("//KfAccount"));
             return e;
         }
         // 多客服转接会话事件
         if ("kf_switch_session".equals(event)) {
-            InCustomEvent e = new InCustomEvent(toUserName, fromUserName, createTime, msgType, event);
+            InCustomEvent e = new InCustomEvent(toUserName, fromUserName, createTime, event);
             e.setKfAccount(xmlHelper.getString("//KfAccount"));
             e.setToKfAccount(xmlHelper.getString("//ToKfAccount"));
             return e;
@@ -323,20 +323,20 @@ public class InMsgParser {
         // 资质认证成功 || 名称认证成功 || 年审通知 || 认证过期失效通知
         if ("qualification_verify_success".equals(event) || "naming_verify_success".equals(event)
                  || "annual_renew".equals(event) || "verify_expired".equals(event)) {
-            InVerifySuccessEvent e = new InVerifySuccessEvent(toUserName, fromUserName, createTime, msgType, event);
+            InVerifySuccessEvent e = new InVerifySuccessEvent(toUserName, fromUserName, createTime, event);
             e.setExpiredTime(xmlHelper.getString("//expiredTime"));
             return e;
         }
         // 资质认证失败 || 名称认证失败
         if ("qualification_verify_fail".equals(event) || "naming_verify_fail".equals(event)) {
-            InVerifyFailEvent e = new InVerifyFailEvent(toUserName, fromUserName, createTime, msgType, event);
+            InVerifyFailEvent e = new InVerifyFailEvent(toUserName, fromUserName, createTime, event);
             e.setFailTime(xmlHelper.getString("//failTime"));
             e.setFailReason(xmlHelper.getString("//failReason"));
             return e;
         }
         // 门店在审核事件消息 , update by unas at 2016-1-29,add event param
         if ("poi_check_notify".equals(event)) {
-            InPoiCheckNotifyEvent e = new InPoiCheckNotifyEvent(toUserName, fromUserName, createTime, msgType, event);
+            InPoiCheckNotifyEvent e = new InPoiCheckNotifyEvent(toUserName, fromUserName, createTime, event);
             e.setUniqId(xmlHelper.getString("//UniqId"));
             e.setPoiId(xmlHelper.getString("//PoiId"));
             e.setResult(xmlHelper.getString("//Result"));
@@ -345,7 +345,7 @@ public class InMsgParser {
         }
         // WIFI连网后下发消息 by unas at 2016-1-29
         if ("WifiConnected".equals(event)) {
-            InWifiEvent e = new InWifiEvent(toUserName, fromUserName, createTime, msgType, event);
+            InWifiEvent e = new InWifiEvent(toUserName, fromUserName, createTime);
             e.setConnectTime(xmlHelper.getString("//ConnectTime"));
             e.setExpireTime(xmlHelper.getString("//ExpireTime"));
             e.setVendorId(xmlHelper.getString("//VendorId"));
@@ -354,19 +354,19 @@ public class InMsgParser {
             return e;
         }
         if (InUserViewCardEvent.EVENT.equals(event)) {
-            InUserViewCardEvent e = new InUserViewCardEvent(toUserName, fromUserName, createTime, msgType, event);
+            InUserViewCardEvent e = new InUserViewCardEvent(toUserName, fromUserName, createTime);
             e.setCardId(xmlHelper.getString("//CardId"));
             e.setUserCardCode(xmlHelper.getString("//UserCardCode"));
             return e;
         }
         if (InSubmitMemberCardEvent.EVENT.equals(event)) {
-            InSubmitMemberCardEvent e = new InSubmitMemberCardEvent(toUserName, fromUserName, createTime, msgType, event);
+            InSubmitMemberCardEvent e = new InSubmitMemberCardEvent(toUserName, fromUserName, createTime);
             e.setCardId(xmlHelper.getString("//CardId"));
             e.setUserCardCode(xmlHelper.getString("//UserCardCode"));
             return e;
         }
         if (InUpdateMemberCardEvent.EVENT.equals(event)) {
-            InUpdateMemberCardEvent e = new InUpdateMemberCardEvent(toUserName, fromUserName, createTime, msgType, event);
+            InUpdateMemberCardEvent e = new InUpdateMemberCardEvent(toUserName, fromUserName, createTime);
             e.setCardId(xmlHelper.getString("//CardId"));
             e.setUserCardCode(xmlHelper.getString("//UserCardCode"));
             e.setModifyBonus(xmlHelper.getString("//ModifyBonus"));
@@ -374,7 +374,7 @@ public class InMsgParser {
             return e;
         }
         if (InUserPayFromCardEvent.EVENT.equals(event)) {
-            InUserPayFromCardEvent e = new InUserPayFromCardEvent(toUserName, fromUserName, createTime, msgType, event);
+            InUserPayFromCardEvent e = new InUserPayFromCardEvent(toUserName, fromUserName, createTime);
             e.setCardId(xmlHelper.getString("//CardId"));
             e.setUserCardCode(xmlHelper.getString("//UserCardCode"));
             e.setLocationId(xmlHelper.getString("//LocationId"));
@@ -385,7 +385,7 @@ public class InMsgParser {
         }
         // 微信小店支付消息
         if (InMerChantOrderEvent.EVENT.equals(event)) {
-            InMerChantOrderEvent e = new InMerChantOrderEvent(toUserName, fromUserName, createTime, msgType, event);
+            InMerChantOrderEvent e = new InMerChantOrderEvent(toUserName, fromUserName, createTime);
             e.setOrderId(xmlHelper.getString("//OrderId"));
             e.setOrderStatus(xmlHelper.getNumber("//OrderStatus").intValue());
             e.setProductId(xmlHelper.getString("//ProductId"));
@@ -394,7 +394,7 @@ public class InMsgParser {
         }
 
         LogKit.error("无法识别的事件类型" + event + "，请查阅微信公众平台开发文档");
-        InNotDefinedEvent e = new InNotDefinedEvent(toUserName, fromUserName, createTime, msgType, event);
+        InNotDefinedEvent e = new InNotDefinedEvent(toUserName, fromUserName, createTime, event);
         e.setXmlHelper(xmlHelper);
         return e;
     }

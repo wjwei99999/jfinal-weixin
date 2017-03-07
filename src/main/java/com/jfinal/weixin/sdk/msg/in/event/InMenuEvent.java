@@ -190,8 +190,8 @@ public class InMenuEvent extends EventInMsg {
     private String eventKey;
     private ScanCodeInfo scanCodeInfo;
 
-    public InMenuEvent(String toUserName, String fromUserName, Integer createTime, String msgType,String event) {
-        super(toUserName, fromUserName, createTime, msgType,event);
+    public InMenuEvent(String toUserName, String fromUserName, Integer createTime,String event) {
+        super(toUserName, fromUserName, createTime, event);
     }
 
     public String getEventKey() {

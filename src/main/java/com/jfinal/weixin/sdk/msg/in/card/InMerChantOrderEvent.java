@@ -27,8 +27,8 @@ public class InMerChantOrderEvent extends EventInMsg {
     private String productId;
     private String skuInfo;
 
-    public InMerChantOrderEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
-        super(toUserName, fromUserName, createTime, msgType, event);
+    public InMerChantOrderEvent(String toUserName, String fromUserName, Integer createTime) {
+        super(toUserName, fromUserName, createTime, EVENT);
     }
 
     public String getOrderId() {

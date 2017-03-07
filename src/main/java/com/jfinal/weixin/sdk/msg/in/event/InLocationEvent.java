@@ -28,8 +28,8 @@ public class InLocationEvent extends EventInMsg {
     private String longitude;
     private String precision;
 
-    public InLocationEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
-        super(toUserName, fromUserName, createTime, msgType, event);
+    public InLocationEvent(String toUserName, String fromUserName, Integer createTime, String event) {
+        super(toUserName, fromUserName, createTime, event);
     }
 
     public String getLatitude() {

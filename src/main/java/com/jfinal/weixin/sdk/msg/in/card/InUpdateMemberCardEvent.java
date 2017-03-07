@@ -28,8 +28,8 @@ public class InUpdateMemberCardEvent extends EventInMsg {
     private String modifyBonus;
     private String modifyBalance;
 
-    public InUpdateMemberCardEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
-        super(toUserName, fromUserName, createTime, msgType, event);
+    public InUpdateMemberCardEvent(String toUserName, String fromUserName, Integer createTime) {
+        super(toUserName, fromUserName, createTime, EVENT);
     }
 
     public String getCardId() {

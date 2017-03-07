@@ -22,8 +22,8 @@ public class InSubmitMemberCardEvent extends EventInMsg {
     private String cardId;
     private String userCardCode;
 
-    public InSubmitMemberCardEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
-        super(toUserName, fromUserName, createTime, msgType, event);
+    public InSubmitMemberCardEvent(String toUserName, String fromUserName, Integer createTime) {
+        super(toUserName, fromUserName, createTime, EVENT);
     }
 
     public String getUserCardCode() {

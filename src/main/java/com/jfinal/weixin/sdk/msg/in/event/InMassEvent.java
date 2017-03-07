@@ -39,9 +39,9 @@ public class InMassEvent extends EventInMsg {
     private String sentCount;
     private String errorCount;
 
-    public InMassEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event)
+    public InMassEvent(String toUserName, String fromUserName, Integer createTime, String event)
     {
-        super(toUserName, fromUserName, createTime, msgType, event);
+        super(toUserName, fromUserName, createTime, event);
     }
 
     public String getMsgId()

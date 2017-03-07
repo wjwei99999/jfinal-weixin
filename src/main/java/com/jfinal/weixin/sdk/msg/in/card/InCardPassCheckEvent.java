@@ -27,8 +27,8 @@ public class InCardPassCheckEvent extends EventInMsg {
 	 */
 	private String refuseReason;
 
-	public InCardPassCheckEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
-		super(toUserName, fromUserName, createTime, msgType, event);
+	public InCardPassCheckEvent(String toUserName, String fromUserName, Integer createTime) {
+		super(toUserName, fromUserName, createTime, EVENT);
 	}
 
 	public String getCardId() {

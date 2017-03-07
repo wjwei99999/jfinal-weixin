@@ -25,6 +25,7 @@ package com.jfinal.weixin.sdk.msg.in.event;
  */
 @SuppressWarnings("serial")
 public class InWifiEvent extends EventInMsg {
+    public static final String EVENT = "WifiConnected";
     private String connectTime;
     private String expireTime;
     private String vendorId;
@@ -82,9 +83,9 @@ public class InWifiEvent extends EventInMsg {
 
     private String deviceNo;
 
-    public InWifiEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event)
+    public InWifiEvent(String toUserName, String fromUserName, Integer createTime)
     {
-        super(toUserName, fromUserName, createTime, msgType, event);
+        super(toUserName, fromUserName, createTime, EVENT);
     }
 
 
