@@ -115,4 +115,16 @@ public class CardCodeApi {
         String jsonResult = HttpUtils.post(checkCode + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
+    
+    private static String update = "https://api.weixin.qq.com/card/code/update?access_token=";
+    
+    /**
+     * 更改Code接口
+     * @param jsonStr JSON数据
+     * @return {ApiResult}
+     */
+    public ApiResult update(String jsonStr) {
+        String jsonResult = HttpUtils.post(update + AccessTokenApi.getAccessTokenStr(), jsonStr);
+        return new ApiResult(jsonResult);
+    }
 }

@@ -1,5 +1,7 @@
 package com.jfinal.weixin.sdk.api;
 
+import java.util.List;
+
 import com.jfinal.kit.JMap;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
@@ -45,7 +47,6 @@ public class CardApi {
         String jsonResult = HttpUtils.post(createLandingPageCard + AccessTokenApi.getAccessTokenStr(), jsonStr);
         return new ApiResult(jsonResult);
     }
-    
     
     private static String gethtmlMpnews = "https://api.weixin.qq.com/card/mpnews/gethtml?access_token=";
     
@@ -113,6 +114,106 @@ public class CardApi {
         JMap data = JMap.create("card_id", cardId).set("is_open", isOpen).set("need_verify_cod", needVerifyCod)
                 .set("need_remark_amount", needRemarkAmount);
         String jsonResult = HttpUtils.post(setSelfconsumecell + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
+        return new ApiResult(jsonResult);
+    }
+    
+    private static String getUserCardList = "https://api.weixin.qq.com/card/user/getcardlist?access_token=";
+    
+    /**
+     * 获取用户已领取卡券接口
+     * 
+     * @param openid 是 string(64) 需要查询的用户openid
+     * @return {ApiResult}
+     */
+    public static ApiResult getUserCardList(String openid) {
+        return getUserCardList(openid, null);
+    }
+    
+    /**
+     * 获取用户已领取卡券接口
+     * 
+     * @param openid 是 string(64) 需要查询的用户openid
+     * @param cardId 否	string(32) 卡券ID。不填写时默认查询当前appid下的卡券。
+     * @return {ApiResult}
+     */
+    public static ApiResult getUserCardList(String openid, String cardId) {
+        JMap data = JMap.create("openid", openid);
+        if (StrKit.notBlank(cardId)) {
+            data.set("card_id", cardId);
+        }
+        String jsonResult = HttpUtils.post(getUserCardList + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
+        return new ApiResult(jsonResult);
+    }
+    
+    private static String getCard = "https://api.weixin.qq.com/card/get?access_token=";
+    
+    /**
+     * 查看卡券详情
+     * @param cardId 卡券ID
+     * @return {ApiResult}
+     */
+    public static ApiResult get(String cardId) {
+        JMap data = JMap.create("card_id", cardId);
+        String jsonResult = HttpUtils.post(getCard + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
+        return new ApiResult(jsonResult);
+    }
+    
+    private static String getBatch = "https://api.weixin.qq.com/card/batchget?access_token=";
+    
+    /**
+     * 批量查询卡券列表
+     * @param offset 查询卡列表的起始偏移量，从0开始，即offset: 5是指从从列表里的第六个开始读取。
+     * @param count	需要查询的卡片的数量（数量最大50）。 
+     * @return {ApiResult}
+     */
+    public static ApiResult getBatch(int offset, int count) {
+        return getBatch(offset, count, null);
+    }
+    
+    /**
+     * 批量查询卡券列表
+     * @param offset 查询卡列表的起始偏移量，从0开始，即offset: 5是指从从列表里的第六个开始读取。
+     * @param count	需要查询的卡片的数量（数量最大50）。 
+     * @param status_list 支持开发者拉出指定状态的卡券列表“CARD_STATUS_NOT_VERIFY”,待审核；“CARD_STATUS_VERIFY_FAIL”,审核失败；“CARD_STATUS_VERIFY_OK”，通过审核；“CARD_STATUS_DELETE”，卡券被商户删除；“CARD_STATUS_DISPATCH”在公众平台投放过的卡券；
+     * @return {ApiResult}
+     */
+    public static ApiResult getBatch(int offset, int count, List<String> statusList) {
+        JMap data = JMap.create("offset", offset).set("count", count);
+        if (statusList != null && !statusList.isEmpty()) {
+            data.set("status_list", statusList);
+        }
+        String jsonResult = HttpUtils.post(getBatch + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
+        return new ApiResult(jsonResult);
+    }
+    
+    private static String update = "https://api.weixin.qq.com/card/update?access_token=";
+    
+    /**
+     * 更改卡券信息接口
+     * @param jsonStr JSON数据
+     * @return {ApiResult}
+     */
+    public static ApiResult update(String jsonStr) {
+        String jsonResult = HttpUtils.post(update + AccessTokenApi.getAccessTokenStr(), jsonStr);
+        return new ApiResult(jsonResult);
+    }
+    
+    private static String modifystock = "https://api.weixin.qq.com/card/modifystock?access_token=";
+    
+    /**
+     * 修改库存接口
+     * @param cardId 卡券ID
+     * @param stockValue 增减的库存数量 负数为减，正数为增加,0不增不减。
+     * @return {ApiResult}
+     */
+    public static ApiResult modifystock(String cardId, int stockValue) {
+        JMap data = JMap.create("card_id", cardId);
+        if (stockValue >= 0) {
+        	data.set("increase_stock_value", stockValue);
+        } else {
+        	data.set("reduce_stock_value", stockValue);
+        }
+        String jsonResult = HttpUtils.post(modifystock + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
 }
