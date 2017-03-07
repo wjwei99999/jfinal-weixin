@@ -1,12 +1,14 @@
-package com.jfinal.weixin.sdk.msg.in.event;
+package com.jfinal.weixin.sdk.msg.in.card;
+
+import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 
 @SuppressWarnings("serial")
 public class InUserDelCardEvent extends EventInMsg {
 	public static final String EVENT = "user_del_card";
-	
+
 	private String cardId;
 	private String userCardCode;
-	
+
 	public InUserDelCardEvent(String toUserName, String fromUserName, Integer createTime, String msgType,
 			String event) {
 		super(toUserName, fromUserName, createTime, msgType, event);

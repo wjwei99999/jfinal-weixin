@@ -7,6 +7,7 @@
 package com.jfinal.weixin.sdk.jfinal;
 
 import com.jfinal.weixin.sdk.msg.in.*;
+import com.jfinal.weixin.sdk.msg.in.card.*;
 import com.jfinal.weixin.sdk.msg.in.event.*;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 

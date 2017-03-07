@@ -1,4 +1,6 @@
-package com.jfinal.weixin.sdk.msg.in.event;
+package com.jfinal.weixin.sdk.msg.in.card;
+
+import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 
 /**
  * 微信会员卡激活接口

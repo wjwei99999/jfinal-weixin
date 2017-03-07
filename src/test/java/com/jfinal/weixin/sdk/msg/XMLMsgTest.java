@@ -1,5 +1,6 @@
 package com.jfinal.weixin.sdk.msg;
 
+import com.jfinal.weixin.sdk.msg.in.card.*;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,31 +1,33 @@
-package com.jfinal.weixin.sdk.msg.in.event;
+package com.jfinal.weixin.sdk.msg.in.card;
+
+import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 
 /**
- * 
+ *
  * @author Dreamlu
  * 文档地址：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025274&token=&lang=zh_CN&anchor=2.2
 
-<xml> 
-  <ToUserName> <![CDATA[gh_fc0a06a20993]]> </ToUserName>  
-  <FromUserName> <![CDATA[oZI8Fj040-be6rlDohc6gkoPOQTQ]]> </FromUserName>  
-  <CreateTime>1472551036</CreateTime>  
-  <MsgType> <![CDATA[event]]> </MsgType>  
-  <Event> <![CDATA[user_get_card]]> </Event>  
-  <CardId> <![CDATA[pZI8Fjwsy5fVPRBeD78J4RmqVvBc]]> </CardId>  
-  <IsGiveByFriend>0</IsGiveByFriend>  
-  <UserCardCode> <![CDATA[226009850808]]> </UserCardCode>  
-  <FriendUserName> <![CDATA[]]> </FriendUserName>  
-  <OuterId>0</OuterId>  
-  <OldUserCardCode> <![CDATA[]]> </OldUserCardCode>  
-  <OuterStr> <![CDATA[12b]]> </OuterStr>  
-  <IsRestoreMemberCard>0</IsRestoreMemberCard>  
-  <IsRecommendByFriend>0</IsRecommendByFriend> 
+<xml>
+  <ToUserName> <![CDATA[gh_fc0a06a20993]]> </ToUserName>
+  <FromUserName> <![CDATA[oZI8Fj040-be6rlDohc6gkoPOQTQ]]> </FromUserName>
+  <CreateTime>1472551036</CreateTime>
+  <MsgType> <![CDATA[event]]> </MsgType>
+  <Event> <![CDATA[user_get_card]]> </Event>
+  <CardId> <![CDATA[pZI8Fjwsy5fVPRBeD78J4RmqVvBc]]> </CardId>
+  <IsGiveByFriend>0</IsGiveByFriend>
+  <UserCardCode> <![CDATA[226009850808]]> </UserCardCode>
+  <FriendUserName> <![CDATA[]]> </FriendUserName>
+  <OuterId>0</OuterId>
+  <OldUserCardCode> <![CDATA[]]> </OldUserCardCode>
+  <OuterStr> <![CDATA[12b]]> </OuterStr>
+  <IsRestoreMemberCard>0</IsRestoreMemberCard>
+  <IsRecommendByFriend>0</IsRecommendByFriend>
 </xml>
  */
 @SuppressWarnings("serial")
 public class InUserGetCardEvent extends EventInMsg {
     public static final String EVENT = "user_get_card";
-    
+
     private String cardId;
     private String isGiveByFriend;
     private String userCardCode;
@@ -35,7 +37,7 @@ public class InUserGetCardEvent extends EventInMsg {
     private String outerStr;
     private String isRestoreMemberCard;
     private String isRecommendByFriend;
-    
+
     public InUserGetCardEvent(String toUserName, String fromUserName, Integer createTime, String msgType, String event) {
         super(toUserName, fromUserName, createTime, msgType, event);
     }

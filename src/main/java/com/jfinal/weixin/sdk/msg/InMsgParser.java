@@ -9,6 +9,7 @@ package com.jfinal.weixin.sdk.msg;
 import com.jfinal.kit.LogKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.msg.in.*;
+import com.jfinal.weixin.sdk.msg.in.card.*;
 import com.jfinal.weixin.sdk.msg.in.event.*;
 import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent.AroundBeacon;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;

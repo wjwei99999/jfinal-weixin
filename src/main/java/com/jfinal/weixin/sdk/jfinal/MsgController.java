@@ -29,16 +29,16 @@ import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InMassEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InMerChantOrderEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InMerChantOrderEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InNotDefinedEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InPoiCheckNotifyEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InSubmitMemberCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InSubmitMemberCardEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InTemplateMsgEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InUpdateMemberCardEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InUserPayFromCardEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InUserViewCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUpdateMemberCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserPayFromCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserViewCardEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InVerifyFailEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InVerifySuccessEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InWifiEvent;
@@ -68,7 +68,7 @@ public abstract class MsgController extends Controller {
 
         // 解析消息并根据消息类型分发到相应的处理方法
         InMsg msg = getInMsg();
-        
+
         if (msg instanceof InTextMsg)
             processInTextMsg((InTextMsg) msg);
         else if (msg instanceof InImageMsg)

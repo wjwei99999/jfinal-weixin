@@ -1,4 +1,6 @@
-package com.jfinal.weixin.sdk.msg.in.event;
+package com.jfinal.weixin.sdk.msg.in.card;
+
+import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 
 /**
  * 微信小店订单支付成功接口消息
