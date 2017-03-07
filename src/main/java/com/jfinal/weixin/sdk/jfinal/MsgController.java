@@ -24,21 +24,29 @@ import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
 import com.jfinal.weixin.sdk.msg.in.InTextMsg;
 import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
 import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
+import com.jfinal.weixin.sdk.msg.in.card.InCardPassCheckEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InCardPayOrderEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InCardSkuRemindEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InMerChantOrderEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InSubmitMemberCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUpdateMemberCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserConsumeCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserDelCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserEnterSessionFromCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserGetCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserGiftingCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserPayFromCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserViewCardEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InCustomEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InMassEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InMerChantOrderEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InNotDefinedEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InPoiCheckNotifyEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InSubmitMemberCardEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InTemplateMsgEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InUpdateMemberCardEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InUserPayFromCardEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InUserViewCardEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InVerifyFailEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InVerifySuccessEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InWifiEvent;
@@ -119,6 +127,22 @@ public abstract class MsgController extends Controller {
             processInUserPayFromCardEvent((InUserPayFromCardEvent) msg);
         else if (msg instanceof InMerChantOrderEvent)
             processInMerChantOrderEvent((InMerChantOrderEvent) msg);
+        else if (msg instanceof InCardPassCheckEvent)
+            processInCardPassCheckEvent((InCardPassCheckEvent) msg);
+        else if (msg instanceof InCardPayOrderEvent)
+            processInCardPayOrderEvent((InCardPayOrderEvent) msg);
+        else if (msg instanceof InCardSkuRemindEvent)
+            processInCardSkuRemindEvent((InCardSkuRemindEvent) msg);
+        else if (msg instanceof InUserConsumeCardEvent)
+            processInUserConsumeCardEvent((InUserConsumeCardEvent) msg);
+        else if (msg instanceof InUserDelCardEvent)
+            processInUserDelCardEvent((InUserDelCardEvent) msg);
+        else if (msg instanceof InUserEnterSessionFromCardEvent)
+            processInUserEnterSessionFromCardEvent((InUserEnterSessionFromCardEvent) msg);
+        else if (msg instanceof InUserGetCardEvent)
+            processInUserGetCardEvent((InUserGetCardEvent) msg);
+        else if (msg instanceof InUserGiftingCardEvent)
+            processInUserGiftingCardEvent((InUserGiftingCardEvent) msg);
         else if (msg instanceof InNotDefinedEvent) {
             log.error("未能识别的事件类型。 消息 xml 内容为：\n" + getInMsgXml());
             processIsNotDefinedEvent((InNotDefinedEvent) msg);
@@ -345,6 +369,54 @@ public abstract class MsgController extends Controller {
      * @param inNotDefinedMsg 没有对应消息
      */
     protected abstract void processIsNotDefinedMsg(InNotDefinedMsg inNotDefinedMsg);
+
+    /**
+     * 卡券删除事件推送
+     * @param msg 卡券删除事件
+     */
+    protected abstract void processInUserDelCardEvent(InUserDelCardEvent msg);
+
+    /**
+     * 卡券转赠事件推送
+     * @param msg 卡券转赠事件推送
+     */
+    protected abstract void processInUserGiftingCardEvent(InUserGiftingCardEvent msg);
+
+    /**
+     * 卡券领取事件推送
+     * @param msg 卡券领取事件推送
+     */
+    protected abstract void processInUserGetCardEvent(InUserGetCardEvent msg);
+
+    /**
+     * 从卡券进入公众号会话事件推送
+     * @param msg 从卡券进入公众号会话事件推送
+     */
+    protected abstract void processInUserEnterSessionFromCardEvent(InUserEnterSessionFromCardEvent msg);
+
+    /**
+     * 卡券核销事件推送
+     * @param msg 卡券核销事件推送
+     */
+    protected abstract void processInUserConsumeCardEvent(InUserConsumeCardEvent msg);
+
+    /**
+     * 卡券库存报警事件
+     * @param msg 卡券库存报警事件
+     */
+    protected abstract void processInCardSkuRemindEvent(InCardSkuRemindEvent msg);
+
+    /**
+     * 券点流水详情事件
+     * @param msg 券点流水详情事件
+     */
+    protected abstract void processInCardPayOrderEvent(InCardPayOrderEvent msg);
+
+    /**
+     * 审核事件推送
+     * @param msg 审核事件推送
+     */
+    protected abstract void processInCardPassCheckEvent(InCardPassCheckEvent msg);
 }
 
 

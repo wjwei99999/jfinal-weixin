@@ -171,6 +171,48 @@ public abstract class MsgControllerAdapter extends MsgController {
     protected void processIsNotDefinedMsg(InNotDefinedMsg inNotDefinedMsg) {
         renderDefault();
     }
+    
+    
+    
+    @Override
+    protected void processInUserDelCardEvent(InUserDelCardEvent msg) {
+        renderDefault();
+    }
+
+    @Override
+    protected void processInUserGiftingCardEvent(InUserGiftingCardEvent msg) {
+        renderDefault();
+    }
+
+    @Override
+    protected void processInUserGetCardEvent(InUserGetCardEvent msg) {
+        renderDefault();
+    }
+
+    @Override
+    protected void processInUserEnterSessionFromCardEvent(InUserEnterSessionFromCardEvent msg) {
+        renderDefault();
+    }
+
+    @Override
+    protected void processInUserConsumeCardEvent(InUserConsumeCardEvent msg) {
+        renderDefault();
+    }
+
+    @Override
+    protected void processInCardSkuRemindEvent(InCardSkuRemindEvent msg) {
+        renderDefault();
+    }
+
+    @Override
+    protected void processInCardPayOrderEvent(InCardPayOrderEvent msg) {
+        renderDefault();
+    }
+
+    @Override
+    protected void processInCardPassCheckEvent(InCardPassCheckEvent msg) {
+        renderDefault();
+    }
 
     /**
      * 方便没有使用的api返回“”避免出现，该公众号暂时不能提供服务
