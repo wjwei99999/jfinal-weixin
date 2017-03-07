@@ -120,11 +120,27 @@ public class CardCodeApi {
     
     /**
      * 更改Code接口
-     * @param jsonStr JSON数据
+     * @param code 需变更的Code码。
+     * @param newCode 变更后的有效Code码。
      * @return {ApiResult}
      */
-    public ApiResult update(String jsonStr) {
-        String jsonResult = HttpUtils.post(update + AccessTokenApi.getAccessTokenStr(), jsonStr);
+    public ApiResult update(String code, String newCode) {
+        return update(null, code, newCode);
+    }
+    
+    /**
+     * 更改Code接口
+     * @param cardId 卡券ID。自定义Code码卡券为必填。
+     * @param code 需变更的Code码。
+     * @param newCode 变更后的有效Code码。
+     * @return {ApiResult}
+     */
+    public ApiResult update(String cardId, String code, String newCode) {
+        JMap data = JMap.create("code", code).set("new_code", newCode);
+        if (StrKit.notBlank(cardId)) {
+            data.set("card_id", cardId);
+        }
+        String jsonResult = HttpUtils.post(update + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
 }

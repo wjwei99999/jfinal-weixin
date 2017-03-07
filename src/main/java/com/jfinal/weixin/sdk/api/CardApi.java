@@ -133,7 +133,7 @@ public class CardApi {
      * 获取用户已领取卡券接口
      * 
      * @param openid 是 string(64) 需要查询的用户openid
-     * @param cardId 否	string(32) 卡券ID。不填写时默认查询当前appid下的卡券。
+     * @param cardId 否    string(32) 卡券ID。不填写时默认查询当前appid下的卡券。
      * @return {ApiResult}
      */
     public static ApiResult getUserCardList(String openid, String cardId) {
@@ -163,7 +163,7 @@ public class CardApi {
     /**
      * 批量查询卡券列表
      * @param offset 查询卡列表的起始偏移量，从0开始，即offset: 5是指从从列表里的第六个开始读取。
-     * @param count	需要查询的卡片的数量（数量最大50）。 
+     * @param count    需要查询的卡片的数量（数量最大50）。 
      * @return {ApiResult}
      */
     public static ApiResult getBatch(int offset, int count) {
@@ -173,7 +173,7 @@ public class CardApi {
     /**
      * 批量查询卡券列表
      * @param offset 查询卡列表的起始偏移量，从0开始，即offset: 5是指从从列表里的第六个开始读取。
-     * @param count	需要查询的卡片的数量（数量最大50）。 
+     * @param count    需要查询的卡片的数量（数量最大50）。 
      * @param status_list 支持开发者拉出指定状态的卡券列表“CARD_STATUS_NOT_VERIFY”,待审核；“CARD_STATUS_VERIFY_FAIL”,审核失败；“CARD_STATUS_VERIFY_OK”，通过审核；“CARD_STATUS_DELETE”，卡券被商户删除；“CARD_STATUS_DISPATCH”在公众平台投放过的卡券；
      * @return {ApiResult}
      */
@@ -209,11 +209,50 @@ public class CardApi {
     public static ApiResult modifystock(String cardId, int stockValue) {
         JMap data = JMap.create("card_id", cardId);
         if (stockValue >= 0) {
-        	data.set("increase_stock_value", stockValue);
+            data.set("increase_stock_value", stockValue);
         } else {
-        	data.set("reduce_stock_value", stockValue);
+            data.set("reduce_stock_value", stockValue);
         }
         String jsonResult = HttpUtils.post(modifystock + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
+        return new ApiResult(jsonResult);
+    }
+    
+    private static String delete = "https://api.weixin.qq.com/card/delete?access_token=";
+    
+    /**
+     * 删除卡券接口
+     * @param cardId 卡券ID
+     * @return {ApiResult}
+     */
+    public static ApiResult delete(String cardId) {
+        JMap data = JMap.create("card_id", cardId);
+        String jsonResult = HttpUtils.post(delete + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
+        return new ApiResult(jsonResult);
+    }
+    
+    private static String unavailable = "https://api.weixin.qq.com/card/code/unavailable?access_token=";
+    
+    /**
+     * 设置卡券失效接口,自定义卡券的请求
+     * @param code 设置失效的Code码。
+     * @param reason 用户发生退款    失效理由
+     * @return {ApiResult}
+     */
+    public static ApiResult unavailableByCode(String code, String reason) {
+        JMap data = JMap.create("code", code).set("reason", reason);
+        String jsonResult = HttpUtils.post(unavailable + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
+        return new ApiResult(jsonResult);
+    }
+    
+    /**
+     * 设置卡券失效接口,自定义code卡券的请求。
+     * @param cardId 卡券ID
+     * @param code 设置失效的Code码。
+     * @return {ApiResult}
+     */
+    public static ApiResult unavailableByCard(String cardId, String reason) {
+        JMap data = JMap.create("card_id", cardId).set("reason", reason);
+        String jsonResult = HttpUtils.post(unavailable + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
 }
