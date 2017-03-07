@@ -1,6 +1,7 @@
 package com.jfinal.weixin.sdk.msg.in.card;
 
 import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
+import com.jfinal.weixin.sdk.utils.XmlHelper;
 
 /**
  * 领取事件推送
@@ -25,7 +26,7 @@ import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 </xml>
  */
 @SuppressWarnings("serial")
-public class InUserGetCardEvent extends EventInMsg {
+public class InUserGetCardEvent extends EventInMsg implements ICardMsgParse {
     public static final String EVENT = "user_get_card";
 
     private String cardId;
@@ -74,43 +75,49 @@ public class InUserGetCardEvent extends EventInMsg {
         this.outerId = outerId;
     }
 
-	public String getFriendUserName() {
-		return friendUserName;
-	}
+    public String getFriendUserName() {
+        return friendUserName;
+    }
 
-	public void setFriendUserName(String friendUserName) {
-		this.friendUserName = friendUserName;
-	}
+    public void setFriendUserName(String friendUserName) {
+        this.friendUserName = friendUserName;
+    }
 
-	public String getOldUserCardCode() {
-		return oldUserCardCode;
-	}
+    public String getOldUserCardCode() {
+        return oldUserCardCode;
+    }
 
-	public void setOldUserCardCode(String oldUserCardCode) {
-		this.oldUserCardCode = oldUserCardCode;
-	}
+    public void setOldUserCardCode(String oldUserCardCode) {
+        this.oldUserCardCode = oldUserCardCode;
+    }
 
-	public String getOuterStr() {
-		return outerStr;
-	}
+    public String getOuterStr() {
+        return outerStr;
+    }
 
-	public void setOuterStr(String outerStr) {
-		this.outerStr = outerStr;
-	}
+    public void setOuterStr(String outerStr) {
+        this.outerStr = outerStr;
+    }
 
-	public String getIsRestoreMemberCard() {
-		return isRestoreMemberCard;
-	}
+    public String getIsRestoreMemberCard() {
+        return isRestoreMemberCard;
+    }
 
-	public void setIsRestoreMemberCard(String isRestoreMemberCard) {
-		this.isRestoreMemberCard = isRestoreMemberCard;
-	}
+    public void setIsRestoreMemberCard(String isRestoreMemberCard) {
+        this.isRestoreMemberCard = isRestoreMemberCard;
+    }
 
-	public String getIsRecommendByFriend() {
-		return isRecommendByFriend;
-	}
+    public String getIsRecommendByFriend() {
+        return isRecommendByFriend;
+    }
 
-	public void setIsRecommendByFriend(String isRecommendByFriend) {
-		this.isRecommendByFriend = isRecommendByFriend;
-	}
+    public void setIsRecommendByFriend(String isRecommendByFriend) {
+        this.isRecommendByFriend = isRecommendByFriend;
+    }
+
+    @Override
+    public void parse(XmlHelper xmlHelper) {
+        setCardId(xmlHelper.getString("//CardId"));
+        setUserCardCode(xmlHelper.getString("//UserCardCode"));
+    }
 }

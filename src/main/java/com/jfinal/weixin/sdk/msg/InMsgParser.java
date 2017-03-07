@@ -392,7 +392,67 @@ public class InMsgParser {
             e.setSkuInfo(xmlHelper.getString("//SkuInfo"));
             return e;
         }
-
+        // 审核通过事件推送
+        if (InCardPassCheckEvent.EVENT_PASS.equals(event)) {
+            InCardPassCheckEvent e = new InCardPassCheckEvent(toUserName, fromUserName, createTime, event);
+            e.parse(xmlHelper);
+            return e;
+        }
+        // 审核未通过事件推送
+        if (InCardPassCheckEvent.EVENT_NOT_PASS.equals(event)) {
+            InCardPassCheckEvent e = new InCardPassCheckEvent(toUserName, fromUserName, createTime, event);
+            e.parse(xmlHelper);
+            return e;
+        }
+        // 券点流水详情事件
+        if (InCardPayOrderEvent.EVENT.equals(event)) {
+            InCardPayOrderEvent e = new InCardPayOrderEvent(toUserName, fromUserName, createTime);
+            e.parse(xmlHelper);
+            return e;
+        }
+        // 库存报警事件
+        if (InCardSkuRemindEvent.EVENT.equals(event)) {
+            InCardSkuRemindEvent e = new InCardSkuRemindEvent(toUserName, fromUserName, createTime);
+            e.parse(xmlHelper);
+            return e;
+        }
+        // 卡券核销事件推送
+        if (InUserConsumeCardEvent.EVENT.equals(event)) {
+            InUserConsumeCardEvent e = new InUserConsumeCardEvent(toUserName, fromUserName, createTime);
+            e.parse(xmlHelper);
+            return e;
+        }
+        // 卡券删除事件推送
+        if (InUserDelCardEvent.EVENT.equals(event)) {
+            InUserDelCardEvent e = new InUserDelCardEvent(toUserName, fromUserName, createTime);
+            e.parse(xmlHelper);
+            return e;
+        }
+        // 从卡券进入公众号会话事件推送
+        if (InUserEnterSessionFromCardEvent.EVENT.equals(event)) {
+            InUserEnterSessionFromCardEvent e = new InUserEnterSessionFromCardEvent(toUserName, fromUserName, createTime);
+            e.parse(xmlHelper);
+            return e;
+        }
+        // 卡券领取事件推送
+        if (InUserGetCardEvent.EVENT.equals(event)) {
+            InUserGetCardEvent e = new InUserGetCardEvent(toUserName, fromUserName, createTime);
+            e.parse(xmlHelper);
+            return e;
+        }
+        // 卡券转赠事件推送
+        if (InUserGiftingCardEvent.EVENT.equals(event)) {
+            InUserGiftingCardEvent e = new InUserGiftingCardEvent(toUserName, fromUserName, createTime);
+            e.parse(xmlHelper);
+            return e;
+        }
+        // 卡券买单事件推送
+        if (InUserPayFromPayCellEvent.EVENT.equals(event)) {
+            InUserPayFromPayCellEvent e = new InUserPayFromPayCellEvent(toUserName, fromUserName, createTime);
+            e.parse(xmlHelper);
+            return e;
+        }
+        
         LogKit.error("无法识别的事件类型" + event + "，请查阅微信公众平台开发文档");
         InNotDefinedEvent e = new InNotDefinedEvent(toUserName, fromUserName, createTime, event);
         e.setXmlHelper(xmlHelper);

@@ -1,6 +1,7 @@
 package com.jfinal.weixin.sdk.msg.in.card;
 
 import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
+import com.jfinal.weixin.sdk.utils.XmlHelper;
 
 /**
  * 买单事件推送
@@ -20,7 +21,7 @@ import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 </xml>
  */
 @SuppressWarnings("serial")
-public class InUserPayFromPayCellEvent extends EventInMsg {
+public class InUserPayFromPayCellEvent extends EventInMsg implements ICardMsgParse {
     public static final String EVENT = "user_pay_from_pay_cell";
 
     public InUserPayFromPayCellEvent(String toUserName, String fromUserName, Integer createTime) {
@@ -74,5 +75,10 @@ public class InUserPayFromPayCellEvent extends EventInMsg {
     }
     public void setOriginalFee(String originalFee) {
         this.originalFee = originalFee;
+    }
+    @Override
+    public void parse(XmlHelper xmlHelper) {
+        setCardId(xmlHelper.getString("//CardId"));
+        setUserCardCode(xmlHelper.getString("//UserCardCode"));
     }
 }

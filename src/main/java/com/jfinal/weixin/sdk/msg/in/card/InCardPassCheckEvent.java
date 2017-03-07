@@ -1,9 +1,10 @@
 package com.jfinal.weixin.sdk.msg.in.card;
 
 import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
+import com.jfinal.weixin.sdk.utils.XmlHelper;
 
 /**
- *审核事件推送
+ * 审核事件推送
  * @author L.cm
 <xml>
   <ToUserName><![CDATA[toUser]]></ToUserName>
@@ -16,34 +17,42 @@ import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 </xml>
  */
 @SuppressWarnings("serial")
-public class InCardPassCheckEvent extends EventInMsg {
-	public static final String EVENT = "card_pass_check";
-	/**
-	 * 卡券ID
-	 */
-	private String cardId;
-	/**
-	 * 审核不通过原因
-	 */
-	private String refuseReason;
+public class InCardPassCheckEvent extends EventInMsg implements ICardMsgParse{
+    public static final String EVENT_PASS = "card_pass_check";
+    public static final String EVENT_NOT_PASS = "card_not_pass_check";
+    
+    /**
+     * 卡券ID
+     */
+    private String cardId;
+    /**
+     * 审核不通过原因
+     */
+    private String refuseReason;
 
-	public InCardPassCheckEvent(String toUserName, String fromUserName, Integer createTime) {
-		super(toUserName, fromUserName, createTime, EVENT);
-	}
+    public InCardPassCheckEvent(String toUserName, String fromUserName, Integer createTime, String event) {
+        super(toUserName, fromUserName, createTime, event);
+    }
 
-	public String getCardId() {
-		return cardId;
-	}
+    public String getCardId() {
+        return cardId;
+    }
 
-	public void setCardId(String cardId) {
-		this.cardId = cardId;
-	}
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
 
-	public String getRefuseReason() {
-		return refuseReason;
-	}
+    public String getRefuseReason() {
+        return refuseReason;
+    }
 
-	public void setRefuseReason(String refuseReason) {
-		this.refuseReason = refuseReason;
-	}
+    public void setRefuseReason(String refuseReason) {
+        this.refuseReason = refuseReason;
+    }
+
+    @Override
+    public void parse(XmlHelper xmlHelper) {
+        setCardId(xmlHelper.getString("//CardId"));
+        setRefuseReason(xmlHelper.getString("//RefuseReason"));
+    }
 }

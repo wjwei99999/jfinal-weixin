@@ -1,6 +1,7 @@
 package com.jfinal.weixin.sdk.msg.in.card;
 
 import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
+import com.jfinal.weixin.sdk.utils.XmlHelper;
 
 /**
  * 转赠事件推送
@@ -18,7 +19,7 @@ import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 </xml>
  */
 @SuppressWarnings("serial")
-public class InUserGiftingCardEvent extends EventInMsg {
+public class InUserGiftingCardEvent extends EventInMsg implements ICardMsgParse {
     public static final String EVENT = "user_gifting_card";
 
     private String cardId;
@@ -69,5 +70,11 @@ public class InUserGiftingCardEvent extends EventInMsg {
 
     public void setIsChatRoom(String isChatRoom) {
         this.isChatRoom = isChatRoom;
+    }
+
+    @Override
+    public void parse(XmlHelper xmlHelper) {
+        setCardId(xmlHelper.getString("//CardId"));
+        setUserCardCode(xmlHelper.getString("//UserCardCode"));
     }
 }
