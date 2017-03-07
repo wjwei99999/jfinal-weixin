@@ -43,9 +43,9 @@ public class MediaApi {
         String jsonStr = HttpUtils.upload(url, file, null);
         return new ApiResult(jsonStr);
     }
-
-    private static String uploadVideoUrl = "https://file.api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token=";
-
+    // 文档中是需要用https，实际采用https会报错
+    private static String uploadVideoUrl = "http://file.api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token=";
+    
     /**
      * 视频群发的消息素材上传
      * @param mediaId 用于群发的消息的media_id
