@@ -17,6 +17,7 @@ import com.jfinal.weixin.sdk.utils.JsonUtils;
 /**
  * 微信门店接口
  * 门店poiid体系已做改造，poiid自创建后立刻分配，不再受审核影响发生变化。
+ * @author fuyong
  * <pre>
  * https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140839&token=&lang=zh_CN
  * </pre>

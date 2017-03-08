@@ -24,7 +24,7 @@ public class CardCodeApi {
      * @param checkConsume 是否校验code核销状态，填入true和false时的code异常状态返回数据不同。
      * @return {ApiResult}
      */
-    public ApiResult get(String code, String cardId, boolean checkConsume) {
+    public static ApiResult get(String code, String cardId, boolean checkConsume) {
         JMap data = JMap.create("code", code);
         if (StrKit.notBlank(cardId)) {
             data.set("card_id", cardId);
@@ -41,7 +41,7 @@ public class CardCodeApi {
      * @param code 需核销的Code码。
      * @return {ApiResult}
      */
-    public ApiResult consume(String code) {
+    public static ApiResult consume(String code) {
         return consume(code, null);
     }
     
@@ -51,7 +51,7 @@ public class CardCodeApi {
      * @param cardId card_id卡券ID。创建卡券时use_custom_code填写true时必填。非自定义Code不必填写。
      * @return {ApiResult}
      */
-    public ApiResult consume(String code, String cardId) {
+    public static ApiResult consume(String code, String cardId) {
         JMap data = JMap.create("code", code);
         if (StrKit.notBlank(cardId)) {
             data.set("card_id", cardId);
@@ -67,7 +67,7 @@ public class CardCodeApi {
      * @param encryptCode 经过加密的Code码。
      * @return {ApiResult}
      */
-    public ApiResult decrypt(String encryptCode) {
+    public static ApiResult decrypt(String encryptCode) {
         JMap data = JMap.create("encrypt_code", encryptCode);
         String jsonResult = HttpUtils.post(decryptCode + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
@@ -82,7 +82,7 @@ public class CardCodeApi {
      * @param codeList 需要进行导入code的卡券ID。
      * @return {ApiResult}
      */
-    public ApiResult setDeposit(String cardId, List<String> codeList) {
+    public static ApiResult setDeposit(String cardId, List<String> codeList) {
         JMap data = JMap.create("card_id", cardId).set("code", codeList);
         String jsonResult = HttpUtils.post(setDeposit + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
@@ -95,7 +95,7 @@ public class CardCodeApi {
      * @param cardId 需要进行导入code的卡券ID。
      * @return {ApiResult}
      */
-    public ApiResult getDepositCount(String cardId) {
+    public static ApiResult getDepositCount(String cardId) {
         JMap data = JMap.create("card_id", cardId);
         String jsonResult = HttpUtils.post(getDepositCount + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
@@ -110,7 +110,7 @@ public class CardCodeApi {
      * @param codeList 已经微信卡券后台的自定义code，上限为100个。
      * @return {ApiResult}
      */
-    public ApiResult checkCode(String cardId, List<String> codeList) {
+    public static ApiResult checkCode(String cardId, List<String> codeList) {
         JMap data = JMap.create("card_id", cardId).set("code", codeList);
         String jsonResult = HttpUtils.post(checkCode + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
@@ -124,7 +124,7 @@ public class CardCodeApi {
      * @param newCode 变更后的有效Code码。
      * @return {ApiResult}
      */
-    public ApiResult update(String code, String newCode) {
+    public static ApiResult update(String code, String newCode) {
         return update(null, code, newCode);
     }
     
@@ -135,7 +135,7 @@ public class CardCodeApi {
      * @param newCode 变更后的有效Code码。
      * @return {ApiResult}
      */
-    public ApiResult update(String cardId, String code, String newCode) {
+    public static ApiResult update(String cardId, String code, String newCode) {
         JMap data = JMap.create("code", code).set("new_code", newCode);
         if (StrKit.notBlank(cardId)) {
             data.set("card_id", cardId);
