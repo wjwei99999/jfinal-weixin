@@ -1,11 +1,25 @@
 package com.jfinal.weixin.sdk.msg;
 
-import com.jfinal.weixin.sdk.msg.in.card.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.jfinal.weixin.sdk.msg.in.*;
-import com.jfinal.weixin.sdk.msg.in.event.*;
+import com.jfinal.weixin.sdk.msg.in.InImageMsg;
+import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
+import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
+import com.jfinal.weixin.sdk.msg.in.InMsg;
+import com.jfinal.weixin.sdk.msg.in.InNotDefinedMsg;
+import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InTextMsg;
+import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
+import com.jfinal.weixin.sdk.msg.in.card.InMerChantOrderEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUpdateMemberCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserPayFromCardEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InNotDefinedEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent;
+import com.jfinal.weixin.sdk.msg.in.event.ScanCodeInfo;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 
 public class XMLMsgTest {
@@ -239,7 +253,7 @@ public class XMLMsgTest {
                 "</xml>";
         InMsg inMsg = InMsgParser.parse(xml);
 
-        Assert.assertTrue(inMsg instanceof InUserViewCardEvent);
+        Assert.assertTrue(inMsg instanceof InUserCardEvent);
     }
 
     /**
@@ -257,7 +271,7 @@ public class XMLMsgTest {
                 "</xml>";
         InMsg inMsg = InMsgParser.parse(xml);
 
-        Assert.assertTrue(inMsg instanceof InSubmitMemberCardEvent);
+        Assert.assertTrue(inMsg instanceof InUserCardEvent);
     }
 
     /**

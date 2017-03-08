@@ -79,6 +79,7 @@ public class AccessTokenApi {
 
     /**
      * 无条件强制更新 access token 值，不再对 cache 中的 token 进行判断
+     * @return AccessToken
      */
     public static AccessToken refreshAccessToken() {
         return refreshAccessToken(ApiConfigKit.getApiConfig());
@@ -86,6 +87,8 @@ public class AccessTokenApi {
 
     /**
      * 无条件强制更新 access token 值，不再对 cache 中的 token 进行判断
+     * @param ac ApiConfig
+     * @return AccessToken
      */
     public static AccessToken refreshAccessToken(ApiConfig ac) {
         String appId = ac.getAppId();

@@ -6,24 +6,24 @@ import com.jfinal.weixin.sdk.utils.XmlHelper;
 /**
  * 领取事件推送
  * @author Dreamlu
- * 文档地址：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025274&token=&lang=zh_CN&anchor=2.2
-
-<xml>
-  <ToUserName> <![CDATA[gh_fc0a06a20993]]> </ToUserName>
-  <FromUserName> <![CDATA[oZI8Fj040-be6rlDohc6gkoPOQTQ]]> </FromUserName>
-  <CreateTime>1472551036</CreateTime>
-  <MsgType> <![CDATA[event]]> </MsgType>
-  <Event> <![CDATA[user_get_card]]> </Event>
-  <CardId> <![CDATA[pZI8Fjwsy5fVPRBeD78J4RmqVvBc]]> </CardId>
-  <IsGiveByFriend>0</IsGiveByFriend>
-  <UserCardCode> <![CDATA[226009850808]]> </UserCardCode>
-  <FriendUserName> <![CDATA[]]> </FriendUserName>
-  <OuterId>0</OuterId>
-  <OldUserCardCode> <![CDATA[]]> </OldUserCardCode>
-  <OuterStr> <![CDATA[12b]]> </OuterStr>
-  <IsRestoreMemberCard>0</IsRestoreMemberCard>
-  <IsRecommendByFriend>0</IsRecommendByFriend>
-</xml>
+ * <pre>
+ * &lt;xml&gt;
+ * &lt;ToUserName&gt; &lt;![CDATA[gh_fc0a06a20993]]&gt; &lt;/ToUserName&gt;
+ * &lt;FromUserName&gt; &lt;![CDATA[oZI8Fj040-be6rlDohc6gkoPOQTQ]]&gt; &lt;/FromUserName&gt;
+ * &lt;CreateTime&gt;1472551036&lt;/CreateTime&gt;
+ * &lt;MsgType&gt; &lt;![CDATA[event]]&gt; &lt;/MsgType&gt;
+ * &lt;Event&gt; &lt;![CDATA[user_get_card]]&gt; &lt;/Event&gt;
+ * &lt;CardId&gt; &lt;![CDATA[pZI8Fjwsy5fVPRBeD78J4RmqVvBc]]&gt; &lt;/CardId&gt;
+ * &lt;IsGiveByFriend&gt;0&lt;/IsGiveByFriend&gt;
+ * &lt;UserCardCode&gt; &lt;![CDATA[226009850808]]&gt; &lt;/UserCardCode&gt;
+ * &lt;FriendUserName&gt; &lt;![CDATA[]]&gt; &lt;/FriendUserName&gt;
+ * &lt;OuterId&gt;0&lt;/OuterId&gt;
+ * &lt;OldUserCardCode&gt; &lt;![CDATA[]]&gt; &lt;/OldUserCardCode&gt;
+ * &lt;OuterStr&gt; &lt;![CDATA[12b]]&gt; &lt;/OuterStr&gt;
+ * &lt;IsRestoreMemberCard&gt;0&lt;/IsRestoreMemberCard&gt;
+ * &lt;IsRecommendByFriend&gt;0&lt;/IsRecommendByFriend&gt;
+ * &lt;/xml&gt;
+ * </pre>
  */
 @SuppressWarnings("serial")
 public class InUserGetCardEvent extends EventInMsg implements ICardMsgParse {

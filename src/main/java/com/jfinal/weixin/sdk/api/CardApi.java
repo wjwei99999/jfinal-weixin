@@ -1,11 +1,11 @@
 package com.jfinal.weixin.sdk.api;
 
-import java.util.List;
-
 import com.jfinal.kit.JMap;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
+
+import java.util.List;
 
 /**
  * 卡券相关接口
@@ -13,7 +13,7 @@ import com.jfinal.weixin.sdk.utils.JsonUtils;
  */
 public class CardApi {
     private static String cardCreateUrl = "https://api.weixin.qq.com/card/create?access_token=";
-    
+
     /**
      * 创建会员卡接口
      * @param jsonStr JSON数据
@@ -23,9 +23,9 @@ public class CardApi {
         String jsonResult = HttpUtils.post(cardCreateUrl + AccessTokenApi.getAccessTokenStr(), jsonStr);
         return new ApiResult(jsonResult);
     }
-    
+
     private static String createQrcodeCard = "https://api.weixin.qq.com/card/qrcode/create?access_token=";
-    
+
     /**
      * 创建二维码接口
      * @param jsonStr JSON数据
@@ -35,9 +35,9 @@ public class CardApi {
         String jsonResult = HttpUtils.post(createQrcodeCard + AccessTokenApi.getAccessTokenStr(), jsonStr);
         return new ApiResult(jsonResult);
     }
-    
+
     private static String createLandingPageCard = "https://api.weixin.qq.com/card/landingpage/create?access_token=";
-    
+
     /**
      * 创建货架接口
      * @param jsonStr JSON数据
@@ -47,9 +47,9 @@ public class CardApi {
         String jsonResult = HttpUtils.post(createLandingPageCard + AccessTokenApi.getAccessTokenStr(), jsonStr);
         return new ApiResult(jsonResult);
     }
-    
+
     private static String gethtmlMpnews = "https://api.weixin.qq.com/card/mpnews/gethtml?access_token=";
-    
+
     /**
      * 图文消息群发卡券
      * @param cardId 必填 否 卡券ID。
@@ -63,9 +63,9 @@ public class CardApi {
         String jsonResult = HttpUtils.post(gethtmlMpnews + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
-    
+
     private static String setTestWhiteList = "https://api.weixin.qq.com/card/testwhitelist/set?access_token=";
-    
+
     /**
      * 设置测试白名单
      * @param jsonStr JSON数据
@@ -75,9 +75,9 @@ public class CardApi {
         String jsonResult = HttpUtils.post(setTestWhiteList + AccessTokenApi.getAccessTokenStr(), jsonStr);
         return new ApiResult(jsonResult);
     }
-    
+
     private static String setPaycell = "https://api.weixin.qq.com/card/testwhitelist/set?access_token=";
-    
+
     /**
      * 设置买单接口
      * @param cardId 卡券ID
@@ -89,9 +89,9 @@ public class CardApi {
         String jsonResult = HttpUtils.post(setPaycell + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
-    
+
     private static String setSelfconsumecell = "https://api.weixin.qq.com/card/selfconsumecell/set?access_token=";
-    
+
     /**
      * 设置自助核销接口
      * @param cardId 卡券ID
@@ -101,7 +101,7 @@ public class CardApi {
     public static ApiResult setSelfconsumecell(String cardId, boolean isOpen){
         return setSelfconsumecell(cardId, isOpen, false, false);
     }
-    
+
     /**
      * 设置自助核销接口
      * @param cardId 卡券ID
@@ -116,22 +116,22 @@ public class CardApi {
         String jsonResult = HttpUtils.post(setSelfconsumecell + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
-    
+
     private static String getUserCardList = "https://api.weixin.qq.com/card/user/getcardlist?access_token=";
-    
+
     /**
      * 获取用户已领取卡券接口
-     * 
+     *
      * @param openid 是 string(64) 需要查询的用户openid
      * @return {ApiResult}
      */
     public static ApiResult getUserCardList(String openid) {
         return getUserCardList(openid, null);
     }
-    
+
     /**
      * 获取用户已领取卡券接口
-     * 
+     *
      * @param openid 是 string(64) 需要查询的用户openid
      * @param cardId 否    string(32) 卡券ID。不填写时默认查询当前appid下的卡券。
      * @return {ApiResult}
@@ -144,9 +144,9 @@ public class CardApi {
         String jsonResult = HttpUtils.post(getUserCardList + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
-    
+
     private static String getCard = "https://api.weixin.qq.com/card/get?access_token=";
-    
+
     /**
      * 查看卡券详情
      * @param cardId 卡券ID
@@ -157,24 +157,24 @@ public class CardApi {
         String jsonResult = HttpUtils.post(getCard + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
-    
+
     private static String getBatch = "https://api.weixin.qq.com/card/batchget?access_token=";
-    
+
     /**
      * 批量查询卡券列表
      * @param offset 查询卡列表的起始偏移量，从0开始，即offset: 5是指从从列表里的第六个开始读取。
-     * @param count    需要查询的卡片的数量（数量最大50）。 
+     * @param count    需要查询的卡片的数量（数量最大50）。
      * @return {ApiResult}
      */
     public static ApiResult getBatch(int offset, int count) {
         return getBatch(offset, count, null);
     }
-    
+
     /**
      * 批量查询卡券列表
      * @param offset 查询卡列表的起始偏移量，从0开始，即offset: 5是指从从列表里的第六个开始读取。
-     * @param count    需要查询的卡片的数量（数量最大50）。 
-     * @param status_list 支持开发者拉出指定状态的卡券列表“CARD_STATUS_NOT_VERIFY”,待审核；“CARD_STATUS_VERIFY_FAIL”,审核失败；“CARD_STATUS_VERIFY_OK”，通过审核；“CARD_STATUS_DELETE”，卡券被商户删除；“CARD_STATUS_DISPATCH”在公众平台投放过的卡券；
+     * @param count    需要查询的卡片的数量（数量最大50）。
+     * @param statusList 支持开发者拉出指定状态的卡券列表“CARD_STATUS_NOT_VERIFY”,待审核；“CARD_STATUS_VERIFY_FAIL”,审核失败；“CARD_STATUS_VERIFY_OK”，通过审核；“CARD_STATUS_DELETE”，卡券被商户删除；“CARD_STATUS_DISPATCH”在公众平台投放过的卡券；
      * @return {ApiResult}
      */
     public static ApiResult getBatch(int offset, int count, List<String> statusList) {
@@ -185,9 +185,9 @@ public class CardApi {
         String jsonResult = HttpUtils.post(getBatch + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
-    
+
     private static String update = "https://api.weixin.qq.com/card/update?access_token=";
-    
+
     /**
      * 更改卡券信息接口
      * @param jsonStr JSON数据
@@ -197,9 +197,9 @@ public class CardApi {
         String jsonResult = HttpUtils.post(update + AccessTokenApi.getAccessTokenStr(), jsonStr);
         return new ApiResult(jsonResult);
     }
-    
+
     private static String modifystock = "https://api.weixin.qq.com/card/modifystock?access_token=";
-    
+
     /**
      * 修改库存接口
      * @param cardId 卡券ID
@@ -216,9 +216,9 @@ public class CardApi {
         String jsonResult = HttpUtils.post(modifystock + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
-    
+
     private static String delete = "https://api.weixin.qq.com/card/delete?access_token=";
-    
+
     /**
      * 删除卡券接口
      * @param cardId 卡券ID
@@ -229,9 +229,9 @@ public class CardApi {
         String jsonResult = HttpUtils.post(delete + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
-    
+
     private static String unavailable = "https://api.weixin.qq.com/card/code/unavailable?access_token=";
-    
+
     /**
      * 设置卡券失效接口,自定义卡券的请求
      * @param code 设置失效的Code码。
@@ -243,11 +243,11 @@ public class CardApi {
         String jsonResult = HttpUtils.post(unavailable + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
-    
+
     /**
      * 设置卡券失效接口,自定义code卡券的请求。
      * @param cardId 卡券ID
-     * @param code 设置失效的Code码。
+     * @param reason 用户发生退款    失效理由
      * @return {ApiResult}
      */
     public static ApiResult unavailableByCard(String cardId, String reason) {

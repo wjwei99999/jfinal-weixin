@@ -6,9 +6,6 @@
 
 package com.jfinal.wxaapp.api;
 
-import java.util.Map;
-import java.util.concurrent.Callable;
-
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
@@ -17,6 +14,9 @@ import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.RetryUtils;
 import com.jfinal.wxaapp.WxaConfig;
 import com.jfinal.wxaapp.WxaConfigKit;
+
+import java.util.Map;
+import java.util.concurrent.Callable;
 
 /**
  * 小程序access_token
@@ -77,6 +77,7 @@ public class WxaAccessTokenApi {
 
     /**
      * 无条件强制更新 access token 值，不再对 cache 中的 token 进行判断
+     * @return WxaAccessToken
      */
     public static WxaAccessToken refreshAccessToken() {
         return refreshAccessToken(WxaConfigKit.getWxaConfig());
@@ -84,6 +85,8 @@ public class WxaAccessTokenApi {
 
     /**
      * 无条件强制更新 access token 值，不再对 cache 中的 token 进行判断
+     * @param wc WxaConfig
+     * @return WxaAccessToken
      */
     public static WxaAccessToken refreshAccessToken(WxaConfig wc) {
         String appId = wc.getAppId();

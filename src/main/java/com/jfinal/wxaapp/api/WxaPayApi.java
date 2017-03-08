@@ -6,15 +6,15 @@
 
 package com.jfinal.wxaapp.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
 import com.jfinal.weixin.sdk.api.PaymentApi;
 import com.jfinal.weixin.sdk.api.PaymentApi.TradeType;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
 import com.jfinal.weixin.sdk.utils.PaymentException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 小程序支付接口
@@ -27,10 +27,11 @@ public class WxaPayApi {
      * 小程序统一下单
      * @param order 小程序支付订单信息封装
      * @throws PaymentException 支付异常
+     * @return Map
      */
     public Map<String, String> unifiedOrder(WxaOrder order) throws PaymentException {
         String appid = order.getAppId();
-        
+
         Map<String, String> params = new HashMap<String, String>();
         params.put("appid", appid);
         params.put("mch_id", order.getMchId());

@@ -9,7 +9,7 @@ import com.jfinal.weixin.sdk.utils.XmlHelper;
 public interface ICardMsgParse {
     /**
      * 分而治之
-     * @param xmlHelper
+     * @param xmlHelper xml解析工具
      */
     void parse(XmlHelper xmlHelper);
 }

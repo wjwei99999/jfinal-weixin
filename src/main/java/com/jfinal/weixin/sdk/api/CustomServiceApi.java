@@ -359,16 +359,16 @@ public class CustomServiceApi {
         json.put("wxcard", wxcard);
         return sendMsg(json);
     }
-    
+
     private static String inviteWorkerUrl = "https://api.weixin.qq.com/customservice/kfaccount/inviteworker?access_token=";
 
     /**
      * 邀请绑定客服帐号
-     * 
+     *
      * 新添加的客服帐号是不能直接使用的，只有客服人员用微信号绑定了客服账号后，方可登录Web客服进行操作。
      * 此接口发起一个绑定邀请到客服人员微信号，客服人员需要在微信客户端上用该微信号确认后帐号才可用。
      * 尚未绑定微信号的帐号可以进行绑定邀请操作，邀请未失效时不能对该帐号进行再次绑定微信号邀请。
-     * 
+     *
      * @param kf_account 完整客服帐号，格式为：帐号前缀@公众号微信号
      * @param invite_wx 接收绑定邀请的客服微信号
      * @return ApiResult
@@ -379,19 +379,19 @@ public class CustomServiceApi {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("kf_account", kf_account);
         params.put("invite_wx", invite_wx);
-        
+
         String jsonResult = HttpUtils.post(inviteWorkerUrl + accessToken, JsonUtils.toJson(params));
         return new ApiResult(jsonResult);
     }
-    
-    //会话控制-----------------------------------------------------------------------------------    
+
+    //会话控制-----------------------------------------------------------------------------------
     private static String createSession = "https://api.weixin.qq.com/customservice/kfsession/create?access_token=";
-    
+
     /**
      * 创建会话
-     * 
+     *
      * 此接口在客服和用户之间创建一个会话，如果该客服和用户会话已存在，则直接返回0。指定的客服帐号必须已经绑定微信号且在线。
-     * 
+     *
      * @param kf_account 完整客服帐号，格式为：帐号前缀@公众号微信号
      * @param openid 粉丝的openid
      * @return ApiResult
@@ -402,18 +402,18 @@ public class CustomServiceApi {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("kf_account", kf_account);
         params.put("openid", openid);
-        
+
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(params));
         return new ApiResult(jsonResult);
     }
-    
+
     private static String closeSession = "https://api.weixin.qq.com/customservice/kfsession/close?access_token=";
-    
+
     /**
      * 关闭会话
-     * 
+     *
      * 此接口在客服和用户之间创建一个会话，如果该客服和用户会话已存在，则直接返回0。指定的客服帐号必须已经绑定微信号且在线。
-     * 
+     *
      * @param kf_account 完整客服帐号，格式为：帐号前缀@公众号微信号
      * @param openid 粉丝的openid
      * @return ApiResult
@@ -424,22 +424,22 @@ public class CustomServiceApi {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("kf_account", kf_account);
         params.put("openid", openid);
-        
+
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(params));
         return new ApiResult(jsonResult);
     }
-    
-    
+
+
     private static String getSession = "https://api.weixin.qq.com/customservice/kfsession/getsession";
     /**
      * 获取客户会话状态
      * 此接口获取一个客户的会话，如果不存在，则kf_account为空
      * @param openid 粉丝的openid
      * @return ApiResult
-     * 
+     *
      * 不存在会话:
      * {"createtime":0,"kf_account":""}
-     * 
+     *
      * 存在一个会话:
       {
          "createtime" : 123456789,      //会话接入的时间
@@ -456,18 +456,18 @@ public class CustomServiceApi {
 
         return new ApiResult(jsonResult);
     }
-    
-    
+
+
     private static String getSessionList = "https://api.weixin.qq.com/customservice/kfsession/getsessionlist";
     /**
      * 获取客服会话列表
      * 此接口获取一个客户的会话，如果不存在，则kf_account为空
      * @param kf_account 完整客服帐号，格式为：帐号前缀@公众号微信号
      * @return ApiResult
-     * 
+     *
      * 不存在会话:
      * {"sessionlist":[]}
-     * 
+     *
      * 存在一个会话:
       {
          "sessionlist" : [
@@ -492,22 +492,22 @@ public class CustomServiceApi {
 
         return new ApiResult(jsonResult);
     }
-    
-    
+
+
     private static String getWaitCase = "https://api.weixin.qq.com/customservice/kfsession/getwaitcase";
     /**
      * 获取未接入会话列表
      * 此接口获取一个客户的会话，如果不存在，则kf_account为空
      * @return ApiResult
-     * 
+     *
      * 不存在会话:
      * {"count":0,"waitcaselist":[]}
-     * 
+     *
      * 存在一个会话:
       {
          "count" : 1,                                 //未接入会话数量
          "waitcaselist" : [                           //未接入会话列表，最多返回100条数据，按照来访顺序
-            {                                       
+            {
                "latest_time" : 1488784362,               //粉丝的最后一条消息的时间
                "openid" : "oC8JsuC61cKB_XMuh_Eb3Yk2yWsQ"      //粉丝的openid
             }
@@ -523,25 +523,25 @@ public class CustomServiceApi {
 
         return new ApiResult(jsonResult);
     }
-    
-    
+
+
     //获取聊天记录-------------------------------------------------------------------------------------------
     //获取聊记录
     private static String getMsgList = "https://api.weixin.qq.com/customservice/msgrecord/getmsglist?access_token=";
-    
+
     /**
      * 获取聊天记录
-     * 
+     *
      * 此接口返回的聊天记录中，对于图片、语音、视频，分别展示成文本格式的[image]、[voice]、[video]。
      * 对于较可能包含重要信息的图片消息，后续将提供图片拉取URL，近期将上线。
-     * 
+     *
      * @param starttime 起始时间，unix时间戳
      * @param endtime 结束时间，unix时间戳，每次查询时段不能超过24小时
      * @param msgid 消息id顺序从小到大，从1开始
      * @param number 每次获取条数，最多10000条
-     * 
+     *
      * @return ApiResult
-     * 
+     *
       {
          "msgid" : 21957537,            //下次请求的msgid
          "number" : 24,               //请求到的信息的总条数
@@ -549,7 +549,7 @@ public class CustomServiceApi {
             {
                "openid" : "oC8JsuPnZTqSLImnbHfJBQYRgniI",      //粉丝openid
                "opercode" : 2002,                        //操作码, (2002: 客服发送信息, 2003: 客服接收消息)
-               "text" : "https://mp.weixin.qq.com/misc/kfpic?action=get&key=5B2fFxrZnEeuF8CIn558Un9E1GrJMFUmBgb6btTsqzsCRGuclVnwDTisAAwvT33D&appid=wxa22a9e086b07b666",   //聊天记录
+               "text" : "https://mp.weixin.qq.com",   //聊天记录
                "time" : 1488783439,                     //操作时间，unix时间戳
                "worker" : "kf2001@ideal2002"               //完整客服帐号，格式为：帐号前缀@公众号微信号
             }
@@ -564,7 +564,7 @@ public class CustomServiceApi {
         params.put("endtime", endtime);
         params.put("msgid", msgid);
         params.put("number", number);
-        
+
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(params));
         return new ApiResult(jsonResult);
     }

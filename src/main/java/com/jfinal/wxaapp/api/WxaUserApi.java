@@ -6,9 +6,6 @@
 
 package com.jfinal.wxaapp.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.jfinal.kit.HashKit;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.encrypt.WxaBizDataCrypt;
@@ -17,6 +14,9 @@ import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.wxaapp.WxaConfig;
 import com.jfinal.wxaapp.WxaConfigKit;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 微信小程序用户api接口
  * @author L.cm
@@ -24,11 +24,12 @@ import com.jfinal.wxaapp.WxaConfigKit;
  */
 public class WxaUserApi {
     private static String jsCode2sessionUrl = "https://api.weixin.qq.com/sns/jscode2session";
-    
+
     /**
      * 获取sessionKey
      * @param jsCode 登录时获取的 code
-    */
+     * @return ApiResult
+     */
     public ApiResult getSessionKey(String jsCode) {
         WxaConfig wc = WxaConfigKit.getWxaConfig();
         Map<String, String> params = new HashMap<String, String>();
@@ -41,7 +42,7 @@ public class WxaUserApi {
         String url = jsCode2sessionUrl + "?" + para;
         return new ApiResult(HttpUtils.get(url));
     }
-    
+
     /**
      * 解密用户敏感数据
      * @param sessionKey 会话密钥
@@ -54,7 +55,7 @@ public class WxaUserApi {
         String json = dataCrypt.decrypt(encryptedData, ivStr);
         return new ApiResult(json);
     }
-    
+
     /**
      * 验证用户信息完整性
      * @param sessionKey 会话密钥

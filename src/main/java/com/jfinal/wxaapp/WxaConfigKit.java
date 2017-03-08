@@ -23,7 +23,6 @@ public class WxaConfigKit {
     }
     /**
      * 设置小程序消息解析器
-     * @param msgParser
      */
     public static void useJsonMsgParser() {
         WxaConfigKit.msgParser = new JsonMsgParser();
@@ -31,15 +30,15 @@ public class WxaConfigKit {
 
     // 开发模式将输出消息交互 xml、json 到控制台
     private static boolean devMode = false;
-    
+
     public static void setDevMode(boolean devMode) {
         WxaConfigKit.devMode = devMode;
     }
-    
+
     public static boolean isDevMode() {
         return devMode;
     }
-    
+
     public static WxaConfig getWxaConfig() {
 //    	AppID(小程序ID) wx4f53594f9a6b3dcb
 //    	AppSecret(小程序密钥) eec6482ba3804df05bd10895bace0579

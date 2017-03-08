@@ -6,15 +6,14 @@
 
 package com.jfinal.weixin.sdk.encrypt;
 
-import java.security.AlgorithmParameters;
-import java.security.Key;
+import com.jfinal.weixin.sdk.utils.Base64Utils;
+import com.jfinal.weixin.sdk.utils.Charsets;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-
-import com.jfinal.weixin.sdk.utils.Base64Utils;
-import com.jfinal.weixin.sdk.utils.Charsets;
+import java.security.AlgorithmParameters;
+import java.security.Key;
 
 /**
  * 微信小程序-加密数据解密算法
@@ -22,14 +21,15 @@ import com.jfinal.weixin.sdk.utils.Charsets;
  */
 public class WxaBizDataCrypt {
     private final String sessionKey;
-    
+
     public WxaBizDataCrypt(String sessionKey) {
         this.sessionKey = sessionKey;
     }
-    
+
     /**
      * AES解密
      * @param encryptedData 密文
+     * @param ivStr iv
      * @return {String}
      */
     public String decrypt(String encryptedData, String ivStr) {
@@ -39,7 +39,7 @@ public class WxaBizDataCrypt {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
             Key sKeySpec = new SecretKeySpec(keyByte, "AES");
-            // 初始化 
+            // 初始化
             AlgorithmParameters params = AlgorithmParameters.getInstance("AES");
             params.init(new IvParameterSpec(ivByte));
             cipher.init(Cipher.DECRYPT_MODE, sKeySpec, params);
@@ -51,5 +51,5 @@ public class WxaBizDataCrypt {
             throw new RuntimeException("aes解密失败");
         }
     }
-    
+
 }

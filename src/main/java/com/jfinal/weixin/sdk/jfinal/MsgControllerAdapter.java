@@ -130,18 +130,6 @@ public abstract class MsgControllerAdapter extends MsgController {
         renderDefault();
     }
 
-    // 微信会员卡二维码扫描领取事件
-    @Override
-    protected void processInUserViewCardEvent(InUserViewCardEvent msg) {
-        renderDefault();
-    }
-
-    // 微信会员卡激活事件
-    @Override
-    protected void processInSubmitMemberCardEvent(InSubmitMemberCardEvent msg) {
-        renderDefault();
-    }
-
     // 微信会员卡积分变更事件
     @Override
     protected void processInUpdateMemberCardEvent(InUpdateMemberCardEvent msg) {
@@ -171,13 +159,6 @@ public abstract class MsgControllerAdapter extends MsgController {
     protected void processIsNotDefinedMsg(InNotDefinedMsg inNotDefinedMsg) {
         renderDefault();
     }
-    
-    
-    
-    @Override
-    protected void processInUserDelCardEvent(InUserDelCardEvent msg) {
-        renderDefault();
-    }
 
     @Override
     protected void processInUserGiftingCardEvent(InUserGiftingCardEvent msg) {
@@ -186,11 +167,6 @@ public abstract class MsgControllerAdapter extends MsgController {
 
     @Override
     protected void processInUserGetCardEvent(InUserGetCardEvent msg) {
-        renderDefault();
-    }
-
-    @Override
-    protected void processInUserEnterSessionFromCardEvent(InUserEnterSessionFromCardEvent msg) {
         renderDefault();
     }
 
@@ -211,6 +187,12 @@ public abstract class MsgControllerAdapter extends MsgController {
 
     @Override
     protected void processInCardPassCheckEvent(InCardPassCheckEvent msg) {
+        renderDefault();
+    }
+    
+    
+    @Override
+    protected void processInUserCardEvent(InUserCardEvent inUserCardEvent) {
         renderDefault();
     }
 

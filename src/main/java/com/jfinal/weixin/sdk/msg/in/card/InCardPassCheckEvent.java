@@ -6,21 +6,23 @@ import com.jfinal.weixin.sdk.utils.XmlHelper;
 /**
  * 审核事件推送
  * @author L.cm
-<xml>
-  <ToUserName><![CDATA[toUser]]></ToUserName>
-  <FromUserName><![CDATA[FromUser]]></FromUserName>
-  <CreateTime>123456789</CreateTime>
-  <MsgType><![CDATA[event]]></MsgType>
-  <Event><![CDATA[card_pass_check]]></Event> //不通过为card_not_pass_check
-  <CardId><![CDATA[cardid]]></CardId>
-  <RefuseReason><![CDATA[非法代制]]></RefuseReason>
-</xml>
+ * <pre>
+ * &lt;xml&gt;
+ * &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
+ * &lt;FromUserName&gt;&lt;![CDATA[FromUser]]&gt;&lt;/FromUserName&gt;
+ * &lt;CreateTime&gt;123456789&lt;/CreateTime&gt;
+ * &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ * &lt;Event&gt;&lt;![CDATA[card_pass_check]]&gt;&lt;/Event&gt; //不通过为card_not_pass_check
+ * &lt;CardId&gt;&lt;![CDATA[cardid]]&gt;&lt;/CardId&gt;
+ * &lt;RefuseReason&gt;&lt;![CDATA[非法代制]]&gt;&lt;/RefuseReason&gt;
+ * &lt;/xml&gt;
+ * </pre>
  */
 @SuppressWarnings("serial")
 public class InCardPassCheckEvent extends EventInMsg implements ICardMsgParse{
     public static final String EVENT_PASS = "card_pass_check";
     public static final String EVENT_NOT_PASS = "card_not_pass_check";
-    
+
     /**
      * 卡券ID
      */

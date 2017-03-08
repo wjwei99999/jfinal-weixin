@@ -6,30 +6,32 @@ import com.jfinal.weixin.sdk.utils.XmlHelper;
 /**
  * 核销事件推送
  * @author L.cm
-<xml>
-  <ToUserName> <![CDATA[gh_fc0a06a20993]]> </ToUserName>
-  <FromUserName> <![CDATA[oZI8Fj040-be6rlDohc6gkoPOQTQ]]> </FromUserName>
-  <CreateTime>1472549042</CreateTime>
-  <MsgType> <![CDATA[event]]> </MsgType>
-  <Event> <![CDATA[user_consume_card]]> </Event>
-  <CardId> <![CDATA[pZI8Fj8y-E8hpvho2d1ZvpGwQBvA]]> </CardId>
-  <UserCardCode> <![CDATA[452998530302]]> </UserCardCode>
-  <ConsumeSource> <![CDATA[FROM_API]]> </ConsumeSource>
-  <LocationName> <![CDATA[]]> </LocationName>
-  <StaffOpenId> <![CDATA[oZ********nJ3bPJu_Rtjkw4c]]> </StaffOpenId>
-  <VerifyCode> <![CDATA[]]> </VerifyCode>
-  <RemarkAmount> <![CDATA[]]> </RemarkAmount>
-  <OuterStr> <![CDATA[xxxxx]]> </OuterStr>
-</xml>
+ * <pre>
+ * &lt;xml&gt;
+ * &lt;ToUserName&gt; &lt;![CDATA[gh_fc0a06a20993]]&gt; &lt;/ToUserName&gt;
+ * &lt;FromUserName&gt; &lt;![CDATA[oZI8Fj040-be6rlDohc6gkoPOQTQ]]&gt; &lt;/FromUserName&gt;
+ * &lt;CreateTime&gt;1472549042&lt;/CreateTime&gt;
+ * &lt;MsgType&gt; &lt;![CDATA[event]]&gt; &lt;/MsgType&gt;
+ * &lt;Event&gt; &lt;![CDATA[user_consume_card]]&gt; &lt;/Event&gt;
+ * &lt;CardId&gt; &lt;![CDATA[pZI8Fj8y-E8hpvho2d1ZvpGwQBvA]]&gt; &lt;/CardId&gt;
+ * &lt;UserCardCode&gt; &lt;![CDATA[452998530302]]&gt; &lt;/UserCardCode&gt;
+ * &lt;ConsumeSource&gt; &lt;![CDATA[FROM_API]]&gt; &lt;/ConsumeSource&gt;
+ * &lt;LocationName&gt; &lt;![CDATA[]]&gt; &lt;/LocationName&gt;
+ * &lt;StaffOpenId&gt; &lt;![CDATA[oZ********nJ3bPJu_Rtjkw4c]]&gt; &lt;/StaffOpenId&gt;
+ * &lt;VerifyCode&gt; &lt;![CDATA[]]&gt; &lt;/VerifyCode&gt;
+ * &lt;RemarkAmount&gt; &lt;![CDATA[]]&gt; &lt;/RemarkAmount&gt;
+ * &lt;OuterStr&gt; &lt;![CDATA[xxxxx]]&gt; &lt;/OuterStr&gt;
+ * &lt;/xml&gt;
+ * </pre>
  */
 @SuppressWarnings("serial")
 public class InUserConsumeCardEvent extends EventInMsg implements ICardMsgParse {
     public static final String EVENT = "user_consume_card";
-    
+
     public InUserConsumeCardEvent(String toUserName, String fromUserName, Integer createTime) {
         super(toUserName, fromUserName, createTime, EVENT);
     }
-    
+
     //卡券ID。
     private String cardId;
     //卡券Code码。
@@ -95,7 +97,7 @@ public class InUserConsumeCardEvent extends EventInMsg implements ICardMsgParse 
     public void setOuterStr(String outerStr) {
         this.outerStr = outerStr;
     }
-    
+
     @Override
     public void parse(XmlHelper xmlHelper) {
         setCardId(xmlHelper.getString("//CardId"));

@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * 门店数据对象
  * @author fuyong
- * @date 2017-03-02
 json数据示例:
 {
    "business" : {
@@ -48,7 +47,7 @@ json数据示例:
  */
 public class Poi implements Serializable {
 	private static final long serialVersionUID = 4899154126408515026L;
-	
+
 	//base_info
 	//门店基础信息字段（重要）---------------------------------------------------------------------
 	//商户自己的id，用于后续审核通过收到poi_id 的通知时，做对应关系。请商户自己保证唯一识别性, 非必填
@@ -81,9 +80,9 @@ public class Poi implements Serializable {
 	private Integer offset_type;
 	//门店所在地理位置的经度, 必填
 	private String longitude;
-	//门店所在地理位置的纬度（经纬度均为火星坐标，最好选用腾讯地图标记的坐标）, 必填	
+	//门店所在地理位置的纬度（经纬度均为火星坐标，最好选用腾讯地图标记的坐标）, 必填
 	private String latitude;
-	
+
 	//门店服务信息字段, 均为非必填--------------------------------------------------------------------------------
 	/**
 	 * 图片列表，url 形式，可以有多张图片，尺寸为640*340px。
@@ -101,7 +100,7 @@ public class Poi implements Serializable {
 	private String open_time;
 	//人均价格，大于0 的整数
 	private Integer avg_price;
-	
+
 	//门店获取返回数据字段-----------------------------------------------------------
 	/**
 	 * 门店poi_id, 唯一
@@ -115,7 +114,7 @@ public class Poi implements Serializable {
 	 * 扩展字段是否正在更新中。1 表示扩展字段正在更新中，尚未生效，不允许再次更新； 0 表示扩展字段没有在更新中或更新已生效，可以再次更新
 	 */
 	private Integer update_status;
-	
+
 	public String getSid() {
 		return sid;
 	}
@@ -259,7 +258,7 @@ public class Poi implements Serializable {
 	public void setAvg_price(Integer avg_price) {
 		this.avg_price = avg_price;
 	}
-	
+
 	public String getPoi_id() {
 		return poi_id;
 	}
@@ -299,5 +298,5 @@ public class Poi implements Serializable {
 			this.photo_url = photo_url;
 		}
 	}
-	
+
 }

@@ -5,18 +5,20 @@ import com.jfinal.weixin.sdk.utils.XmlHelper;
 
 /**
  * 转赠事件推送
-<xml>
-  <ToUserName><![CDATA[gh_3fcea188bf78]]></ToUserName>
-  <FromUserName><![CDATA[obLatjjwDolFjRRd3doGIdwNqRXw]]></FromUserName>
-  <CreateTime>1474181868</CreateTime>
-  <MsgType><![CDATA[event]]></MsgType>
-  <Event><![CDATA[user_gifting_card]]></Event>
-  <CardId><![CDATA[pbLatjhU-3pik3d4PsbVzvBxZvJc]]></CardId>
-  <UserCardCode><![CDATA[297466945104]]></UserCardCode>
-  <IsReturnBack>0</IsReturnBack>
-  <FriendUserName><![CDATA[obLatjlNerkb62HtSdQUx66C4NTU]]></FriendUserName>
-  <IsChatRoom>0</IsChatRoom>
-</xml>
+ * <pre>
+ * &lt;xml&gt;
+ * &lt;ToUserName&gt;&lt;![CDATA[gh_3fcea188bf78]]&gt;&lt;/ToUserName&gt;
+ * &lt;FromUserName&gt;&lt;![CDATA[obLatjjwDolFjRRd3doGIdwNqRXw]]&gt;&lt;/FromUserName&gt;
+ * &lt;CreateTime&gt;1474181868&lt;/CreateTime&gt;
+ * &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ * &lt;Event&gt;&lt;![CDATA[user_gifting_card]]&gt;&lt;/Event&gt;
+ * &lt;CardId&gt;&lt;![CDATA[pbLatjhU-3pik3d4PsbVzvBxZvJc]]&gt;&lt;/CardId&gt;
+ * &lt;UserCardCode&gt;&lt;![CDATA[297466945104]]&gt;&lt;/UserCardCode&gt;
+ * &lt;IsReturnBack&gt;0&lt;/IsReturnBack&gt;
+ * &lt;FriendUserName&gt;&lt;![CDATA[obLatjlNerkb62HtSdQUx66C4NTU]]&gt;&lt;/FriendUserName&gt;
+ * &lt;IsChatRoom&gt;0&lt;/IsChatRoom&gt;
+ * &lt;/xml&gt;
+ * </pre>
  */
 @SuppressWarnings("serial")
 public class InUserGiftingCardEvent extends EventInMsg implements ICardMsgParse {

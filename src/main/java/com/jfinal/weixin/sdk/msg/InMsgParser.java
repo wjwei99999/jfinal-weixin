@@ -6,19 +6,50 @@
 
 package com.jfinal.weixin.sdk.msg;
 
-import com.jfinal.kit.LogKit;
-import com.jfinal.kit.StrKit;
-import com.jfinal.weixin.sdk.msg.in.*;
-import com.jfinal.weixin.sdk.msg.in.card.*;
-import com.jfinal.weixin.sdk.msg.in.event.*;
-import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent.AroundBeacon;
-import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
-import com.jfinal.weixin.sdk.utils.XmlHelper;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.jfinal.kit.LogKit;
+import com.jfinal.kit.StrKit;
+import com.jfinal.weixin.sdk.msg.in.InImageMsg;
+import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
+import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
+import com.jfinal.weixin.sdk.msg.in.InMsg;
+import com.jfinal.weixin.sdk.msg.in.InNotDefinedMsg;
+import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InTextMsg;
+import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
+import com.jfinal.weixin.sdk.msg.in.card.InCardPassCheckEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InCardPayOrderEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InCardSkuRemindEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InMerChantOrderEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUpdateMemberCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserConsumeCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserGetCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserGiftingCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserPayFromCardEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InCustomEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMassEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InNotDefinedEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InPoiCheckNotifyEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent.AroundBeacon;
+import com.jfinal.weixin.sdk.msg.in.event.InTemplateMsgEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InVerifyFailEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InVerifySuccessEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InWifiEvent;
+import com.jfinal.weixin.sdk.msg.in.event.ScanCodeInfo;
+import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
+import com.jfinal.weixin.sdk.utils.XmlHelper;
 
 public class InMsgParser {
     private InMsgParser() {}
@@ -353,16 +384,14 @@ public class InMsgParser {
             e.setShopId(xmlHelper.getString("//ShopId"));
             return e;
         }
-        if (InUserViewCardEvent.EVENT.equals(event)) {
-            InUserViewCardEvent e = new InUserViewCardEvent(toUserName, fromUserName, createTime);
-            e.setCardId(xmlHelper.getString("//CardId"));
-            e.setUserCardCode(xmlHelper.getString("//UserCardCode"));
+        if (InUserCardEvent.EVENT_USER_VIEW.equals(event)) {
+            InUserCardEvent e = new InUserCardEvent(toUserName, fromUserName, createTime, event);
+            e.parse(xmlHelper);
             return e;
         }
-        if (InSubmitMemberCardEvent.EVENT.equals(event)) {
-            InSubmitMemberCardEvent e = new InSubmitMemberCardEvent(toUserName, fromUserName, createTime);
-            e.setCardId(xmlHelper.getString("//CardId"));
-            e.setUserCardCode(xmlHelper.getString("//UserCardCode"));
+        if (InUserCardEvent.EVENT_MEMBERCARD.equals(event)) {
+            InUserCardEvent e = new InUserCardEvent(toUserName, fromUserName, createTime, event);
+            e.parse(xmlHelper);
             return e;
         }
         if (InUpdateMemberCardEvent.EVENT.equals(event)) {
@@ -423,14 +452,14 @@ public class InMsgParser {
             return e;
         }
         // 卡券删除事件推送
-        if (InUserDelCardEvent.EVENT.equals(event)) {
-            InUserDelCardEvent e = new InUserDelCardEvent(toUserName, fromUserName, createTime);
+        if (InUserCardEvent.EVENT_USER_DEL.equals(event)) {
+            InUserCardEvent e = new InUserCardEvent(toUserName, fromUserName, createTime, event);
             e.parse(xmlHelper);
             return e;
         }
         // 从卡券进入公众号会话事件推送
-        if (InUserEnterSessionFromCardEvent.EVENT.equals(event)) {
-            InUserEnterSessionFromCardEvent e = new InUserEnterSessionFromCardEvent(toUserName, fromUserName, createTime);
+        if (InUserCardEvent.EVENT_USER_ENTER.equals(event)) {
+            InUserCardEvent e = new InUserCardEvent(toUserName, fromUserName, createTime, event);
             e.parse(xmlHelper);
             return e;
         }

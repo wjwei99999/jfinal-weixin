@@ -45,7 +45,7 @@ public class MediaApi {
     }
     // 文档中是需要用https，实际采用https会报错
     private static String uploadVideoUrl = "http://file.api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token=";
-    
+
     /**
      * 视频群发的消息素材上传
      * @param mediaId 用于群发的消息的media_id
@@ -66,10 +66,10 @@ public class MediaApi {
     }
 
     private static String uploadNews = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token=";
-    
+
     /**
      * 上传图文消息素材【订阅号与服务号认证后均可用】
-     * @param mediaArticles
+     * @param mediaArticles 素材实体
      * @return {ApiResult}
      */
     public static ApiResult uploadNews(List<MediaArticles> mediaArticles) {
@@ -81,9 +81,9 @@ public class MediaApi {
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(dataMap));
         return new ApiResult(jsonResult);
     }
-    
+
     private static String get_url = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=";
-    
+
     /**
      * 获取临时素材
      * @param media_id 素材Id
@@ -93,15 +93,15 @@ public class MediaApi {
         String url = get_url + AccessTokenApi.getAccessTokenStr() + "&media_id=" + media_id;
         return HttpUtils.download(url);
     }
-    
+
     private static String get_jssdk_media = "https://api.weixin.qq.com/cgi-bin/media/get/jssdk?access_token=";
-    
+
     /**
      * 高清语音素材获取接口
-     * 
+     *
      * 公众号可以使用本接口获取从JSSDK的uploadVoice接口上传的临时语音素材，格式为speex，16K采样率。
      * 该音频比上文的临时素材获取接口（格式为amr，8K采样率）更加清晰，适合用作语音识别等对音质要求较高的业务。
-     * 
+     *
      * @param media_id 素材Id
      * @return MediaFile
      */
@@ -109,7 +109,7 @@ public class MediaApi {
         String url = get_jssdk_media + AccessTokenApi.getAccessTokenStr() + "&media_id=" + media_id;
         return HttpUtils.download(url);
     }
-    
+
     private static String add_news_url = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=";
 
     /**
@@ -148,6 +148,7 @@ public class MediaApi {
     /**
      * 新增其他类型永久素材
      * @param file 文件
+     * @param mediaType 素材类型
      * @return ApiResult
      */
     public static ApiResult addMaterial(File file, MediaType mediaType) {

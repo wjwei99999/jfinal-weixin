@@ -6,30 +6,32 @@ import com.jfinal.weixin.sdk.utils.XmlHelper;
 /**
  * 券点流水详情事件
  * @author L.cm
-<xml>
-  <ToUserName><![CDATA[gh_7223c83d4be5]]></ToUserName>
-  <FromUserName><![CDATA[ob5E7s-HoN9tslQY3-0I4qmgluHk]]></FromUserName>
-  <CreateTime>1453295737</CreateTime>
-  <MsgType><![CDATA[event]]></MsgType>
-  <Event><![CDATA[card_pay_order]]></Event>
-  <OrderId><![CDATA[404091456]]></OrderId>
-  <Status><![CDATA[ORDER_STATUS_FINANCE_SUCC]]></Status>
-  <CreateOrderTime>1453295737</CreateOrderTime>
-  <PayFinishTime>0</PayFinishTime>
-  <Desc><![CDATA[]]></Desc>
-  <FreeCoinCount><![CDATA[200]]></FreeCoinCount>
-  <PayCoinCount><![CDATA[0]]></PayCoinCount>
-  <RefundFreeCoinCount><![CDATA[0]]></RefundFreeCoinCount>
-  <RefundPayCoinCount><![CDATA[0]]></RefundPayCoinCount>
-  <OrderType><![CDATA[ORDER_TYPE_SYS_ADD]]></OrderType>
-  <Memo><![CDATA[开通账户奖励]]></Memo>
-  <ReceiptInfo><![CDATA[]]></ReceiptInfo>
-</xml>
+ * <pre>
+ * &lt;xml&gt;
+ * &lt;ToUserName&gt;&lt;![CDATA[gh_7223c83d4be5]]&gt;&lt;/ToUserName&gt;
+ * &lt;FromUserName&gt;&lt;![CDATA[ob5E7s-HoN9tslQY3-0I4qmgluHk]]&gt;&lt;/FromUserName&gt;
+ * &lt;CreateTime&gt;1453295737&lt;/CreateTime&gt;
+ * &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ * &lt;Event&gt;&lt;![CDATA[card_pay_order]]&gt;&lt;/Event&gt;
+ * &lt;OrderId&gt;&lt;![CDATA[404091456]]&gt;&lt;/OrderId&gt;
+ * &lt;Status&gt;&lt;![CDATA[ORDER_STATUS_FINANCE_SUCC]]&gt;&lt;/Status&gt;
+ * &lt;CreateOrderTime&gt;1453295737&lt;/CreateOrderTime&gt;
+ * &lt;PayFinishTime&gt;0&lt;/PayFinishTime&gt;
+ * &lt;Desc&gt;&lt;![CDATA[]]&gt;&lt;/Desc&gt;
+ * &lt;FreeCoinCount&gt;&lt;![CDATA[200]]&gt;&lt;/FreeCoinCount&gt;
+ * &lt;PayCoinCount&gt;&lt;![CDATA[0]]&gt;&lt;/PayCoinCount&gt;
+ * &lt;RefundFreeCoinCount&gt;&lt;![CDATA[0]]&gt;&lt;/RefundFreeCoinCount&gt;
+ * &lt;RefundPayCoinCount&gt;&lt;![CDATA[0]]&gt;&lt;/RefundPayCoinCount&gt;
+ * &lt;OrderType&gt;&lt;![CDATA[ORDER_TYPE_SYS_ADD]]&gt;&lt;/OrderType&gt;
+ * &lt;Memo&gt;&lt;![CDATA[开通账户奖励]]&gt;&lt;/Memo&gt;
+ * &lt;ReceiptInfo&gt;&lt;![CDATA[]]&gt;&lt;/ReceiptInfo&gt;
+ * &lt;/xml&gt;
+ * </pre>
  */
 @SuppressWarnings("serial")
 public class InCardPayOrderEvent extends EventInMsg implements ICardMsgParse {
     public static final String EVENT = "card_pay_order";
-    
+
     //本次推送对应的订单号
     private String orderId;
     //本次订单号的状态,ORDER_STATUS_WAITING 等待支付 ORDER_STATUS_SUCC 支付成功 ORDER_STATUS_FINANCE_SUCC 加代币成功 ORDER_STATUS_QUANTITY_SUCC 加库存成功 ORDER_STATUS_HAS_REFUND 已退币 ORDER_STATUS_REFUND_WAITING 等待退币确认 ORDER_STATUS_ROLLBACK 已回退,系统失败 ORDER_STATUS_HAS_RECEIPT 已开发票
@@ -54,7 +56,7 @@ public class InCardPayOrderEvent extends EventInMsg implements ICardMsgParse {
     private String memo;
     //所开发票的详情
     private String receiptInfo;
-    
+
     public InCardPayOrderEvent(String toUserName, String fromUserName, Integer createTime) {
         super(toUserName, fromUserName, createTime, EVENT);
     }

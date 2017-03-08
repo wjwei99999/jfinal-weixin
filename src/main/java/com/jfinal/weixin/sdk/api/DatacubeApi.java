@@ -1,12 +1,12 @@
 package com.jfinal.weixin.sdk.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.jfinal.kit.JMap;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 数据统计接口
@@ -254,12 +254,12 @@ public class DatacubeApi {
     }
 
     private static String getCardBizuinInfo = "https://api.weixin.qq.com/datacube/getcardbizuininfo?access_token=";
-    
+
     /**
      * 拉取卡券概况数据接口
      * @param beginDate 获取数据的起始日期
      * @param endDate 获取数据的结束日期
-     * @param cond_source 卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据
+     * @param condSource 卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据
      * @return ApiResult
      */
     public static ApiResult getCardBizuinInfo(String beginDate, String endDate, int condSource) {
@@ -269,25 +269,25 @@ public class DatacubeApi {
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
-    
+
     private static String getCardInfo = "https://api.weixin.qq.com/datacube/getcardcardinfo?access_token=";
-    
+
     /**
      * 获取免费券数据接口
      * @param beginDate 获取数据的起始日期
      * @param endDate 获取数据的结束日期
-     * @param cond_source 卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据
+     * @param condSource 卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据
      * @return ApiResult
      */
     public static ApiResult getCardInfo(String beginDate, String endDate, int condSource) {
         return getCardInfo(beginDate, endDate, condSource, null);
     }
-    
+
     /**
      * 获取免费券数据接口
      * @param beginDate 获取数据的起始日期
      * @param endDate 获取数据的结束日期
-     * @param cond_source 卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据
+     * @param condSource 卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据
      * @param cardId 卡券ID。填写后，指定拉出该卡券的相关数据。
      * @return ApiResult
      */
@@ -301,14 +301,14 @@ public class DatacubeApi {
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
-    
+
     private static String getMemberCardInfo = "https://api.weixin.qq.com/datacube/getcardmembercardinfo?access_token=";
-    
+
     /**
      * 拉取会员卡概况数据接口
      * @param beginDate 获取数据的起始日期
      * @param endDate 获取数据的结束日期
-     * @param cond_source 卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据
+     * @param condSource 卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据
      * @return ApiResult
      */
     public static ApiResult getMemberCardInfo(String beginDate, String endDate, int condSource) {
@@ -318,9 +318,9 @@ public class DatacubeApi {
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
-    
+
     private static String getMemberCardDetail = "https://api.weixin.qq.com/datacube/getcardmembercarddetail?access_token=";
-    
+
     /**
      * 拉取单张会员卡数据接口
      * @param beginDate 获取数据的起始日期

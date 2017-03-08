@@ -18,9 +18,6 @@ import com.jfinal.weixin.sdk.utils.JsonUtils;
  * 微信门店接口
  * 门店poiid体系已做改造，poiid自创建后立刻分配，不再受审核影响发生变化。
  * @author fuyong
- * <pre>
- * https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140839&token=&lang=zh_CN
- * </pre>
  */
 public class PoiApi {
     private static String addPoi = "http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token=";
@@ -29,7 +26,7 @@ public class PoiApi {
     private static String updatePoi = "https://api.weixin.qq.com/cgi-bin/poi/updatepoi?access_token=";
     private static String delPoi = "https://api.weixin.qq.com/cgi-bin/poi/delpoi?access_token=";
     private static String getWxCategory = "http://api.weixin.qq.com/cgi-bin/poi/getwxcategory";
-    
+
     /**
      * 创建门店
      * @param jsonStr json字符串
@@ -86,7 +83,7 @@ public class PoiApi {
 
         return addPoi(JsonUtils.toJson(business));
     }
-    
+
     /**
      * 获取单个门店
      * @param poiId 门店poi_id
@@ -94,14 +91,14 @@ public class PoiApi {
      */
     public static ApiResult getPoi(String poiId) {
         String url = getPoi + AccessTokenApi.getAccessTokenStr();
-        
+
         Map<String, String> poi_id = new HashMap<String, String>();
         poi_id.put("poi_id", poiId);
-        
+
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(poi_id));
         return new ApiResult(jsonResult);
     }
-    
+
     /**
      * 获取门店列表
      * @param begin 开始位置，0 即为从第一条开始查询, 必填
@@ -205,24 +202,24 @@ public class PoiApi {
      */
     public static ApiResult getPoiList(int begin, int limit) {
         String url = getPoiList + AccessTokenApi.getAccessTokenStr();
-        
+
         Map<String, Integer> poiListPara = new HashMap<String, Integer>();
         poiListPara.put("begin", begin);
         poiListPara.put("limit", limit);
-        
+
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(poiListPara));
         return new ApiResult(jsonResult);
     }
-    
+
     /**
      * 修改门店信息
      * 商户可以通过该接口，修改门店的服务信息，包括：sid、图片列表、营业时间、推荐、特色服务、简介、人均价格、电话8个字段（名称、坐标、地址等不可修改）修改后需要人工审核。
-     * 
-     * 特别注意：以上8个字段，若有填写内容则为覆盖更新，若无内容则视为不修改，维持原有内容。 
+     *
+     * 特别注意：以上8个字段，若有填写内容则为覆盖更新，若无内容则视为不修改，维持原有内容。
      *         photo_list 字段为全列表覆盖，若需要增加图片，需将之前图片同样放入list 中，
      *         在其后增加新增图片。如：已有A、B、C 三张图片，又要增加D、E 两张图，则需要调用该接口，
      *         photo_list 传入A、B、C、D、E 五张图片的链接。
-     * 
+     *
      * @param jsonStr json字符串
      * @return ApiResult
 发送json数据示例:
@@ -269,7 +266,7 @@ public class PoiApi {
 
         return addPoi(JsonUtils.toJson(business));
     }
-    
+
     /**
      * 删除单个门店
      * @param poiId 门店poi_id
@@ -277,14 +274,14 @@ public class PoiApi {
      */
     public static ApiResult delPoi(String poiId) {
         String url = delPoi + AccessTokenApi.getAccessTokenStr();
-        
+
         Map<String, String> poi_id = new HashMap<String, String>();
         poi_id.put("poi_id", poiId);
-        
+
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(poi_id));
         return new ApiResult(jsonResult);
     }
-    
+
     /**
      * 获取微信门店类目表
      * 类目名称接口是为商户提供自己门店类型信息的接口。门店类目定位的越规范，能够精准的吸引更多用户，提高曝光率。

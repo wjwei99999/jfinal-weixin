@@ -6,26 +6,25 @@
 
 package com.jfinal.weixin.sdk.api;
 
+import com.jfinal.kit.StrKit;
+import com.jfinal.weixin.sdk.utils.HttpUtils;
+import com.jfinal.weixin.sdk.utils.JsonUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jfinal.kit.StrKit;
-import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
-
 /**
  * 黑名单管理api
  * 接口有问题
  * @author fuyong
- * https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140839&token=&lang=zh_CN
  */
 public class BlackUserApi {
     private static String getBlackList = "https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist?access_token=";
     private static String batchBlackList = "https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=";
     private static String batchUnblackList = "https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist?access_token=";
-    
+
     /**
      * 获取公众号的黑名单列表
      * @param beginOpenid 当 begin_openid 为空时，默认从开头拉取。
@@ -33,16 +32,16 @@ public class BlackUserApi {
      */
     public static ApiResult getBlackList(String beginOpenid) {
         String url = getBlackList + AccessTokenApi.getAccessTokenStr();
-        
+
         Map<String, String> mapData = new HashMap<String, String>();
         if(StrKit.notBlank(beginOpenid)) {
             mapData.put("begin_openid", beginOpenid);
         }
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(mapData));
-        
+
         return new ApiResult(jsonResult);
     }
-    
+
     /**
      * 获取公众号的黑名单列表
      * @return ApiResult
@@ -50,17 +49,17 @@ public class BlackUserApi {
     public static ApiResult getBlackList() {
         return getBlackList(null);
     }
-    
+
     /**
      * 批量拉黑用户
-     * @param openIdList json字符串
+     * @param jsonStr json字符串
      * @return ApiResult
      */
     public static ApiResult batchBlackUsers(String jsonStr) {
         String jsonResult = HttpUtils.post(batchBlackList + AccessTokenApi.getAccessTokenStr(), jsonStr);
         return new ApiResult(jsonResult);
     }
-    
+
     /**
      * 批量拉黑用户
      * @param openIdList 需要拉黑的用户openid列表
@@ -70,7 +69,7 @@ public class BlackUserApi {
         if(openIdList == null) {
             throw new IllegalArgumentException();
         }
-        
+
         Map<String, List<String>> userListMap = new HashMap<String, List<String>>();
         List<String> userList = new ArrayList<String>();
         if(openIdList != null && openIdList.size() > 0) {
@@ -79,20 +78,20 @@ public class BlackUserApi {
             }
         }
         userListMap.put("opened_list", userList);
-        
+
         return batchBlackUsers(JsonUtils.toJson(userListMap));
     }
-    
+
     /**
      * 批量取消拉黑用户
-     * @param openIdList json字符串
+     * @param jsonStr json字符串
      * @return ApiResult
      */
     public static ApiResult batchUnblackUsers(String jsonStr) {
         String jsonResult = HttpUtils.post(batchUnblackList + AccessTokenApi.getAccessTokenStr(), jsonStr);
         return new ApiResult(jsonResult);
     }
-    
+
     /**
      * 批量取消拉黑用户
      * @param openIdList 需要取消拉黑的用户openid列表
@@ -102,7 +101,7 @@ public class BlackUserApi {
         if(openIdList == null) {
             throw new IllegalArgumentException();
         }
-        
+
         Map<String, List<String>> userListMap = new HashMap<String, List<String>>();
         List<String> userList = new ArrayList<String>();
         if(openIdList != null && openIdList.size() > 0) {
@@ -111,7 +110,7 @@ public class BlackUserApi {
             }
         }
         userListMap.put("opened_list", userList);
-        
+
         return batchUnblackUsers(JsonUtils.toJson(userListMap));
     }
 }

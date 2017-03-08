@@ -6,15 +6,17 @@ import com.jfinal.weixin.sdk.utils.XmlHelper;
 /**
  * 库存报警事件
  * @author L.cm
-<xml>
-  <ToUserName><![CDATA[gh_2d62d*****0]]></ToUserName>
-  <FromUserName><![CDATA[oa3LFuBvWb7*********]]></FromUserName>
-  <CreateTime>1443838506</CreateTime>
-  <MsgType><![CDATA[event]]></MsgType>
-  <Event><![CDATA[card_sku_remind]]></Event>
-  <CardId><![CDATA[pa3LFuAh2P65**********]]></CardId>
-  <Detail><![CDATA[the card's quantity is equal to 0]]></Detail>
-</xml>
+ * <pre>
+ * &lt;xml&gt;
+ * &lt;ToUserName&gt;&lt;![CDATA[gh_2d62d*****0]]&gt;&lt;/ToUserName&gt;
+ * &lt;FromUserName&gt;&lt;![CDATA[oa3LFuBvWb7*********]]&gt;&lt;/FromUserName&gt;
+ * &lt;CreateTime&gt;1443838506&lt;/CreateTime&gt;
+ * &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+ * &lt;Event&gt;&lt;![CDATA[card_sku_remind]]&gt;&lt;/Event&gt;
+ * &lt;CardId&gt;&lt;![CDATA[pa3LFuAh2P65**********]]&gt;&lt;/CardId&gt;
+ * &lt;Detail&gt;&lt;![CDATA[the card&#x27;s quantity is equal to 0]]&gt;&lt;/Detail&gt;
+ * &lt;/xml&gt;
+ * </pre>
  */
 @SuppressWarnings("serial")
 public class InCardSkuRemindEvent extends EventInMsg implements ICardMsgParse {
@@ -23,7 +25,7 @@ public class InCardSkuRemindEvent extends EventInMsg implements ICardMsgParse {
     public InCardSkuRemindEvent(String toUserName, String fromUserName, Integer createTime) {
         super(toUserName, fromUserName, createTime, EVENT);
     }
-    
+
     private String cardId; //卡券ID
     private String detail; //报警详细信息
 

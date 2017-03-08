@@ -1,5 +1,5 @@
-com.jfinal
 com.jfinal.weixin.sdk.api
+com.jfinal.weixin.sdk.api.bean
 com.jfinal.weixin.sdk.api.shakearound
 com.jfinal.weixin.sdk.api.shakearound.bean
 com.jfinal.weixin.sdk.cache

@@ -1,10 +1,10 @@
 package com.jfinal.weixin.sdk.msg.in.card;
 
 import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
+import com.jfinal.weixin.sdk.utils.XmlHelper;
 
 /**
- * Created by L.cm on 2016/5/5.
- * 微信会员卡二维码扫描领取接口
+ * 微信会员卡卡券
  * <pre>
  * &lt;xml&gt;
  * &lt;ToUserName&gt;&lt;![CDATA[gh_7638cbc70355]]&gt;&lt;/ToUserName&gt;
@@ -18,14 +18,21 @@ import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
  * </pre>
  */
 @SuppressWarnings("serial")
-public class InUserViewCardEvent extends EventInMsg {
-    public static final String EVENT = "user_view_card";
+public class InUserCardEvent extends EventInMsg implements ICardMsgParse {
+    // 微信会员卡激活接口
+    public static final String EVENT_MEMBERCARD = "submit_membercard_user_info";
+    // 微信会员卡二维码扫描领取接口
+    public static final String EVENT_USER_VIEW = "user_view_card";
+    // 从卡券进入公众号会话事件推送
+    public static final String EVENT_USER_ENTER = "user_enter_session_from_card";
+    // 卡券删除事件推送
+    public static final String EVENT_USER_DEL = "user_del_card";
 
     private String cardId;
     private String userCardCode;
 
-    public InUserViewCardEvent(String toUserName, String fromUserName, Integer createTime) {
-        super(toUserName, fromUserName, createTime, EVENT);
+    public InUserCardEvent(String toUserName, String fromUserName, Integer createTime, String event) {
+        super(toUserName, fromUserName, createTime, event);
     }
 
     public String getCardId() {
@@ -42,5 +49,11 @@ public class InUserViewCardEvent extends EventInMsg {
 
     public void setUserCardCode(String userCardCode) {
         this.userCardCode = userCardCode;
+    }
+
+    @Override
+    public void parse(XmlHelper xmlHelper) {
+        setCardId(xmlHelper.getString("//CardId"));
+        setUserCardCode(xmlHelper.getString("//UserCardCode"));
     }
 }

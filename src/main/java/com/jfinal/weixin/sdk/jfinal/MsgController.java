@@ -28,15 +28,12 @@ import com.jfinal.weixin.sdk.msg.in.card.InCardPassCheckEvent;
 import com.jfinal.weixin.sdk.msg.in.card.InCardPayOrderEvent;
 import com.jfinal.weixin.sdk.msg.in.card.InCardSkuRemindEvent;
 import com.jfinal.weixin.sdk.msg.in.card.InMerChantOrderEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InSubmitMemberCardEvent;
 import com.jfinal.weixin.sdk.msg.in.card.InUpdateMemberCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserCardEvent;
 import com.jfinal.weixin.sdk.msg.in.card.InUserConsumeCardEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InUserDelCardEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InUserEnterSessionFromCardEvent;
 import com.jfinal.weixin.sdk.msg.in.card.InUserGetCardEvent;
 import com.jfinal.weixin.sdk.msg.in.card.InUserGiftingCardEvent;
 import com.jfinal.weixin.sdk.msg.in.card.InUserPayFromCardEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InUserViewCardEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InCustomEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
@@ -117,10 +114,8 @@ public abstract class MsgController extends Controller {
             processInPoiCheckNotifyEvent((InPoiCheckNotifyEvent) msg);
         else if (msg instanceof InWifiEvent)
             processInWifiEvent((InWifiEvent) msg);
-        else if (msg instanceof InUserViewCardEvent)
-            processInUserViewCardEvent((InUserViewCardEvent) msg);
-        else if (msg instanceof InSubmitMemberCardEvent)
-            processInSubmitMemberCardEvent((InSubmitMemberCardEvent) msg);
+        else if (msg instanceof InUserCardEvent)
+            processInUserCardEvent((InUserCardEvent) msg);
         else if (msg instanceof InUpdateMemberCardEvent)
             processInUpdateMemberCardEvent((InUpdateMemberCardEvent) msg);
         else if (msg instanceof InUserPayFromCardEvent)
@@ -135,10 +130,6 @@ public abstract class MsgController extends Controller {
             processInCardSkuRemindEvent((InCardSkuRemindEvent) msg);
         else if (msg instanceof InUserConsumeCardEvent)
             processInUserConsumeCardEvent((InUserConsumeCardEvent) msg);
-        else if (msg instanceof InUserDelCardEvent)
-            processInUserDelCardEvent((InUserDelCardEvent) msg);
-        else if (msg instanceof InUserEnterSessionFromCardEvent)
-            processInUserEnterSessionFromCardEvent((InUserEnterSessionFromCardEvent) msg);
         else if (msg instanceof InUserGetCardEvent)
             processInUserGetCardEvent((InUserGetCardEvent) msg);
         else if (msg instanceof InUserGiftingCardEvent)
@@ -328,16 +319,13 @@ public abstract class MsgController extends Controller {
     protected abstract void processInWifiEvent(InWifiEvent inWifiEvent);
 
     /**
-     * 微信会员卡二维码扫描领取接口
-     * @param inUserViewCardEvent 微信会员卡二维码扫描领取接口
+     * 1. 微信会员卡二维码扫描领取接口
+     * 2. 微信会员卡激活接口
+     * 3. 卡券删除事件推送
+     * 4. 从卡券进入公众号会话事件推送
+     * @param inUserCardEvent InUserCardEvent
      */
-    protected abstract void processInUserViewCardEvent(InUserViewCardEvent inUserViewCardEvent);
-
-    /**
-     * 微信会员卡激活接口
-     * @param inSubmitMemberCardEvent 微信会员卡激活接口
-     */
-    protected abstract void processInSubmitMemberCardEvent(InSubmitMemberCardEvent inSubmitMemberCardEvent);
+    protected abstract void processInUserCardEvent(InUserCardEvent inUserCardEvent);
 
     /**
      * 微信会员卡积分变更
@@ -371,12 +359,6 @@ public abstract class MsgController extends Controller {
     protected abstract void processIsNotDefinedMsg(InNotDefinedMsg inNotDefinedMsg);
 
     /**
-     * 卡券删除事件推送
-     * @param msg 卡券删除事件
-     */
-    protected abstract void processInUserDelCardEvent(InUserDelCardEvent msg);
-
-    /**
      * 卡券转赠事件推送
      * @param msg 卡券转赠事件推送
      */
@@ -387,12 +369,6 @@ public abstract class MsgController extends Controller {
      * @param msg 卡券领取事件推送
      */
     protected abstract void processInUserGetCardEvent(InUserGetCardEvent msg);
-
-    /**
-     * 从卡券进入公众号会话事件推送
-     * @param msg 从卡券进入公众号会话事件推送
-     */
-    protected abstract void processInUserEnterSessionFromCardEvent(InUserEnterSessionFromCardEvent msg);
 
     /**
      * 卡券核销事件推送
