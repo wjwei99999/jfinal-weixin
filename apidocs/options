@@ -1,0 +1,24 @@
+-classpath
+'/Users/lcm/.m2/repository/org/eclipse/jetty/orbit/javax.servlet/3.0.0.v201112011016/javax.servlet-3.0.0.v201112011016.jar:/Users/lcm/.m2/repository/org/eclipse/jetty/jetty-server/8.1.8.v20121106/jetty-server-8.1.8.v20121106.jar:/Users/lcm/.m2/repository/com/jfinal/jfinal/3.0/jfinal-3.0.jar:/Users/lcm/.m2/repository/org/eclipse/jetty/jetty-servlet/8.1.8.v20121106/jetty-servlet-8.1.8.v20121106.jar:/Users/lcm/.m2/repository/org/eclipse/jetty/jetty-security/8.1.8.v20121106/jetty-security-8.1.8.v20121106.jar:/Users/lcm/.m2/repository/org/eclipse/jetty/jetty-io/8.1.8.v20121106/jetty-io-8.1.8.v20121106.jar:/Users/lcm/.m2/repository/org/eclipse/jetty/jetty-http/8.1.8.v20121106/jetty-http-8.1.8.v20121106.jar:/Users/lcm/.m2/repository/org/apache/commons/commons-pool2/2.3/commons-pool2-2.3.jar:/Users/lcm/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.4.3/jackson-databind-2.4.3.jar:/Users/lcm/.m2/repository/com/squareup/okhttp3/okhttp/3.6.0/okhttp-3.6.0.jar:/Users/lcm/.m2/repository/com/jfinal/jetty-server/8.1.8/jetty-server-8.1.8.jar:/Users/lcm/.m2/repository/org/objenesis/objenesis/2.1/objenesis-2.1.jar:/Users/lcm/.m2/repository/org/eclipse/jetty/jetty-xml/8.1.8.v20121106/jetty-xml-8.1.8.v20121106.jar:/Users/lcm/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.4.0/jackson-annotations-2.4.0.jar:/Users/lcm/.m2/repository/de/ruedigermoeller/fst/2.29/fst-2.29.jar:/Users/lcm/.m2/repository/org/javassist/javassist/3.19.0-GA/javassist-3.19.0-GA.jar:/Users/lcm/.m2/repository/com/squareup/okio/okio/1.11.0/okio-1.11.0.jar:/Users/lcm/.m2/repository/redis/clients/jedis/2.7.2/jedis-2.7.2.jar:/Users/lcm/.m2/repository/org/eclipse/jetty/jetty-continuation/8.1.8.v20121106/jetty-continuation-8.1.8.v20121106.jar:/Users/lcm/.m2/repository/cglib/cglib-nodep/3.1/cglib-nodep-3.1.jar:/Users/lcm/.m2/repository/com/squareup/okhttp/okhttp/2.7.5/okhttp-2.7.5.jar:/Users/lcm/.m2/repository/org/eclipse/jetty/jetty-util/8.1.8.v20121106/jetty-util-8.1.8.v20121106.jar:/Users/lcm/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.4.3/jackson-core-2.4.3.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/Users/lcm/git/java/jfinal-weixin/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2017. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/lcm/git/java/jfinal-weixin/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'jfinal-weixin 1.9-SNAPSHOT API'
+-linkoffline
+'http://docs.oracle.com/javase/6/docs/api' '/Users/lcm/git/java/jfinal-weixin/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'jfinal-weixin 1.9-SNAPSHOT API'

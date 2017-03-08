@@ -60,6 +60,18 @@ public class CardCodeApi {
         return new ApiResult(jsonResult);
     }
     
+    /**
+     * 线上核销Code接口
+     * @param code 需核销的Code码。
+     * @param openid 是 string(20) 当前卡券使用者的openid，通常通过网页授权登录或自定义url跳转参数获得。
+     * @return {ApiResult}
+     */
+    public static ApiResult consumeOnline(String code, String openid) {
+        JMap data = JMap.create("code", code).set("openid", openid);
+        String jsonResult = HttpUtils.post(consumeCode + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
+        return new ApiResult(jsonResult);
+    }
+    
     private static String decryptCode = "https://api.weixin.qq.com/card/code/decrypt?access_token=";
     
     /**
@@ -143,4 +155,22 @@ public class CardCodeApi {
         String jsonResult = HttpUtils.post(update + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
+    
+    private static String mark = "https://api.weixin.qq.com/card/code/mark?access_token=";
+    
+    /**
+     * 朋友的券-Mark(占用)Code接口
+     * 
+     * @param code 是 卡券的code码。
+     * @param cardId 需要进行导入code的卡券ID。
+     * @param openid 是 用券用户的openid。
+     * @param isMark 是    是否要mark（占用）这个code，填写true或者false，表示占用或解除占用。
+     * @return {ApiResult}
+     */
+    public static ApiResult markCode(String code, String cardId, String openid, boolean isMark) {
+        JMap data = JMap.create("code", code).set("card_id", cardId).set("openid", openid).set("is_mark", isMark);
+        String jsonResult = HttpUtils.post(mark + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
+        return new ApiResult(jsonResult);
+    }
+    
 }
