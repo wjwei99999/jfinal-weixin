@@ -1,5 +1,7 @@
 /**
- * TODO 卡券 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025283&token=&lang=zh_CN
+ * TODO 1 MemberCardApi
+ * TODO 2 CardExtApi
+ * TODO 3 test
  * @author l.cm
  */
 package com.jfinal;

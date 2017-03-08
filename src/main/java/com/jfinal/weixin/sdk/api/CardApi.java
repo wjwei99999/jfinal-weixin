@@ -8,7 +8,7 @@ import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
- * 会员卡相关接口
+ * 卡券相关接口
  * Created by L.cm on 2016/6/16.
  */
 public class CardApi {
