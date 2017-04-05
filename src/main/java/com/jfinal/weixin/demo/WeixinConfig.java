@@ -107,11 +107,16 @@ public class WeixinConfig extends JFinalConfig {
         
         /**
          * 1.9 新增LocalTestTokenCache用于本地和线上同时使用一套appId时避免本地将线上AccessToken冲掉
+         * 
+         * 注意，为了安全起见，此处可以自己添加密钥之类的参数，例如：
+         * http://localhost/weixin/api/getToken?secret=xxxx
+         * 然后在WeixinApiController#getToken()方法中判断secret
+         * 
          * @see WeixinApiController#getToken()
          */
-        boolean isLocal = true;
+        boolean isLocal = false;
         if (isLocal) {
-            String onLineTokenUrl = "http://www.jfinal.com/weixin/api/getToken";
+            String onLineTokenUrl = "http://localhost/weixin/api/getToken";
             ApiConfigKit.setAccessTokenCache(new LocalTestTokenCache(onLineTokenUrl));
         }
         
