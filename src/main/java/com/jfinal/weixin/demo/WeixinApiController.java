@@ -1,16 +1,28 @@
 package com.jfinal.weixin.demo;
 
-import com.jfinal.weixin.sdk.api.*;
-import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
+import com.jfinal.weixin.sdk.api.ApiConfigKit;
+import com.jfinal.weixin.sdk.api.ApiResult;
+import com.jfinal.weixin.sdk.api.CallbackIpApi;
+import com.jfinal.weixin.sdk.api.CustomServiceApi;
+import com.jfinal.weixin.sdk.api.MenuApi;
+import com.jfinal.weixin.sdk.api.QrcodeApi;
+import com.jfinal.weixin.sdk.api.ShorturlApi;
+import com.jfinal.weixin.sdk.api.TemplateMsgApi;
+import com.jfinal.weixin.sdk.api.UserApi;
 import com.jfinal.weixin.sdk.jfinal.ApiController;
 
 public class WeixinApiController extends ApiController {
 
-    static IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
-    
+    /**
+     * 为WeixinConfig onLineTokenUrl处提供AccessToken
+     * 
+     * 此处是为了开发测试和生产环境同时使用一套appId时为开发测试环境提供AccessToken
+     * 
+     * 设计初衷：https://www.oschina.net/question/2702126_2237352
+     */
     public void getToken() {
         String key = getPara("key");
-        String json = accessTokenCache.get(key);
+        String json = ApiConfigKit.getAccessTokenCache().get(key);
         renderText(json);
     }
     

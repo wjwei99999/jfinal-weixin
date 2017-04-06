@@ -20,7 +20,9 @@ import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.cache.LocalTestTokenCache;
 
 public class WeixinConfig extends JFinalConfig {
-
+    // 本地开发模式
+    private boolean isLocalDev = false;
+    
     /**
      * 如果生产环境配置文件存在，则优先加载该配置，否则加载开发环境配置文件
      * @param pro 生产环境配置文件
@@ -32,6 +34,7 @@ public class WeixinConfig extends JFinalConfig {
         }
         catch (Exception e) {
             PropKit.use(dev);
+            isLocalDev = true;
         }
     }
 
@@ -99,23 +102,21 @@ public class WeixinConfig extends JFinalConfig {
          */
         ApiConfigKit.putApiConfig(ac);
         
-        // 微信 WxSession的配置
-        // 启用默认的Session管理器
-//        ApiConfigKit.enableDefaultWxSessionManager();
-        // 启用redis Session管理器
-//        ApiConfigKit.setWxSessionManager(new RedisWxSessionManager("weixin"));
-        
         /**
          * 1.9 新增LocalTestTokenCache用于本地和线上同时使用一套appId时避免本地将线上AccessToken冲掉
          * 
-         * 注意，为了安全起见，此处可以自己添加密钥之类的参数，例如：
+         * 设计初衷：https://www.oschina.net/question/2702126_2237352
+         * 
+         * 注意：
+         * 1. 上线时应保证此处isLocalDev为false，或者注释掉该不分代码！
+         * 
+         * 2. 为了安全起见，此处可以自己添加密钥之类的参数，例如：
          * http://localhost/weixin/api/getToken?secret=xxxx
          * 然后在WeixinApiController#getToken()方法中判断secret
          * 
          * @see WeixinApiController#getToken()
          */
-        boolean isLocal = false;
-        if (isLocal) {
+        if (isLocalDev) {
             String onLineTokenUrl = "http://localhost/weixin/api/getToken";
             ApiConfigKit.setAccessTokenCache(new LocalTestTokenCache(onLineTokenUrl));
         }
