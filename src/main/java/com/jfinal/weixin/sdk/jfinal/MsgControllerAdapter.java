@@ -6,9 +6,39 @@
 
 package com.jfinal.weixin.sdk.jfinal;
 
-import com.jfinal.weixin.sdk.msg.in.*;
-import com.jfinal.weixin.sdk.msg.in.card.*;
-import com.jfinal.weixin.sdk.msg.in.event.*;
+import com.jfinal.weixin.iot.msg.InEquDataMsg;
+import com.jfinal.weixin.iot.msg.InEqubindEvent;
+import com.jfinal.weixin.sdk.msg.in.InImageMsg;
+import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
+import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
+import com.jfinal.weixin.sdk.msg.in.InNotDefinedMsg;
+import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InTextMsg;
+import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
+import com.jfinal.weixin.sdk.msg.in.card.InCardPassCheckEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InCardPayOrderEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InCardSkuRemindEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InMerChantOrderEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUpdateMemberCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserConsumeCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserGetCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserGiftingCardEvent;
+import com.jfinal.weixin.sdk.msg.in.card.InUserPayFromCardEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InCustomEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMassEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InNotDefinedEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InPoiCheckNotifyEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InTemplateMsgEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InVerifyFailEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InVerifySuccessEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InWifiEvent;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 
 /**
@@ -196,6 +226,24 @@ public abstract class MsgControllerAdapter extends MsgController {
         renderDefault();
     }
 
+    /**
+     * 处理微信硬件绑定和解绑事件
+     * @param InEqubindEvent 处理微信硬件绑定和解绑事件
+     */    
+    @Override
+    protected  void processInEqubindEvent(InEqubindEvent msg) {
+        renderDefault();
+    }
+    
+    /**
+     * 处理微信硬件发来数据
+     * @param InEquDataMsg 处理微信硬件发来数据
+     */        
+    @Override
+    protected  void processInEquDataMsg(InEquDataMsg msg) {
+        renderDefault();
+    }
+    
     /**
      * 方便没有使用的api返回“”避免出现，该公众号暂时不能提供服务
      *

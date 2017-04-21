@@ -12,6 +12,8 @@ import com.jfinal.ext.interceptor.NotAction;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
+import com.jfinal.weixin.iot.msg.InEquDataMsg;
+import com.jfinal.weixin.iot.msg.InEqubindEvent;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.kit.MsgEncryptKit;
 import com.jfinal.weixin.sdk.msg.InMsgParser;
@@ -134,6 +136,10 @@ public abstract class MsgController extends Controller {
             processInUserGetCardEvent((InUserGetCardEvent) msg);
         else if (msg instanceof InUserGiftingCardEvent)
             processInUserGiftingCardEvent((InUserGiftingCardEvent) msg);
+        else if (msg instanceof InEqubindEvent)
+            processInEqubindEvent((InEqubindEvent) msg);
+        else if (msg instanceof InEquDataMsg)
+            processInEquDataMsg((InEquDataMsg) msg);
         else if (msg instanceof InNotDefinedEvent) {
             log.error("未能识别的事件类型。 消息 xml 内容为：\n" + getInMsgXml());
             processIsNotDefinedEvent((InNotDefinedEvent) msg);
@@ -393,6 +399,18 @@ public abstract class MsgController extends Controller {
      * @param msg 审核事件推送
      */
     protected abstract void processInCardPassCheckEvent(InCardPassCheckEvent msg);
+    
+    /**
+     * 处理微信硬件绑定和解绑事件
+     * @param InEqubindEvent 处理微信硬件绑定和解绑事件
+     */    
+    protected abstract void processInEqubindEvent(InEqubindEvent msg) ;
+    
+    /**
+     * 处理微信硬件发来数据
+     * @param InEquDataMsg 处理微信硬件发来数据
+     */
+    protected abstract void processInEquDataMsg(InEquDataMsg msg);
 }
 
 
