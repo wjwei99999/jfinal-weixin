@@ -14,6 +14,8 @@ import org.w3c.dom.NodeList;
 
 import com.jfinal.kit.LogKit;
 import com.jfinal.kit.StrKit;
+import com.jfinal.weixin.iot.msg.InEquDataMsg;
+import com.jfinal.weixin.iot.msg.InEqubindEvent;
 import com.jfinal.weixin.sdk.msg.in.InImageMsg;
 import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
 import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
@@ -96,7 +98,10 @@ public class InMsgParser {
             return parseInLinkMsg(xmlHelper, toUserName, fromUserName, createTime, msgType);
         if ("event".equals(msgType))
             return parseInEvent(xmlHelper, toUserName, fromUserName, createTime, msgType);
-
+        if (InEqubindEvent.DEVICE_EVENT.equals(msgType))  //微信硬件 绑定和解绑事件
+            return parseInDeviceEvent(xmlHelper, toUserName, fromUserName, createTime, msgType);
+        if (InEquDataMsg.DEVICE_TEXT.equals(msgType))  //微信硬件 接收数据
+            return parseInDeviceData(xmlHelper, toUserName, fromUserName, createTime, msgType);
         LogKit.error("无法识别的消息类型 " + msgType + "，请查阅微信公众平台开发文档");
         return parseInNotDefinedMsg(xmlHelper, toUserName, fromUserName, createTime, msgType);
     }
@@ -178,7 +183,28 @@ public class InMsgParser {
         msg.setMsgId(xmlHelper.getString("//MsgId"));
         return msg;
     }
-
+    
+    //微信硬件 绑定和解绑事件  MsgType 为 device_event，Event 取值为 bind/unbind，bind 表示绑定设备，unbind 表示解除绑定。
+    private static InMsg parseInDeviceEvent(XmlHelper xmlHelper, String toUserName, String fromUserName, Integer createTime, String msgType) {
+        String event = xmlHelper.getString("//Event");
+        InEqubindEvent e = new InEqubindEvent(toUserName, fromUserName, createTime, msgType, event);
+        e.setDeviceID(xmlHelper.getString("//DeviceID"));
+        e.setDeviceType(xmlHelper.getString("//DeviceType"));
+        e.setOpenID(xmlHelper.getString("//OpenID"));
+        e.setSessionID(xmlHelper.getString("//SessionID"));
+        return e;
+    }    
+    //微信硬件传来数据
+    private static InMsg parseInDeviceData(XmlHelper xmlHelper, String toUserName, String fromUserName, Integer createTime, String msgType) {
+        InEquDataMsg msg = new InEquDataMsg(toUserName, fromUserName, createTime, msgType);
+        msg.setContent(xmlHelper.getString("//Content"));
+        msg.setDeviceID(xmlHelper.getString("//DeviceID"));
+        msg.setDeviceType(xmlHelper.getString("//DeviceType"));
+        msg.setOpenID(xmlHelper.getString("//OpenID"));        
+        msg.setMsgId(xmlHelper.getString("//MsgId"));
+        return msg;
+    }
+    
     // 解析各种事件
     private static InMsg parseInEvent(XmlHelper xmlHelper, String toUserName, String fromUserName, Integer createTime, String msgType) {
         String event = xmlHelper.getString("//Event");

@@ -18,44 +18,42 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 */
 public class InEquDataMsg extends InMsg {
 	private static final long serialVersionUID = 8591751084774828448L;
-
 	// 消息
 	public static final String DEVICE_TEXT = "device_text";
 	
-	private String DeviceType;
-	private String DeviceID;
-	private String Content;
+	private String deviceType;
+	private String deviceID;
+	private String content;
 	private String msgId;
-	private String SessionID;
-	private String OpenID;
+	private String sessionID;
+	private String openID;
 	
 	public InEquDataMsg(String toUserName, String fromUserName,	Integer createTime, String msgType) {
 		super(toUserName, fromUserName, createTime, msgType);
-
 	}
 
 	public String getDeviceType() {
-		return DeviceType;
+		return deviceType;
 	}
 
 	public void setDeviceType(String deviceType) {
-		DeviceType = deviceType;
+		this.deviceType = deviceType;
 	}
 
 	public String getDeviceID() {
-		return DeviceID;
+		return deviceID;
 	}
 
 	public void setDeviceID(String deviceID) {
-		DeviceID = deviceID;
+		this.deviceID = deviceID;
 	}
 
 	public String getContent() {
-		return Content;
+		return content;
 	}
 
 	public void setContent(String content) {
-		this.Content = content;
+		this.content = content;
 	}
 
 	public String getMsgId() {
@@ -67,18 +65,18 @@ public class InEquDataMsg extends InMsg {
 	}
 
 	public String getSessionID() {
-		return SessionID;
+		return sessionID;
 	}
 
 	public void setSessionID(String sessionID) {
-		SessionID = sessionID;
+		this.sessionID = sessionID;
 	}
 
 	public String getOpenID() {
-		return OpenID;
+		return openID;
 	}
 
 	public void setOpenID(String openID) {
-		OpenID = openID;
+		this.openID = openID;
 	}
 }
