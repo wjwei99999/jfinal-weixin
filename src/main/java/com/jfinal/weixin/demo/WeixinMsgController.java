@@ -8,8 +8,20 @@ package com.jfinal.weixin.demo;
 
 import com.jfinal.log.Log;
 import com.jfinal.weixin.sdk.jfinal.MsgControllerAdapter;
-import com.jfinal.weixin.sdk.msg.in.*;
-import com.jfinal.weixin.sdk.msg.in.event.*;
+import com.jfinal.weixin.sdk.msg.in.InImageMsg;
+import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
+import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
+import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InTextMsg;
+import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
+import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
+import com.jfinal.weixin.sdk.msg.in.event.InCustomEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMassEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
+import com.jfinal.weixin.sdk.msg.in.event.InTemplateMsgEvent;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 import com.jfinal.weixin.sdk.msg.out.OutCustomMsg;
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
@@ -356,6 +368,80 @@ public class WeixinMsgController extends MsgControllerAdapter {
 //        OutTextMsg outMsg = new OutTextMsg(inVerifyFailEvent);
 //        outMsg.setContent("资质认证失败通知事件：" + inVerifyFailEvent.getFailReason());
 //        render(outMsg);
+//    }
+//    
+//    /**
+//     * 处理微信硬件绑定和解绑事件
+//     * @param InEqubindEvent 处理微信硬件绑定和解绑事件
+//     */    
+//    @Override
+//    protected void processInEqubindEvent(InEqubindEvent msg) {
+//        String deviceType = msg.getDeviceType();
+//        String deviceID = msg.getDeviceID();
+//        String openID = msg.getOpenID();
+//        String event = msg.getEvent();
+//        String sessionID= msg.getSessionID();
+//        
+//        System.out.printf("收到消息,Openid,DeviceId,event:%s;%s;%s",msg.getOpenID(),msg.getDeviceID(),msg.getEvent());
+//        System.out.println(":DeviceType:" + deviceType);
+//        System.out.println(":sessionID:" + sessionID);
+//        
+//        // 存储用户和设备的绑定关系
+//        // 设备绑定/解绑事件可以回复空包体
+//        if(InEqubindEvent.BIND.equals(event)){
+//            // DO 业务
+//        }else{
+//            // DO 业务
+//        }
+//        //respons event
+//        OutEquDataMsg oeqmsg = new OutEquDataMsg(msg);  
+//        oeqmsg.setContent("");
+//        oeqmsg.setDeviceID(deviceID);
+//        oeqmsg.setDeviceType(deviceType);
+//        oeqmsg.setSessionID(sessionID);
+//        render(oeqmsg);
+//    }
+//    
+//    /**
+//     * 处理微信硬件发来数据
+//     * @param InEquDataMsg 处理微信硬件发来数据
+//     */
+//    @Override
+//    protected void processInEquDataMsg(InEquDataMsg msg) {
+//        String reqContent = msg.getContent();
+//        // Base64解码
+//        byte[] reqRaw = Base64Utils.decodeBase64(reqContent);
+//        // 反序列化
+//        BlueLight lightReq = BlueLight.parse(reqRaw);
+//        
+//        // 逻辑处理
+//        // demo中 推送消息给用户微信
+//        String reqText = lightReq.body;
+//        System.out.println("recv text:" + reqText);
+//        String transText = "收到设备发送的数据：";
+//        
+//        byte[] reqTextRaw = reqText.getBytes(Charsets.UTF_8);
+//        
+//        if (reqTextRaw.length > 0 && reqTextRaw[reqTextRaw.length - 1] == 0) {
+//            // 推送给微信用户的内容去掉末尾的反斜杠零'\0'
+//            transText = transText + new String(reqTextRaw, 0, reqTextRaw.length - 1, Charsets.UTF_8);
+//        } else{
+//            transText = transText + reqText;
+//        }
+//        
+//        // 推送文本消息给微信
+//        //MpApi.customSendText(openID, transText);
+//
+//        // demo中 回复 收到的内容给设备
+//        BlueLight lightResp = BlueLight.build(BlueLight.CmdId.SEND_TEXT_RESP, reqText, lightReq.head.seq); 
+//        // 序列化
+//        byte[] respRaw = lightResp.toBytes();
+//        // Base64编码
+//        String respCon = Base64Utils.encode(respRaw);
+//        System.out.println(respCon);
+//        // 设备消息接口必须回复符合协议的xml
+//        //TODO 解析并获取测量值
+//        renderOutTextMsg(transText);
 //    }
 }
 
