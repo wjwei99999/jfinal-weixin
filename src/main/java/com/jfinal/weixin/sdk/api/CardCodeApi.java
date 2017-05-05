@@ -2,7 +2,7 @@ package com.jfinal.weixin.sdk.api;
 
 import java.util.List;
 
-import com.jfinal.kit.JMap;
+import com.jfinal.kit.Kv;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
@@ -25,7 +25,7 @@ public class CardCodeApi {
      * @return {ApiResult}
      */
     public static ApiResult get(String code, String cardId, boolean checkConsume) {
-        JMap data = JMap.create("code", code);
+        Kv data = Kv.by("code", code);
         if (StrKit.notBlank(cardId)) {
             data.set("card_id", cardId);
         }
@@ -52,7 +52,7 @@ public class CardCodeApi {
      * @return {ApiResult}
      */
     public static ApiResult consume(String code, String cardId) {
-        JMap data = JMap.create("code", code);
+        Kv data = Kv.by("code", code);
         if (StrKit.notBlank(cardId)) {
             data.set("card_id", cardId);
         }
@@ -67,7 +67,7 @@ public class CardCodeApi {
      * @return {ApiResult}
      */
     public static ApiResult consumeOnline(String code, String openid) {
-        JMap data = JMap.create("code", code).set("openid", openid);
+        Kv data = Kv.by("code", code).set("openid", openid);
         String jsonResult = HttpUtils.post(consumeCode + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
@@ -80,7 +80,7 @@ public class CardCodeApi {
      * @return {ApiResult}
      */
     public static ApiResult decrypt(String encryptCode) {
-        JMap data = JMap.create("encrypt_code", encryptCode);
+        Kv data = Kv.by("encrypt_code", encryptCode);
         String jsonResult = HttpUtils.post(decryptCode + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
@@ -95,7 +95,7 @@ public class CardCodeApi {
      * @return {ApiResult}
      */
     public static ApiResult setDeposit(String cardId, List<String> codeList) {
-        JMap data = JMap.create("card_id", cardId).set("code", codeList);
+        Kv data = Kv.by("card_id", cardId).set("code", codeList);
         String jsonResult = HttpUtils.post(setDeposit + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
@@ -108,7 +108,7 @@ public class CardCodeApi {
      * @return {ApiResult}
      */
     public static ApiResult getDepositCount(String cardId) {
-        JMap data = JMap.create("card_id", cardId);
+        Kv data = Kv.by("card_id", cardId);
         String jsonResult = HttpUtils.post(getDepositCount + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
@@ -123,7 +123,7 @@ public class CardCodeApi {
      * @return {ApiResult}
      */
     public static ApiResult checkCode(String cardId, List<String> codeList) {
-        JMap data = JMap.create("card_id", cardId).set("code", codeList);
+        Kv data = Kv.by("card_id", cardId).set("code", codeList);
         String jsonResult = HttpUtils.post(checkCode + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
@@ -148,7 +148,7 @@ public class CardCodeApi {
      * @return {ApiResult}
      */
     public static ApiResult update(String cardId, String code, String newCode) {
-        JMap data = JMap.create("code", code).set("new_code", newCode);
+        Kv data = Kv.by("code", code).set("new_code", newCode);
         if (StrKit.notBlank(cardId)) {
             data.set("card_id", cardId);
         }
@@ -168,7 +168,7 @@ public class CardCodeApi {
      * @return {ApiResult}
      */
     public static ApiResult markCode(String code, String cardId, String openid, boolean isMark) {
-        JMap data = JMap.create("code", code).set("card_id", cardId).set("openid", openid).set("is_mark", isMark);
+        Kv data = Kv.by("code", code).set("card_id", cardId).set("openid", openid).set("is_mark", isMark);
         String jsonResult = HttpUtils.post(mark + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }

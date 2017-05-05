@@ -1,6 +1,6 @@
 package com.jfinal.weixin.sdk.api;
 
-import com.jfinal.kit.JMap;
+import com.jfinal.kit.Kv;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
@@ -43,7 +43,7 @@ public class MemberCardApi {
      * @return {ApiResult}
      */
     public static ApiResult getUserInfo(String cardId, String code) {
-        JMap data = JMap.create("card_id", cardId).set("code", code);
+        Kv data = Kv.by("card_id", cardId).set("code", code);
         String jsonResult = HttpUtils.post(getUserInfoUrl + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
@@ -56,7 +56,7 @@ public class MemberCardApi {
      * @return {ApiResult}
      */
     public static ApiResult getActivateTempInfo(String activaTeicket) {
-        JMap data = JMap.create("activate_ticket", activaTeicket);
+        Kv data = Kv.by("activate_ticket", activaTeicket);
         String jsonResult = HttpUtils.post(getActivateTempInfoUrl + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }

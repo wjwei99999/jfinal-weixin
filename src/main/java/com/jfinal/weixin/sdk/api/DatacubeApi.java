@@ -1,12 +1,12 @@
 package com.jfinal.weixin.sdk.api;
 
-import com.jfinal.kit.JMap;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.jfinal.kit.Kv;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 数据统计接口
@@ -264,7 +264,7 @@ public class DatacubeApi {
      */
     public static ApiResult getCardBizuinInfo(String beginDate, String endDate, int condSource) {
         String url = getCardBizuinInfo + AccessTokenApi.getAccessTokenStr();
-        JMap data = JMap.create("begin_date", beginDate).set("end_date", endDate)
+        Kv data = Kv.by("begin_date", beginDate).set("end_date", endDate)
                 .set("cond_source", condSource);
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
@@ -293,7 +293,7 @@ public class DatacubeApi {
      */
     public static ApiResult getCardInfo(String beginDate, String endDate, int condSource, String cardId) {
         String url = getCardInfo + AccessTokenApi.getAccessTokenStr();
-        JMap data = JMap.create("begin_date", beginDate).set("end_date", endDate)
+        Kv data = Kv.by("begin_date", beginDate).set("end_date", endDate)
                 .set("cond_source", condSource);
         if (StrKit.notBlank(cardId)) {
             data.set("card_id", cardId);
@@ -313,7 +313,7 @@ public class DatacubeApi {
      */
     public static ApiResult getMemberCardInfo(String beginDate, String endDate, int condSource) {
         String url = getMemberCardInfo + AccessTokenApi.getAccessTokenStr();
-        JMap data = JMap.create("begin_date", beginDate).set("end_date", endDate)
+        Kv data = Kv.by("begin_date", beginDate).set("end_date", endDate)
                 .set("cond_source", condSource);
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
@@ -330,7 +330,7 @@ public class DatacubeApi {
      */
     public static ApiResult getMemberCardDetail(String beginDate, String endDate, String cardId) {
         String url = getMemberCardDetail + AccessTokenApi.getAccessTokenStr();
-        JMap data = JMap.create("begin_date", beginDate).set("end_date", endDate)
+        Kv data = Kv.by("begin_date", beginDate).set("end_date", endDate)
                 .set("card_id", cardId);
         String jsonResult = HttpUtils.post(url, JsonUtils.toJson(data));
         return new ApiResult(jsonResult);

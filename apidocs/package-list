@@ -1,3 +1,7 @@
+com.jfinal.weixin.iot
+com.jfinal.weixin.iot.api
+com.jfinal.weixin.iot.msg
+com.jfinal.weixin.iot.protocol
 com.jfinal.weixin.sdk.api
 com.jfinal.weixin.sdk.api.bean
 com.jfinal.weixin.sdk.api.shakearound

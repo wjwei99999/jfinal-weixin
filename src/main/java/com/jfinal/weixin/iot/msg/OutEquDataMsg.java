@@ -4,17 +4,19 @@ import com.jfinal.weixin.sdk.msg.in.InMsg;
 import com.jfinal.weixin.sdk.msg.out.OutMsg;
 
 /**
-<xml>
-<ToUserName><![CDATA[%s]]></ToUserName>
-<FromUserName><![CDATA[%s]]></FromUserName>
-<CreateTime>%u</CreateTime>
-<MsgType><![CDATA[%s]]></MsgType>
-<DeviceType><![CDATA[%s]]></DeviceType>
-<DeviceID><![CDATA[%s]]></DeviceID>
-<SessionID>%u</SessionID>
-<Content><![CDATA[%s]]></Content>
-</xml>
-*/
+ * <pre>
+ * &lt;xml&gt;
+ *	&lt;ToUserName&gt;&lt;![CDATA[%s]]&gt;&lt;/ToUserName&gt;
+ *	&lt;FromUserName&gt;&lt;![CDATA[%s]]&gt;&lt;/FromUserName&gt;
+ *	&lt;CreateTime&gt;%u&lt;/CreateTime&gt;
+ *	&lt;MsgType&gt;&lt;![CDATA[%s]]&gt;&lt;/MsgType&gt;
+ *	&lt;DeviceType&gt;&lt;![CDATA[%s]]&gt;&lt;/DeviceType&gt;
+ *	&lt;DeviceID&gt;&lt;![CDATA[%s]]&gt;&lt;/DeviceID&gt;
+ *	&lt;SessionID&gt;%u&lt;/SessionID&gt;
+ *	&lt;Content&gt;&lt;![CDATA[%s]]&gt;&lt;/Content&gt;
+ * &lt;/xml&gt;
+ * </pre> 
+ */
 public class OutEquDataMsg extends OutMsg {
 	private static final long serialVersionUID = -1187439400934008473L;
 

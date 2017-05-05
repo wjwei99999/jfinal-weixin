@@ -408,13 +408,13 @@ public abstract class MsgController extends Controller {
     
     /**
      * 处理微信硬件绑定和解绑事件
-     * @param InEqubindEvent 处理微信硬件绑定和解绑事件
+     * @param msg 处理微信硬件绑定和解绑事件
      */    
     protected abstract void processInEqubindEvent(InEqubindEvent msg) ;
     
     /**
      * 处理微信硬件发来数据
-     * @param InEquDataMsg 处理微信硬件发来数据
+     * @param msg 处理微信硬件发来数据
      */
     protected abstract void processInEquDataMsg(InEquDataMsg msg);
 }

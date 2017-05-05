@@ -228,8 +228,8 @@ public abstract class MsgControllerAdapter extends MsgController {
 
     /**
      * 处理微信硬件绑定和解绑事件
-     * @param InEqubindEvent 处理微信硬件绑定和解绑事件
-     */    
+     * @param msg 处理微信硬件绑定和解绑事件
+     */
     @Override
     protected  void processInEqubindEvent(InEqubindEvent msg) {
         renderDefault();
@@ -237,8 +237,8 @@ public abstract class MsgControllerAdapter extends MsgController {
     
     /**
      * 处理微信硬件发来数据
-     * @param InEquDataMsg 处理微信硬件发来数据
-     */        
+     * @param msg 处理微信硬件发来数据
+     */
     @Override
     protected  void processInEquDataMsg(InEquDataMsg msg) {
         renderDefault();

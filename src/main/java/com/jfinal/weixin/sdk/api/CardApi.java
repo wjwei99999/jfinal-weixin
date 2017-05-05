@@ -1,11 +1,11 @@
 package com.jfinal.weixin.sdk.api;
 
-import com.jfinal.kit.JMap;
+import java.util.List;
+
+import com.jfinal.kit.Kv;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
-
-import java.util.List;
 
 /**
  * 卡券相关接口
@@ -56,7 +56,7 @@ public class CardApi {
      * @return {ApiResult}
      */
     public static ApiResult gethtmlMpnews(String cardId) {
-        JMap data = JMap.create();
+        Kv data = Kv.create();
         if (StrKit.notBlank(cardId)) {
             data.set("card_id", cardId);
         }
@@ -85,7 +85,7 @@ public class CardApi {
      * @return {ApiResult}
      */
     public static ApiResult setPaycell(String cardId, boolean isOpen) {
-        JMap data = JMap.create("card_id", cardId).set("is_open", isOpen);
+        Kv data = Kv.by("card_id", cardId).set("is_open", isOpen);
         String jsonResult = HttpUtils.post(setPaycell + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
@@ -111,7 +111,7 @@ public class CardApi {
      * @return {ApiResult}
      */
     public static ApiResult setSelfconsumecell(String cardId, boolean isOpen, boolean needVerifyCod, boolean needRemarkAmount) {
-        JMap data = JMap.create("card_id", cardId).set("is_open", isOpen).set("need_verify_cod", needVerifyCod)
+        Kv data = Kv.by("card_id", cardId).set("is_open", isOpen).set("need_verify_cod", needVerifyCod)
                 .set("need_remark_amount", needRemarkAmount);
         String jsonResult = HttpUtils.post(setSelfconsumecell + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
@@ -137,7 +137,7 @@ public class CardApi {
      * @return {ApiResult}
      */
     public static ApiResult getUserCardList(String openid, String cardId) {
-        JMap data = JMap.create("openid", openid);
+        Kv data = Kv.by("openid", openid);
         if (StrKit.notBlank(cardId)) {
             data.set("card_id", cardId);
         }
@@ -153,7 +153,7 @@ public class CardApi {
      * @return {ApiResult}
      */
     public static ApiResult get(String cardId) {
-        JMap data = JMap.create("card_id", cardId);
+        Kv data = Kv.by("card_id", cardId);
         String jsonResult = HttpUtils.post(getCard + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
@@ -178,7 +178,7 @@ public class CardApi {
      * @return {ApiResult}
      */
     public static ApiResult getBatch(int offset, int count, List<String> statusList) {
-        JMap data = JMap.create("offset", offset).set("count", count);
+        Kv data = Kv.by("offset", offset).set("count", count);
         if (statusList != null && !statusList.isEmpty()) {
             data.set("status_list", statusList);
         }
@@ -207,7 +207,7 @@ public class CardApi {
      * @return {ApiResult}
      */
     public static ApiResult modifystock(String cardId, int stockValue) {
-        JMap data = JMap.create("card_id", cardId);
+        Kv data = Kv.by("card_id", cardId);
         if (stockValue >= 0) {
             data.set("increase_stock_value", stockValue);
         } else {
@@ -225,7 +225,7 @@ public class CardApi {
      * @return {ApiResult}
      */
     public static ApiResult delete(String cardId) {
-        JMap data = JMap.create("card_id", cardId);
+        Kv data = Kv.by("card_id", cardId);
         String jsonResult = HttpUtils.post(delete + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
@@ -239,7 +239,7 @@ public class CardApi {
      * @return {ApiResult}
      */
     public static ApiResult unavailableByCode(String code, String reason) {
-        JMap data = JMap.create("code", code).set("reason", reason);
+        Kv data = Kv.by("code", code).set("reason", reason);
         String jsonResult = HttpUtils.post(unavailable + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
@@ -251,7 +251,7 @@ public class CardApi {
      * @return {ApiResult}
      */
     public static ApiResult unavailableByCard(String cardId, String reason) {
-        JMap data = JMap.create("card_id", cardId).set("reason", reason);
+        Kv data = Kv.by("card_id", cardId).set("reason", reason);
         String jsonResult = HttpUtils.post(unavailable + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }

@@ -3,18 +3,20 @@ package com.jfinal.weixin.iot.msg;
 import com.jfinal.weixin.sdk.msg.in.InMsg;
 
 /**
-<xml>
-<ToUserName><![CDATA[%s]]></ToUserName>
-<FromUserName><![CDATA[%s]]></FromUserName>
-<CreateTime>%u</CreateTime>
-<MsgType><![CDATA[%s]]></MsgType>
-<DeviceType><![CDATA[%s]]></DeviceType>
-<DeviceID><![CDATA[%s]]></DeviceID>
-<Content><![CDATA[%s]]></Content>
-<SessionID>%lu</SessionID>
-<MsgID>%lu</MsgID>
-<OpenID><![CDATA[%s]]></OpenID>
-</xml>
+ * <pre>
+ * &lt;xml&gt;
+ * 	&lt;ToUserName&gt;&lt;![CDATA[%s]]&gt;&lt;/ToUserName&gt;
+ * 	&lt;FromUserName&gt;&lt;![CDATA[%s]]&gt;&lt;/FromUserName&gt;
+ * 	&lt;CreateTime&gt;%u&lt;/CreateTime&gt;
+ * 	&lt;MsgType&gt;&lt;![CDATA[%s]]&gt;&lt;/MsgType&gt;
+ * 	&lt;DeviceType&gt;&lt;![CDATA[%s]]&gt;&lt;/DeviceType&gt;
+ * 	&lt;DeviceID&gt;&lt;![CDATA[%s]]&gt;&lt;/DeviceID&gt;
+ * 	&lt;Content&gt;&lt;![CDATA[%s]]&gt;&lt;/Content&gt;
+ * 	&lt;SessionID&gt;%lu&lt;/SessionID&gt;
+ * 	&lt;MsgID&gt;%lu&lt;/MsgID&gt;
+ * 	&lt;OpenID&gt;&lt;![CDATA[%s]]&gt;&lt;/OpenID&gt;
+ * &lt;/xml&gt;
+ * </pre>
 */
 public class InEquDataMsg extends InMsg {
 	private static final long serialVersionUID = 8591751084774828448L;

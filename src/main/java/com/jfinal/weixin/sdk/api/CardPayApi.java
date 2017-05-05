@@ -1,6 +1,6 @@
 package com.jfinal.weixin.sdk.api;
 
-import com.jfinal.kit.JMap;
+import com.jfinal.kit.Kv;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
@@ -29,7 +29,7 @@ public class CardPayApi {
      * @return {ApiResult}
      */
     public static ApiResult getPayPrice(String cardId, int quantity) {
-        JMap data = JMap.create("card_id", cardId).set("quantity", quantity);
+        Kv data = Kv.by("card_id", cardId).set("quantity", quantity);
         String jsonResult = HttpUtils.post(getPayPriceUrl + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
@@ -55,7 +55,7 @@ public class CardPayApi {
      * @return {ApiResult}
      */
     public static ApiResult confirm(String cardId, int quantity, String orderId) {
-        JMap data = JMap.create("card_id", cardId).set("quantity", quantity).set("order_id", orderId);
+        Kv data = Kv.by("card_id", cardId).set("quantity", quantity).set("order_id", orderId);
         String jsonResult = HttpUtils.post(confirmUrl + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
@@ -68,7 +68,7 @@ public class CardPayApi {
      * @return {ApiResult}
      */
     public static ApiResult recharge(int coinCount) {
-        JMap data = JMap.create("coin_count", coinCount);
+        Kv data = Kv.by("coin_count", coinCount);
         String jsonResult = HttpUtils.post(rechargeUrl + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }
@@ -81,7 +81,7 @@ public class CardPayApi {
      * @return {ApiResult}
      */
     public static ApiResult getOrder(String orderId) {
-        JMap data = JMap.create("order_id", orderId);
+        Kv data = Kv.by("order_id", orderId);
         String jsonResult = HttpUtils.post(getOrderUrl + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
     }

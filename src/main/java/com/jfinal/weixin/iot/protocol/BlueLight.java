@@ -56,6 +56,7 @@ public class BlueLight {
 	 *            包体内容
 	 * @param seq
 	 *            序列号 响应包同传入参数值；push包为0
+	 * @return {BlueLight}
 	 */
 	public static BlueLight build(CmdId cmdId, String respText, short seq) {
 		BlueLight light = new BlueLight();
@@ -75,6 +76,7 @@ public class BlueLight {
 
 	/**
 	 * 转为二进制
+	 * @return {byte[]}
 	 */
 	public byte[] toBytes() {
 		byte[] b = body == null ? new byte[0] : body.getBytes(CHARSET);
@@ -94,6 +96,8 @@ public class BlueLight {
 
 	/**
 	 * 二进制转对象
+	 * @param reqBytes 二进制
+	 * @return {BlueLight}
 	 */
 	public static BlueLight parse(byte[] reqBytes) {
 		ByteBuffer buf = ByteBuffer.wrap(reqBytes);

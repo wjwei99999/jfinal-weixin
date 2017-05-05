@@ -2,7 +2,7 @@ package com.jfinal.weixin.iot.api;
 
 import java.util.List;
 
-import com.jfinal.kit.JMap;
+import com.jfinal.kit.Kv;
 import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
@@ -11,8 +11,9 @@ import com.jfinal.weixin.sdk.utils.JsonUtils;
 /**
  * 设备相关 API
  * <p>
- * https://api.weixin.qq.com/device/ 
+ * http://iot.weixin.qq.com/wiki/new/index.html?page=3-4-3
  * 下的API为设备相关API， 测试号可以调用，正式服务号需要申请权限后才能调用。
+ * </p>
  */
 public class DeviceApi {
 	private static final String TransMsgUrl = "https://api.weixin.qq.com/device/transmsg?access_token=ACCESS_TOKEN";
@@ -28,9 +29,15 @@ public class DeviceApi {
 
 	/**
 	 * 向设备推送消息
+	 * 
+	 * @param deviceType 设备类型，目前为“公众账号原始ID”
+	 * @param deviceID 设备ID
+	 * @param openID 微信用户账号的openid
+	 * @param content 消息内容，BASE64编码
+	 * @return {ApiResult}
 	 */
 	public ApiResult transMsg(String deviceType, String deviceID, String openID, String content) {
-		JMap data = JMap.create("device_type", deviceType);
+		Kv data = Kv.by("device_type", deviceType);
 		data.set("device_id", deviceID);
 		data.set("open_id", openID);
 		data.set("content", content);
@@ -40,9 +47,11 @@ public class DeviceApi {
 
 	/**
 	 * 根据设备id获取二维码生成串
+	 * @param deviceIds 设备id集合
+	 * @return {ApiResult}
 	 */
 	public ApiResult createQrcode(List<String> deviceIds) {
-		JMap data = JMap.create("device_num", deviceIds.size());
+		Kv data = Kv.by("device_num", deviceIds.size());
 		data.set("device_id_list", deviceIds);
 		String url = CreateQrcode.replace("ACCESS_TOKEN", AccessTokenApi.getAccessTokenStr());
 		return new ApiResult(HttpUtils.post(url, JsonUtils.toJson(data)));
@@ -50,17 +59,23 @@ public class DeviceApi {
 	
 	/**
 	 * 根据product_id获取设备id和二维码生成串
+	 * @param productId 产品Id
+	 * @return {ApiResult}
 	 */
-	public ApiResult createQrcodeNew(String product_id) {
-		String url = CreateQrcodeNew.replace("ACCESS_TOKEN",AccessTokenApi.getAccessTokenStr()).replace("PRODUCT_ID", product_id);
+	public ApiResult createQrcodeNew(String productId) {
+		String url = CreateQrcodeNew.replace("ACCESS_TOKEN",AccessTokenApi.getAccessTokenStr()).replace("PRODUCT_ID", productId);
 		return new ApiResult(HttpUtils.get(url));
 	}	
 	
 	/**
 	 * 绑定
-	 */	
+	 * @param tikect 二维码生成串
+	 * @param deviceid 设备id
+	 * @param openid 微信用户账号的openid
+	 * @return {ApiResult}
+	 */
 	public ApiResult bind(String tikect, String deviceid, String openid) {
-		JMap data = JMap.create("ticket", tikect);
+		Kv data = Kv.by("ticket", tikect);
 		data.set("device_id", deviceid);
 		data.set("openid", openid);
 		String url = bindUrl.replace("ACCESS_TOKEN", AccessTokenApi.getAccessTokenStr());
@@ -69,9 +84,12 @@ public class DeviceApi {
 	
 	/**
 	 * 强制绑定
-	 */	
+	 * @param deviceid 设备id
+	 * @param openid 微信用户账号的openid
+	 * @return {ApiResult}
+	 */
 	public ApiResult compelBind(String deviceid, String openid) {
-		JMap data = JMap.create("device_id", deviceid);
+		Kv data = Kv.by("device_id", deviceid);
 		data.set("openid", openid);
 		String url = compelbindUrl.replace("ACCESS_TOKEN", AccessTokenApi.getAccessTokenStr());
 		return new ApiResult(HttpUtils.post(url, JsonUtils.toJson(data)));
@@ -79,9 +97,13 @@ public class DeviceApi {
 	
 	/**
 	 * 解绑
+	 * @param tikect 二维码生成串
+	 * @param deviceid 设备id
+	 * @param openid 微信用户账号的openid
+	 * @return {ApiResult}
 	 */
 	public ApiResult unbind(String tikect, String deviceid, String openid) {
-		JMap data = JMap.create("ticket", tikect);
+		Kv data = Kv.by("ticket", tikect);
 		data.set("device_id", deviceid);
 		data.set("openid", openid);
 		String url = unbindUrl.replace("ACCESS_TOKEN", AccessTokenApi.getAccessTokenStr());
@@ -97,9 +119,11 @@ public class DeviceApi {
 	 *            设备属性列表
 	 * @param isCreate
 	 *            是否首次授权： true 首次授权； false 更新设备属性
+	 * @param productId 商品id
+	 * @return {ApiResult}
 	 */
 	public ApiResult authorize(List<DeviceAuth> devices, boolean isCreate, String productId) {
-		JMap data = JMap.create("device_num", String.valueOf(devices.size()));
+		Kv data = Kv.by("device_num", String.valueOf(devices.size()));
 		data.set("op_type", isCreate ? "0" : "1");// 请求操作的类型 0：设备授权（缺省值为0） 1：设备更新（更新已授权设备的各属性值）
 		data.set("product_id", productId);
 		data.set("device_list", devices);
@@ -110,9 +134,14 @@ public class DeviceApi {
 
 	/**
 	 * 设备状态查询
+	 * 
+	 * @param deviceId 设备Id
+	 * 
 	 * <p>
-	 * status 0：未授权 1：已经授权（尚未被用户绑定） 2：已经被用户绑定<br/>
+	 * status 0：未授权 1：已经授权（尚未被用户绑定） 2：已经被用户绑定
 	 * {"errcode":0,"errmsg":"ok","status":1,"status_info":"authorized"}
+	 * </p>
+	 * @return {ApiResult}
 	 */
 	public ApiResult getStat(String deviceId) {
 		String url = GetStatUrl.replace("DEVICE_ID", deviceId)
@@ -125,15 +154,19 @@ public class DeviceApi {
 	 * 
 	 * @param ticket
 	 *            二维码生成串
+	 * @return {ApiResult}
 	 */
 	public ApiResult verifyQrcode(String ticket) {
-		JMap data = JMap.create("ticket", ticket);
+		Kv data = Kv.by("ticket", ticket);
 		String url = VerifyQrcodeUrl.replace("ACCESS_TOKEN", AccessTokenApi.getAccessTokenStr());
 		return new ApiResult(HttpUtils.post(url, JsonUtils.toJson(data)));
 	}
 
 	/**
 	 * 根据设备类型和设备id查询绑定的openid
+	 * @param deviceType 设备类型，目前为“公众账号原始ID”
+	 * @param deviceId 设备ID
+	 * @return {ApiResult}
 	 */
 	public ApiResult getOpenId(String deviceType, String deviceId) {
 		String url = GetOpenidUrl.replace("DEVICE_TYPE", deviceType)
