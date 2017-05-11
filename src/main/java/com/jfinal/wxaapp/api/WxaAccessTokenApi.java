@@ -27,8 +27,6 @@ public class WxaAccessTokenApi {
     // "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
     private static String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential";
 
-    // 利用 appId 与 accessToken 建立关联，支持多账户
-    private static IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
     private static final String cachePrefix = "wxa:";
 
     /**
@@ -46,6 +44,8 @@ public class WxaAccessTokenApi {
     }
 
     private static WxaAccessToken getAvailableAccessToken(WxaConfig wc) {
+        // 利用 appId 与 accessToken 建立关联，支持多账户
+        IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
         String accessTokenJson = accessTokenCache.get(cachePrefix + wc.getAppId());
         if (StrKit.notBlank(accessTokenJson)) {
             WxaAccessToken result = new WxaAccessToken(accessTokenJson);
@@ -105,6 +105,8 @@ public class WxaAccessTokenApi {
 
         // 三次请求如果仍然返回了不可用的 access token 仍然 put 进去，便于上层通过 WxaAccessToken 中的属性判断底层的情况
         if (null != result) {
+            // 利用 appId 与 accessToken 建立关联，支持多账户
+            IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
             accessTokenCache.set(cachePrefix + wc.getAppId(), result.getCacheJson());
         }
         return result;
