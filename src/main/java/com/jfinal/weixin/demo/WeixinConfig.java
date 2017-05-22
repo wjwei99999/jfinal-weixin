@@ -17,7 +17,8 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.template.Engine;
 import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
-import com.jfinal.weixin.sdk.cache.LocalTestTokenCache;
+import com.jfinal.wxaapp.WxaConfig;
+import com.jfinal.wxaapp.WxaConfigKit;
 
 public class WeixinConfig extends JFinalConfig {
     // 本地开发模式
@@ -116,11 +117,14 @@ public class WeixinConfig extends JFinalConfig {
          * 
          * @see WeixinApiController#getToken()
          */
-        if (isLocalDev) {
-            String onLineTokenUrl = "http://localhost/weixin/api/getToken";
-            ApiConfigKit.setAccessTokenCache(new LocalTestTokenCache(onLineTokenUrl));
-        }
-        
+//        if (isLocalDev) {
+//            String onLineTokenUrl = "http://localhost/weixin/api/getToken";
+//            ApiConfigKit.setAccessTokenCache(new LocalTestTokenCache(onLineTokenUrl));
+//        }
+        WxaConfig wc = new WxaConfig();
+        wc.setAppId("wx4f53594f9a6b3dcb");
+        wc.setAppSecret("eec6482ba3804df05bd10895bace0579");
+        WxaConfigKit.setWxaConfig(wc);
     }
 
     public static void main(String[] args) {

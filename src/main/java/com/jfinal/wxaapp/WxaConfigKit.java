@@ -10,6 +10,7 @@ import com.jfinal.wxaapp.msg.XmlMsgParser;
  *
  */
 public class WxaConfigKit {
+	private static WxaConfig wxaConfig;
     /**
      * 小程序消息解析
      */
@@ -39,12 +40,11 @@ public class WxaConfigKit {
         return devMode;
     }
 
+    public static void setWxaConfig(WxaConfig wxaConfig) {
+        WxaConfigKit.wxaConfig = wxaConfig;
+    }
+    
     public static WxaConfig getWxaConfig() {
-//    	AppID(小程序ID) wx4f53594f9a6b3dcb
-//    	AppSecret(小程序密钥) eec6482ba3804df05bd10895bace0579
-        WxaConfig wc = new WxaConfig();
-        wc.setAppId("wx4f53594f9a6b3dcb");
-        wc.setAppSecret("eec6482ba3804df05bd10895bace0579");
-        return wc;
+        return WxaConfigKit.wxaConfig;
     }
 }

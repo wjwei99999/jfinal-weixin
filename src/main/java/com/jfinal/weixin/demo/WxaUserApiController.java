@@ -3,7 +3,9 @@ package com.jfinal.weixin.demo;
 import com.jfinal.aop.Duang;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.StrKit;
+import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.api.ApiResult;
+import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
 import com.jfinal.wxaapp.api.WxaUserApi;
 import com.jfinal.wxaapp.jfinal.WxaController;
 
@@ -33,13 +35,11 @@ public class WxaUserApiController extends WxaController {
 			renderJson(apiResult.getJson());
 			return;
 		}
-		String sessionKey = apiResult.get("session_key");
-		String openid = apiResult.get("openid");
+		// 利用 appId 与 accessToken 建立关联，支持多账户
+		IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
+		String sessionId = StrKit.getRandomUUID();
 		
-		setSessionAttr("sessionKey", sessionKey);
-		setSessionAttr("openid", openid);
-		// 因为上面刚刚set，所以此处必有session
-		String sessionId = getSession(false).getId();
+		accessTokenCache.set("wxa:session:" + sessionId, apiResult.getJson());
 		renderJson("sessionId", sessionId);
 	}
 	
@@ -55,9 +55,25 @@ public class WxaUserApiController extends WxaController {
 		String iv = getPara("iv");
 		
 		// 参数空校验 不做演示
-		
+		// 利用 appId 与 accessToken 建立关联，支持多账户
+		IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
+		String sessionId = getHeader("wxa-sessionid");
+		if (StrKit.isBlank(sessionId)) {
+			Kv data = Kv.by("errcode", 500)
+					.set("errmsg", "wxa_session Header is blank");
+			renderJson(data);
+			return;
+		}
+		String sessionJson = accessTokenCache.get("wxa:session:" + sessionId);
+		if (StrKit.isBlank(sessionJson)) {
+			Kv data = Kv.by("errcode", 500)
+					.set("errmsg", "wxa_session sessionJson is blank");
+			renderJson(data);
+			return;
+		}
+		ApiResult sessionResult = ApiResult.create(sessionJson);
 		// 获取sessionKey
-		String sessionKey = getSessionAttr("sessionKey");
+		String sessionKey = sessionResult.get("session_key");
 		if (StrKit.isBlank(sessionKey)) {
 			Kv data = Kv.by("errcode", 500)
 					.set("errmsg", "sessionKey is blank");
