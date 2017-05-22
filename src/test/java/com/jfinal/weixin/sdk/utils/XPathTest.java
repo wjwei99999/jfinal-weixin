@@ -28,7 +28,7 @@ public class XPathTest {
         String title1 = xmlHelper.getString("//book[1]/title");
         Assert.assertEquals(title1, "Harry Potter");
 
-        String titleLang = xmlHelper.getString("//book[1]/title/@lang");
+        String titleLang = xmlHelper.getString("//book[2]/title/@lang");
         Assert.assertEquals(titleLang, "eng");
 
         Number price1 = xmlHelper.getNumber("//book[1]/price");
