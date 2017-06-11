@@ -14,6 +14,7 @@
 package com.jfinal.weixin.sdk.encrypt;
 
 import com.jfinal.kit.LogKit;
+import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.utils.Base64Utils;
 import com.jfinal.weixin.sdk.utils.Charsets;
 
@@ -212,7 +213,7 @@ public class WXBizMsgCrypt {
         String encrypt = encrypt(getRandomStr(), replyMsg);
 
         // 生成安全签名
-        if (timeStamp == "") {
+        if (StrKit.isBlank(timeStamp)) {
             timeStamp = Long.toString(System.currentTimeMillis());
         }
 
