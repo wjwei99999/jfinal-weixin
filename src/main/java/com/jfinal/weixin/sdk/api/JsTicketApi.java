@@ -6,13 +6,13 @@
 
 package com.jfinal.weixin.sdk.api;
 
+import java.util.concurrent.Callable;
+
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
 import com.jfinal.weixin.sdk.kit.ParaMap;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.RetryUtils;
-
-import java.util.concurrent.Callable;
 
 /**
  *
@@ -25,8 +25,6 @@ import java.util.concurrent.Callable;
 public class JsTicketApi {
 
     private static String apiUrl = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
-
-    static IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
 
     /**
      * JSApi的类型
@@ -52,7 +50,9 @@ public class JsTicketApi {
         String appId = ApiConfigKit.getApiConfig().getAppId();
         String key = appId + ':' + jsApiType.name();
         final ParaMap pm = ParaMap.create("access_token", access_token).put("type", jsApiType.name());
-
+        
+        final IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
+        
         // 2016.07.21修改By L.cm 为了更加方便扩展
         String jsTicketJson = accessTokenCache.get(key);
         JsTicket jsTicket = null;
