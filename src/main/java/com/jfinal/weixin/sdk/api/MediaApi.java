@@ -1,13 +1,13 @@
 package com.jfinal.weixin.sdk.api;
 
-import com.jfinal.weixin.sdk.utils.HttpUtils;
-import com.jfinal.weixin.sdk.utils.JsonUtils;
-
 import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.jfinal.weixin.sdk.utils.HttpUtils;
+import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 /**
  * 素材管理
@@ -257,7 +257,7 @@ public class MediaApi {
      * @param count 返回素材的数量，取值在1到20之间
      * @return ApiResult 返回信息
      */
-    public static ApiResult batchGetMaterial(MediaType mediaType, int offset, int count) {
+    public static ApiResult batchGetMaterial(String mediaType, int offset, int count) {
         String url = batchget_material_url + AccessTokenApi.getAccessTokenStr();
 
         if(offset < 0) offset = 0;
@@ -265,7 +265,7 @@ public class MediaApi {
         if(count < 1) count = 1;
 
         Map<String, Object> dataMap = new HashMap<String, Object>();
-        dataMap.put("type", mediaType.get());
+        dataMap.put("type", mediaType);
         dataMap.put("offset", offset);
         dataMap.put("count", count);
 

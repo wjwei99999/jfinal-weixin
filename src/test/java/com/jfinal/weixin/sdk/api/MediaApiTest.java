@@ -6,8 +6,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.jfinal.weixin.sdk.api.MediaApi.MediaType;
-
 public class MediaApiTest {
 
     @Before
@@ -32,7 +30,7 @@ public class MediaApiTest {
      */
     @Test
     public void testBatchGetMaterial() {
-        ApiResult ar = MediaApi.batchGetMaterial(MediaType.IMAGE, 1, 10);
+        ApiResult ar = MediaApi.batchGetMaterial("news", 1, 10);
 
         String json = ar.getJson();
         System.out.println("testBatchGetMaterial: " + json);
