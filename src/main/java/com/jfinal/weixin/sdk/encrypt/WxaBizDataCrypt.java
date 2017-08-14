@@ -6,14 +6,15 @@
 
 package com.jfinal.weixin.sdk.encrypt;
 
-import com.jfinal.weixin.sdk.utils.Base64Utils;
-import com.jfinal.weixin.sdk.utils.Charsets;
+import java.security.AlgorithmParameters;
+import java.security.Key;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.security.AlgorithmParameters;
-import java.security.Key;
+
+import com.jfinal.kit.Base64Kit;
+import com.jfinal.weixin.sdk.utils.Charsets;
 
 /**
  * 微信小程序-加密数据解密算法
@@ -33,9 +34,9 @@ public class WxaBizDataCrypt {
      * @return {String}
      */
     public String decrypt(String encryptedData, String ivStr) {
-        byte[] bizData = Base64Utils.decodeBase64(encryptedData);
-        byte[] keyByte = Base64Utils.decodeBase64(sessionKey);
-        byte[] ivByte  = Base64Utils.decodeBase64(ivStr);
+        byte[] bizData = Base64Kit.decode(encryptedData);
+        byte[] keyByte = Base64Kit.decode(sessionKey);
+        byte[] ivByte  = Base64Kit.decode(ivStr);
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
             Key sKeySpec = new SecretKeySpec(keyByte, "AES");

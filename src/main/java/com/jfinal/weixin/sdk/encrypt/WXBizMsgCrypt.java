@@ -13,16 +13,17 @@
  */
 package com.jfinal.weixin.sdk.encrypt;
 
-import com.jfinal.kit.LogKit;
-import com.jfinal.kit.StrKit;
-import com.jfinal.weixin.sdk.utils.Base64Utils;
-import com.jfinal.weixin.sdk.utils.Charsets;
+import java.util.Arrays;
+import java.util.Random;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.util.Arrays;
-import java.util.Random;
+
+import com.jfinal.kit.Base64Kit;
+import com.jfinal.kit.LogKit;
+import com.jfinal.kit.StrKit;
+import com.jfinal.weixin.sdk.utils.Charsets;
 
 /**
  * 提供接收和推送给公众平台消息的加解密接口(UTF8编码的字符串).
@@ -59,7 +60,7 @@ public class WXBizMsgCrypt {
 
         this.token = token;
         this.appId = appId;
-        aesKey = Base64Utils.decodeBase64(encodingAesKey + "=");
+        aesKey = Base64Kit.decode(encodingAesKey + "=");
     }
 
     // 生成4个字节的网络字节序
@@ -132,7 +133,7 @@ public class WXBizMsgCrypt {
             byte[] encrypted = cipher.doFinal(unencrypted);
 
             // 使用BASE64对加密后的字符串进行编码
-            String base64Encrypted = Base64Utils.encode(encrypted);
+            String base64Encrypted = Base64Kit.encode(encrypted);
 
             return base64Encrypted;
         } catch (Exception e) {
@@ -158,7 +159,7 @@ public class WXBizMsgCrypt {
             cipher.init(Cipher.DECRYPT_MODE, key_spec, iv);
 
             // 使用BASE64对密文进行解码
-            byte[] encrypted = Base64Utils.decodeBase64(text);
+            byte[] encrypted = Base64Kit.decode(text);
 
             // 解密
             original = cipher.doFinal(encrypted);

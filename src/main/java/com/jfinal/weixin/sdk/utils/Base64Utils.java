@@ -5,9 +5,12 @@ import java.nio.charset.Charset;
 
 /**
  * JDK6之后 Base64工具
- *
+ * 
+ * JFinal 3.2 请使用 Base64Kit
+ * 
  * 参考：http://www.importnew.com/14961.html
  */
+@Deprecated
 public class Base64Utils {
     private Base64Utils() {}
 
