@@ -16,8 +16,8 @@ public class ShakeAroundMaterialApi {
      * Icon：摇一摇页面展示的icon图；License：申请开通摇一摇周边功能时需上传的资质文件；若不传type，则默认type=icon
      */
     public static enum MaterialType {
-        Icon,
-        License
+        icon,
+        license
     }
 
     private static String materialAddUrl = "https://api.weixin.qq.com/shakearound/material/add?access_token=";
@@ -47,7 +47,7 @@ public class ShakeAroundMaterialApi {
      * @return ApiResult
      */
     public static ApiResult addMaterial(File file) {
-        return addMaterial(file, MaterialType.Icon);
+        return addMaterial(file, MaterialType.icon);
     }
 
 }
