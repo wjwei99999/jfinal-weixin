@@ -8,6 +8,7 @@ package com.jfinal.weixin.sdk.api;
 
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
@@ -29,7 +30,8 @@ import java.util.Map;
  *  null                    null
  *  </pre>
  */
-public class ApiResult {
+public class ApiResult implements Serializable {
+    private static final long serialVersionUID = 722417391137943513L;
 
     private Map<String, Object> attrs;
     private String json;
