@@ -7,7 +7,9 @@
 package com.jfinal.wxaapp.msg;
 
 import java.lang.reflect.Field;
+import java.text.ParseException;
 
+import com.jfinal.core.converter.TypeConverter;
 import com.jfinal.log.Log;
 import com.jfinal.weixin.sdk.utils.XmlHelper;
 import com.jfinal.wxaapp.msg.bean.WxaMsg;
@@ -58,19 +60,10 @@ public class XmlMsgParser extends MsgModelParser implements IMsgParser {
 	}
 	
 	private static final Object convert(Class<?> type, String s) {
-		if (type == String.class) {
-			return ("".equals(s) ? null : s);
+		try {
+			return TypeConverter.me().convert(type, s);
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
 		}
-		s = s.trim();
-		if ("".equals(s)) {
-			return null;
-		}
-		if (type == Integer.class || type == int.class) {
-			return Integer.parseInt(s);
-		}
-		if (type == Long.class || type == long.class) {
-			return Long.parseLong(s);
-		}
-		throw new RuntimeException("Please add code in " + XmlMsgParser.class  + ". The type can't be converted: " + type.getName());
 	}
 }
