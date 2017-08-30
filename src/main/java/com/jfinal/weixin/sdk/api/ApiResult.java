@@ -155,6 +155,10 @@ public class ApiResult implements Serializable {
         return (Map)attrs.get(name);
     }
 
+    public Map<String, Object> getAttrs(){
+        return this.attrs;
+    }
+
     /**
      * 判断 API 请求结果失败是否由于 access_token 无效引起的
      * 无效可能的情况 error_code 值：
