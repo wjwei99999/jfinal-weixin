@@ -136,10 +136,6 @@ public abstract class MsgController extends Controller {
             processInUserGetCardEvent((InUserGetCardEvent) msg);
         else if (msg instanceof InUserGiftingCardEvent)
             processInUserGiftingCardEvent((InUserGiftingCardEvent) msg);
-        else if (msg instanceof InEqubindEvent)
-            processInEqubindEvent((InEqubindEvent) msg);
-        else if (msg instanceof InEquDataMsg)
-            processInEquDataMsg((InEquDataMsg) msg);
         //===================微信智能硬件========================//
         else if (msg instanceof InEqubindEvent)
             processInEqubindEvent((InEqubindEvent) msg);
