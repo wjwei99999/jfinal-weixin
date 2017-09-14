@@ -252,6 +252,27 @@ public class MediaApi {
 
     /**
      * 获取素材列表
+     * @param mediaType 素材的类型，图片（image）、视频（video）、语音 （voice）
+     * @param offset 从全部素材的该偏移位置开始返回，0表示从第一个素材 返回
+     * @param count 返回素材的数量，取值在1到20之间
+     * @return ApiResult 返回信息
+     */
+    public static ApiResult batchGetMaterial(MediaType mediaType, int offset, int count) {
+        return batchGetMaterial(mediaType.get(), offset, count);
+    }
+    
+    /**
+     * 获取素材列表
+     * @param offset 从全部素材的该偏移位置开始返回，0表示从第一个素材 返回
+     * @param count 返回素材的数量，取值在1到20之间
+     * @return ApiResult 返回信息
+     */
+    public static ApiResult batchGetMaterialNews(int offset, int count) {
+        return batchGetMaterial("news", offset, count);
+    }
+    
+    /**
+     * 获取素材列表
      * @param mediaType 素材的类型，图片（image）、视频（video）、语音 （voice）、图文（news）
      * @param offset 从全部素材的该偏移位置开始返回，0表示从第一个素材 返回
      * @param count 返回素材的数量，取值在1到20之间
