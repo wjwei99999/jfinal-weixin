@@ -1,16 +1,15 @@
 package com.jfinal.weixin.sdk.utils;
 
-import com.jfinal.json.FastJson;
-import com.jfinal.json.JFinalJson;
-import com.jfinal.json.Json;
-import com.jfinal.plugin.activerecord.CPI;
-import com.jfinal.plugin.activerecord.Model;
-import com.jfinal.plugin.activerecord.Record;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import com.jfinal.json.FastJson;
+import com.jfinal.json.Json;
+import com.jfinal.plugin.activerecord.CPI;
+import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Record;
 
 /**
  * Json转换
@@ -84,9 +83,8 @@ public final class JsonUtils {
         else if (ClassUtils.isPresent("com.alibaba.fastjson.JSONObject", JsonUtils.class.getClassLoader())) {
             jsonToUse = new FastJson();
         }
-        // JFinalJson
         else {
-            jsonToUse = new JFinalJson();
+            jsonToUse = new JFinalWeixinJson();
         }
         json = jsonToUse;
     }
@@ -124,14 +122,28 @@ public final class JsonUtils {
     }
 
     /**
+     * 保证JFinal json parse 可用
+     */
+    private static class JFinalWeixinJson extends Json {
+
+        @Override
+        public String toJson(Object object) {
+            return Json.getJson().toJson(object);
+        }
+
+        @Override
+        public <T> T parse(String jsonString, Class<T> type) {
+            return Json.getJson().parse(jsonString, type);
+        }
+
+    }
+
+    /**
      * 将 Object 转为json字符串
      * @param object 对象
      * @return JsonString
      */
     public static String toJson(Object object) {
-        if (json == null) {
-            throw new RuntimeException("Jackson, Fastjson or JFinalJson not supported");
-        }
         return json.toJson(object);
     }
 
@@ -143,9 +155,6 @@ public final class JsonUtils {
      * @return T 结果
      */
     public static <T> T parse(String jsonString, Class<T> valueType) {
-        if (json == null) {
-            throw new RuntimeException("Jackson, Fastjson not supported");
-        }
         return json.parse(jsonString, valueType);
     }
 
