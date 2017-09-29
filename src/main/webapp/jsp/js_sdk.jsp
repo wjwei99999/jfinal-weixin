@@ -15,7 +15,7 @@ var shareData = {
     imgUrl: shareIMG
 };
 </script>
-<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
 <script type="text/javascript" src="http://xxxx/js_sdk.jsp"></script>
 //-----------------------------------------------------------------------------//
  --%>
@@ -31,8 +31,8 @@ var shareData = {
 <%@page import="com.jfinal.weixin.sdk.api.JsTicketApi.JsApiType"%>
 <%@page import="com.jfinal.weixin.sdk.api.JsTicketApi"%>
 <%@page import="com.jfinal.kit.StrKit"%>
-<%@ page language="java" contentType="application/x-javascript; charset=utf-8" isELIgnored="false"%>
-<%@ page trimDirectiveWhitespaces="true" %>
+<%@page language="java" contentType="application/x-javascript; charset=utf-8" isELIgnored="false"%>
+<%@page trimDirectiveWhitespaces="true" session="false" %>
 <%--微信环境内展示 --%>
 <%
 // 1.拼接url（当前网页的URL，不包含#及其后面部分）
@@ -49,8 +49,8 @@ if (StrKit.isBlank(appId)) {
 }
 // 方便测试 1.9添加参数&test=true
 String isTest = request.getParameter("test");
-if (null == isTest || !isTest.equals("true")) {
-    isTest = "false"; 
+if (null == isTest || !isTest.equalsIgnoreCase("true")) {
+    isTest = "false";
 }
 
 ApiConfigKit.setThreadLocalAppId(appId);
@@ -64,7 +64,7 @@ try {
 
 Map<String, String> _wxMap = new TreeMap<String, String>();
 //noncestr
-String _wxNoncestr         = UUID.randomUUID().toString().replace("-", "");
+String _wxNoncestr         = StrKit.getRandomUUID();
 //timestamp
 String _wxTimestamp        = (System.currentTimeMillis() / 1000) + "";
 
@@ -83,7 +83,7 @@ String _wxSignString = _wxBaseString.substring(0, _wxBaseString.length() - 1);
 // signature
 String _wxSignature = HashKit.sha1(_wxSignString);
  %>
-<%--兼容新老版本 --%>
+<%-- 配置 --%>
 wx.config({
     debug: <%=isTest %>,
     appId: '<%=appId %>',
@@ -130,7 +130,7 @@ wx.config({
 
 <%
 // 测试模式
-if (isTest.equals("true")) {
+if (isTest.equalsIgnoreCase("true")) {
 %>
 wx.error(function (res) {
     alert(res.errMsg);
