@@ -132,6 +132,7 @@ public class WxaQrcodeApi {
 
     private InputStream getUnLimit(String scene, String path, int width, boolean autoColor, Map<String, String> lineColor) {
         Kv kv = Kv.by("path", path)
+                .set("scene", scene)
                 .set("width", String.valueOf(width))
                 .set("auto_color", autoColor)
                 .set("line_color", lineColor);
