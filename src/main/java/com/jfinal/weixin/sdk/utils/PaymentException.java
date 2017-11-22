@@ -8,20 +8,20 @@ package com.jfinal.weixin.sdk.utils;
 public class PaymentException extends Exception {
 	private static final long serialVersionUID = 6615472990468215919L;
 
-	public PaymentException() {
-		super();
-	}
-
-	public PaymentException(String message, Throwable cause) {
-		super(message, cause);
-	}
-
-	public PaymentException(String message) {
-		super(message);
-	}
-
-	public PaymentException(Throwable cause) {
-		super(cause);
-	}
+	private final String returnCode;
+	private final String returnMsg;
 	
+	public PaymentException(String returnCode, String returnMsg) {
+		super();
+		this.returnCode = returnCode;
+		this.returnMsg = returnMsg;
+	}
+
+	public String getReturnCode() {
+		return returnCode;
+	}
+
+	public String getReturnMsg() {
+		return returnMsg;
+	}
 }

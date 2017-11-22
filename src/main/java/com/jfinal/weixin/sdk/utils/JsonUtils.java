@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import com.jfinal.json.FastJson;
 import com.jfinal.json.Json;
 import com.jfinal.plugin.activerecord.CPI;
 import com.jfinal.plugin.activerecord.Model;
@@ -22,6 +21,7 @@ import com.jfinal.plugin.activerecord.Record;
  * site:http://www.dreamlu.net
  * date 2015年5月13日下午4:58:33
  */
+@Deprecated
 public final class JsonUtils {
 
     private JsonUtils() {}
@@ -70,81 +70,13 @@ public final class JsonUtils {
         return toJson(list);
     }
 
-    // Json
-    private static final Json json;
-
-    static {
-        Json jsonToUse = null;
-        // com.fasterxml.jackson.databind.ObjectMapper?
-        if (ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", JsonUtils.class.getClassLoader())) {
-            jsonToUse = new JsonUtils.Jackson();
-        }
-        // com.alibaba.fastjson.JSONObject?
-        else if (ClassUtils.isPresent("com.alibaba.fastjson.JSONObject", JsonUtils.class.getClassLoader())) {
-            jsonToUse = new FastJson();
-        }
-        else {
-            jsonToUse = new JFinalWeixinJson();
-        }
-        json = jsonToUse;
-    }
-
-    /**
-     * 解决微信特殊字符的乱码
-     */
-    private static class Jackson extends Json {
-        private final com.fasterxml.jackson.databind.ObjectMapper objectMapper;
-
-        public Jackson() {
-            this.objectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
-            this.objectMapper.configure(com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
-            this.objectMapper.configure(com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER, true);
-        }
-
-        @Override
-        public String toJson(Object object) {
-            try {
-                return objectMapper.writeValueAsString(object);
-            } catch (Exception e) {
-                throw e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
-            }
-        }
-
-        @Override
-        public <T> T parse(String jsonString, Class<T> type) {
-            try {
-                return objectMapper.readValue(jsonString, type);
-            } catch (Exception e) {
-                throw e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
-            }
-        }
-
-    }
-
-    /**
-     * 保证JFinal json parse 可用
-     */
-    private static class JFinalWeixinJson extends Json {
-
-        @Override
-        public String toJson(Object object) {
-            return Json.getJson().toJson(object);
-        }
-
-        @Override
-        public <T> T parse(String jsonString, Class<T> type) {
-            return Json.getJson().parse(jsonString, type);
-        }
-
-    }
-
     /**
      * 将 Object 转为json字符串
      * @param object 对象
      * @return JsonString
      */
     public static String toJson(Object object) {
-        return json.toJson(object);
+        return Json.getJson().toJson(object);
     }
 
     /**
@@ -155,7 +87,7 @@ public final class JsonUtils {
      * @return T 结果
      */
     public static <T> T parse(String jsonString, Class<T> valueType) {
-        return json.parse(jsonString, valueType);
+        return Json.getJson().parse(jsonString, valueType);
     }
 
 }

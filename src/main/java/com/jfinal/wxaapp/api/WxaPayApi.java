@@ -79,12 +79,12 @@ public class WxaPayApi {
         String return_msg = result.get("return_msg");
         if (StrKit.isBlank(return_code) || !"SUCCESS".equals(return_code)) {
             log.error(return_msg);
-            throw new PaymentException(return_msg);
+            throw new PaymentException(return_code, return_msg);
         }
         String result_code = result.get("result_code");
         if (StrKit.isBlank(result_code) || !"SUCCESS".equals(result_code)) {
             log.error(return_msg);
-            throw new PaymentException(return_msg);
+            throw new PaymentException(return_code, return_msg);
         }
         // 以下字段在return_code 和result_code都为SUCCESS的时候有返回
         String prepay_id = result.get("prepay_id");
