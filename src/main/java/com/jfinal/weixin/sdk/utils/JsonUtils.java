@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import com.jfinal.json.IJsonFactory;
 import com.jfinal.json.Json;
 import com.jfinal.plugin.activerecord.CPI;
 import com.jfinal.plugin.activerecord.Model;
@@ -12,16 +13,14 @@ import com.jfinal.plugin.activerecord.Record;
 
 /**
  * Json转换
- * 默认使用jackson
- * 再次fastJson
- * 最后使用jsonKit
- *
+ * 
+ * JFinal-weixin内部使用
+ * 
  * @author L.cm
  * email: 596392912@qq.com
  * site:http://www.dreamlu.net
  * date 2015年5月13日下午4:58:33
  */
-@Deprecated
 public final class JsonUtils {
 
     private JsonUtils() {}
@@ -69,6 +68,19 @@ public final class JsonUtils {
         }
         return toJson(list);
     }
+    
+    private static IJsonFactory jsonFactory = null;
+    
+    /**
+     * 自定义 jsonFactory 用户自定义切换
+     * 1. 优先使用用户设定的JsonUtils.setJsonFactory
+     * 2. 用户没有手动设定，使用JFinal中设定的
+     * 3. JFinal中没有设定，使用JFinal默认的
+     * @param jsonFactory json工厂
+     */
+    public static void setJsonFactory(IJsonFactory jsonFactory) {
+        JsonUtils.jsonFactory = jsonFactory;
+    }
 
     /**
      * 将 Object 转为json字符串
@@ -76,7 +88,10 @@ public final class JsonUtils {
      * @return JsonString
      */
     public static String toJson(Object object) {
-        return Json.getJson().toJson(object);
+        if (jsonFactory == null) {
+            return Json.getJson().toJson(object);
+        }
+        return jsonFactory.getJson().toJson(object);
     }
 
     /**
@@ -87,7 +102,10 @@ public final class JsonUtils {
      * @return T 结果
      */
     public static <T> T parse(String jsonString, Class<T> valueType) {
-        return Json.getJson().parse(jsonString, valueType);
+        if (jsonFactory == null) {
+            return Json.getJson().parse(jsonString, valueType);
+        }
+        return jsonFactory.getJson().parse(jsonString, valueType);
     }
 
 }
