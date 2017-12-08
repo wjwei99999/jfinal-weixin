@@ -6,6 +6,7 @@
 
 package com.jfinal.weixin.sdk.api;
 
+import com.jfinal.kit.LogKit;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
 
 import java.io.Serializable;
@@ -104,8 +105,10 @@ public class ApiResult implements Serializable {
         Integer errorCode = getErrorCode();
         if (errorCode != null) {
             String result = ReturnCode.get(errorCode);
-            if (result != null)
+            if (result != null) {
                 return result;
+            }
+            LogKit.warn("未知返回码：" + errorCode);
         }
         return (String)attrs.get("errmsg");
     }

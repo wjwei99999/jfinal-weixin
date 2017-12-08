@@ -242,9 +242,8 @@ public class ReturnCode {
      * @param errCode 错误码
      * @return {String}
      */
-    public static String get(int errCode){
-        String result = errCodeToErrMsg.get(errCode);
-        return result != null ? result : "未知返回码：" + errCode;
+    public static String get(int errCode) {
+        return errCodeToErrMsg.get(errCode);
     }
 }
 
