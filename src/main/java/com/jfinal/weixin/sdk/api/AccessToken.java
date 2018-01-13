@@ -37,8 +37,12 @@ public class AccessToken implements ResultCheck, Serializable {
             errcode = (Integer) temp.get("errcode");
             errmsg = (String) temp.get("errmsg");
 
-            if (expires_in != null)
-                expiredTime = System.currentTimeMillis() + ((expires_in -5) * 1000);
+            if (expires_in != null) {
+            	// expires_in - 9  用于控制在 access token 过期之前 9 秒就 "主动" 再次获取 access token
+            	// 避免大并发场景下多线程同时获取 access token，造成公众平台 api 调用额度的浪费
+                expiredTime = System.currentTimeMillis() + ((expires_in - 9) * 1000);
+            }
+            
             // 用户缓存时还原
             if (temp.containsKey("expiredTime")) {
                  expiredTime = (Long) temp.get("expiredTime");
