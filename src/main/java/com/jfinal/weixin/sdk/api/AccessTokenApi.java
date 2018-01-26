@@ -6,13 +6,14 @@
 
 package com.jfinal.weixin.sdk.api;
 
+import java.util.Map;
+import java.util.concurrent.Callable;
+
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
 import com.jfinal.weixin.sdk.kit.ParaMap;
 import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.RetryUtils;
-import java.util.Map;
-import java.util.concurrent.Callable;
 
 /**
  * 认证并获取 access_token API
@@ -37,11 +38,15 @@ public class AccessTokenApi {
     public static AccessToken getAccessToken() {
         ApiConfig ac = ApiConfigKit.getApiConfig();
         AccessToken result = getAvailableAccessToken(ac);
-        if (result != null) {
-            return result;
+        if (result == null) {
+            synchronized(AccessTokenApi.class) {
+                result = getAvailableAccessToken(ac);
+                if (result == null) {
+                    result = refreshAccessToken(ac);
+                }
+            }
         }
-
-        return refreshAccessTokenIfNecessary(ac);
+        return result;
     }
 
     private static AccessToken getAvailableAccessToken(ApiConfig ac) {
@@ -67,30 +72,11 @@ public class AccessTokenApi {
     }
 
     /**
-     * synchronized 配合再次获取 token 并检测可用性，防止多线程重复刷新 token 值
-     */
-    private static synchronized AccessToken refreshAccessTokenIfNecessary(ApiConfig ac) {
-        AccessToken result = getAvailableAccessToken(ac);
-        if (result != null) {
-            return result;
-        }
-        return refreshAccessToken(ac);
-    }
-
-    /**
-     * 无条件强制更新 access token 值，不再对 cache 中的 token 进行判断
-     * @return AccessToken
-     */
-    public static AccessToken refreshAccessToken() {
-        return refreshAccessToken(ApiConfigKit.getApiConfig());
-    }
-
-    /**
      * 无条件强制更新 access token 值，不再对 cache 中的 token 进行判断
      * @param ac ApiConfig
      * @return AccessToken
      */
-    public static AccessToken refreshAccessToken(ApiConfig ac) {
+    private static AccessToken refreshAccessToken(ApiConfig ac) {
         String appId = ac.getAppId();
         String appSecret = ac.getAppSecret();
         final Map<String, String> queryParas = ParaMap.create("appid", appId).put("secret", appSecret).getData();
