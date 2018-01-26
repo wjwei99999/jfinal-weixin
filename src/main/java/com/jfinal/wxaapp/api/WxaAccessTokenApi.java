@@ -6,7 +6,11 @@
 
 package com.jfinal.wxaapp.api;
 
+import java.util.Map;
+import java.util.concurrent.Callable;
+
 import com.jfinal.kit.StrKit;
+import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
 import com.jfinal.weixin.sdk.kit.ParaMap;
@@ -14,9 +18,6 @@ import com.jfinal.weixin.sdk.utils.HttpUtils;
 import com.jfinal.weixin.sdk.utils.RetryUtils;
 import com.jfinal.wxaapp.WxaConfig;
 import com.jfinal.wxaapp.WxaConfigKit;
-
-import java.util.Map;
-import java.util.concurrent.Callable;
 
 /**
  * 小程序access_token
@@ -36,11 +37,15 @@ public class WxaAccessTokenApi {
     public static WxaAccessToken getAccessToken() {
         WxaConfig wc = WxaConfigKit.getWxaConfig();
         WxaAccessToken result = getAvailableAccessToken(wc);
-        if (result != null) {
-            return result;
+        if (result == null) {
+            synchronized(AccessTokenApi.class) {
+                result = getAvailableAccessToken(wc);
+                if (result == null) {
+                    result = refreshAccessToken(wc);
+                }
+            }
         }
-
-        return refreshAccessTokenIfNecessary(wc);
+        return result;
     }
 
     private static WxaAccessToken getAvailableAccessToken(WxaConfig wc) {
@@ -65,30 +70,11 @@ public class WxaAccessTokenApi {
     }
 
     /**
-     * synchronized 配合再次获取 token 并检测可用性，防止多线程重复刷新 token 值
-     */
-    private static synchronized WxaAccessToken refreshAccessTokenIfNecessary(WxaConfig wc) {
-        WxaAccessToken result = getAvailableAccessToken(wc);
-        if (result != null) {
-            return result;
-        }
-        return refreshAccessToken(wc);
-    }
-
-    /**
-     * 无条件强制更新 access token 值，不再对 cache 中的 token 进行判断
-     * @return WxaAccessToken
-     */
-    public static WxaAccessToken refreshAccessToken() {
-        return refreshAccessToken(WxaConfigKit.getWxaConfig());
-    }
-
-    /**
      * 无条件强制更新 access token 值，不再对 cache 中的 token 进行判断
      * @param wc WxaConfig
      * @return WxaAccessToken
      */
-    public static WxaAccessToken refreshAccessToken(WxaConfig wc) {
+    private static WxaAccessToken refreshAccessToken(WxaConfig wc) {
         String appId = wc.getAppId();
         String appSecret = wc.getAppSecret();
         final Map<String, String> queryParas = ParaMap.create("appid", appId).put("secret", appSecret).getData();
