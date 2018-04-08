@@ -31,11 +31,23 @@ public class AccessTokenApi {
     // "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
     private static String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential";
 
+    // 用于手动设置的 accessToken
+    private static AccessToken accessToken=null;
+
+    public static void setAccessToken(AccessToken ak){
+        accessToken=ak;
+    }
+
+    public static void removeAccessToken(){
+        accessToken=null;
+    }
     /**
      * 从缓存中获取 access token，如果未取到或者 access token 不可用则先更新再获取
      * @return AccessToken accessToken
      */
     public static AccessToken getAccessToken() {
+        if (accessToken!=null)
+            return accessToken;
         ApiConfig ac = ApiConfigKit.getApiConfig();
         AccessToken result = getAvailableAccessToken(ac);
         if (result == null) {
@@ -52,7 +64,7 @@ public class AccessTokenApi {
     private static AccessToken getAvailableAccessToken(ApiConfig ac) {
         // 利用 appId 与 accessToken 建立关联，支持多账户
         IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
-        
+
         String accessTokenJson = accessTokenCache.get(ac.getAppId());
         if (StrKit.notBlank(accessTokenJson)) {
             AccessToken result = new AccessToken(accessTokenJson);
