@@ -34,7 +34,7 @@ public class WxaTemplateApi {
      * @return {ApiResult}
      */
     public ApiResult send(WxaTemplate template) {
-        return TemplateMsgApi.send(template.build());
+        return this.send(template.build());
     }
     
 }
