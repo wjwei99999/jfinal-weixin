@@ -34,6 +34,7 @@ public class XmlHelper {
 
     private XmlHelper(InputSource inputSource) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbf = getDocumentBuilderFactory();
+        dbf.setExpandEntityReferences(false);
         DocumentBuilder db = dbf.newDocumentBuilder();
         doc = db.parse(inputSource);
         path = getXPathFactory().newXPath();
