@@ -1,16 +1,17 @@
 package com.jfinal.weixin.sdk.api;
 
 import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import com.jfinal.json.JsonManager;
 
 public class MediaApiTest {
 
     @Before
     public void setUp() {
         AccessTokenApiTest.init();
+        JsonManager.me().setDefaultJsonFactory(new com.jfinal.json.MixedJsonFactory());
     }
 
     /**
