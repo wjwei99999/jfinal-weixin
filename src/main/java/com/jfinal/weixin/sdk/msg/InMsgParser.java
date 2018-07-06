@@ -218,7 +218,7 @@ public class InMsgParser {
          *     挪至最前面进行判断，以便消除微信平台 bug 的影响
          */
         if ("unsubscribe".equals(event)) {
-            return new InFollowEvent(toUserName, fromUserName, createTime, event);
+            return new InFollowEvent(toUserName, fromUserName, createTime, event,eventKey);
         }
 
         // 扫描带参数二维码事件之一        1: 用户未关注时，进行关注后的事件推送
@@ -244,7 +244,7 @@ public class InMsgParser {
          *     消除微信平台 bug 的影响
          */
         if ("subscribe".equals(event) /*&& StrKit.isBlank(eventKey)*/) {
-            return new InFollowEvent(toUserName, fromUserName, createTime, event);
+            return new InFollowEvent(toUserName, fromUserName, createTime, event,eventKey);
         }
 
         // 上报地理位置事件
