@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
+import com.jfinal.json.FastJson;
 import com.jfinal.json.IJsonFactory;
 import com.jfinal.json.Json;
 import com.jfinal.plugin.activerecord.CPI;
@@ -103,7 +103,15 @@ public final class JsonUtils {
      */
     public static <T> T parse(String jsonString, Class<T> valueType) {
         if (jsonFactory == null) {
-            return Json.getJson().parse(jsonString, valueType);
+            // return Json.getJson().parse(jsonString, valueType);
+        		
+        		Json json = Json.getJson();
+        		// JFinalJson 不支持 parse
+        		if (json instanceof com.jfinal.json.JFinalJson) {
+        			return FastJson.getJson().parse(jsonString, valueType);
+        		} else {
+        			return json.parse(jsonString, valueType);
+        		}
         }
         return jsonFactory.getJson().parse(jsonString, valueType);
     }
