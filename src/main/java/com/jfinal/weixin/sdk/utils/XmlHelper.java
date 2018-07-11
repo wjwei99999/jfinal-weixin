@@ -34,29 +34,6 @@ public class XmlHelper {
 
     private XmlHelper(InputSource inputSource) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbf = getDocumentBuilderFactory();
-        // This is the PRIMARY defense. If DTDs (doctypes) are disallowed, almost all XML entity attacks are prevented
-        // Xerces 2 only - http://xerces.apache.org/xerces2-j/features.html#disallow-doctype-decl
-        dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-
-        // If you can't completely disable DTDs, then at least do the following:
-        // Xerces 1 - http://xerces.apache.org/xerces-j/features.html#external-general-entities
-        // Xerces 2 - http://xerces.apache.org/xerces2-j/features.html#external-general-entities
-
-        // JDK7+ - http://xml.org/sax/features/external-general-entities 
-        dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
-
-        // Xerces 1 - http://xerces.apache.org/xerces-j/features.html#external-parameter-entities
-        // Xerces 2 - http://xerces.apache.org/xerces2-j/features.html#external-parameter-entities
-
-        // JDK7+ - http://xml.org/sax/features/external-parameter-entities 
-        dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-
-        // Disable external DTDs as well
-        dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-
-        // and these as well, per Timothy Morgan's 2014 paper: "XML Schema, DTD, and Entity Attacks"
-        dbf.setXIncludeAware(false);
-        dbf.setExpandEntityReferences(false);
         DocumentBuilder db = dbf.newDocumentBuilder();
         doc = db.parse(inputSource);
         path = getXPathFactory().newXPath();
@@ -210,9 +187,43 @@ public class XmlHelper {
         }
         return params;
     }
+    
+    private static boolean preventedXXE = false;
 
-    private static DocumentBuilderFactory getDocumentBuilderFactory(){
-        return XmlHelper.XmlHelperHolder.documentBuilderFactory;
+    private static DocumentBuilderFactory getDocumentBuilderFactory() throws ParserConfigurationException{
+    		DocumentBuilderFactory dbf = XmlHelper.XmlHelperHolder.documentBuilderFactory;
+    		if (!preventedXXE) {
+    			preventXXE(dbf);
+    			preventedXXE = true;
+    		}
+        return dbf;
+    }
+    
+    // https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=23_5
+    private static void preventXXE(DocumentBuilderFactory dbf) throws ParserConfigurationException {
+    		// This is the PRIMARY defense. If DTDs (doctypes) are disallowed, almost all XML entity attacks are prevented
+        // Xerces 2 only - http://xerces.apache.org/xerces2-j/features.html#disallow-doctype-decl
+        dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+
+        // If you can't completely disable DTDs, then at least do the following:
+        // Xerces 1 - http://xerces.apache.org/xerces-j/features.html#external-general-entities
+        // Xerces 2 - http://xerces.apache.org/xerces2-j/features.html#external-general-entities
+
+        // JDK7+ - http://xml.org/sax/features/external-general-entities 
+        dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+
+        // Xerces 1 - http://xerces.apache.org/xerces-j/features.html#external-parameter-entities
+        // Xerces 2 - http://xerces.apache.org/xerces2-j/features.html#external-parameter-entities
+
+        // JDK7+ - http://xml.org/sax/features/external-parameter-entities 
+        dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+
+        // Disable external DTDs as well
+        dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+
+        // and these as well, per Timothy Morgan's 2014 paper: "XML Schema, DTD, and Entity Attacks"
+        dbf.setXIncludeAware(false);
+        dbf.setExpandEntityReferences(false);
     }
 
     private static XPathFactory getXPathFactory() {
