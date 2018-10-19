@@ -8,7 +8,7 @@ package com.jfinal.weixin.sdk.jfinal;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
-import com.jfinal.ext.interceptor.NotAction;
+import com.jfinal.core.NotAction;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
@@ -156,6 +156,7 @@ public abstract class MsgController extends Controller {
      *
      * @param outMsg 输出对象
      */
+    @NotAction
     public void render(OutMsg outMsg) {
         String outMsgXml = outMsg.toXml();
         // 开发模式向控制台输出即将发送的 OutMsg 消息的 xml 内容
@@ -177,13 +178,14 @@ public abstract class MsgController extends Controller {
      * 消息输出
      * @param content 输出的消息
      */
+    @NotAction
     public void renderOutTextMsg(String content) {
         OutTextMsg outMsg = new OutTextMsg(getInMsg());
         outMsg.setContent(content);
         render(outMsg);
     }
 
-    @Before(NotAction.class)
+    @NotAction
     public String getInMsgXml() {
         if (inMsgXml == null) {
             inMsgXml = HttpKit.readData(getRequest());
@@ -199,7 +201,7 @@ public abstract class MsgController extends Controller {
         return inMsgXml;
     }
 
-    @Before(NotAction.class)
+    @NotAction
     public InMsg getInMsg() {
         if (inMsg == null)
             inMsg = InMsgParser.parse(getInMsgXml());

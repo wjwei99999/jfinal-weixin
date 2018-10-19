@@ -1,6 +1,7 @@
 package com.jfinal.weixin.demo;
 
 import com.jfinal.core.Controller;
+import com.jfinal.core.NotAction;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.PaymentApi;
@@ -129,6 +130,7 @@ public class WeixinPayController extends Controller {
      * 2016年5月14日
      * PC扫码支付获取二维码（模式一）
      */
+    @NotAction
     public String getCodeUrl(String productId){
         String url="weixin://wxpay/bizpayurl?sign=%s&appid=%s&mch_id=%s&product_id=%s&time_stamp=%s&nonce_str=%s";
 
