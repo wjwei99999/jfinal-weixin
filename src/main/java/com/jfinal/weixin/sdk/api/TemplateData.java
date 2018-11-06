@@ -13,104 +13,147 @@ import java.util.HashMap;
  * #description 模板消息数据对象
  */
 public class TemplateData implements Serializable {
-    private static final long serialVersionUID = 8038149984818112449L;
+	private static final long serialVersionUID = 8038149984818112449L;
 
-    private String touser;
-    private String template_id;
-    private String url;
-    private TemplateItem data;
+	private String touser;
+	private String template_id;
+	private String url;
+	private TemplateItem data;
+	private MiniProgramData miniprogram;
 
-    public static TemplateData New() {
-        return new TemplateData();
-    }
+	public static TemplateData New() {
+		return new TemplateData();
+	}
 
-    private TemplateData() {
-        this.data = new TemplateItem();
-    }
+	private TemplateData() {
+		this.data = new TemplateItem();
+	}
 
-    public String getTouser() {
-        return touser;
-    }
+	public String getTouser() {
+		return touser;
+	}
 
-    public TemplateData setTouser(String touser) {
-        this.touser = touser;
-        return this;
-    }
+	public TemplateData setTouser(String touser) {
+		this.touser = touser;
+		return this;
+	}
 
-    public String getTemplate_id() {
-        return template_id;
-    }
+	public String getTemplate_id() {
+		return template_id;
+	}
 
-    public TemplateData setTemplate_id(String template_id) {
-        this.template_id = template_id;
-        return this;
-    }
+	public TemplateData setTemplate_id(String template_id) {
+		this.template_id = template_id;
+		return this;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public String getUrl() {
+		return url;
+	}
 
-    public TemplateData setUrl(String url) {
-        this.url = url;
-        return this;
-    }
+	public TemplateData setUrl(String url) {
+		this.url = url;
+		return this;
+	}
 
-    public TemplateItem getData() {
-        return data;
-    }
+	public TemplateItem getData() {
+		return data;
+	}
 
-    public TemplateData add(String key, String value, String color){
-        data.put(key, new Item(value, color));
-        return this;
-    }
-    
-    public TemplateData add(String key, String value){
-        data.put(key, new Item(value));
-        return this;
-    }
+	public TemplateData add(String key, String value, String color) {
+		data.put(key, new Item(value, color));
+		return this;
+	}
 
-    /**
-     * 直接转化成jsonString
-     * @return {String}
-     */
-    public String build() {
-        return JsonUtils.toJson(this);
-    }
+	public TemplateData add(String key, String value) {
+		data.put(key, new Item(value));
+		return this;
+	}
 
-    public class TemplateItem extends HashMap<String, Item> {
+	public MiniProgramData getMiniprogram() {
+		return miniprogram;
+	}
 
-        private static final long serialVersionUID = -3728490424738325020L;
+	public TemplateData setMiniprogram(String appid,String pagepath) {
+		this.miniprogram = new MiniProgramData(appid, pagepath);
+		return this;
+	}
 
-        public TemplateItem() {}
+	/**
+	 * 直接转化成jsonString
+	 * 
+	 * @return {String}
+	 */
+	public String build() {
+		return JsonUtils.toJson(this);
+	}
 
-        public TemplateItem(String key, Item item) {
-            this.put(key, item);
-        }
-    }
+	public class TemplateItem extends HashMap<String, Item> {
 
-    public class Item {
-        private Object value;
-        private String color;
+		private static final long serialVersionUID = -3728490424738325020L;
 
-        public Object getValue() {
-            return value;
-        }
-        public void setValue(Object value) {
-            this.value = value;
-        }
-        public String getColor() {
-            return color;
-        }
-        public void setColor(String color) {
-            this.color = color;
-        }
-        
-        public Item(Object value) {
-            this(value, "#999");
-        }
-        public Item(Object value, String color) {
-            this.value = value;
-            this.color = color;
-        }
-    }
+		public TemplateItem() {
+		}
+
+		public TemplateItem(String key, Item item) {
+			this.put(key, item);
+		}
+	}
+
+	public class Item {
+		private Object value;
+		private String color;
+
+		public Object getValue() {
+			return value;
+		}
+
+		public void setValue(Object value) {
+			this.value = value;
+		}
+
+		public String getColor() {
+			return color;
+		}
+
+		public void setColor(String color) {
+			this.color = color;
+		}
+
+		public Item(Object value) {
+			this(value, "#999");
+		}
+
+		public Item(Object value, String color) {
+			this.value = value;
+			this.color = color;
+		}
+	}
+
+	public class MiniProgramData {
+		private String appid;
+		private String pagepath;
+
+		public MiniProgramData(String appid, String pagepath) {
+			this.appid = appid;
+			this.pagepath = pagepath;
+		}
+
+		public String getAppid() {
+			return appid;
+		}
+
+		public void setAppid(String appid) {
+			this.appid = appid;
+		}
+
+		public String getPagepath() {
+			return pagepath;
+		}
+
+		public void setPagepath(String pagepath) {
+			this.pagepath = pagepath;
+		}
+
+	}
 }
