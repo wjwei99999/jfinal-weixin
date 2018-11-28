@@ -17,38 +17,9 @@ import com.jfinal.weixin.iot.msg.InEqubindEvent;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.kit.MsgEncryptKit;
 import com.jfinal.weixin.sdk.msg.InMsgParser;
-import com.jfinal.weixin.sdk.msg.in.InImageMsg;
-import com.jfinal.weixin.sdk.msg.in.InLinkMsg;
-import com.jfinal.weixin.sdk.msg.in.InLocationMsg;
-import com.jfinal.weixin.sdk.msg.in.InMsg;
-import com.jfinal.weixin.sdk.msg.in.InNotDefinedMsg;
-import com.jfinal.weixin.sdk.msg.in.InShortVideoMsg;
-import com.jfinal.weixin.sdk.msg.in.InTextMsg;
-import com.jfinal.weixin.sdk.msg.in.InVideoMsg;
-import com.jfinal.weixin.sdk.msg.in.InVoiceMsg;
-import com.jfinal.weixin.sdk.msg.in.card.InCardPassCheckEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InCardPayOrderEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InCardSkuRemindEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InMerChantOrderEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InUpdateMemberCardEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InUserCardEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InUserConsumeCardEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InUserGetCardEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InUserGiftingCardEvent;
-import com.jfinal.weixin.sdk.msg.in.card.InUserPayFromCardEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InCustomEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InFollowEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InLocationEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InMassEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InMenuEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InNotDefinedEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InPoiCheckNotifyEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InQrCodeEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InShakearoundUserShakeEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InTemplateMsgEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InVerifyFailEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InVerifySuccessEvent;
-import com.jfinal.weixin.sdk.msg.in.event.InWifiEvent;
+import com.jfinal.weixin.sdk.msg.in.*;
+import com.jfinal.weixin.sdk.msg.in.card.*;
+import com.jfinal.weixin.sdk.msg.in.event.*;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 import com.jfinal.weixin.sdk.msg.out.OutMsg;
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
@@ -57,10 +28,10 @@ import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
  * 接收微信服务器消息，自动解析成 InMsg 并分发到相应的处理方法
  */
 public abstract class MsgController extends Controller {
-
-    private static final Log log = Log.getLog(MsgController.class);
-    private String inMsgXml = null;        // 本次请求 xml数据
-    private InMsg inMsg = null;            // 本次请求 xml 解析后的 InMsg 对象
+    // 将 xml 和 in msg 存储到 request 中，解决控制器 单例的问题
+    protected static final String IN_MSG_XML_WX_CACHE_KEY = "_IN_MSG_XML_WX_CACHE_KEY_";
+    protected static final String IN_MSG_WX_CACHE_KEY = "_IN_MSG_WX_CACHE_KEY_";
+    protected static final Log log = Log.getLog(MsgController.class);
 
     /**
      * weixin 公众号服务器调用唯一入口，即在开发者中心输入的 URL 必须要指向此 action
@@ -76,27 +47,29 @@ public abstract class MsgController extends Controller {
         // 解析消息并根据消息类型分发到相应的处理方法
         InMsg msg = getInMsg();
 
-        if (msg instanceof InTextMsg)
+        if (msg instanceof InTextMsg) {
             processInTextMsg((InTextMsg) msg);
-        else if (msg instanceof InImageMsg)
+        } else if (msg instanceof InImageMsg) {
             processInImageMsg((InImageMsg) msg);
-        else if (msg instanceof InSpeechRecognitionResults)  //update by unas at 2016-1-29, 由于继承InVoiceMsg，需要在InVoiceMsg前判断类型
+        } else if (msg instanceof InSpeechRecognitionResults) {
+            //update by unas at 2016-1-29, 由于继承InVoiceMsg，需要在InVoiceMsg前判断类型
             processInSpeechRecognitionResults((InSpeechRecognitionResults) msg);
-        else if (msg instanceof InVoiceMsg)
+        } else if (msg instanceof InVoiceMsg) {
             processInVoiceMsg((InVoiceMsg) msg);
-        else if (msg instanceof InVideoMsg)
+        } else if (msg instanceof InVideoMsg) {
             processInVideoMsg((InVideoMsg) msg);
-        else if (msg instanceof InShortVideoMsg)   //支持小视频
+        } else if (msg instanceof InShortVideoMsg) {
+            //支持小视频
             processInShortVideoMsg((InShortVideoMsg) msg);
-        else if (msg instanceof InLocationMsg)
+        } else if (msg instanceof InLocationMsg) {
             processInLocationMsg((InLocationMsg) msg);
-        else if (msg instanceof InLinkMsg)
+        } else if (msg instanceof InLinkMsg) {
             processInLinkMsg((InLinkMsg) msg);
-        else if (msg instanceof InCustomEvent)
+        } else if (msg instanceof InCustomEvent) {
             processInCustomEvent((InCustomEvent) msg);
-        else if (msg instanceof InFollowEvent)
+        } else if (msg instanceof InFollowEvent) {
             processInFollowEvent((InFollowEvent) msg);
-        else if (msg instanceof InQrCodeEvent)
+        } else if (msg instanceof InQrCodeEvent)
             processInQrCodeEvent((InQrCodeEvent) msg);
         else if (msg instanceof InLocationEvent)
             processInLocationEvent((InLocationEvent) msg);
@@ -139,10 +112,10 @@ public abstract class MsgController extends Controller {
         //===================微信智能硬件========================//
         else if (msg instanceof InEqubindEvent)
             processInEqubindEvent((InEqubindEvent) msg);
-        else if (msg instanceof InEquDataMsg)
+        else if (msg instanceof InEquDataMsg) {
             processInEquDataMsg((InEquDataMsg) msg);
         //===================微信智能硬件========================//
-        else if (msg instanceof InNotDefinedEvent) {
+        } else if (msg instanceof InNotDefinedEvent) {
             log.error("未能识别的事件类型。 消息 xml 内容为：\n" + getInMsgXml());
             processIsNotDefinedEvent((InNotDefinedEvent) msg);
         } else if (msg instanceof InNotDefinedMsg) {
@@ -187,9 +160,10 @@ public abstract class MsgController extends Controller {
 
     @NotAction
     public String getInMsgXml() {
+        String inMsgXml = getAttr(IN_MSG_XML_WX_CACHE_KEY);
         if (inMsgXml == null) {
             inMsgXml = HttpKit.readData(getRequest());
-
+            setAttr(IN_MSG_XML_WX_CACHE_KEY, inMsgXml);
             // 是否需要解密消息
             if (ApiConfigKit.getApiConfig().isEncryptMessage()) {
                 inMsgXml = MsgEncryptKit.decrypt(inMsgXml, getPara("timestamp"), getPara("nonce"), getPara("msg_signature"));
@@ -203,8 +177,11 @@ public abstract class MsgController extends Controller {
 
     @NotAction
     public InMsg getInMsg() {
-        if (inMsg == null)
+        InMsg inMsg = getAttr(IN_MSG_WX_CACHE_KEY);
+        if (inMsg == null) {
             inMsg = InMsgParser.parse(getInMsgXml());
+            setAttr(IN_MSG_WX_CACHE_KEY, inMsg);
+        }
         return inMsg;
     }
 

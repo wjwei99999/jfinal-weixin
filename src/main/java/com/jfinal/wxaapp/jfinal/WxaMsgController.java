@@ -8,7 +8,7 @@ package com.jfinal.wxaapp.jfinal;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
-import com.jfinal.ext.interceptor.NotAction;
+import com.jfinal.core.NotAction;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
@@ -26,9 +26,10 @@ import com.jfinal.wxaapp.msg.bean.WxaUserEnterSessionMsg;
  *
  */
 public abstract class WxaMsgController extends Controller {
-    private static final Log log = Log.getLog(WxaMsgController.class);
-    private String wxaMsgXml = null;       // 本次请求 xml数据
-    private WxaMsg wxaMsg = null;          // 本次请求 xml 解析后的 wxaMsg 对象
+    // 将 xml 和 in msg 存储到 request 中，解决控制器 单例的问题
+    protected static final String IN_MSG_XML_WXA_CACHE_KEY = "_IN_MSG_XML_WXA_CACHE_KEY_";
+    protected static final String IN_MSG_WXA_CACHE_KEY = "_IN_MSG_WXA_CACHE_KEY_";
+    protected static final Log log = Log.getLog(WxaMsgController.class);
 
     @Before(WxaMsgInterceptor.class)
     public void index() {
@@ -53,10 +54,12 @@ public abstract class WxaMsgController extends Controller {
         renderText("success");
     }
     
-    @Before(NotAction.class)
+    @NotAction
     public String getWxaMsgXml() {
+        String wxaMsgXml = getAttr(IN_MSG_XML_WXA_CACHE_KEY);
         if (wxaMsgXml == null) {
             wxaMsgXml = HttpKit.readData(getRequest());
+            setAttr(IN_MSG_XML_WXA_CACHE_KEY, wxaMsgXml);
             // 是否需要解密消息
             if (WxaConfigKit.getWxaConfig().isMessageEncrypt()) {
                 wxaMsgXml = MsgEncryptKit.decrypt(wxaMsgXml, getPara("timestamp"), getPara("nonce"), getPara("msg_signature"));
@@ -67,12 +70,14 @@ public abstract class WxaMsgController extends Controller {
         }
         return wxaMsgXml;
     }
-    
-    @Before(NotAction.class)
+
+    @NotAction
     public WxaMsg getWxaMsg() {
+        WxaMsg wxaMsg = getAttr(IN_MSG_WXA_CACHE_KEY);
         if (wxaMsg == null) {
             IMsgParser msgParser = WxaConfigKit.getMsgParser();
-            wxaMsg = msgParser.parser(wxaMsgXml);
+            wxaMsg = msgParser.parser(getWxaMsgXml());
+            setAttr(IN_MSG_WXA_CACHE_KEY, wxaMsg);
         }
         return wxaMsg;
     }

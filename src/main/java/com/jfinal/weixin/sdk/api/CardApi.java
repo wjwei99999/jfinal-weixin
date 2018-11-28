@@ -203,15 +203,17 @@ public class CardApi {
     /**
      * 修改库存接口
      * @param cardId 卡券ID
-     * @param stockValue 增减的库存数量 负数为减，正数为增加,0不增不减。
+     * @param increasetockValue 增的库存数量
+     * @param reduceStockValue 减的库存数量
      * @return {ApiResult}
      */
-    public static ApiResult modifystock(String cardId, int stockValue) {
+    public static ApiResult modifystock(String cardId, int increasetockValue, int reduceStockValue) {
         Kv data = Kv.by("card_id", cardId);
-        if (stockValue >= 0) {
-            data.set("increase_stock_value", stockValue);
-        } else {
-            data.set("reduce_stock_value", stockValue);
+        if (increasetockValue >= 0) {
+            data.set("increase_stock_value", increasetockValue);
+        }
+        if (reduceStockValue >= 0) {
+            data.set("reduce_stock_value", reduceStockValue);
         }
         String jsonResult = HttpUtils.post(modifystock + AccessTokenApi.getAccessTokenStr(), JsonUtils.toJson(data));
         return new ApiResult(jsonResult);
