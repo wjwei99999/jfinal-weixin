@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jfinal</groupId>
 	<artifactId>jfinal-weixin</artifactId>
-	<version>1.8-NO-XXE</version>
+	<version>1.8-NO-XXE-SNAPSHOT</version>
 	<name>jfinal-weixin</name>
 	<url>http://www.jfinal.com</url>
 
@@ -19,9 +19,9 @@
 	<repositories />
 
 	<scm>
-		<connection>scm:git:git@git.oschina.net:jfinal/jfinal-weixin.git</connection>
-		<developerConnection>scm:git:git@git.oschina.net:jfinal/jfinal-weixin.git</developerConnection>
-		<url>git@git.oschina.net:jfinal/jfinal-weixin.git</url>
+		<connection>scm:git:git@gitee.com:jfinal/jfinal-weixin.git</connection>
+		<developerConnection>scm:git:git@gitee.com:jfinal/jfinal-weixin.git</developerConnection>
+		<url>git@gitee.com:jfinal/jfinal-weixin.git</url>
 	</scm>
 
 	<dependencies>
