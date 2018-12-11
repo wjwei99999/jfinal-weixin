@@ -25,8 +25,7 @@ import java.util.Map;
 /**
  * 2018-07-08 重要：
  * 基于 jfinal weixin 1.8 版本改造过构造方法，添加 XXE 防护
- * >>> 如果后续升级 jfinal weixin，一定要将此文件删除
- * >>> https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=23_5
+ *    https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=23_5
  * 
  * xpath解析xml
  * <pre>
