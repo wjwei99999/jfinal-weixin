@@ -48,6 +48,15 @@ public class WeixinConfig extends JFinalConfig {
     }
 
     public void configRoute(Routes me) {
+        /**
+         * jfinal 3.6 新添加的配置项，如果有控制器继承了 MsgController 就必须
+         * 要添加下面的配置，该配置才能将超类 MsgController 中的 index() 方法
+         * 映射为 action
+         * 
+         * 使用 jfinal 3.6 之前的版本不必理会这项配置
+         */
+        me.setMappingSuperClass(true);
+        
         me.add("/msg", WeixinMsgController.class);
         me.add("/api", WeixinApiController.class, "/api");
         me.add("/pay", WeixinPayController.class);
