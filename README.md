@@ -4,7 +4,7 @@ JFinal Weixin 是基于 JFinal 的微信公众号极速开发 SDK，只需浏览
 # 文档地址
 文档: [https://gitee.com/jfinal/jfinal-weixin/wikis](https://gitee.com/jfinal/jfinal-weixin/wikis)
 
-## 0: maven 坐标
+## 0、 maven 坐标
 ```
 <dependency>
 	<groupId>com.jfinal</groupId>
