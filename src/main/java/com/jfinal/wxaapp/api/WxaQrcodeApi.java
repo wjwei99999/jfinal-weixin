@@ -46,7 +46,7 @@ public class WxaQrcodeApi {
      * @return InputStream
      */
     public InputStream get(String path, int width) {
-        return get(path, 430, true, null);
+        return get(path, width, true, null);
     }
 
     /**
@@ -67,7 +67,7 @@ public class WxaQrcodeApi {
         lineColor.put("r", r);
         lineColor.put("g", g);
         lineColor.put("b", b);
-        return get(path, 430, false, lineColor);
+        return get(path, width, false, lineColor);
     }
 
     private InputStream get(String path, int width, boolean autoColor, Map<String, String> lineColor) {
@@ -106,7 +106,7 @@ public class WxaQrcodeApi {
      * @return InputStream
      */
     public InputStream getUnLimit(String scene, String page, int width) {
-        return getUnLimit(scene, page, 430, true, null);
+        return getUnLimit(scene, page, width, true, null);
     }
 
     /**
@@ -127,7 +127,7 @@ public class WxaQrcodeApi {
         lineColor.put("r", r);
         lineColor.put("g", g);
         lineColor.put("b", b);
-        return getUnLimit(scene, page, 430, false, lineColor);
+        return getUnLimit(scene, page, width, false, lineColor);
     }
     private InputStream getUnLimit(String scene, String page, int width, boolean autoColor, Map<String, String> lineColor) {
         Kv kv = Kv.by("page", page)
