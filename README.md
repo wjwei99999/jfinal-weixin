@@ -4,6 +4,15 @@ JFinal Weixin 是基于 JFinal 的微信公众号极速开发 SDK，只需浏览
 # 文档地址
 文档: [https://gitee.com/jfinal/jfinal-weixin/wikis](https://gitee.com/jfinal/jfinal-weixin/wikis)
 
+## 0: maven 坐标
+```
+<dependency>
+	<groupId>com.jfinal</groupId>
+	<artifactId>jfinal-weixin</artifactId>
+	<version>2.3</version>
+</dependency>
+```
+
 ## 1、WeixinConfig配置
 `详情请见`：[JFinal weixin中的WeixinConfig配置](http://git.oschina.net/jfinal/jfinal-weixin/wikis/JFinal-weixin%E4%B8%AD%E7%9A%84WeixinConfig%E9%85%8D%E7%BD%AE)
 
@@ -161,7 +170,7 @@ public class WeixinApiController extends ApiController {
 - 依赖jackson或fastjson
 
 ## 5、jar包依赖详细说明
-`详见请见`：[JFinal weixin 1.6 Jar依赖](http://git.oschina.net/jfinal/jfinal-weixin/wikis/JFinal-weixin-1.6-Jar%E4%BE%9D%E8%B5%96)
+`详见请见`：[JFinal weixin Jar依赖](http://git.oschina.net/jfinal/jfinal-weixin/wikis/JFinal-weixin-1.6-Jar%E4%BE%9D%E8%B5%96)
 
 ## 6、WIKI持续更新中
 WIKI：http://git.oschina.net/jfinal/jfinal-weixin/wikis/home
