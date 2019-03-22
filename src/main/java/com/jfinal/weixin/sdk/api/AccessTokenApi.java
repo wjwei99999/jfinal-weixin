@@ -51,7 +51,7 @@ public class AccessTokenApi {
         ApiConfig ac = ApiConfigKit.getApiConfig();
         AccessToken result = getAvailableAccessToken(ac);
         if (result == null) {
-            synchronized(AccessTokenApi.class) {
+            synchronized(ac) {
                 result = getAvailableAccessToken(ac);
                 if (result == null) {
                     result = refreshAccessToken(ac);
