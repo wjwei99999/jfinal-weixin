@@ -14,10 +14,14 @@ import com.jfinal.weixin.sdk.msg.out.OutCustomMsg;
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
 
 /**
- * 将此 DemoController 在YourJFinalConfig 中注册路由，
- * 并设置好weixin开发者中心的 URL 与 token ，使 URL 指向该
- * DemoController 继承自父类 WeixinController 的 index
+ * 将此 WeixinMsgController 在 YourJFinalConfig 中注册路由，
+ * 并设置好 weixin 开发者中心的 URL 与 token ，使 URL 指向该
+ * WeixinMsgController 继承自父类 MsgController 的 index
  * 方法即可直接运行看效果，在此基础之上修改相关的方法即可进行实际项目开发
+ * 
+ * 注意：高版本 jfinal 需要在 configRoute(Routes routes) 中配置
+ *       routes.setMappingSuperClass(true);
+ *      才能将超类 MsgController 中的 index() 映射为 action
  */
 public class WeixinMsgController extends MsgControllerAdapter {
 
