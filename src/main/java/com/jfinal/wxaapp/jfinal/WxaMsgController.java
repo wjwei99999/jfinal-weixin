@@ -27,9 +27,18 @@ import com.jfinal.wxaapp.msg.bean.WxaUserEnterSessionMsg;
  */
 public abstract class WxaMsgController extends Controller {
     // 将 xml 和 in msg 存储到 request 中，解决控制器 单例的问题
-    protected static final String IN_MSG_XML_WXA_CACHE_KEY = "_IN_MSG_XML_WXA_CACHE_KEY_";
-    protected static final String IN_MSG_WXA_CACHE_KEY = "_IN_MSG_WXA_CACHE_KEY_";
     protected static final Log log = Log.getLog(WxaMsgController.class);
+    // 本次请求 xml数据
+    private String wxaMsgXml = null;
+    // 本次请求 xml 解析后的 wxaMsg 对象
+    private WxaMsg wxaMsg = null;
+
+    @Override
+    protected void _clear_() {
+        super._clear_();
+        this.wxaMsgXml = null;
+        this.wxaMsg = null;
+    }
 
     @Before(WxaMsgInterceptor.class)
     public void index() {
@@ -39,7 +48,7 @@ public abstract class WxaMsgController extends Controller {
             System.out.println(getWxaMsgXml());
         }
         WxaMsg wxaMsg = getWxaMsg();
-        
+
         if (wxaMsg instanceof WxaTextMsg) {
             processTextMsg((WxaTextMsg) wxaMsg);
         } else if (wxaMsg instanceof WxaImageMsg) {
@@ -49,17 +58,15 @@ public abstract class WxaMsgController extends Controller {
         } else {
             log.error("未能识别的小程序消息类型。 消息内容为：\n" + getWxaMsgXml());
         }
-        
+
         // 直接回复success（推荐方式）
         renderText("success");
     }
-    
+
     @NotAction
     public String getWxaMsgXml() {
-        String wxaMsgXml = getAttr(IN_MSG_XML_WXA_CACHE_KEY);
         if (wxaMsgXml == null) {
             wxaMsgXml = HttpKit.readData(getRequest());
-            setAttr(IN_MSG_XML_WXA_CACHE_KEY, wxaMsgXml);
             // 是否需要解密消息
             if (WxaConfigKit.getWxaConfig().isMessageEncrypt()) {
                 wxaMsgXml = MsgEncryptKit.decrypt(wxaMsgXml, getPara("timestamp"), getPara("nonce"), getPara("msg_signature"));
@@ -73,27 +80,25 @@ public abstract class WxaMsgController extends Controller {
 
     @NotAction
     public WxaMsg getWxaMsg() {
-        WxaMsg wxaMsg = getAttr(IN_MSG_WXA_CACHE_KEY);
         if (wxaMsg == null) {
             IMsgParser msgParser = WxaConfigKit.getMsgParser();
             wxaMsg = msgParser.parser(getWxaMsgXml());
-            setAttr(IN_MSG_WXA_CACHE_KEY, wxaMsg);
         }
         return wxaMsg;
     }
-    
+
     /**
      * 处理接收到的文本消息
      * @param textMsg 处理接收到的文本消息
      */
     protected abstract void processTextMsg(WxaTextMsg textMsg);
-    
+
     /**
      * 处理接收到的图片消息
      * @param imageMsg 处理接收到的图片消息
      */
     protected abstract void processImageMsg(WxaImageMsg imageMsg);
-    
+
     /**
      * 处理接收到的进入会话事件
      * @param userEnterSessionMsg 处理接收到的进入会话事件

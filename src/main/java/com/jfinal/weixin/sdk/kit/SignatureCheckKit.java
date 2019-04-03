@@ -47,17 +47,14 @@ public class SignatureCheckKit {
      * @param nonce 随机字符串
      * @return {boolean}
      */
-    public boolean checkSignature(String signature, String timestamp, String nonce) {
-        String TOKEN = ApiConfigKit.getApiConfig().getToken();
-        String array[] = {TOKEN, timestamp, nonce};
-        Arrays.sort(array);
-        String tempStr = new StringBuilder().append(array[0] + array[1] + array[2]).toString();
+    public boolean checkSignature(String signature, String token, String timestamp, String nonce) {
+        String tempStr = (token + timestamp + nonce);
         tempStr = HashKit.sha1(tempStr);
         return tempStr.equalsIgnoreCase(signature);
     }
 
-    public boolean checkSignature(Controller c) {
-        return checkSignature(c.getPara("signature"), c.getPara("timestamp"), c.getPara("nonce"));
+    public boolean checkSignature(Controller c, String token) {
+        return checkSignature(c.getPara("signature"), token, c.getPara("timestamp"), c.getPara("nonce"));
     }
 }
 

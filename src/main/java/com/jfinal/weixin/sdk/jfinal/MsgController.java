@@ -28,10 +28,18 @@ import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
  * 接收微信服务器消息，自动解析成 InMsg 并分发到相应的处理方法
  */
 public abstract class MsgController extends Controller {
-    // 将 xml 和 in msg 存储到 request 中，解决控制器 单例的问题
-    protected static final String IN_MSG_XML_WX_CACHE_KEY = "_IN_MSG_XML_WX_CACHE_KEY_";
-    protected static final String IN_MSG_WX_CACHE_KEY = "_IN_MSG_WX_CACHE_KEY_";
     protected static final Log log = Log.getLog(MsgController.class);
+    // 本次请求 xml数据
+    private String inMsgXml = null;
+    // 本次请求 xml 解析后的 InMsg 对象
+    private InMsg inMsg = null;
+
+    @Override
+    protected void _clear_() {
+        super._clear_();
+        this.inMsgXml = null;
+        this.inMsg = null;
+    }
 
     /**
      * weixin 公众号服务器调用唯一入口，即在开发者中心输入的 URL 必须要指向此 action
@@ -160,10 +168,8 @@ public abstract class MsgController extends Controller {
 
     @NotAction
     public String getInMsgXml() {
-        String inMsgXml = getAttr(IN_MSG_XML_WX_CACHE_KEY);
         if (inMsgXml == null) {
             inMsgXml = HttpKit.readData(getRequest());
-            setAttr(IN_MSG_XML_WX_CACHE_KEY, inMsgXml);
             // 是否需要解密消息
             if (ApiConfigKit.getApiConfig().isEncryptMessage()) {
                 inMsgXml = MsgEncryptKit.decrypt(inMsgXml, getPara("timestamp"), getPara("nonce"), getPara("msg_signature"));
@@ -177,10 +183,8 @@ public abstract class MsgController extends Controller {
 
     @NotAction
     public InMsg getInMsg() {
-        InMsg inMsg = getAttr(IN_MSG_WX_CACHE_KEY);
         if (inMsg == null) {
             inMsg = InMsgParser.parse(getInMsgXml());
-            setAttr(IN_MSG_WX_CACHE_KEY, inMsg);
         }
         return inMsg;
     }
@@ -380,13 +384,13 @@ public abstract class MsgController extends Controller {
      * @param msg 审核事件推送
      */
     protected abstract void processInCardPassCheckEvent(InCardPassCheckEvent msg);
-    
+
     /**
      * 处理微信硬件绑定和解绑事件
      * @param msg 处理微信硬件绑定和解绑事件
-     */    
+     */
     protected abstract void processInEqubindEvent(InEqubindEvent msg) ;
-    
+
     /**
      * 处理微信硬件发来数据
      * @param msg 处理微信硬件发来数据

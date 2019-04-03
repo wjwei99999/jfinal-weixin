@@ -11,6 +11,7 @@ import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
+import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.kit.SignatureCheckKit;
 
@@ -31,19 +32,23 @@ public class MsgInterceptor implements Interceptor {
         _parser = parser;
     }
 
+    @Override
     public void intercept(Invocation inv) {
         Controller controller = inv.getController();
-        if (!(controller instanceof MsgController))
+        if (!(controller instanceof MsgController)) {
             throw new RuntimeException("控制器需要继承 MsgController");
-
+        }
         try {
             String appId = _parser.getAppId(controller);
             // 将 appId 与当前线程绑定，以便在后续操作中方便获取ApiConfig对象： ApiConfigKit.getApiConfig();
             ApiConfigKit.setThreadLocalAppId(appId);
 
+            // 获取配置
+            ApiConfig apiConfig = ApiConfigKit.getApiConfig();
+            String token = apiConfig.getToken();
             // 如果是服务器配置请求，则配置服务器并返回
             if (isConfigServerRequest(controller)) {
-                configServer(controller);
+                configServer(controller, token);
                 return;
             }
 
@@ -52,7 +57,7 @@ public class MsgInterceptor implements Interceptor {
                 inv.invoke();
             } else {
                 // 签名检测
-                if (checkSignature(controller)) {
+                if (checkSignature(controller, token)) {
                     inv.invoke();
                 } else {
                     controller.renderText("签名验证失败，请确定是微信服务器在发送消息过来");
@@ -67,7 +72,7 @@ public class MsgInterceptor implements Interceptor {
     /**
      * 检测签名
      */
-    private boolean checkSignature(Controller controller) {
+    private boolean checkSignature(Controller controller, String token) {
         String signature = controller.getPara("signature");
         String timestamp = controller.getPara("timestamp");
         String nonce = controller.getPara("nonce");
@@ -76,7 +81,7 @@ public class MsgInterceptor implements Interceptor {
             return false;
         }
 
-        if (SignatureCheckKit.me.checkSignature(signature, timestamp, nonce)) {
+        if (SignatureCheckKit.me.checkSignature(signature, token, timestamp, nonce)) {
             return true;
         } else {
             log.error("check signature failure: " +
@@ -100,17 +105,18 @@ public class MsgInterceptor implements Interceptor {
      *
      * @param c 控制器
      */
-    public void configServer(Controller c) {
+    public void configServer(Controller c, String token) {
         // 通过 echostr 判断请求是否为配置微信服务器回调所需的 url 与 token
         String echostr = c.getPara("echostr");
         String signature = c.getPara("signature");
         String timestamp = c.getPara("timestamp");
         String nonce = c.getPara("nonce");
-        boolean isOk = SignatureCheckKit.me.checkSignature(signature, timestamp, nonce);
-        if (isOk)
+        boolean isOk = SignatureCheckKit.me.checkSignature(signature, token, timestamp, nonce);
+        if (isOk) {
             c.renderText(echostr);
-        else
+        } else {
             log.error("验证失败：configServer");
+        }
     }
 }
 
