@@ -179,6 +179,7 @@ WIKI：http://git.oschina.net/jfinal/jfinal-weixin/wikis/home
 
 ## 7、更多支持
 - JFinal 官方网站  [http://www.jfinal.com](http://www.jfinal.com/) 
+- Spring boot 快速接入 JFinal-weixin：[https://gitee.com/596392912/spring-boot-starter-weixin](https://gitee.com/596392912/spring-boot-starter-weixin)
 - 关注官方微信号马上体验 demo 功能  
 ![JFinal Weixin SDK](http://www.jfinal.com/assets/img/jfinal_weixin_service_qr_code_150.jpg) 
 
