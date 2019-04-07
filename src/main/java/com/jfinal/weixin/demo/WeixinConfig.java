@@ -87,9 +87,12 @@ public class WeixinConfig extends JFinalConfig {
         // MsgInterceptor.setAppIdParser(new AppIdParser.DefaultParameterAppIdParser("appId")); 默认无需设置
     }
 
+	@Override
+	public void configEngine(Engine engine) {
+	}
+	
     @Override
     public void configHandler(Handlers me) {
-
     }
 
     public void afterJFinalStart() {
@@ -145,9 +148,4 @@ public class WeixinConfig extends JFinalConfig {
     public static void main(String[] args) {
         JFinal.start("src/main/webapp", 80, "/", 5);
     }
-
-	@Override
-	public void configEngine(Engine engine) {
-
-	}
 }
