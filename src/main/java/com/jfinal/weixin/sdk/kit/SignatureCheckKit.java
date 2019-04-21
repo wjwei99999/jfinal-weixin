@@ -48,7 +48,9 @@ public class SignatureCheckKit {
      * @return {boolean}
      */
     public boolean checkSignature(String signature, String token, String timestamp, String nonce) {
-        String tempStr = (token + timestamp + nonce);
+        String array[] = {token, timestamp, nonce};
+        Arrays.sort(array);
+        String tempStr = array[0] + array[1] + array[2];
         tempStr = HashKit.sha1(tempStr);
         return tempStr.equalsIgnoreCase(signature);
     }
