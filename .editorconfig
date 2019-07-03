@@ -13,3 +13,6 @@ insert_final_newline = true
 # 前端相关的代码通常含有开闭标签，会占用大量字符空间，缩进2空格更加美观
 [*.{html,xml,json,js,jsp}]
 indent_size = 2
+
+
+

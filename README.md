@@ -9,7 +9,7 @@ JFinal Weixin 是基于 JFinal 的微信公众号极速开发 SDK，只需浏览
 <dependency>
 	<groupId>com.jfinal</groupId>
 	<artifactId>jfinal-weixin</artifactId>
-	<version>2.3</version>
+	<version>2.4</version>
 </dependency>
 ```
 
