@@ -1,8 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  
   <groupId>com.jfinal</groupId>
   <artifactId>jfinal-weixin</artifactId>
   <version>2.5-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  
   <name>jfinal-weixin</name>
   <url>http://www.jfinal.com</url>
 
@@ -16,7 +20,18 @@
     <developerConnection>scm:git:git@gitee.com:jfinal/jfinal-weixin.git</developerConnection>
     <url>git@gitee.com:jfinal/jfinal-weixin.git</url>
   </scm>
-
+  
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+	
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -178,16 +193,7 @@
           </plugin>
         </plugins>
       </build>
-      <distributionManagement>
-        <snapshotRepository>
-          <id>oss</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
-        <repository>
-          <id>oss</id>
-          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-      </distributionManagement>
+      
     </profile>
   </profiles>
 </project>
