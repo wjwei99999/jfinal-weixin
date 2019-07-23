@@ -11,12 +11,6 @@
     <jdk.version>1.8</jdk.version>
   </properties>
 
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
-  </parent>
-
   <scm>
     <connection>scm:git:git@gitee.com:jfinal/jfinal-weixin.git</connection>
     <developerConnection>scm:git:git@gitee.com:jfinal/jfinal-weixin.git</developerConnection>
