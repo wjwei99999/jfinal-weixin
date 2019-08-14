@@ -9,6 +9,7 @@
   
   <name>jfinal-weixin</name>
   <url>http://www.jfinal.com</url>
+  <description>jfinal weixin SDK</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
