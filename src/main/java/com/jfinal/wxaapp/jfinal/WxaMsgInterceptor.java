@@ -11,10 +11,7 @@ import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
-import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
-import com.jfinal.weixin.sdk.jfinal.MsgController;
-import com.jfinal.weixin.sdk.jfinal.MsgInterceptor;
 import com.jfinal.weixin.sdk.kit.SignatureCheckKit;
 import com.jfinal.wxaapp.WxaConfig;
 import com.jfinal.wxaapp.WxaConfigKit;
@@ -25,13 +22,13 @@ import com.jfinal.wxaapp.WxaConfigKit;
  *
  */
 public class WxaMsgInterceptor implements Interceptor {
-    private static final Log log = Log.getLog(MsgInterceptor.class);
+    private static final Log log = Log.getLog(WxaMsgInterceptor.class);
 
     @Override
     public void intercept(Invocation inv) {
         Controller controller = inv.getController();
-        if (!(controller instanceof MsgController)) {
-            throw new RuntimeException("控制器需要继承 MsgController");
+        if (!(controller instanceof WxaMsgController)) {
+            throw new RuntimeException("控制器需要继承 WxaMsgController");
         }
         // 获取配置
         WxaConfig wxaConfig = WxaConfigKit.getWxaConfig();
