@@ -12,6 +12,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
+import com.jfinal.weixin.sdk.jfinal.AppIdParser;
 import com.jfinal.weixin.sdk.kit.SignatureCheckKit;
 import com.jfinal.wxaapp.WxaConfig;
 import com.jfinal.wxaapp.WxaConfigKit;
@@ -24,12 +25,22 @@ import com.jfinal.wxaapp.WxaConfigKit;
 public class WxaMsgInterceptor implements Interceptor {
     private static final Log log = Log.getLog(WxaMsgInterceptor.class);
 
+    private static AppIdParser _parser = new AppIdParser.DefaultParameterAppIdParser();
+
+    public static void setAppIdParser(AppIdParser parser) {
+        _parser = parser;
+    }
+
     @Override
     public void intercept(Invocation inv) {
         Controller controller = inv.getController();
         if (!(controller instanceof WxaMsgController)) {
             throw new RuntimeException("控制器需要继承 WxaMsgController");
         }
+        String appId = _parser.getAppId(controller);
+        // 将 appId 与当前线程绑定，以便在后续操作中方便获取WxaConfig对象： WxaConfigKit.getWxaConfig();
+        WxaConfigKit.setThreadLocalAppId(appId);
+
         // 获取配置
         WxaConfig wxaConfig = WxaConfigKit.getWxaConfig();
         String token = wxaConfig.getToken();

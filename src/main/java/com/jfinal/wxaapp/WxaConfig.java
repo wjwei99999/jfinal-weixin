@@ -6,6 +6,8 @@
 
 package com.jfinal.wxaapp;
 
+import com.jfinal.wxaapp.msg.IMsgParser;
+
 import java.io.Serializable;
 
 /**
@@ -15,13 +17,14 @@ import java.io.Serializable;
  */
 public class WxaConfig implements Serializable {
     private static final long serialVersionUID = 8274925821039698118L;
-    
+
     private String appId = null;
     private String appSecret = null;
     private String token = null;
     private String encodingAesKey = null;
     private boolean messageEncrypt = false;    // 消息加密与否
-    
+    private IMsgParser msgParser = null;
+
     public String getAppId() {
         return appId;
     }
@@ -51,5 +54,20 @@ public class WxaConfig implements Serializable {
     }
     public void setMessageEncrypt(boolean messageEncrypt) {
         this.messageEncrypt = messageEncrypt;
+    }
+
+    /**
+     * 设置该小程序号的消息解析器为json
+     */
+    public void useJsonMsgParser(){
+        this.msgParser = WxaConfigKit.MSG_PARSER_JSON;
+    }
+
+    public void useXmlMsgParser(){
+        this.msgParser = WxaConfigKit.MSG_PARSER_XML;
+    }
+
+    public IMsgParser getMsgParser() {
+        return msgParser;
     }
 }
