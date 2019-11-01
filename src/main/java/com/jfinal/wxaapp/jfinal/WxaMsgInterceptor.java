@@ -11,7 +11,6 @@ import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.StrKit;
 import com.jfinal.log.Log;
-import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.jfinal.AppIdParser;
 import com.jfinal.weixin.sdk.kit.SignatureCheckKit;
 import com.jfinal.wxaapp.WxaConfig;
@@ -37,29 +36,34 @@ public class WxaMsgInterceptor implements Interceptor {
         if (!(controller instanceof WxaMsgController)) {
             throw new RuntimeException("控制器需要继承 WxaMsgController");
         }
-        String appId = _parser.getAppId(controller);
-        // 将 appId 与当前线程绑定，以便在后续操作中方便获取WxaConfig对象： WxaConfigKit.getWxaConfig();
-        WxaConfigKit.setThreadLocalAppId(appId);
+        try {
+            String appId = _parser.getAppId(controller);
+            // 将 appId 与当前线程绑定，以便在后续操作中方便获取WxaConfig对象： WxaConfigKit.getWxaConfig();
+            WxaConfigKit.setThreadLocalAppId(appId);
 
-        // 获取配置
-        WxaConfig wxaConfig = WxaConfigKit.getWxaConfig();
-        String token = wxaConfig.getToken();
-        // 如果是服务器配置请求，则配置服务器并返回
-        if (isConfigServerRequest(controller)) {
-            configServer(controller, token);
-            return;
-        }
+            // 获取配置
+            WxaConfig wxaConfig = WxaConfigKit.getWxaConfig();
+            String token = wxaConfig.getToken();
+            // 如果是服务器配置请求，则配置服务器并返回
+            if (isConfigServerRequest(controller)) {
+                configServer(controller, token);
+                return;
+            }
 
-        // 对开发测试更加友好
-        if (ApiConfigKit.isDevMode()) {
-            inv.invoke();
-        } else {
-            // 签名检测
-            if (checkSignature(controller, token)) {
+            // 对开发测试更加友好
+            if (WxaConfigKit.isDevMode()) {
                 inv.invoke();
             } else {
-                controller.renderText("签名验证失败，请确定是微信服务器在发送消息过来");
+                // 签名检测
+                if (checkSignature(controller, token)) {
+                    inv.invoke();
+                } else {
+                    controller.renderText("签名验证失败，请确定是微信服务器在发送消息过来");
+                }
             }
+
+        } finally {
+            WxaConfigKit.removeThreadLocalAppId();
         }
     }
 
