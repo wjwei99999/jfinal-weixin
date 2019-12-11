@@ -1,15 +1,24 @@
 package com.jfinal.weixin.sdk.kit;
 
+import java.io.IOException;
 import java.io.StringReader;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
+import com.jfinal.weixin.sdk.encrypt.AesException;
 import com.jfinal.weixin.sdk.encrypt.WXBizMsgCrypt;
+import com.jfinal.wxaapp.WxaConfig;
+import com.jfinal.wxaapp.WxaConfigKit;
 
 /**
  * 对微信平台官方给出的加密解析代码进行再次封装
@@ -32,48 +41,127 @@ import com.jfinal.weixin.sdk.encrypt.WXBizMsgCrypt;
 public class MsgEncryptKit {
 
     private static final String format = "<xml><ToUserName><![CDATA[toUser]]></ToUserName><Encrypt><![CDATA[%1$s]]></Encrypt></xml>";
-
+    /**
+     * 加密公众号消息
+     * @param msg
+     * @param timestamp
+     * @param nonce
+     * @return
+     */
     public static String encrypt(String msg, String timestamp, String nonce) {
-        try {
-            ApiConfig ac = ApiConfigKit.getApiConfig();
-            WXBizMsgCrypt pc = new WXBizMsgCrypt(ac.getToken(), ac.getEncodingAesKey(), ac.getAppId());
-            return pc.encryptMsg(msg, timestamp, nonce);
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    	try {
+    		ApiConfig ac = ApiConfigKit.getApiConfig();
+    		return encryptMsg(msg, timestamp, nonce, ac.getAppId(), ac.getToken(), ac.getEncodingAesKey());
+    	}
+    	catch (Exception e) {
+    		throw new RuntimeException(e);
+    	}
     }
-
+	/**
+	 * 加密小程序消息
+	 * @param msg
+	 * @param timestamp
+	 * @param nonce
+	 * @return
+	 */
+	 public static String encryptWxaMsg(String msg, String timestamp, String nonce) {
+	    	try {
+	    		WxaConfig wxac = WxaConfigKit.getWxaConfig();
+	    		return encryptMsg(msg, timestamp, nonce, wxac.getAppId(), wxac.getToken(), wxac.getEncodingAesKey());
+	    	}
+	    	catch (Exception e) {
+	    		throw new RuntimeException(e);
+	    	}
+	    }
+    /**
+          * 解密公众号消息
+     * @param encryptedMsg
+     * @param timestamp
+     * @param nonce
+     * @param msgSignature
+     * @return
+     */
     public static String decrypt(String encryptedMsg, String timestamp, String nonce, String msgSignature) {
         try {
-            ApiConfig ac = ApiConfigKit.getApiConfig();
-
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            StringReader sr = new StringReader(encryptedMsg);
-            InputSource is = new InputSource(sr);
-            Document document = db.parse(is);
-
-            Element root = document.getDocumentElement();
-            NodeList nodelist1 = root.getElementsByTagName("Encrypt");
-            // NodeList nodelist2 = root.getElementsByTagName("MsgSignature");
-
-            String encrypt = nodelist1.item(0).getTextContent();
-            // String msgSignature = nodelist2.item(0).getTextContent();
-
-            String fromXML = String.format(format, encrypt);
-
-            String encodingAesKey = ac.getEncodingAesKey();
-            if (encodingAesKey == null)
-                throw new IllegalStateException("encodingAesKey can not be null, config encodingAesKey first.");
-
-            WXBizMsgCrypt pc = new WXBizMsgCrypt(ac.getToken(), encodingAesKey, ac.getAppId());
-            return pc.decryptMsg(msgSignature, timestamp, nonce, fromXML);    // 此处 timestamp 如果与加密前的不同则报签名不正确的异常
+        	ApiConfig ac = ApiConfigKit.getApiConfig();
+            return decryptMsg(encryptedMsg, timestamp, nonce, msgSignature, ac.getAppId(), ac.getToken(), ac.getEncodingAesKey());
         }
         catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+    /**
+          * 解密小程序客服消息
+     * @param encryptedMsg
+     * @param timestamp
+     * @param nonce
+     * @param msgSignature
+     * @return
+     */
+    public static String decryptWxaMsg(String encryptedMsg, String timestamp, String nonce, String msgSignature) {
+        try {
+        	WxaConfig wxac = WxaConfigKit.getWxaConfig();
+            return decryptMsg(encryptedMsg, timestamp, nonce, msgSignature, wxac.getAppId(), wxac.getToken(), wxac.getEncodingAesKey());
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    /**
+     * 解密消息
+     * @param encryptedMsg
+     * @param timestamp
+     * @param nonce
+     * @param msgSignature
+     * @param appId
+     * @param token
+     * @param encodingAesKey
+     * @return
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     * @throws AesException
+     */
+	private static String decryptMsg(String encryptedMsg, String timestamp, String nonce, String msgSignature,
+			String appId, String token, String encodingAesKey)
+			throws ParserConfigurationException, SAXException, IOException, AesException {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		StringReader sr = new StringReader(encryptedMsg);
+		InputSource is = new InputSource(sr);
+		Document document = db.parse(is);
+
+		Element root = document.getDocumentElement();
+		NodeList nodelist1 = root.getElementsByTagName("Encrypt");
+		// NodeList nodelist2 = root.getElementsByTagName("MsgSignature");
+
+		String encrypt = nodelist1.item(0).getTextContent();
+		// String msgSignature = nodelist2.item(0).getTextContent();
+
+		String fromXML = String.format(format, encrypt);
+		
+		if (encodingAesKey == null)
+		    throw new IllegalStateException("encodingAesKey can not be null, config encodingAesKey first.");
+
+		WXBizMsgCrypt pc = new WXBizMsgCrypt(token, encodingAesKey, appId);
+		return pc.decryptMsg(msgSignature, timestamp, nonce, fromXML);    // 此处 timestamp 如果与加密前的不同则报签名不正确的异常
+	}
+	/**
+	 * 加密消息
+	 * @param msg
+	 * @param timestamp
+	 * @param nonce
+	 * @param appId
+	 * @param token
+	 * @param encodingAesKey
+	 * @return
+	 * @throws AesException
+	 */
+	private static String encryptMsg(String msg, String timestamp, String nonce, String appId, String token,
+			String encodingAesKey) throws AesException {
+		WXBizMsgCrypt pc = new WXBizMsgCrypt(token, encodingAesKey, appId);
+		return pc.encryptMsg(msg, timestamp, nonce);
+	}
 }
 
 

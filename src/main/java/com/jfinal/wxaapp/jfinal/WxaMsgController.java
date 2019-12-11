@@ -16,6 +16,7 @@ import com.jfinal.weixin.sdk.kit.MsgEncryptKit;
 import com.jfinal.wxaapp.WxaConfigKit;
 import com.jfinal.wxaapp.msg.IMsgParser;
 import com.jfinal.wxaapp.msg.bean.WxaImageMsg;
+import com.jfinal.wxaapp.msg.bean.WxaMiniProgramPageMsg;
 import com.jfinal.wxaapp.msg.bean.WxaMsg;
 import com.jfinal.wxaapp.msg.bean.WxaTextMsg;
 import com.jfinal.wxaapp.msg.bean.WxaUserEnterSessionMsg;
@@ -52,7 +53,9 @@ public abstract class WxaMsgController extends Controller {
         if (wxaMsg instanceof WxaTextMsg) {
             processTextMsg((WxaTextMsg) wxaMsg);
         } else if (wxaMsg instanceof WxaImageMsg) {
-            processImageMsg((WxaImageMsg) wxaMsg);
+        	processImageMsg((WxaImageMsg) wxaMsg);
+        } else if (wxaMsg instanceof WxaMiniProgramPageMsg) {
+            processWxaMiniProgramPageMsgMsg((WxaMiniProgramPageMsg) wxaMsg);
         } else if (wxaMsg instanceof WxaUserEnterSessionMsg) {
             processUserEnterSessionMsg((WxaUserEnterSessionMsg) wxaMsg);
         } else {
@@ -69,7 +72,7 @@ public abstract class WxaMsgController extends Controller {
             wxaMsgXml = HttpKit.readData(getRequest());
             // 是否需要解密消息
             if (WxaConfigKit.getWxaConfig().isMessageEncrypt()) {
-                wxaMsgXml = MsgEncryptKit.decrypt(wxaMsgXml, getPara("timestamp"), getPara("nonce"), getPara("msg_signature"));
+                wxaMsgXml = MsgEncryptKit.decryptWxaMsg(wxaMsgXml, getPara("timestamp"), getPara("nonce"), getPara("msg_signature"));
             }
         }
         if (StrKit.isBlank(wxaMsgXml)) {
@@ -104,5 +107,11 @@ public abstract class WxaMsgController extends Controller {
      * @param userEnterSessionMsg 处理接收到的进入会话事件
      */
     protected abstract void processUserEnterSessionMsg(WxaUserEnterSessionMsg userEnterSessionMsg);
+    
+    /**
+     * 处理接收到小程序卡片消息
+     * @param wxaMiniProgramPageMsg 处理接收到的小程序卡片消息
+     */
+    protected abstract void processWxaMiniProgramPageMsgMsg(WxaMiniProgramPageMsg wxaMiniProgramPageMsg);
 
 }

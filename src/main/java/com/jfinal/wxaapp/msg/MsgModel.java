@@ -57,6 +57,23 @@ public class MsgModel {
     @XPath("//SessionFrom")
     private String sessionFrom;
     
+    // 小程序客服卡片消息
+    @JsonProperty("Title")
+    @XPath("//Title")
+    private String Title;
+    @JsonProperty("AppId")
+    @XPath("//AppId")
+    private String AppId;
+    @JsonProperty("PagePath")
+    @XPath("//PagePath")
+    private String PagePath;
+    @JsonProperty("ThumbUrl")
+    @XPath("//ThumbUrl")
+    private String ThumbUrl;
+    @JsonProperty("ThumbMediaId")
+    @XPath("//ThumbMediaId")
+    private String ThumbMediaId;
+    
     public String getToUserName() {
         return toUserName;
     }
@@ -117,7 +134,37 @@ public class MsgModel {
     public void setSessionFrom(String sessionFrom) {
         this.sessionFrom = sessionFrom;
     }
-    
+	public String getTitle() {
+		return Title;
+	}
+	public void setTitle(String title) {
+		Title = title;
+	}
+	public String getAppId() {
+		return AppId;
+	}
+	public void setAppId(String appId) {
+		AppId = appId;
+	}
+	public String getPagePath() {
+		return PagePath;
+	}
+	public void setPagePath(String pagePath) {
+		PagePath = pagePath;
+	}
+	public String getThumbUrl() {
+		return ThumbUrl;
+	}
+	public void setThumbUrl(String thumbUrl) {
+		ThumbUrl = thumbUrl;
+	}
+	public String getThumbMediaId() {
+		return ThumbMediaId;
+	}
+	public void setThumbMediaId(String thumbMediaId) {
+		ThumbMediaId = thumbMediaId;
+	}
+
     @Override
     public String toString() {
         return JsonUtils.toJson(this);

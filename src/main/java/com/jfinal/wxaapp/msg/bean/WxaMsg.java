@@ -23,6 +23,7 @@ public class WxaMsg implements Serializable {
      * 1：text 文本消息
      * 2：image 图片消息
      * 3: Event 事件消息
+     * 4: Event 事件消息
      */
     protected String msgType;
     

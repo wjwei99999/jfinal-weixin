@@ -7,6 +7,7 @@
 package com.jfinal.wxaapp.msg;
 
 import com.jfinal.wxaapp.msg.bean.WxaImageMsg;
+import com.jfinal.wxaapp.msg.bean.WxaMiniProgramPageMsg;
 import com.jfinal.wxaapp.msg.bean.WxaMsg;
 import com.jfinal.wxaapp.msg.bean.WxaTextMsg;
 import com.jfinal.wxaapp.msg.bean.WxaUserEnterSessionMsg;
@@ -19,7 +20,7 @@ import com.jfinal.wxaapp.msg.bean.WxaUserEnterSessionMsg;
 class MsgModelParser {
 
 	private static enum MsgType {
-		text, image, event
+		text, image, event,miniprogrampage
 	}
 	
 	protected WxaMsg parserMsg(MsgModel msgModel) {
@@ -30,6 +31,9 @@ class MsgModelParser {
 		}
 		if (MsgType.image == msgType) {
 			return new WxaImageMsg(msgModel);
+		}
+		if (MsgType.miniprogrampage == msgType) {
+			return new WxaMiniProgramPageMsg(msgModel);
 		}
 		if (MsgType.event == msgType) {
 			if ("user_enter_tempsession".equalsIgnoreCase(msgModel.getEvent())) {
