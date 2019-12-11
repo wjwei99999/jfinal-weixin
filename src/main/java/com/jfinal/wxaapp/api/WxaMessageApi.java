@@ -26,7 +26,7 @@ public class WxaMessageApi {
      * @param message 消息封装
      * @return ApiResult
      */
-    private ApiResult sendMsg(Map<String, Object> message) {
+    private static ApiResult sendMsg(Map<String, Object> message) {
         String accessToken = WxaAccessTokenApi.getAccessTokenStr();
         String jsonResult = HttpUtils.post(customMessageUrl + accessToken, JsonUtils.toJson(message));
         return new ApiResult(jsonResult);
@@ -38,7 +38,7 @@ public class WxaMessageApi {
      * @param text 文本消息
      * @return ApiResult
      */
-    public ApiResult sendText(String openId, String text) {
+    public static ApiResult sendText(String openId, String text) {
         Map<String, Object> json = new HashMap<String, Object>();
         json.put("touser", openId);
         json.put("msgtype", "text");
@@ -56,7 +56,7 @@ public class WxaMessageApi {
      * @param mediaId 图片媒体id
      * @return ApiResult
      */
-    public ApiResult sendImage(String openId, String mediaId) {
+    public static ApiResult sendImage(String openId, String mediaId) {
         Map<String, Object> json = new HashMap<String, Object>();
         json.put("touser", openId);
         json.put("msgtype", "image");

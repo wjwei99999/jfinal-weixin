@@ -32,7 +32,7 @@ public class WxaQrcodeApi {
      * @param path 不能为空，最大长度 128 字节
      * @return InputStream
      */
-    public InputStream get(String path) {
+    public static InputStream get(String path) {
         return get(path, 430);
     }
 
@@ -45,7 +45,7 @@ public class WxaQrcodeApi {
      * @param width 默认430
      * @return InputStream
      */
-    public InputStream get(String path, int width) {
+    public static InputStream get(String path, int width) {
         return get(path, width, true, null);
     }
 
@@ -62,7 +62,7 @@ public class WxaQrcodeApi {
      * @param b 颜色B
      * @return InputStream
      */
-    public InputStream get(String path, int width, String r, String g, String b) {
+    public static InputStream get(String path, int width, String r, String g, String b) {
         Map<String, String> lineColor = new HashMap<String, String>();
         lineColor.put("r", r);
         lineColor.put("g", g);
@@ -70,7 +70,7 @@ public class WxaQrcodeApi {
         return get(path, width, false, lineColor);
     }
 
-    private InputStream get(String path, int width, boolean autoColor, Map<String, String> lineColor) {
+    private static InputStream get(String path, int width, boolean autoColor, Map<String, String> lineColor) {
         Kv kv = Kv.by("path", path)
                 .set("width", String.valueOf(width))
                 .set("auto_color", autoColor)
@@ -91,7 +91,7 @@ public class WxaQrcodeApi {
      * @param path 不能为空，最大长度 128 字节
      * @return InputStream
      */
-    public InputStream getUnLimit(String scene, String page) {
+    public static InputStream getUnLimit(String scene, String page) {
         return getUnLimit(scene, page, 430);
     }
 
@@ -105,7 +105,7 @@ public class WxaQrcodeApi {
      * @param width 默认430
      * @return InputStream
      */
-    public InputStream getUnLimit(String scene, String page, int width) {
+    public static InputStream getUnLimit(String scene, String page, int width) {
         return getUnLimit(scene, page, width, true, null);
     }
 
@@ -122,14 +122,14 @@ public class WxaQrcodeApi {
      * @param b 颜色B
      * @return InputStream
      */
-    public InputStream getUnLimit(String scene, String page, int width, String r, String g, String b) {
+    public static InputStream getUnLimit(String scene, String page, int width, String r, String g, String b) {
         Map<String, String> lineColor = new HashMap<String, String>();
         lineColor.put("r", r);
         lineColor.put("g", g);
         lineColor.put("b", b);
         return getUnLimit(scene, page, width, false, lineColor);
     }
-    private InputStream getUnLimit(String scene, String page, int width, boolean autoColor, Map<String, String> lineColor) {
+    private static InputStream getUnLimit(String scene, String page, int width, boolean autoColor, Map<String, String> lineColor) {
         Kv kv = Kv.by("page", page)
                 .set("scene", scene)
                 .set("width", String.valueOf(width))
@@ -139,7 +139,7 @@ public class WxaQrcodeApi {
         return HttpUtils.download(url, JsonUtils.toJson(kv));
     }
     
-    public InputStream getUnLimit(String scene, String page, int width, boolean autoColor, Map<String, String> lineColor,boolean isHyaline) {
+    public static InputStream getUnLimit(String scene, String page, int width, boolean autoColor, Map<String, String> lineColor,boolean isHyaline) {
         Kv kv = Kv.by("page", page)
                 .set("scene", scene)
                 .set("width", String.valueOf(width))
@@ -164,7 +164,7 @@ public class WxaQrcodeApi {
      * @param path 不能为空，最大长度 128 字节
      * @return InputStream
      */
-    public InputStream createQrcode(String path) {
+    public static InputStream createQrcode(String path) {
         return createQrcode(path, 430);
     }
 
@@ -179,7 +179,7 @@ public class WxaQrcodeApi {
      * @param width 默认430 二维码的宽度
      * @return InputStream
      */
-    public InputStream createQrcode(String path, int width) {
+    public static InputStream createQrcode(String path, int width) {
         String url = createWxaQrcodeURL + WxaAccessTokenApi.getAccessTokenStr();
         ParaMap pm = ParaMap.create("path", path).put("width", String.valueOf(width));
         return HttpUtils.download(url, JsonUtils.toJson(pm.getData()));

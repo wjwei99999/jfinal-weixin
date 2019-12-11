@@ -5,12 +5,10 @@ import com.jfinal.weixin.sdk.api.ApiResult;
 
 public class UserApiTest {
 
-	static WxaUserApi wxaUserApi = Duang.duang(WxaUserApi.class);
-	
 	public static void test1() {
 		String jsCode = "041ZM4L32ZXoxK00mhL32hZJK32ZM4LL";
 		
-		ApiResult apiResult = wxaUserApi.getSessionKey(jsCode);
+		ApiResult apiResult = WxaUserApi.getSessionKey(jsCode);
 		
 		//{"session_key":"nzoqhc3OnwHzeTxJs+inbQ==","expires_in":2592000,"openid":"oVBkZ0aYgDMDIywRdgPW8-joxXc4"}
 		System.out.println(apiResult.getJson());
@@ -27,15 +25,14 @@ public class UserApiTest {
 		
 		String rawData = "{\"nickName\":\"卢春梦\",\"gender\":1,\"language\":\"zh_CN\",\"city\":\"\",\"province\":\"Beijing\",\"country\":\"CN\",\"avatarUrl\":\"http://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83epvprgaxJxUHSRxib9MQS8ib2Cd4B2UA4sibSQUGib515fQx2zUo4CvpBpKSPRVZmwWUJGf118X3qPc3w/0\"}";
 		
-		System.out.println(wxaUserApi.checkUserInfo(sessionKey, rawData, signature));
+		System.out.println(WxaUserApi.checkUserInfo(sessionKey, rawData, signature));
 		//true
-		System.out.println(wxaUserApi.getUserInfo(sessionKey, encryptedData, iv));
+		System.out.println(WxaUserApi.getUserInfo(sessionKey, encryptedData, iv));
 		//{"openId":"oVBkZ0aYgDMDIywRdgPW8-joxXc4","nickName":"卢春梦","gender":1,"language":"zh_CN","city":"","province":"Beijing","country":"CN","avatarUrl":"http://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83epvprgaxJxUHSRxib9MQS8ib2Cd4B2UA4sibSQUGib515fQx2zUo4CvpBpKSPRVZmwWUJGf118X3qPc3w/0","watermark":{"timestamp":1484310746,"appid":"wx4f53594f9a6b3dcb"}}
 	}
 	
-	static WxaMessageApi wxaMessageApi = Duang.duang(WxaMessageApi.class);
 	public static void test3() {
-		ApiResult apiResult = wxaMessageApi.sendText("oVBkZ0aYgDMDIywRdgPW8-joxXc4", "hello");
+		ApiResult apiResult = WxaMessageApi.sendText("oVBkZ0aYgDMDIywRdgPW8-joxXc4", "hello");
 		System.out.println(apiResult);
 	}
 	

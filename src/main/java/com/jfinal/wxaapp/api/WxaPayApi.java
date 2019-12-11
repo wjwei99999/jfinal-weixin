@@ -29,7 +29,7 @@ public class WxaPayApi {
      * @throws PaymentException 支付异常
      * @return Map
      */
-    public Map<String, String> unifiedOrder(WxaOrder order) throws PaymentException {
+    public static Map<String, String> unifiedOrder(WxaOrder order) throws PaymentException {
         String appid = order.getAppId();
 
         Map<String, String> params = new HashMap<String, String>();

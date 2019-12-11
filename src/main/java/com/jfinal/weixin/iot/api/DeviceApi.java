@@ -36,7 +36,7 @@ public class DeviceApi {
 	 * @param content 消息内容，BASE64编码
 	 * @return {ApiResult}
 	 */
-	public ApiResult transMsg(String deviceType, String deviceID, String openID, String content) {
+	public static ApiResult transMsg(String deviceType, String deviceID, String openID, String content) {
 		Kv data = Kv.by("device_type", deviceType);
 		data.set("device_id", deviceID);
 		data.set("open_id", openID);
@@ -50,7 +50,7 @@ public class DeviceApi {
 	 * @param deviceIds 设备id集合
 	 * @return {ApiResult}
 	 */
-	public ApiResult createQrcode(List<String> deviceIds) {
+	public static ApiResult createQrcode(List<String> deviceIds) {
 		Kv data = Kv.by("device_num", deviceIds.size());
 		data.set("device_id_list", deviceIds);
 		String url = CreateQrcode.replace("ACCESS_TOKEN", AccessTokenApi.getAccessTokenStr());
@@ -62,7 +62,7 @@ public class DeviceApi {
 	 * @param productId 产品Id
 	 * @return {ApiResult}
 	 */
-	public ApiResult createQrcodeNew(String productId) {
+	public static ApiResult createQrcodeNew(String productId) {
 		String url = CreateQrcodeNew.replace("ACCESS_TOKEN",AccessTokenApi.getAccessTokenStr()).replace("PRODUCT_ID", productId);
 		return new ApiResult(HttpUtils.get(url));
 	}	
@@ -74,7 +74,7 @@ public class DeviceApi {
 	 * @param openid 微信用户账号的openid
 	 * @return {ApiResult}
 	 */
-	public ApiResult bind(String tikect, String deviceid, String openid) {
+	public static ApiResult bind(String tikect, String deviceid, String openid) {
 		Kv data = Kv.by("ticket", tikect);
 		data.set("device_id", deviceid);
 		data.set("openid", openid);
@@ -88,7 +88,7 @@ public class DeviceApi {
 	 * @param openid 微信用户账号的openid
 	 * @return {ApiResult}
 	 */
-	public ApiResult compelBind(String deviceid, String openid) {
+	public static ApiResult compelBind(String deviceid, String openid) {
 		Kv data = Kv.by("device_id", deviceid);
 		data.set("openid", openid);
 		String url = compelbindUrl.replace("ACCESS_TOKEN", AccessTokenApi.getAccessTokenStr());
@@ -102,7 +102,7 @@ public class DeviceApi {
 	 * @param openid 微信用户账号的openid
 	 * @return {ApiResult}
 	 */
-	public ApiResult unbind(String tikect, String deviceid, String openid) {
+	public static ApiResult unbind(String tikect, String deviceid, String openid) {
 		Kv data = Kv.by("ticket", tikect);
 		data.set("device_id", deviceid);
 		data.set("openid", openid);
@@ -122,7 +122,7 @@ public class DeviceApi {
 	 * @param productId 商品id
 	 * @return {ApiResult}
 	 */
-	public ApiResult authorize(List<DeviceAuth> devices, boolean isCreate, String productId) {
+	public static ApiResult authorize(List<DeviceAuth> devices, boolean isCreate, String productId) {
 		Kv data = Kv.by("device_num", String.valueOf(devices.size()));
 		data.set("op_type", isCreate ? "0" : "1");// 请求操作的类型 0：设备授权（缺省值为0） 1：设备更新（更新已授权设备的各属性值）
 		data.set("product_id", productId);
@@ -143,7 +143,7 @@ public class DeviceApi {
 	 * </p>
 	 * @return {ApiResult}
 	 */
-	public ApiResult getStat(String deviceId) {
+	public static ApiResult getStat(String deviceId) {
 		String url = GetStatUrl.replace("DEVICE_ID", deviceId)
 				.replace("ACCESS_TOKEN", AccessTokenApi.getAccessTokenStr());
 		return new ApiResult(HttpUtils.get(url));
@@ -156,7 +156,7 @@ public class DeviceApi {
 	 *            二维码生成串
 	 * @return {ApiResult}
 	 */
-	public ApiResult verifyQrcode(String ticket) {
+	public static ApiResult verifyQrcode(String ticket) {
 		Kv data = Kv.by("ticket", ticket);
 		String url = VerifyQrcodeUrl.replace("ACCESS_TOKEN", AccessTokenApi.getAccessTokenStr());
 		return new ApiResult(HttpUtils.post(url, JsonUtils.toJson(data)));
@@ -168,7 +168,7 @@ public class DeviceApi {
 	 * @param deviceId 设备ID
 	 * @return {ApiResult}
 	 */
-	public ApiResult getOpenId(String deviceType, String deviceId) {
+	public static ApiResult getOpenId(String deviceType, String deviceId) {
 		String url = GetOpenidUrl.replace("DEVICE_TYPE", deviceType)
 				.replace("DEVICE_ID", deviceId)
 				.replace("ACCESS_TOKEN", AccessTokenApi.getAccessTokenStr());

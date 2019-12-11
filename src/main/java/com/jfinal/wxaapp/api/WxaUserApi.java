@@ -30,7 +30,7 @@ public class WxaUserApi {
      * @param jsCode 登录时获取的 code
      * @return ApiResult
      */
-    public ApiResult getSessionKey(String jsCode) {
+    public static ApiResult getSessionKey(String jsCode) {
         WxaConfig wc = WxaConfigKit.getWxaConfig();
         Map<String, String> params = new HashMap<String, String>();
         params.put("appid", wc.getAppId());
@@ -50,7 +50,7 @@ public class WxaUserApi {
      * @param ivStr 加密算法的初始向量
      * @return {ApiResult}
      */
-    public ApiResult getUserInfo(String sessionKey, String encryptedData, String ivStr) {
+    public static ApiResult getUserInfo(String sessionKey, String encryptedData, String ivStr) {
         WxaBizDataCrypt dataCrypt = new WxaBizDataCrypt(sessionKey);
         String json = dataCrypt.decrypt(encryptedData, ivStr);
         return new ApiResult(json);
@@ -63,7 +63,7 @@ public class WxaUserApi {
      * @param signature 数据签名
      * @return {boolean}
      */
-    public boolean checkUserInfo(String sessionKey, String rawData, String signature) {
+    public static boolean checkUserInfo(String sessionKey, String rawData, String signature) {
         StringBuffer sb = new StringBuffer(rawData).append(sessionKey);
         String encryData = HashKit.sha1(sb.toString());
         return encryData.equals(signature);

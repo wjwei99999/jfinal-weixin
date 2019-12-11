@@ -34,7 +34,6 @@ public class DeviceApiTest {
         ApiConfigKit.setAccessTokenCache(new RedisAccessTokenCache());
     }
     
-    static DeviceApi deviceApi = Duang.duang(DeviceApi.class);
     
     // 添加设备
     public static void test1() {
@@ -54,65 +53,65 @@ public class DeviceApiTest {
         List<DeviceAuth> devices = new ArrayList<DeviceAuth>();
         devices.add(da);
         
-        System.out.println(deviceApi.authorize(devices, true, "33657"));
+        System.out.println(DeviceApi.authorize(devices, true, "33657"));
         // {"resp":[{"base_info":{"device_type":"gh_72d61a012c82","device_id":"33657"},"errcode":0,"errmsg":"ok"}]}
     }
     
     // 获取设备Qrcode扫描
     public static void test2() {
-        System.out.println(deviceApi.createQrcode(Arrays.asList("33657")));
+        System.out.println(DeviceApi.createQrcode(Arrays.asList("33657")));
         // {"errcode":0,"errmsg":"ok","device_num":1,"code_list":[{"device_id":"33657","ticket":"http:\/\/we.qq.com\/d\/AQCigLqzllQrpu03NRqQV7zD3li1-DSL9842PL7O"}]}
     }
     
     // 获取绑定的用户
     public static void test3() {
-        System.out.println(deviceApi.getOpenId("gh_72d61a012c82", "33657"));
+        System.out.println(DeviceApi.getOpenId("gh_72d61a012c82", "33657"));
         // {"open_id":["oooC6swV3M5Wq-aaRBFaI6zng8hI"],"resp_msg":{"ret_code":0,"error_info":"ok"}}
     }
     
     // 绑定 系统异常 不知原因
     public static void test4() {
-        ApiResult result = deviceApi.bind("http://we.qq.com/d/AQCigLqzWQo18BtFRPmNk1jjGHJLPLKPxzhw8USM", "33657", "oooC6swV3M5Wq-aaRBFaI6zng8hI");
+        ApiResult result = DeviceApi.bind("http://we.qq.com/d/AQCigLqzWQo18BtFRPmNk1jjGHJLPLKPxzhw8USM", "33657", "oooC6swV3M5Wq-aaRBFaI6zng8hI");
         System.out.println(result);
         // {"base_resp":{"errcode":-1,"errmsg":"system error"}}
     }
     
     // 强制绑定成功
     public static void test5() {
-        ApiResult result = deviceApi.compelBind("33657", "oooC6swV3M5Wq-aaRBFaI6zng8hI");
+        ApiResult result = DeviceApi.compelBind("33657", "oooC6swV3M5Wq-aaRBFaI6zng8hI");
         System.out.println(result);
         // {"base_resp":{"errcode":0,"errmsg":"ok"}}
     }
     
     // 解绑失败
     public static void test6() {
-        ApiResult result = deviceApi.unbind("http://we.qq.com/d/AQCigLqzWQo18BtFRPmNk1jjGHJLPLKPxzhw8USM", "33657", "oooC6swV3M5Wq-aaRBFaI6zng8hI");
+        ApiResult result = DeviceApi.unbind("http://we.qq.com/d/AQCigLqzWQo18BtFRPmNk1jjGHJLPLKPxzhw8USM", "33657", "oooC6swV3M5Wq-aaRBFaI6zng8hI");
         System.out.println(result);
         // {"base_resp":{"errcode":-1,"errmsg":"system error"}}
     }
     
     // 获取设备状态
     public static void test7() {
-        ApiResult result = deviceApi.getStat("33657");
+        ApiResult result = DeviceApi.getStat("33657");
         System.out.println(result);
         // {"errcode":0,"errmsg":"ok","status":2,"status_info":"bind"}
     }
     
     // 向设备推送消息
     public static void test8() {
-        ApiResult result = deviceApi.transMsg("gh_72d61a012c82", "33657", "oooC6swV3M5Wq-aaRBFaI6zng8hI", "hello world!");
+        ApiResult result = DeviceApi.transMsg("gh_72d61a012c82", "33657", "oooC6swV3M5Wq-aaRBFaI6zng8hI", "hello world!");
         System.out.println(result);
         // {"ret":0,"ret_info":"ok"}
     }
     
     public static void test9() {
-        ApiResult result = deviceApi.verifyQrcode("http://we.qq.com/d/AQCigLqzWQo18BtFRPmNk1jjGHJLPLKPxzhw8USM");
+        ApiResult result = DeviceApi.verifyQrcode("http://we.qq.com/d/AQCigLqzWQo18BtFRPmNk1jjGHJLPLKPxzhw8USM");
         System.out.println(result);
         // {"errcode":0,"errmsg":"ok","device_type":"gh_72d61a012c82","device_id":"33657","mac":"123456789ABC"}
     }
     
     public static void test10() {
-        ApiResult result = deviceApi.createQrcodeNew("33657");
+        ApiResult result = DeviceApi.createQrcodeNew("33657");
         System.out.println(result);
         // {"base_resp":{"errcode":0,"errmsg":"ok"},"deviceid":"gh_72d61a012c82_a50c24256e922768","qrticket":"http:\/\/we.qq.com\/d\/AQCigLqzTYfRgP7HlPkVjG5P2VpUkZiFTmbZHzZQ"}
     }

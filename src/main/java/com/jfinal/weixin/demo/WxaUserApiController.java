@@ -14,9 +14,6 @@ import com.jfinal.wxaapp.jfinal.WxaController;
  * @author L.cm
  */
 public class WxaUserApiController extends WxaController {
-	// 微信用户接口api
-	protected WxaUserApi wxaUserApi = Duang.duang(WxaUserApi.class);
-	
 	/**
 	 * 登陆接口
 	 */
@@ -29,7 +26,7 @@ public class WxaUserApiController extends WxaController {
 			return;
 		}
 		// 获取SessionKey
-		ApiResult apiResult = wxaUserApi.getSessionKey(jsCode);
+		ApiResult apiResult = WxaUserApi.getSessionKey(jsCode);
 		// 返回{"session_key":"nzoqhc3OnwHzeTxJs+inbQ==","expires_in":2592000,"openid":"oVBkZ0aYgDMDIywRdgPW8-joxXc4"}
 		if (!apiResult.isSucceed()) {
 			renderJson(apiResult.getJson());
@@ -81,7 +78,7 @@ public class WxaUserApiController extends WxaController {
 			return;
 		}
 		// 用户信息校验
-		boolean check = wxaUserApi.checkUserInfo(sessionKey, rawData, signature);
+		boolean check = WxaUserApi.checkUserInfo(sessionKey, rawData, signature);
 		if (!check) {
 			Kv data = Kv.by("errcode", 500)
 					.set("errmsg", "UserInfo check fail");
@@ -89,7 +86,7 @@ public class WxaUserApiController extends WxaController {
 			return;
 		}
 		// 服务端解密用户信息
-		ApiResult apiResult = wxaUserApi.getUserInfo(sessionKey, encryptedData, iv);
+		ApiResult apiResult = WxaUserApi.getUserInfo(sessionKey, encryptedData, iv);
 		if (!apiResult.isSucceed()) {
 			renderJson(apiResult.getJson());
 			return;

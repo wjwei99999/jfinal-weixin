@@ -25,7 +25,7 @@ public class WxaMaterialApi {
      * @param mediaId 素材Id
      * @return MediaFile
      */
-    public MediaFile getMedia(String mediaId) {
+    public static MediaFile getMedia(String mediaId) {
         String url = getUrl + WxaAccessTokenApi.getAccessTokenStr() + "&media_id=" + mediaId;
         return HttpUtils.download(url);
     }
@@ -39,7 +39,7 @@ public class WxaMaterialApi {
      * @param type image
      * @return ApiResult
      */
-    public ApiResult uploadMedia(File file, String type) {
+    public static ApiResult uploadMedia(File file, String type) {
         String url = uploadUrl + WxaAccessTokenApi.getAccessTokenStr() + "&type=" + type;
         String jsonStr = HttpUtils.upload(url, file, null);
         return new ApiResult(jsonStr);

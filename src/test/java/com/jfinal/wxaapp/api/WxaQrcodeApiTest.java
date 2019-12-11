@@ -18,8 +18,7 @@ public class WxaQrcodeApiTest {
 
 		WxaAccessTokenApi.getAccessTokenStr();
 
-		WxaQrcodeApi wxaQrcodeApi = Duang.duang(WxaQrcodeApi.class);
-		InputStream xx = wxaQrcodeApi.get("pages/index?query=1");
+		InputStream xx = WxaQrcodeApi.get("pages/index?query=1");
 		IOUtils.toFile(xx, new File("/Users/dream/Desktop/xxxx.png"));
 	}
 }
