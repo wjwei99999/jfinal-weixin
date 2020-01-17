@@ -88,7 +88,7 @@ public class AccessTokenApi {
      * @param ac ApiConfig
      * @return AccessToken
      */
-    private static AccessToken refreshAccessToken(ApiConfig ac) {
+    public static AccessToken refreshAccessToken(ApiConfig ac) {
         String appId = ac.getAppId();
         String appSecret = ac.getAppSecret();
         final Map<String, String> queryParas = ParaMap.create("appid", appId).put("secret", appSecret).getData();
