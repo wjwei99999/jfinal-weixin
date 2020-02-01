@@ -39,7 +39,7 @@ public class WxaOcrApi {
         return new ApiResult(upload);
     }
 
-    public static enum OCR_TYPE {
+    public  enum OCR_TYPE {
         /**
          * 银行卡 OCR 识别
          */
