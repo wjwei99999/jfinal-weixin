@@ -46,6 +46,26 @@ public class QrcodeApi
     }
 
     /**
+     * 创建临时二维码
+     * @param expireSeconds 该二维码有效时间，以秒为单位。 最大不超过604800（即7天）。
+     * @param sceneStr 场景值ID（字符串形式的ID），字符串类型，长度限制为1到64
+     * @return ApiResult 二维码信息
+     */
+    public static ApiResult createTemporary(int expireSeconds, String sceneStr) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("expire_seconds", expireSeconds);
+        params.put("action_name", "QR_STR_SCENE");
+
+        Map<String, Object> actionInfo = new HashMap<String, Object>();
+        Map<String, Object> scene = new HashMap<String, Object>();
+        scene.put("scene_str", sceneStr);
+
+        actionInfo.put("scene", scene);
+        params.put("action_info", actionInfo);
+        return create(JsonUtils.toJson(params));
+    }
+
+    /**
      * 创建永久二维码
      * @param sceneId 场景值ID，永久二维码时最大值为100000（目前参数只支持1--100000）
      * @return ApiResult 二维码信息
