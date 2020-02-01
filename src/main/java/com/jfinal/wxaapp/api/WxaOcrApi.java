@@ -67,19 +67,17 @@ public class WxaOcrApi {
         /**
          * 接口连接
          */
-        private final String Url;
+        private final String url;
 
-        OCR_TYPE(String Url) {
-            this.Url = Url;
+        OCR_TYPE(String url) {
+            this.url = url;
         }
 
         /**
          * 获取接口连接
          */
         public String get() {
-            return Url;
+            return url;
         }
     }
 }
-
-

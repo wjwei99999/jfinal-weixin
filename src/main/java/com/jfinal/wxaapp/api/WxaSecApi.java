@@ -72,17 +72,17 @@ public class WxaSecApi {
         /**
          * 接口连接
          */
-        private final String Url;
+        private final String url;
 
-        SEC_TYPE(String Url) {
-            this.Url = Url;
+        SEC_TYPE(String url) {
+            this.url = url;
         }
 
         /**
          * 获取接口连接
          */
         public String get() {
-            return Url;
+            return url;
         }
     }
 }
